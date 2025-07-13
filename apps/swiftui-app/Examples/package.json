@@ -1,0 +1,13 @@
+{
+  "name": "@aether/swiftui-app",
+  "version": "1.0.0",
+  "description": "SwiftUI application for Aether",
+  "scripts": {
+    "build": "echo 'SwiftUI builds are handled by Xcode'",
+    "test": "echo 'SwiftUI tests are handled by Xcode'",
+    "lint": "echo 'SwiftUI linting is handled by Xcode'"
+  },
+  "devDependencies": {
+    "@aether/tsconfig": "*"
+  }
+} 
