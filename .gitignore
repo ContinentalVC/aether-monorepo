@@ -236,4 +236,137 @@ playwright/.cache/
 .netlify
 
 # Local development
-.local/ 
+.local/
+
+# Additional entries for comprehensive coverage
+
+# React Native specific
+*.jsbundle
+*.jsbundle.map
+*.bundle
+*.bundle.map
+
+# Android specific
+android/app/build/
+android/build/
+android/gradle/
+android/local.properties
+android/.gradle/
+android/captures/
+android/gradlew
+android/gradlew.bat
+android/settings.gradle
+android/gradle.properties
+android/gradle/wrapper/gradle-wrapper.properties
+android/gradle/wrapper/gradle-wrapper.jar
+
+# iOS specific
+ios/build/
+ios/Pods/
+ios/*.xcworkspace
+ios/*.xcodeproj
+ios/DerivedData/
+ios/*.ipa
+ios/*.dSYM.zip
+ios/*.dSYM
+
+# Expo specific
+.expo/
+.expo-shared/
+web-build/
+dist/
+
+# Development tools
+*.log
+*.cache
+.eslintcache
+.prettiercache
+.stylelintcache
+
+# Package managers
+.npm/
+.yarn/
+.pnpm-store/
+
+# Build tools
+.turbo/
+.turbo-cache/
+.parcel-cache/
+.cache/
+
+# Testing frameworks
+coverage/
+.nyc_output/
+junit.xml
+test-results/
+playwright-report/
+playwright/.cache/
+cypress/videos/
+cypress/screenshots/
+
+# Documentation build
+docs/build/
+docs/.docusaurus/
+docs/node_modules/
+
+# IDE specific
+.vscode/settings.json
+.vscode/launch.json
+.vscode/tasks.json
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/usage.statistics.xml
+.idea/dictionaries/
+.idea/shelf/
+
+# OS specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Temporary and backup files
+*.tmp
+*.temp
+*.bak
+*.backup
+*.swp
+*.swo
+*~
+
+# Security and secrets
+*.pem
+*.key
+*.p12
+*.pfx
+secrets.json
+.secrets
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Archive files
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Large media files (if not needed in repo)
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.wmv
+*.flv
+*.webm
+
+# Backup and temporary directories
+backup/
+temp/
+tmp/ 

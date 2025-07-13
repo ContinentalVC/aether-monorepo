@@ -26,6 +26,7 @@ import {
   SchemaValidationError,
   SchemaSerialization,
 } from '../theme/ThemeSchema';
+import { formatDateEnhanced, DATE_FORMATS } from '@aether/react-native-utils';
 
 const { width } = Dimensions.get('window');
 
@@ -532,8 +533,8 @@ const SchemaDetailView: React.FC<{ schema: ThemeSchema }> = ({ schema }) => {
         <DetailRow title="Author" value={schema.metadata.author} />
         <DetailRow title="Version" value={schema.metadata.version} />
         <DetailRow title="Category" value={schema.metadata.category} />
-        <DetailRow title="Created" value={new Date(schema.metadata.createdAt).toLocaleDateString()} />
-        <DetailRow title="Updated" value={new Date(schema.metadata.updatedAt).toLocaleDateString()} />
+        <DetailRow title="Created" value={formatDateEnhanced(new Date(schema.metadata.createdAt), { format: DATE_FORMATS.US_SHORT })} />
+        <DetailRow title="Updated" value={formatDateEnhanced(new Date(schema.metadata.updatedAt), { format: DATE_FORMATS.US_SHORT })} />
         {schema.metadata.description && (
           <DetailRow title="Description" value={schema.metadata.description} />
         )}

@@ -1,0 +1,3 @@
+{
+  "extends": "@aether/tsconfig/base.json"
+} 

@@ -26,6 +26,7 @@ import {
   getChartStatistics,
   PieChartData as StoragePieChartData 
 } from '../utils/chartStorage';
+import { formatDateEnhanced, DATE_FORMATS } from '@aether/react-native-utils';
 
 const { width } = Dimensions.get('window');
 
@@ -436,7 +437,7 @@ const ProgressPieChartExample: React.FC = () => {
         <StatCard>
           <StatValue>
             {statistics.lastUpdated 
-              ? new Date(statistics.lastUpdated).toLocaleDateString()
+              ? formatDateEnhanced(new Date(statistics.lastUpdated), { format: DATE_FORMATS.US_SHORT })
               : 'Never'
             }
           </StatValue>

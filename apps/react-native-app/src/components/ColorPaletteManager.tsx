@@ -17,35 +17,32 @@ import Animated, {
   runOnJS,
 } from 'react-native-reanimated';
 import { LinearGradient } from 'expo-linear-gradient';
+import { 
+  ColorUtils, 
+  ColorHarmonyGenerator, 
+  ColorHarmonyType,
+  HSLColor,
+  RGBColor,
+  ColorPalette
+} from '@aether/core';
 
 // MARK: - Types and Interfaces
 
-export interface HSLColor {
-  hue: number;        // 0-360 degrees
-  saturation: number; // 0-100 percentage
-  lightness: number;  // 0-100 percentage
-}
+// Re-export types and enums from core
+export type { HSLColor, RGBColor, ColorPalette };
+export { ColorHarmonyType };
 
-export interface ColorPalette {
-  primary: string;
-  secondary: string;
-  accent?: string;
-  neutral: string;
-  neutralLight: string;
-  neutralDark: string;
-  name: string;
-  description: string;
-  harmonyType: ColorHarmonyType;
-}
+// MARK: - Color Utility Functions
 
-export enum ColorHarmonyType {
-  COMPLEMENTARY = 'Complementary',
-  TRIADIC = 'Triadic',
-  ANALOGOUS = 'Analogous',
-  MONOCHROMATIC = 'Monochromatic',
-  SPLIT_COMPLEMENTARY = 'Split Complementary',
-  TETRADIC = 'Tetradic',
-}
+// Use core ColorUtils instead of local implementation
+export { ColorUtils };
+
+// MARK: - Color Harmony Generator
+
+// Use core ColorHarmonyGenerator instead of local implementation
+export { ColorHarmonyGenerator };
+
+// MARK: - Additional Interfaces
 
 export interface PaletteValidation {
   hasGoodContrast: boolean;
@@ -66,261 +63,6 @@ export interface ColorPaletteContextType {
   currentValidation: PaletteValidation;
   predefinedPalettes: ColorPalette[];
   harmonyTypes: ColorHarmonyType[];
-}
-
-// MARK: - Color Utility Functions
-
-export const ColorUtils = {
-  // Convert HSL to hex color
-  hslToHex: (h: number, s: number, l: number): string => {
-    h = h / 360;
-    s = s / 100;
-    l = l / 100;
-
-    const c = (1 - Math.abs(2 * l - 1)) * s;
-    const x = c * (1 - Math.abs((h * 6) % 2 - 1));
-    const m = l - c / 2;
-
-    let r = 0, g = 0, b = 0;
-
-    if (0 <= h && h < 1/6) {
-      r = c; g = x; b = 0;
-    } else if (1/6 <= h && h < 2/6) {
-      r = x; g = c; b = 0;
-    } else if (2/6 <= h && h < 3/6) {
-      r = 0; g = c; b = x;
-    } else if (3/6 <= h && h < 4/6) {
-      r = 0; g = x; b = c;
-    } else if (4/6 <= h && h < 5/6) {
-      r = x; g = 0; b = c;
-    } else if (5/6 <= h && h < 1) {
-      r = c; g = 0; b = x;
-    }
-
-    const rHex = Math.round((r + m) * 255).toString(16).padStart(2, '0');
-    const gHex = Math.round((g + m) * 255).toString(16).padStart(2, '0');
-    const bHex = Math.round((b + m) * 255).toString(16).padStart(2, '0');
-
-    return `#${rHex}${gHex}${bHex}`;
-  },
-
-  // Convert hex to HSL
-  hexToHsl: (hex: string): HSLColor => {
-    const r = parseInt(hex.slice(1, 3), 16) / 255;
-    const g = parseInt(hex.slice(3, 5), 16) / 255;
-    const b = parseInt(hex.slice(5, 7), 16) / 255;
-
-    const max = Math.max(r, g, b);
-    const min = Math.min(r, g, b);
-    const delta = max - min;
-
-    let h = 0;
-    const s = max === 0 ? 0 : delta / max;
-    const l = (max + min) / 2;
-
-    if (delta !== 0) {
-      switch (max) {
-        case r:
-          h = ((g - b) / delta) % 6;
-          break;
-        case g:
-          h = (b - r) / delta + 2;
-          break;
-        case b:
-          h = (r - g) / delta + 4;
-          break;
-      }
-      h *= 60;
-      if (h < 0) h += 360;
-    }
-
-    return {
-      hue: h,
-      saturation: s * 100,
-      lightness: l * 100,
-    };
-  },
-
-  // Calculate contrast ratio
-  calculateContrastRatio: (color1: string, color2: string): number => {
-    const getLuminance = (hex: string): number => {
-      const r = parseInt(hex.slice(1, 3), 16) / 255;
-      const g = parseInt(hex.slice(3, 5), 16) / 255;
-      const b = parseInt(hex.slice(5, 7), 16) / 255;
-
-      const rsRGB = r <= 0.03928 ? r / 12.92 : Math.pow((r + 0.055) / 1.055, 2.4);
-      const gsRGB = g <= 0.03928 ? g / 12.92 : Math.pow((g + 0.055) / 1.055, 2.4);
-      const bsRGB = b <= 0.03928 ? b / 12.92 : Math.pow((b + 0.055) / 1.055, 2.4);
-
-      return 0.2126 * rsRGB + 0.7152 * gsRGB + 0.0722 * bsRGB;
-    };
-
-    const l1 = getLuminance(color1);
-    const l2 = getLuminance(color2);
-
-    const lighter = Math.max(l1, l2);
-    const darker = Math.min(l1, l2);
-
-    return (lighter + 0.05) / (darker + 0.05);
-  },
-};
-
-// MARK: - Color Harmony Generator
-
-export class ColorHarmonyGenerator {
-  static generateHarmoniousColors(
-    baseColor: string,
-    harmonyType: ColorHarmonyType,
-    includeAccent: boolean = false
-  ): ColorPalette {
-    const baseHSL = ColorUtils.hexToHsl(baseColor);
-    const { secondary, accent } = this.generateHarmoniousHSL(baseHSL, harmonyType);
-    
-    const secondaryColor = ColorUtils.hslToHex(
-      secondary.hue,
-      secondary.saturation,
-      secondary.lightness
-    );
-    
-    const accentColor = accent ? ColorUtils.hslToHex(
-      accent.hue,
-      accent.saturation,
-      accent.lightness
-    ) : undefined;
-    
-    const neutralColor = this.generateNeutralColor(baseHSL);
-    
-    return {
-      primary: baseColor,
-      secondary: secondaryColor,
-      accent: accentColor,
-      neutral: neutralColor,
-      neutralLight: ColorUtils.hslToHex(baseHSL.hue, baseHSL.saturation * 0.1, 70),
-      neutralDark: ColorUtils.hslToHex(baseHSL.hue, baseHSL.saturation * 0.1, 30),
-      name: `${harmonyType} Harmony`,
-      description: this.getHarmonyDescription(harmonyType),
-      harmonyType,
-    };
-  }
-
-  private static generateHarmoniousHSL(
-    baseHSL: HSLColor,
-    harmonyType: ColorHarmonyType
-  ): { secondary: HSLColor; accent?: HSLColor } {
-    switch (harmonyType) {
-      case ColorHarmonyType.COMPLEMENTARY:
-        const secondaryHue = (baseHSL.hue + 180) % 360;
-        const secondaryHSL = {
-          hue: secondaryHue,
-          saturation: baseHSL.saturation,
-          lightness: baseHSL.lightness,
-        };
-        return { secondary: secondaryHSL };
-
-      case ColorHarmonyType.TRIADIC:
-        const secondaryHue1 = (baseHSL.hue + 120) % 360;
-        const accentHue1 = (baseHSL.hue + 240) % 360;
-        
-        const secondaryHSL1 = {
-          hue: secondaryHue1,
-          saturation: baseHSL.saturation,
-          lightness: baseHSL.lightness,
-        };
-        const accentHSL1 = {
-          hue: accentHue1,
-          saturation: baseHSL.saturation,
-          lightness: baseHSL.lightness,
-        };
-        return { secondary: secondaryHSL1, accent: accentHSL1 };
-
-      case ColorHarmonyType.ANALOGOUS:
-        const secondaryHue2 = (baseHSL.hue + 30) % 360;
-        const accentHue2 = (baseHSL.hue - 30 + 360) % 360;
-        
-        const secondaryHSL2 = {
-          hue: secondaryHue2,
-          saturation: baseHSL.saturation,
-          lightness: baseHSL.lightness,
-        };
-        const accentHSL2 = {
-          hue: accentHue2,
-          saturation: baseHSL.saturation,
-          lightness: baseHSL.lightness,
-        };
-        return { secondary: secondaryHSL2, accent: accentHSL2 };
-
-      case ColorHarmonyType.MONOCHROMATIC:
-        const secondaryHSL3 = {
-          hue: baseHSL.hue,
-          saturation: baseHSL.saturation * 0.8,
-          lightness: baseHSL.lightness * 0.8,
-        };
-        const accentHSL3 = {
-          hue: baseHSL.hue,
-          saturation: baseHSL.saturation * 1.2,
-          lightness: baseHSL.lightness * 1.2,
-        };
-        return { secondary: secondaryHSL3, accent: accentHSL3 };
-
-      case ColorHarmonyType.SPLIT_COMPLEMENTARY:
-        const complementHue = (baseHSL.hue + 180) % 360;
-        const secondaryHue3 = (complementHue + 30) % 360;
-        const accentHue3 = (complementHue - 30 + 360) % 360;
-        
-        const secondaryHSL4 = {
-          hue: secondaryHue3,
-          saturation: baseHSL.saturation,
-          lightness: baseHSL.lightness,
-        };
-        const accentHSL4 = {
-          hue: accentHue3,
-          saturation: baseHSL.saturation,
-          lightness: baseHSL.lightness,
-        };
-        return { secondary: secondaryHSL4, accent: accentHSL4 };
-
-      case ColorHarmonyType.TETRADIC:
-        const secondaryHue4 = (baseHSL.hue + 90) % 360;
-        const accentHue4 = (baseHSL.hue + 180) % 360;
-        
-        const secondaryHSL5 = {
-          hue: secondaryHue4,
-          saturation: baseHSL.saturation,
-          lightness: baseHSL.lightness,
-        };
-        const accentHSL5 = {
-          hue: accentHue4,
-          saturation: baseHSL.saturation,
-          lightness: baseHSL.lightness,
-        };
-        return { secondary: secondaryHSL5, accent: accentHSL5 };
-    }
-  }
-
-  private static generateNeutralColor(baseHSL: HSLColor): string {
-    return ColorUtils.hslToHex(
-      baseHSL.hue,
-      baseHSL.saturation * 0.1,
-      50
-    );
-  }
-
-  private static getHarmonyDescription(harmonyType: ColorHarmonyType): string {
-    switch (harmonyType) {
-      case ColorHarmonyType.COMPLEMENTARY:
-        return 'Two opposite colors on the color wheel';
-      case ColorHarmonyType.TRIADIC:
-        return 'Three evenly spaced colors on the color wheel';
-      case ColorHarmonyType.ANALOGOUS:
-        return 'Colors that are next to each other on the color wheel';
-      case ColorHarmonyType.MONOCHROMATIC:
-        return 'Different shades and tints of the same color';
-      case ColorHarmonyType.SPLIT_COMPLEMENTARY:
-        return 'One base color and two colors adjacent to its complement';
-      case ColorHarmonyType.TETRADIC:
-        return 'Two pairs of complementary colors';
-    }
-  }
 }
 
 // MARK: - Predefined Color Palettes

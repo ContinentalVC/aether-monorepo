@@ -23,6 +23,7 @@ import {
 } from 'react-native';
 import { AccessibilityValidator, ColorUtilities, WCAGLevel } from '../theme/AccessibilityValidator';
 import styled from 'styled-components/native';
+import { formatDateEnhanced, DATE_FORMATS } from '@aether/react-native-utils';
 
 // MARK: - Types
 
@@ -402,9 +403,11 @@ export const InteractiveFeedbackView: React.FC<{ feedbackManager: ReturnType<typ
                       {feedback.message}
                     </HistoryItemMessage>
                   </HistoryContent>
-                  <HistoryTime>
-                    {feedback.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                  </HistoryTime>
+                  {feedback.timestamp && (
+                    <HistoryTime>
+                      {formatDateEnhanced(feedback.timestamp, { format: DATE_FORMATS.TIME_12 })}
+                    </HistoryTime>
+                  )}
                 </HistoryItem>
               ))}
             </HistoryContainer>

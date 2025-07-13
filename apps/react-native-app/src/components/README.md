@@ -58,17 +58,17 @@ import { AetherGlassCard } from '../components';
 
 #### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `React.ReactNode` | - | Content to render inside the card |
-| `backgroundImage` | `ImageSourcePropType` | - | Background image for blur effect |
-| `style` | `ViewStyle` | - | Additional styles for the container |
-| `animated` | `boolean` | `true` | Whether to animate on mount |
-| `animationDuration` | `number` | `800` | Animation duration in milliseconds |
-| `blurAmount` | `number` | `15` | Blur intensity (0-100) |
-| `blurType` | `'light' \| 'dark' \| 'xlight' \| 'prominent' \| 'regular' \| 'extraDark'` | `'light'` | Type of blur effect |
-| `onPress` | `() => void` | - | Callback when card is pressed |
-| `pressable` | `boolean` | `false` | Whether the card is pressable |
+| Prop                  | Type                                                                    | Default     | Description                         |
+| --------------------- | ----------------------------------------------------------------------- | ----------- | ----------------------------------- |
+| `children`          | `React.ReactNode`                                                     | -           | Content to render inside the card   |
+| `backgroundImage`   | `ImageSourcePropType`                                                 | -           | Background image for blur effect    |
+| `style`             | `ViewStyle`                                                           | -           | Additional styles for the container |
+| `animated`          | `boolean`                                                             | `true`    | Whether to animate on mount         |
+| `animationDuration` | `number`                                                              | `800`     | Animation duration in milliseconds  |
+| `blurAmount`        | `number`                                                              | `15`      | Blur intensity (0-100)              |
+| `blurType`          | `'light' \| 'dark' \| 'xlight' \| 'prominent' \| 'regular' \| 'extraDark'` | `'light'` | Type of blur effect                 |
+| `onPress`           | `() => void`                                                          | -           | Callback when card is pressed       |
+| `pressable`         | `boolean`                                                             | `false`   | Whether the card is pressable       |
 
 ### ProgressPieChart
 
@@ -122,17 +122,17 @@ const skillsData = [
 
 #### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `data` | `PieChartData[]` | - | Array of data points for the pie chart |
-| `isLoading` | `boolean` | `false` | Whether the component is in a loading state |
-| `title` | `string` | `'Skills Mastery'` | Title displayed above the chart |
-| `subtitle` | `string` | `'Distribution of mastered skills'` | Subtitle displayed below the title |
-| `size` | `number` | `200` | Size of the chart |
-| `innerRadius` | `number` | `60` | Inner radius for donut chart |
-| `showLabels` | `boolean` | `true` | Whether to show labels on chart segments |
-| `onSegmentPress` | `(segment: PieChartData, index: number) => void` | - | Callback when a segment is pressed |
-| `style` | `any` | - | Additional styles for the container |
+| Prop               | Type                                               | Default                               | Description                                 |
+| ------------------ | -------------------------------------------------- | ------------------------------------- | ------------------------------------------- |
+| `data`           | `PieChartData[]`                                 | -                                     | Array of data points for the pie chart      |
+| `isLoading`      | `boolean`                                        | `false`                             | Whether the component is in a loading state |
+| `title`          | `string`                                         | `'Skills Mastery'`                  | Title displayed above the chart             |
+| `subtitle`       | `string`                                         | `'Distribution of mastered skills'` | Subtitle displayed below the title          |
+| `size`           | `number`                                         | `200`                               | Size of the chart                           |
+| `innerRadius`    | `number`                                         | `60`                                | Inner radius for donut chart                |
+| `showLabels`     | `boolean`                                        | `true`                              | Whether to show labels on chart segments    |
+| `onSegmentPress` | `(segment: PieChartData, index: number) => void` | -                                     | Callback when a segment is pressed          |
+| `style`          | `any`                                            | -                                     | Additional styles for the container         |
 
 #### Data Structure
 
@@ -263,18 +263,18 @@ const data = [
 
 #### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `data` | `BarData[]` | - | Array of objects with label and value properties |
-| `width` | `number` | `screen width` | Width of the chart container |
-| `height` | `number` | `400` | Height of the chart container |
-| `barWidth` | `number` | `0.8` | Width of each bar in 3D units |
-| `barSpacing` | `number` | `1.2` | Spacing between bars in 3D units |
-| `baseHeight` | `number` | `0.1` | Base height for bars (minimum height) |
-| `colors` | `string[]` | `default palette` | Array of colors for bars |
-| `backgroundColor` | `string` | `'#f0f0f0'` | Background color of the scene |
-| `showLabels` | `boolean` | `true` | Whether to show labels on bars |
-| `animate` | `boolean` | `true` | Whether to animate bars on mount |
+| Prop                | Type          | Default             | Description                                      |
+| ------------------- | ------------- | ------------------- | ------------------------------------------------ |
+| `data`            | `BarData[]` | -                   | Array of objects with label and value properties |
+| `width`           | `number`    | `screen width`    | Width of the chart container                     |
+| `height`          | `number`    | `400`             | Height of the chart container                    |
+| `barWidth`        | `number`    | `0.8`             | Width of each bar in 3D units                    |
+| `barSpacing`      | `number`    | `1.2`             | Spacing between bars in 3D units                 |
+| `baseHeight`      | `number`    | `0.1`             | Base height for bars (minimum height)            |
+| `colors`          | `string[]`  | `default palette` | Array of colors for bars                         |
+| `backgroundColor` | `string`    | `'#f0f0f0'`       | Background color of the scene                    |
+| `showLabels`      | `boolean`   | `true`            | Whether to show labels on bars                   |
+| `animate`         | `boolean`   | `true`            | Whether to animate bars on mount                 |
 
 #### Data Structure
 
@@ -331,15 +331,42 @@ See `BarChart3DExample.tsx` for comprehensive usage examples including:
 - Statistics display
 - Different data sets
 
+## 📚 Component Documentation
+
+Each component has comprehensive documentation with detailed examples and API references:
+
+- **[ColorPaletteManager](./ColorPaletteManager.md)** - Advanced color palette management with color wheel tools
+- **[IconographyManager](./IconographyManager.md)** - Complete icon management system with customizable styles
+- **[ProgressLineChart](./ProgressLineChart.md)** - High-performance line charts with animations and haptic feedback
+- **[ProgressPieChart](./ProgressPieChart.md)** - Interactive donut charts with segment selection
+- **[BarChart3D](./BarChart3D.md)** - 3D bar charts with orbit controls and lighting
+
+## 📦 Package Documentation
+
+Related packages with comprehensive documentation:
+
+- **[@aether/react-native-charts](../../packages/aether-react-native-charts/README.md)** - Chart library with high-performance rendering
+- **[@aether/react-native-accessibility](../../packages/aether-react-native-accessibility/README.md)** - Accessibility utilities and testing tools
+- **[@aether/react-native-forms](../../packages/aether-react-native-forms/README.md)** - Type-safe form library with validation
+- **[@aether/react-native-theme](../../packages/aether-react-native-theme/README.md)** - Theme management system
+
 ## Development
 
 ### Adding New Components
 
 1. Create the component file in this directory
 2. Add TypeScript interfaces for props
-3. Include comprehensive documentation
+3. Include comprehensive documentation (create a `.md` file)
 4. Add to the index.ts export file
 5. Create example usage if needed
+
+### Documentation Standards
+
+- Create a comprehensive `.md` file for each component
+- Include overview, features, installation, usage examples
+- Provide complete API reference with prop tables
+- Add performance considerations and troubleshooting
+- Include accessibility features and platform support
 
 ### Styling Guidelines
 
@@ -353,4 +380,4 @@ See `BarChart3DExample.tsx` for comprehensive usage examples including:
 - Test on both iOS and Android devices
 - Verify animations work smoothly
 - Check accessibility features
-- Test with different screen sizes 
+- Test with different screen sizes

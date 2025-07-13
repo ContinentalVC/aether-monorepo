@@ -25,6 +25,7 @@ import EnhancedThemeCustomizationScreen from './src/components/EnhancedThemeCust
 import AccessibilityTestingView from './src/components/AccessibilityFoundation';
 import DataArchitectureTestingView from './src/components/DataArchitecture';
 import UserInteractionTestingView from './src/components/UserInteraction';
+import FormTestingExample from './src/components/FormTestingExample';
 
 const Tab = createBottomTabNavigator();
 
@@ -85,6 +86,8 @@ export default function App() {
                     iconName = '🗄️';
                   } else if (route.name === 'User Interaction') {
                     iconName = '👆';
+                  } else if (route.name === 'Form Testing') {
+                    iconName = '📝';
                   }
 
                   return <Text style={{ fontSize: size, color }}>{iconName}</Text>;
@@ -114,6 +117,7 @@ export default function App() {
               <Tab.Screen name="Accessibility" component={AccessibilityTestingView} />
               <Tab.Screen name="Data Architecture" component={DataArchitectureTestingView} />
               <Tab.Screen name="User Interaction" component={UserInteractionTestingView} />
+              <Tab.Screen name="Form Testing" component={FormTestingExample} />
             </Tab.Navigator>
           </NavigationContainer>
           </ThemeSchemaProvider>

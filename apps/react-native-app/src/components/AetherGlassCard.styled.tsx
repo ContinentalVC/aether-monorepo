@@ -11,7 +11,7 @@ export const GlassCardContainer = styled.View<{
   variant?: 'default' | 'elevated' | 'subtle';
   size?: 'small' | 'medium' | 'large';
 }>`
-  background-color: ${({ theme, variant }) => {
+  background-color: ${({ theme, variant }: { theme: Theme; variant?: 'default' | 'elevated' | 'subtle' }) => {
     switch (variant) {
       case 'elevated':
         return theme.surfaceElevated;
@@ -22,7 +22,7 @@ export const GlassCardContainer = styled.View<{
     }
   }};
   
-  border: 1px solid ${({ theme, variant }) => {
+  border: 1px solid ${({ theme, variant }: { theme: Theme; variant?: 'default' | 'elevated' | 'subtle' }) => {
     switch (variant) {
       case 'elevated':
         return theme.border;
@@ -33,7 +33,7 @@ export const GlassCardContainer = styled.View<{
     }
   }};
   
-  border-radius: ${({ theme, size }) => {
+  border-radius: ${({ theme, size }: { theme: Theme; size?: 'small' | 'medium' | 'large' }) => {
     switch (size) {
       case 'small':
         return `${theme.borderRadius.sm}px`;
@@ -44,7 +44,7 @@ export const GlassCardContainer = styled.View<{
     }
   }};
   
-  padding: ${({ theme, size }) => {
+  padding: ${({ theme, size }: { theme: Theme; size?: 'small' | 'medium' | 'large' }) => {
     switch (size) {
       case 'small':
         return `${theme.spacing.sm}px`;
@@ -55,9 +55,9 @@ export const GlassCardContainer = styled.View<{
     }
   }};
   
-  margin: ${({ theme }) => `${theme.spacing.sm}px`};
+  margin: ${({ theme }: { theme: Theme }) => `${theme.spacing.sm}px`};
   
-  shadow-color: ${({ theme, variant }) => {
+  shadow-color: ${({ theme, variant }: { theme: Theme; variant?: 'default' | 'elevated' | 'subtle' }) => {
     switch (variant) {
       case 'elevated':
         return theme.shadow;
@@ -69,10 +69,10 @@ export const GlassCardContainer = styled.View<{
   }};
   
   shadow-offset: 0px 2px;
-  shadow-opacity: ${({ variant }) => variant === 'elevated' ? 0.25 : 0.1};
+  shadow-opacity: ${({ variant }: { variant?: 'default' | 'elevated' | 'subtle' }) => variant === 'elevated' ? 0.25 : 0.1};
   shadow-radius: 8px;
   
-  elevation: ${({ variant }) => variant === 'elevated' ? 8 : 4};
+  elevation: ${({ variant }: { variant?: 'default' | 'elevated' | 'subtle' }) => variant === 'elevated' ? 8 : 4};
   
   overflow: hidden;
 `;
@@ -88,7 +88,7 @@ export const GlassOverlay = styled.View<{
   right: 0;
   bottom: 0;
   
-  background-color: ${({ theme, variant }) => {
+  background-color: ${({ theme, variant }: { theme: Theme; variant?: 'default' | 'elevated' | 'subtle' }) => {
     switch (variant) {
       case 'elevated':
         return theme.primaryLight;
@@ -99,7 +99,7 @@ export const GlassOverlay = styled.View<{
     }
   }};
   
-  opacity: ${({ variant }) => {
+  opacity: ${({ variant }: { variant?: 'default' | 'elevated' | 'subtle' }) => {
     switch (variant) {
       case 'elevated':
         return 0.1;
@@ -121,7 +121,7 @@ export const ContentContainer = styled.View<{
   position: relative;
   z-index: 1;
   
-  gap: ${({ theme, size }) => {
+  gap: ${({ theme, size }: { theme: Theme; size?: 'small' | 'medium' | 'large' }) => {
     switch (size) {
       case 'small':
         return `${theme.spacing.xs}px`;
@@ -139,7 +139,7 @@ export const TitleText = styled.Text<{
   size?: 'small' | 'medium' | 'large';
   variant?: 'default' | 'elevated' | 'subtle';
 }>`
-  color: ${({ theme, variant }) => {
+  color: ${({ theme, variant }: { theme: Theme; variant?: 'default' | 'elevated' | 'subtle' }) => {
     switch (variant) {
       case 'elevated':
         return theme.textPrimary;
@@ -150,7 +150,7 @@ export const TitleText = styled.Text<{
     }
   }};
   
-  font-size: ${({ theme, size }) => {
+  font-size: ${({ theme, size }: { theme: Theme; size?: 'small' | 'medium' | 'large' }) => {
     switch (size) {
       case 'small':
         return `${theme.typography.fontSizes.sm}px`;
@@ -161,9 +161,9 @@ export const TitleText = styled.Text<{
     }
   }};
   
-  font-weight: ${({ theme }) => theme.typography.fontWeights.semibold};
+  font-weight: ${({ theme }: { theme: Theme }) => theme.typography.fontWeights.semibold};
   
-  margin-bottom: ${({ theme, size }) => {
+  margin-bottom: ${({ theme, size }: { theme: Theme; size?: 'small' | 'medium' | 'large' }) => {
     switch (size) {
       case 'small':
         return `${theme.spacing.xs}px`;
@@ -181,7 +181,7 @@ export const SubtitleText = styled.Text<{
   size?: 'small' | 'medium' | 'large';
   variant?: 'default' | 'elevated' | 'subtle';
 }>`
-  color: ${({ theme, variant }) => {
+  color: ${({ theme, variant }: { theme: Theme; variant?: 'default' | 'elevated' | 'subtle' }) => {
     switch (variant) {
       case 'elevated':
         return theme.textSecondary;
@@ -192,7 +192,7 @@ export const SubtitleText = styled.Text<{
     }
   }};
   
-  font-size: ${({ theme, size }) => {
+  font-size: ${({ theme, size }: { theme: Theme; size?: 'small' | 'medium' | 'large' }) => {
     switch (size) {
       case 'small':
         return `${theme.typography.fontSizes.xs}px`;
@@ -203,9 +203,9 @@ export const SubtitleText = styled.Text<{
     }
   }};
   
-  font-weight: ${({ theme }) => theme.typography.fontWeights.regular};
+  font-weight: ${({ theme }: { theme: Theme }) => theme.typography.fontWeights.regular};
   
-  line-height: ${({ theme, size }) => {
+  line-height: ${({ theme, size }: { theme: Theme; size?: 'small' | 'medium' | 'large' }) => {
     switch (size) {
       case 'small':
         return `${theme.typography.fontSizes.xs * 1.4}px`;
@@ -223,7 +223,7 @@ export const DescriptionText = styled.Text<{
   size?: 'small' | 'medium' | 'large';
   variant?: 'default' | 'elevated' | 'subtle';
 }>`
-  color: ${({ theme, variant }) => {
+  color: ${({ theme, variant }: { theme: Theme; variant?: 'default' | 'elevated' | 'subtle' }) => {
     switch (variant) {
       case 'elevated':
         return theme.textSecondary;
@@ -234,7 +234,7 @@ export const DescriptionText = styled.Text<{
     }
   }};
   
-  font-size: ${({ theme, size }) => {
+  font-size: ${({ theme, size }: { theme: Theme; size?: 'small' | 'medium' | 'large' }) => {
     switch (size) {
       case 'small':
         return `${theme.typography.fontSizes.xs}px`;
@@ -245,9 +245,9 @@ export const DescriptionText = styled.Text<{
     }
   }};
   
-  font-weight: ${({ theme }) => theme.typography.fontWeights.regular};
+  font-weight: ${({ theme }: { theme: Theme }) => theme.typography.fontWeights.regular};
   
-  line-height: ${({ theme, size }) => {
+  line-height: ${({ theme, size }: { theme: Theme; size?: 'small' | 'medium' | 'large' }) => {
     switch (size) {
       case 'small':
         return `${theme.typography.fontSizes.xs * 1.5}px`;
@@ -265,7 +265,7 @@ export const BadgeContainer = styled.View<{
   variant?: 'default' | 'elevated' | 'subtle';
   badgeType?: 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info';
 }>`
-  background-color: ${({ theme, badgeType, variant }) => {
+  background-color: ${({ theme, badgeType, variant }: { theme: Theme; badgeType?: 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info'; variant?: 'default' | 'elevated' | 'subtle' }) => {
     if (badgeType) {
       switch (badgeType) {
         case 'primary':
@@ -295,10 +295,10 @@ export const BadgeContainer = styled.View<{
     }
   }};
   
-  padding-horizontal: ${({ theme }) => `${theme.spacing.sm}px`};
-  padding-vertical: ${({ theme }) => `${theme.spacing.xs}px`};
+  padding-horizontal: ${({ theme }: { theme: Theme }) => `${theme.spacing.sm}px`};
+  padding-vertical: ${({ theme }: { theme: Theme }) => `${theme.spacing.xs}px`};
   
-  border-radius: ${({ theme }) => `${theme.borderRadius.sm}px`};
+  border-radius: ${({ theme }: { theme: Theme }) => `${theme.borderRadius.sm}px`};
   
   align-self: flex-start;
 `;
@@ -309,8 +309,8 @@ export const BadgeText = styled.Text<{
   badgeType?: 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info';
 }>`
   color: white;
-  font-size: ${({ theme }) => `${theme.typography.fontSizes.xs}px`};
-  font-weight: ${({ theme }) => theme.typography.fontWeights.medium};
+  font-size: ${({ theme }: { theme: Theme }) => `${theme.typography.fontSizes.xs}px`};
+  font-weight: ${({ theme }: { theme: Theme }) => theme.typography.fontWeights.medium};
   text-transform: uppercase;
   letter-spacing: 0.5px;
 `;
@@ -324,7 +324,7 @@ export const ActionContainer = styled.View<{
   justify-content: flex-end;
   align-items: center;
   
-  margin-top: ${({ theme, size }) => {
+  margin-top: ${({ theme, size }: { theme: Theme; size?: 'small' | 'medium' | 'large' }) => {
     switch (size) {
       case 'small':
         return `${theme.spacing.sm}px`;
@@ -335,7 +335,7 @@ export const ActionContainer = styled.View<{
     }
   }};
   
-  gap: ${({ theme }) => `${theme.spacing.sm}px`};
+  gap: ${({ theme }: { theme: Theme }) => `${theme.spacing.sm}px`};
 `;
 
 /// Styled action button
@@ -344,7 +344,7 @@ export const ActionButton = styled.TouchableOpacity<{
   variant?: 'default' | 'elevated' | 'subtle';
   buttonType?: 'primary' | 'secondary' | 'outline';
 }>`
-  background-color: ${({ theme, buttonType, variant }) => {
+  background-color: ${({ theme, buttonType, variant }: { theme: Theme; buttonType?: 'primary' | 'secondary' | 'outline'; variant?: 'default' | 'elevated' | 'subtle' }) => {
     if (buttonType === 'outline') {
       return 'transparent';
     }
@@ -363,14 +363,14 @@ export const ActionButton = styled.TouchableOpacity<{
     }
   }};
   
-  border: ${({ theme, buttonType }) => 
+  border: ${({ theme, buttonType }: { theme: Theme; buttonType?: 'primary' | 'secondary' | 'outline' }) => 
     buttonType === 'outline' ? `1px solid ${theme.primary}` : 'none'
   };
   
-  padding-horizontal: ${({ theme }) => `${theme.spacing.md}px`};
-  padding-vertical: ${({ theme }) => `${theme.spacing.sm}px`};
+  padding-horizontal: ${({ theme }: { theme: Theme }) => `${theme.spacing.md}px`};
+  padding-vertical: ${({ theme }: { theme: Theme }) => `${theme.spacing.sm}px`};
   
-  border-radius: ${({ theme }) => `${theme.borderRadius.md}px`};
+  border-radius: ${({ theme }: { theme: Theme }) => `${theme.borderRadius.md}px`};
   
   align-items: center;
   justify-content: center;
@@ -381,12 +381,12 @@ export const ActionButtonText = styled.Text<{
   theme: Theme;
   buttonType?: 'primary' | 'secondary' | 'outline';
 }>`
-  color: ${({ theme, buttonType }) => 
+  color: ${({ theme, buttonType }: { theme: Theme; buttonType?: 'primary' | 'secondary' | 'outline' }) => 
     buttonType === 'outline' ? theme.primary : 'white'
   };
   
-  font-size: ${({ theme }) => `${theme.typography.fontSizes.sm}px`};
-  font-weight: ${({ theme }) => theme.typography.fontWeights.medium};
+  font-size: ${({ theme }: { theme: Theme }) => `${theme.typography.fontSizes.sm}px`};
+  font-weight: ${({ theme }: { theme: Theme }) => theme.typography.fontWeights.medium};
 `;
 
 // MARK: - Component Props
@@ -464,7 +464,6 @@ export const AetherGlassCard: React.FC<AetherGlassCardProps> = ({
 }) => {
   return (
     <GlassCardContainer
-      theme={{} as Theme} // This will be provided by styled-components
       variant={variant}
       size={size}
       style={style}
@@ -472,24 +471,20 @@ export const AetherGlassCard: React.FC<AetherGlassCardProps> = ({
     >
       {showOverlay && (
         <GlassOverlay
-          theme={{} as Theme}
           variant={variant}
         />
       )}
       
       <ContentContainer
-        theme={{} as Theme}
         size={size}
         style={contentStyle}
       >
         {badge && (
           <BadgeContainer
-            theme={{} as Theme}
             variant={variant}
             badgeType={badgeType}
           >
             <BadgeText
-              theme={{} as Theme}
               badgeType={badgeType}
             >
               {badge}
@@ -499,7 +494,6 @@ export const AetherGlassCard: React.FC<AetherGlassCardProps> = ({
         
         {title && (
           <TitleText
-            theme={{} as Theme}
             size={size}
             variant={variant}
           >
@@ -509,7 +503,6 @@ export const AetherGlassCard: React.FC<AetherGlassCardProps> = ({
         
         {subtitle && (
           <SubtitleText
-            theme={{} as Theme}
             size={size}
             variant={variant}
           >
@@ -519,7 +512,6 @@ export const AetherGlassCard: React.FC<AetherGlassCardProps> = ({
         
         {description && (
           <DescriptionText
-            theme={{} as Theme}
             size={size}
             variant={variant}
           >
@@ -531,19 +523,16 @@ export const AetherGlassCard: React.FC<AetherGlassCardProps> = ({
         
         {actions && actions.length > 0 && (
           <ActionContainer
-            theme={{} as Theme}
             size={size}
           >
             {actions.map((action, index) => (
               <ActionButton
                 key={index}
-                theme={{} as Theme}
                 variant={variant}
                 buttonType={action.type}
                 onPress={action.onPress}
               >
                 <ActionButtonText
-                  theme={{} as Theme}
                   buttonType={action.type}
                 >
                   {action.label}

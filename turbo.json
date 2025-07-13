@@ -4,7 +4,7 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**", "build/**"]
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
     "dev": {
       "cache": false,
@@ -13,12 +13,67 @@
     "lint": {
       "dependsOn": ["^lint"]
     },
+    "lint:fix": {
+      "dependsOn": ["^lint:fix"]
+    },
     "test": {
       "dependsOn": ["^build"],
       "outputs": ["coverage/**"]
     },
+    "test:coverage": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/**"]
+    },
+    "test:watch": {
+      "cache": false,
+      "persistent": true
+    },
     "clean": {
       "cache": false
+    },
+    "type-check": {
+      "dependsOn": ["^build"]
+    },
+    "docs:generate": {
+      "dependsOn": ["^build"],
+      "outputs": ["docs/**"]
+    },
+    "docs:serve": {
+      "cache": false,
+      "persistent": true
+    },
+    "analyze:bundles": {
+      "dependsOn": ["^build"],
+      "outputs": ["bundle-analysis-report.md"]
+    },
+    "bundle:analyze": {
+      "dependsOn": ["^build"],
+      "outputs": ["bundle-analysis-report.md"]
+    },
+    "publish:packages": {
+      "dependsOn": ["^build", "test", "lint", "type-check"],
+      "cache": false
+    },
+    "publish:github-packages": {
+      "dependsOn": ["^build", "test", "lint", "type-check"],
+      "cache": false
+    },
+    "release:prepare": {
+      "dependsOn": ["^build", "test", "lint", "type-check"],
+      "cache": false
+    },
+    "release:create": {
+      "dependsOn": ["release:prepare"],
+      "cache": false
+    },
+    "security:audit": {
+      "cache": false
+    },
+    "security:fix": {
+      "cache": false
+    },
+    "validate:all": {
+      "dependsOn": ["lint", "type-check", "test", "build"]
     }
   }
 } 

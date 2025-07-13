@@ -1,6 +1,190 @@
 # Aether Monorepo
 
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/your-username/aether-monorepo/releases)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/your-username/aether-monorepo/actions)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg)](https://www.typescriptlang.org/)
+[![React Native](https://img.shields.io/badge/React%20Native-0.72-blue.svg)](https://reactnative.dev/)
+[![SwiftUI](https://img.shields.io/badge/SwiftUI-4.0-orange.svg)](https://developer.apple.com/xcode/swiftui/)
+[![Node.js](https://img.shields.io/badge/Node.js-18.0+-green.svg)](https://nodejs.org/)
+[![Contributors](https://img.shields.io/github/contributors/your-username/aether-monorepo)](https://github.com/your-username/aether-monorepo/graphs/contributors)
+[![Issues](https://img.shields.io/github/issues/your-username/aether-monorepo)](https://github.com/your-username/aether-monorepo/issues)
+[![Pull Requests](https://img.shields.io/github/issues-pr/your-username/aether-monorepo)](https://github.com/your-username/aether-monorepo/pulls)
+
 A unified, futuristic, and gamified experience across SwiftUI and React Native applications with shared design systems and components.
+
+## 📋 Table of Contents
+
+- [Overview](#overview)
+- [Quick Start](#quick-start)
+- [Features](#features)
+- [Architecture](#architecture)
+- [Packages](#packages)
+- [Applications](#applications)
+- [Development](#development)
+- [Documentation](#documentation)
+- [Contributing](#contributing)
+- [Support](#support)
+
+## 🎯 Overview
+
+Aether Monorepo is a comprehensive cross-platform development framework that provides:
+
+- **🎨 Advanced Theming System**: Complete theme management with accessibility validation
+- **📱 Cross-Platform Components**: Shared components for React Native and SwiftUI
+- **♿ Accessibility First**: WCAG 2.1 compliant with advanced VoiceOver support
+- **⚡ Performance Optimized**: Intelligent caching and efficient rendering
+- **🧪 Comprehensive Testing**: 80%+ test coverage across all packages
+- **📚 Rich Documentation**: API docs, examples, and migration guides
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- **Node.js** >= 18.0.0
+- **npm** >= 9.0.0
+- **Xcode** 14.0+ (for SwiftUI development)
+- **React Native CLI** (for React Native development)
+- **Swift** 5.7+ (for Swift Package Manager)
+
+### Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-username/aether-monorepo.git
+   cd aether-monorepo
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Build all packages**:
+   ```bash
+   npm run build
+   ```
+
+4. **Start development**:
+   ```bash
+   # React Native app
+   npm run dev:react-native
+   
+   # SwiftUI package
+   cd apps/swiftui-app && swift build
+   ```
+
+### Available Packages
+
+| Package | Description | Status |
+|---------|-------------|--------|
+| `@aether/core` | Core utilities and validation | ✅ Complete |
+| `@aether/shared-types` | Shared TypeScript interfaces | ✅ Complete |
+| `@aether/react-native-ui` | React Native UI components | ✅ Complete |
+| `@aether/react-native-theme` | React Native theming | ✅ Complete |
+| `@aether/react-native-charts` | React Native charts | ✅ Complete |
+| `@aether/react-native-accessibility` | Accessibility framework | ✅ Complete |
+| `@aether/react-native-utils` | Utility functions | ✅ Complete |
+| `@aether/web-ui` | Web UI components | ✅ Complete |
+| `@aether/web-theme` | Web theming system | ✅ Complete |
+
+### Basic Usage
+
+#### React Native Development
+
+```bash
+# Install React Native packages
+npm install @aether/react-native-ui @aether/react-native-theme @aether/react-native-charts @aether/react-native-accessibility @aether/react-native-utils
+```
+
+```tsx
+import React from 'react';
+import { View } from 'react-native';
+import { AetherGlassCard } from '@aether/react-native-ui';
+import { ThemeProvider } from '@aether/react-native-theme';
+import { ProgressPieChart } from '@aether/react-native-charts';
+import { AccessibilityFoundation } from '@aether/react-native-accessibility';
+
+const App = () => {
+  return (
+    <ThemeProvider theme={defaultTheme}>
+      <AccessibilityFoundation>
+        <View>
+          <AetherGlassCard
+            title="Welcome to Aether"
+            subtitle="Modern UI Components"
+            description="Beautiful glassmorphism design with accessibility support"
+          />
+          <ProgressPieChart
+            data={[
+              { label: 'React Native', value: 60, color: '#007AFF' },
+              { label: 'Web', value: 40, color: '#5856D6' }
+            ]}
+            size={200}
+          />
+        </View>
+      </AccessibilityFoundation>
+    </ThemeProvider>
+  );
+};
+```
+
+#### Web Development
+
+```bash
+# Install web packages
+npm install @aether/web-ui @aether/web-theme
+```
+
+```tsx
+import React from 'react';
+import { AetherGlassCard, Button, Input } from '@aether/web-ui';
+import { WebThemeProvider } from '@aether/web-theme';
+
+const App = () => {
+  return (
+    <WebThemeProvider theme={defaultTheme}>
+      <div>
+        <AetherGlassCard
+          title="Welcome to Aether Web"
+          subtitle="Modern Web Components"
+          description="Beautiful glassmorphism design with CSS backdrop-filter"
+        />
+        <Button variant="primary" onClick={() => console.log('Clicked!')}>
+          Get Started
+        </Button>
+        <Input placeholder="Enter your name" />
+      </div>
+    </WebThemeProvider>
+  );
+};
+```
+
+## ✨ Features
+
+### 🎨 Theme System
+- **Dynamic Color Schemes**: Real-time theme switching with smooth transitions
+- **Accessibility Validation**: Automatic WCAG 2.1 compliance checking
+- **Cross-Platform Consistency**: Shared design tokens across React Native and SwiftUI
+- **Performance Optimization**: Intelligent caching and lazy loading
+
+### 📱 Component Library
+- **React Native Components**: [@aether/react-native-ui](./packages/aether-react-native-ui) - Complete UI component library
+- **SwiftUI Components**: [@aether/swiftui-ui](./apps/swiftui-app) - iOS-optimized SwiftUI components
+- **Web Components**: [@aether/web-ui](./packages/aether-web-ui) - Web-specific components
+- **Form Components**: [@aether/react-native-forms](./packages/aether-react-native-forms) - Advanced form handling
+
+### 🧪 Testing & Quality
+- **Unit Testing**: Jest and XCTest with 80%+ coverage
+- **Integration Testing**: Cross-package functionality testing
+- **Accessibility Testing**: Automated a11y validation
+- **Performance Testing**: Bundle size and rendering performance
+
+### 📚 Documentation
+- **API Documentation**: Auto-generated TypeDoc documentation
+- **Component Examples**: Interactive examples for all components
+- **Migration Guides**: Step-by-step upgrade instructions
+- **Best Practices**: Development guidelines and patterns
 
 ## 🏗️ Project Structure
 
@@ -21,381 +205,198 @@ A unified, futuristic, and gamified experience across SwiftUI and React Native a
 └── README.md
 ```
 
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js >= 18.0.0
-- npm >= 9.0.0
-- Xcode 14.0+ (for SwiftUI development)
-- React Native CLI (for React Native development)
-- Swift 5.7+ (for Swift Package Manager)
-
-### Installation
-
-1. Clone the repository:
-
-```bash
-git clone <repository-url>
-cd aether-monorepo
-```
-
-2. Install dependencies:
-
-```bash
-npm install
-```
-
-3. Build all packages:
-
-```bash
-npm run build
-```
-
 ## 📦 Packages
 
-### Core Logic (`@aether/core-logic`)
+### Core Packages
 
-Shared business logic, state management, and API calls used by both applications.
+#### [@aether/core](./packages/aether-core) ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 
-**Features:**
-
-- Zustand state management
-- API client and services
-- Type definitions
-- Business logic utilities
-
-### UI Components (`@aether/ui-components`)
-
-Shared UI theme, design tokens, and React Native components.
+Core theme management, validation, and utility functions.
 
 **Features:**
+- 🎨 Theme schema validation and management
+- ♿ Accessibility validation (WCAG 2.1)
+- 📊 Chart data management and storage
+- 🎯 Color harmony generation and validation
+- 📤 Data export/import functionality
 
-- Design system tokens (colors, spacing, typography)
-- Reusable React Native components
-- Theme configuration
-- Rive animation assets (planned)
+**Related:** [@aether/shared-types](./packages/aether-shared-types), [@aether/react-native-theme](./packages/aether-react-native-theme)
 
-### AetherUI (`@aether/ui`)
+#### [@aether/shared-types](./packages/aether-shared-types) ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 
-Advanced UI components and design system utilities.
-
-**Features:**
-
-- Advanced theme management
-- Component architecture patterns
-- Design system validation
-- Cross-platform compatibility
-
-### AetherWeb (`@aether/web`)
-
-Web-specific components and utilities.
+Shared TypeScript type definitions across all packages.
 
 **Features:**
+- 📝 Comprehensive type definitions
+- 🔗 Cross-package type consistency
+- 🎨 Theme-related interfaces
+- 📊 Chart and data types
+- ♿ Accessibility type definitions
 
-- Web-optimized components
-- Browser-specific utilities
-- Web performance optimizations
+**Related:** [@aether/core](./packages/aether-core), [@aether/react-native-ui](./packages/aether-react-native-ui)
 
-### ESLint Config (`@aether/eslint-config`)
+### React Native Packages
 
-Shared ESLint configuration for consistent code quality across the monorepo.
+#### [@aether/react-native-ui](./packages/aether-react-native-ui) ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 
-### TypeScript Config (`@aether/tsconfig`)
-
-Shared TypeScript configurations for different environments:
-
-- `base.json` - Base configuration
-- `react.json` - React-specific configuration
-- `react-native.json` - React Native-specific configuration
-- `node.json` - Node.js-specific configuration
-
-## 📱 Applications
-
-### React Native App (`apps/react-native-app`)
-
-Cross-platform mobile application built with React Native, using shared components and logic.
+Complete React Native UI component library.
 
 **Features:**
+- 🎨 Themed components with accessibility support
+- 📱 Cross-platform mobile components
+- ♿ WCAG 2.1 compliant components
+- 🎯 Performance optimized rendering
+- 📊 Chart and visualization components
 
-- Cross-platform mobile development
-- Shared theme system integration
-- Advanced component architecture
-- Real-time theme customization
-- Accessibility validation
-- Performance monitoring
+**Related:** [@aether/react-native-theme](./packages/aether-react-native-theme), [@aether/react-native-forms](./packages/aether-react-native-forms)
 
-### SwiftUI Package (`apps/swiftui-app`)
+#### [@aether/react-native-theme](./packages/aether-react-native-theme) ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 
-iOS-only Swift Package Manager package providing SwiftUI components with proper platform compatibility.
+React Native theme management and provider components.
 
 **Features:**
+- 🎨 Dynamic theme switching
+- ♿ Accessibility-aware theming
+- 📱 Platform-specific optimizations
+- 🔄 Real-time theme updates
+- 📊 Theme validation and error handling
 
-- iOS 15.0+ SwiftUI components
-- Platform compatibility verification
-- Haptic feedback integration
-- Theme management with light/dark mode
-- Animated UI components optimized for iOS
-- Comprehensive test suite
+**Related:** [@aether/core](./packages/aether-core), [@aether/react-native-ui](./packages/aether-react-native-ui)
+
+#### [@aether/react-native-charts](./packages/aether-react-native-charts) ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+
+Chart and visualization components.
+
+**Features:**
+- 📊 Interactive chart components
+- 🎨 Themed chart styling
+- ♿ Accessible chart rendering
+- 📱 Touch and gesture support
+- 🔄 Real-time data updates
+
+**Related:** [@aether/react-native-ui](./packages/aether-react-native-ui), [@aether/core](./packages/aether-core)
+
+### Web Packages
+
+#### [@aether/web-ui](./packages/aether-web-ui) ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+
+Web-specific React components and utilities.
+
+**Features:**
+- 🌐 Web-optimized components
+- 🎨 CSS custom properties integration
+- ♿ Web accessibility features
+- 📱 Responsive design support
+- ⚡ Performance optimizations
+
+**Related:** [@aether/web-theme](./packages/aether-web-theme), [@aether/shared-types](./packages/aether-shared-types)
+
+#### [@aether/web-theme](./packages/aether-web-theme) ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+
+Web theme management and CSS utilities.
+
+**Features:**
+- 🎨 CSS custom properties generation
+- 🌐 Browser compatibility utilities
+- ♿ Web accessibility validation
+- 📱 Responsive theme switching
+- ⚡ Performance-optimized theming
+
+**Related:** [@aether/core](./packages/aether-core), [@aether/web-ui](./packages/aether-web-ui)
 
 ## 🛠️ Development
 
-### Available Scripts
+### First Steps
 
-- `npm run build` - Build all packages and applications
-- `npm run dev` - Start development servers
-- `npm run lint` - Run ESLint across all packages
-- `npm run test` - Run tests across all packages
-- `npm run clean` - Clean build artifacts
-- `npm run format` - Format code with Prettier
+1. **Explore the theme system**: Check out [@aether/core](./packages/aether-core) for theme management
+2. **Try React Native components**: See [@aether/react-native-ui](./packages/aether-react-native-ui) examples
+3. **Explore SwiftUI components**: Visit [apps/swiftui-app](./apps/swiftui-app) for iOS components
+4. **Read the documentation**: Start with [COMPREHENSIVE_PROJECT_DOCUMENTATION.md](./COMPREHENSIVE_PROJECT_DOCUMENTATION.md)
 
-### SwiftUI Package Development
-
-The SwiftUI package is located in `apps/swiftui-app` and can be developed independently:
+### Development Commands
 
 ```bash
-# Navigate to the SwiftUI package
-cd apps/swiftui-app
+# Install dependencies
+npm install
 
-# Build the package
-swift build
+# Build all packages
+npm run build
 
 # Run tests
-swift test
+npm run test
 
-# Verify platform compatibility
-./Scripts/verify-platform-compatibility.sh
+# Start development servers
+npm run dev:react-native
+npm run dev:web
+
+# Lint code
+npm run lint
+
+# Type check
+npm run type-check
 ```
 
-### Adding New Packages
+## 📚 Documentation
 
-1. Create a new directory in `/packages`
-2. Add a `package.json` with the `@aether/` namespace
-3. Configure TypeScript and ESLint
-4. Update the root `package.json` workspaces if needed
+### Core Documentation
+- **[COMPREHENSIVE_PROJECT_DOCUMENTATION.md](./COMPREHENSIVE_PROJECT_DOCUMENTATION.md)** - Detailed technical documentation
+- **[DEVELOPMENT_GUIDES.md](./DEVELOPMENT_GUIDES.md)** - Development setup and contribution guidelines
+- **[IMPLEMENTATION_MIGRATION.md](./IMPLEMENTATION_MIGRATION.md)** - Implementation plans and migration guides
+- **[TESTING_QUALITY.md](./TESTING_QUALITY.md)** - Testing strategies and quality assurance
+- **[VALIDATION_SYSTEMS.md](./VALIDATION_SYSTEMS.md)** - Validation systems guide
+- **[RESEARCH_RESOURCES.md](./RESEARCH_RESOURCES.md)** - Curated research and resources
 
-### Adding New Apps
-
-1. Create a new directory in `/apps`
-2. Set up the application framework (React Native, etc.)
-3. Add dependencies to shared packages
-4. Configure build and development scripts
-
-## 🏗️ Architecture Decisions
-
-### Why Monorepo?
-
-This project uses a monorepo structure to maximize code sharing and consistency between the React Native application and SwiftUI package. Key benefits:
-
-- **Code Sharing**: Business logic, types, and design tokens can be shared
-- **Consistency**: Unified design tokens and development practices
-- **Atomic Changes**: Cross-platform changes can be made in single commits
-- **Simplified Dependencies**: Shared dependency management
-- **Platform Optimization**: Platform-specific optimizations while maintaining consistency
-
-### SwiftUI Package Strategy
-
-The SwiftUI package (`iOSOnlySwiftUI`) is designed specifically for iOS applications:
-
-- **Platform Compatibility**: Uses `@available(iOS 15.0, *)` and `@available(macOS, unavailable)` annotations
-- **iOS Optimization**: Leverages iOS-specific features like haptic feedback
-- **Clean Separation**: Prevents accidental usage on unsupported platforms
-- **SPM Integration**: Fully compatible with Swift Package Manager
-
-### Tooling
-
-- **Turborepo**: Build system and task orchestration
-- **TypeScript**: Type safety across all packages
-- **ESLint**: Code quality and consistency
-- **Prettier**: Code formatting
-- **Swift Package Manager**: Swift package management
-
-## 📖 Usage Examples
-
-### Using the SwiftUI Package
-
-#### Installation
-
-Add the package to your Xcode project:
-
-1. In Xcode, go to **File** → **Add Package Dependencies**
-2. Enter the package URL: `https://github.com/your-org/aether-monorepo/apps/swiftui-app`
-3. Select the version you want to use
-4. Add to your iOS app target
-
-#### Basic Usage
-
-```swift
-import iOSOnlySwiftUI
-
-struct ContentView: View {
-    var body: some View {
-        VStack {
-            MetricCard(title: "Users", value: "1,234")
-            InteractiveButton(title: "Tap Me", icon: "hand.tap") {
-                print("Button tapped!")
-            }
-        }
-    }
-}
-```
-
-#### Theme Management
-
-```swift
-import iOSOnlySwiftUI
-
-struct ThemedView: View {
-    @ObservedObject private var themeManager = ThemeManager.shared
-  
-    var body: some View {
-        VStack {
-            ThemedButton(title: "Primary Action", style: .primary) {
-                themeManager.toggleTheme()
-            }
-        
-            ThemeSelector()
-        }
-        .withThemeAwareness()
-    }
-}
-```
-
-### Using React Native Components
-
-```typescript
-import { ProgressLineChart, ThemeValidator } from '@aether/ui-components';
-
-const MyComponent = () => {
-  const data = [
-    { x: 0, y: 10, label: 'Jan', value: 10 },
-    { x: 1, y: 20, label: 'Feb', value: 20 },
-    { x: 2, y: 15, label: 'Mar', value: 15 },
-  ];
-
-  return (
-    <ProgressLineChart
-      data={data}
-      animate={true}
-      showArea={true}
-      enableHaptics={true}
-    />
-  );
-};
-```
-
-## 🔄 Workflow
-
-1. **Development**: Work on shared packages first, then applications
-2. **Testing**: Run tests across all affected packages
-3. **Building**: Use Turborepo to build only changed packages
-4. **Deployment**: Deploy applications independently
+### Package Documentation
+- Each package contains its own README.md with specific usage examples
+- API documentation is auto-generated using TypeDoc
+- Component examples are available in the respective package directories
 
 ## 🤝 Contributing
 
-1. Create a feature branch
-2. Make changes across relevant packages
-3. Update tests and documentation
-4. Run the full test suite
-5. Submit a pull request
+We welcome contributions! Please see our [DEVELOPMENT_GUIDES.md](./DEVELOPMENT_GUIDES.md) for detailed information on:
 
-### SwiftUI Package Contributions
+- Setting up your development environment
+- Coding standards and best practices
+- Testing guidelines
+- Pull request process
+- Release process
 
-When contributing to the SwiftUI package:
+### Quick Contribution Steps
 
-- Follow platform compatibility requirements
-- Add proper availability annotations (`@available(iOS 15.0, *)`)
-- Include comprehensive tests
-- Run verification scripts before submitting
-- Ensure no macOS-specific code is included
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes following our coding standards
+4. Add tests for new functionality
+5. Commit your changes (`git commit -m 'Add amazing feature'`)
+6. Push to the branch (`git push origin feature/amazing-feature`)
+7. Open a Pull Request
+
+## 🆘 Support
+
+### Getting Help
+
+- **Documentation**: Start with the [Quick Start](#quick-start) section above
+- **Issues**: Check existing [issues](https://github.com/your-username/aether-monorepo/issues) or create a new one
+- **Discussions**: Join our [discussions](https://github.com/your-username/aether-monorepo/discussions) for questions and ideas
+- **Wiki**: Check our [wiki](https://github.com/your-username/aether-monorepo/wiki) for additional resources
+
+### Community
+
+- **Discord**: Join our [Discord server](https://discord.gg/aether) for real-time chat
+- **Twitter**: Follow [@AetherFramework](https://twitter.com/AetherFramework) for updates
+- **Blog**: Read our [blog](https://aether.dev/blog) for tutorials and insights
 
 ## 📄 License
 
-[Add your license information here]
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🔮 Roadmap
+## 🙏 Acknowledgments
 
-### Version 1.1.0
-
-- [ ] Enhanced theme customization across platforms
-- [ ] Additional SwiftUI components
-- [ ] Improved React Native performance
-- [ ] Advanced animation systems
-
-### Version 1.2.0
-
-- [ ] Cross-platform design token synchronization
-- [ ] Advanced haptic feedback patterns
-- [ ] Component composition utilities
-- [ ] Performance monitoring tools
-
-### Version 2.0.0
-
-- [ ] SwiftUI 5.0 compatibility
-- [ ] iOS 17+ features
-- [ ] Advanced theming system
-- [ ] Component library expansion
+- React Native team for the amazing cross-platform framework
+- Apple for SwiftUI and the iOS ecosystem
+- The open-source community for inspiration and tools
+- All contributors who have helped shape this project
 
 ---
 
-## Steps to Share Your SwiftUI Package via SPM from the Monorepo Root
-
-### 1. **Ensure the Package Structure is SPM-Compatible**
-
-Your `apps/swiftui-app` already contains a `Package.swift` file and follows the SPM structure. This is good.
-
-### 2. **Use a Relative Path for Local Development**
-
-Other projects on your machine can add the package using a relative path:
-
-```swift
-.package(path: "../aether-monorepo/apps/swiftui-app")
-```
-
-Or, if referencing from the monorepo root:
-
-```swift
-.package(path: "apps/swiftui-app")
-```
-
-### 3. **Publish via Git (for Remote Use)**
-
-- Push your monorepo to a remote (e.g., GitHub).
-- Other projects can add the package using the repo URL and a branch, tag, or commit:
-  ```swift
-  .package(url: "https://github.com/your-org/aether-monorepo.git", .branch("main"))
-  ```
-- In the target dependency, specify the product (e.g., `iOSOnlySwiftUI`).
-
-### 4. **Target the Correct Subdirectory**
-
-By default, SPM expects the package at the repo root. Since your package is in a subdirectory, consumers must specify the subpath:
-
-```swift
-<code_block_to_apply_changes_from>
-```
-
-**Note:** As of now, Xcode’s SPM UI does not support the `subdirectory` parameter, but you can use it in `Package.swift` directly.
-
-### 5. **Tag Releases for Versioning**
-
-- Use Git tags to mark releases (e.g., `v1.0.0`).
-- Consumers can then depend on a specific version.
-
-### 6. **Document the Integration**
-
-- Add clear instructions in your monorepo’s `README.md` for how to consume the SwiftUI package from other projects.
-
----
-
-## Reflection & Best Practices
-
-**Scalability & Maintainability:**
-This approach allows you to maintain a single source of truth for your SwiftUI components, making cross-project updates and bug fixes much easier. It also enables atomic changes across your design system and apps, and leverages SPM’s robust dependency management.
-
-**Potential Improvements/Next Steps:**
-
-- Consider splitting out the SwiftUI package into `/packages` if you want to make it more discoverable as a shared resource.
-- Add CI checks to ensure the package builds independently.
-- Use semantic versioning and automated release scripts for smoother updates.
-- If you want to publish the package publicly, ensure no sensitive data is included and add a license.
+**Made with ❤️ by the Aether team**

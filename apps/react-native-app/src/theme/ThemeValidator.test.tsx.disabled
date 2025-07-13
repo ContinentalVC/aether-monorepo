@@ -1,0 +1,78 @@
+import { ThemeValidator, useThemeValidation } from './ThemeValidator';
+import { Alert } from 'react-native';
+import React from 'react';
+import { renderHook, act } from '@testing-library/react-hooks';
+
+// Mock Alert for tests
+jest.mock('react-native', () => ({
+  Alert: { alert: jest.fn() },
+}));
+
+describe('ThemeValidator', () => {
+  const validSchema = {
+    metadata: { name: 'Test', author: 'AI', version: '1.0.0', tags: [], category: 'default', platform: [] },
+    properties: {
+      colors: { primary: { light: '#000000', dark: '#FFFFFF' }, secondary: { light: '#111111', dark: '#EEEEEE' } },
+      typography: { baseFontSize: 16, headingScaleFactor: 1.2 },
+      layoutMetrics: { spacing: { xs: 0 }, },
+      shadows: { small: { opacity: 0.5 } },
+    },
+  };
+  // Intentionally invalid: missing name, author, version, bad color, font size, spacing, opacity
+  const invalidSchema = {
+    metadata: { name: '', author: '', version: '', tags: [], category: 'default', platform: [] },
+    properties: {
+      colors: { primary: { light: 'bad', dark: 'bad' }, secondary: { light: 'bad', dark: 'bad' } },
+      typography: { baseFontSize: 0, headingScaleFactor: 0 },
+      layoutMetrics: { spacing: { xs: -1 }, },
+      shadows: { small: { opacity: 2 } },
+    },
+  };
+
+  it('validates a valid theme schema with no errors', async () => {
+    const validator = new ThemeValidator();
+    const result = await validator.validateTheme(validSchema as any);
+    expect(result.errors.length).toBe(0);
+    expect(result.warnings.length).toBeGreaterThanOrEqual(0);
+  });
+
+  it('validates an invalid theme schema and returns errors with correct structure', async () => {
+    const validator = new ThemeValidator();
+    const result = await validator.validateTheme(invalidSchema as any);
+    expect(result.errors.length).toBeGreaterThan(0);
+    // Check structure of each error
+    result.errors.forEach(error => {
+      expect(error).toHaveProperty('type');
+      expect(error).toHaveProperty('field');
+      expect(error).toHaveProperty('message');
+      expect(typeof error.type).toBe('string');
+      expect(typeof error.field).toBe('string');
+      expect(typeof error.message).toBe('string');
+    });
+    // Check content for a known error
+    const nameError = result.errors.find(e => e.field === 'metadata.name');
+    expect(nameError).toBeDefined();
+    expect(nameError!.type).toBe('MISSING_REQUIRED_FIELD');
+    expect(nameError!.message).toMatch(/name is required/i);
+  });
+});
+
+describe('useThemeValidation', () => {
+  it('returns validation result and handles errors', async () => {
+    const { result } = renderHook(() => useThemeValidation());
+    const validSchema = {
+      metadata: { name: 'Test', author: 'AI', version: '1.0.0', tags: [], category: 'default', platform: [] },
+      properties: {
+        colors: { primary: { light: '#000000', dark: '#FFFFFF' }, secondary: { light: '#111111', dark: '#EEEEEE' } },
+        typography: { baseFontSize: 16, headingScaleFactor: 1.2 },
+        layoutMetrics: { spacing: { xs: 0 }, },
+        shadows: { small: { opacity: 0.5 } },
+      },
+    };
+    await act(async () => {
+      await result.current.validateTheme(validSchema as any);
+    });
+    expect(result.current.lastResult).not.toBeNull();
+    expect(result.current.lastResult!.errors.length).toBe(0);
+  });
+}); 
