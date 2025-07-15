@@ -1,383 +1,575 @@
 # Aether React Native Components
 
-This directory contains reusable React Native components for the Aether project, implementing modern design patterns and glassmorphism effects.
+A comprehensive collection of React Native components for the Aether monorepo, featuring modern design patterns, accessibility features, and cross-platform compatibility.
 
-## Components
+## 📚 Documentation
 
-### AetherGlassCard
+### Core Components
+- [AetherGlassCard](./AetherGlassCard.md) - Beautiful glassmorphism card component
+- [ProgressPieChart](./ProgressPieChart.md) - Interactive pie chart with animations
+- [BarChart3D](./BarChart3D.md) - 3D bar chart with Three.js integration
+- [ColorPaletteManager](./ColorPaletteManager.md) - Dynamic color palette management
+- [IconographyManager](./IconographyManager.md) - Icon system and management
 
-A reusable React Native component that implements glassmorphism styling with blur effects and animations.
+### Package Documentation
+- [@aether/react-native-accessibility](./packages/aether-react-native-accessibility/README.md) - Accessibility utilities and components
+- [@aether/react-native-charts](./packages/aether-react-native-charts/README.md) - Chart components and data visualization
+- [@aether/react-native-forms](./packages/aether-react-native-forms/README.md) - Form components and validation
+- [@aether/react-native-theme](./packages/aether-react-native-theme/README.md) - React Native theming system
+- [@aether/react-native-ui](./packages/aether-react-native-ui/README.md) - React Native UI components
+- [@aether/react-native-utils](./packages/aether-react-native-utils/README.md) - React Native utilities and helpers
 
-#### Features
+### Web Components
+- [@aether/web-theme](./packages/aether-web-theme/README.md) - Web theming system with styled-components
+- [@aether/web-ui](./packages/aether-web-ui/README.md) - Web UI components with glassmorphism design
+- [@aether/web-components](./packages/AetherWeb/README.md) - Web-optimized React Native components
+- [@aether/web-components](./packages/aether-web-components/README.md) - Web-specific UI components
 
-- **Glassmorphism Effect**: Uses `@react-native-community/blur` for authentic glass-like appearance
-- **Animated**: Smooth entrance animations with React Native Reanimated
-- **Pressable**: Optional press interactions with scale animations
-- **Customizable**: Configurable blur amount, type, and animation settings
-- **TypeScript**: Fully typed with comprehensive prop interfaces
-- **Styled Components**: Built with styled-components for maintainable styling
+### Core Packages
+- [@aether/core](./packages/aether-core/README.md) - Core utilities and functions
+- [@aether/shared-types](./packages/aether-shared-types/README.md) - Shared TypeScript types
+- [@aether/core-logic](./packages/core-logic/README.md) - Business logic and state management
+- [@aether/ui-components](./packages/ui-components/README.md) - Shared UI components and design system
 
-#### Installation
+## 🚀 Quick Start
 
-Make sure you have the required dependencies installed:
+### Installation
 
 ```bash
-npm install @react-native-community/blur styled-components react-native-reanimated
+# Install the main package
+npm install @aether/react-native-ui
+
+# Install additional packages as needed
+npm install @aether/react-native-charts
+npm install @aether/react-native-forms
+npm install @aether/react-native-accessibility
 ```
 
-For iOS, you'll also need to install pods:
-
-```bash
-cd ios && pod install
-```
-
-#### Usage
+### Basic Usage
 
 ```tsx
-import { AetherGlassCard } from '../components';
+import React from 'react';
+import { 
+  AetherGlassCard, 
+  ProgressPieChart,
+  BarChart3D 
+} from '@aether/react-native-ui';
 
-// Basic usage
-<AetherGlassCard
-  backgroundImage={require('../assets/background.jpg')}
->
-  <Text>Hello, Aether!</Text>
-</AetherGlassCard>
+const App = () => {
+  return (
+    <div style={{ padding: 20 }}>
+      <AetherGlassCard blur={15}>
+        <h1>Welcome to Aether</h1>
+        <p>Beautiful, accessible components for modern applications.</p>
+      </AetherGlassCard>
+      
+      <ProgressPieChart
+        data={[
+          { label: 'React', value: 40, color: '#61dafb' },
+          { label: 'TypeScript', value: 30, color: '#3178c6' },
+          { label: 'Node.js', value: 30, color: '#339933' }
+        ]}
+        size={200}
+      />
+    </div>
+  );
+};
+```
 
-// With animations and press handling
+## 🏗️ Component Library
+
+### Glassmorphism Components
+
+#### AetherGlassCard
+Beautiful glassmorphism card component with blur effects and animations.
+
+```tsx
+import { AetherGlassCard } from '@aether/react-native-ui';
+
 <AetherGlassCard
-  backgroundImage={require('../assets/background.jpg')}
+  backgroundImage={{ uri: 'https://example.com/bg.jpg' }}
+  blurAmount={15}
+  blurType="light"
   animated={true}
+  animationDuration={800}
   pressable={true}
   onPress={() => console.log('Card pressed!')}
-  blurAmount={20}
-  blurType="light"
 >
-  <Text>Interactive Card</Text>
+  <h2>Glass Card</h2>
+  <p>Beautiful frosted glass effect</p>
 </AetherGlassCard>
 ```
 
-#### Props
+**Props:**
+- `children` - Content to render inside the card
+- `backgroundImage` - Background image for blur effect
+- `style` - Additional styles for the container
+- `animated` - Whether to animate on mount (default: true)
+- `animationDuration` - Animation duration in milliseconds (default: 800)
+- `blurAmount` - Blur intensity (0-100, default: 15)
+- `blurType` - Type of blur effect
+- `onPress` - Callback when card is pressed
+- `pressable` - Whether the card is pressable (default: false)
 
-| Prop                  | Type                                                                    | Default     | Description                         |
-| --------------------- | ----------------------------------------------------------------------- | ----------- | ----------------------------------- |
-| `children`          | `React.ReactNode`                                                     | -           | Content to render inside the card   |
-| `backgroundImage`   | `ImageSourcePropType`                                                 | -           | Background image for blur effect    |
-| `style`             | `ViewStyle`                                                           | -           | Additional styles for the container |
-| `animated`          | `boolean`                                                             | `true`    | Whether to animate on mount         |
-| `animationDuration` | `number`                                                              | `800`     | Animation duration in milliseconds  |
-| `blurAmount`        | `number`                                                              | `15`      | Blur intensity (0-100)              |
-| `blurType`          | `'light' \| 'dark' \| 'xlight' \| 'prominent' \| 'regular' \| 'extraDark'` | `'light'` | Type of blur effect                 |
-| `onPress`           | `() => void`                                                          | -           | Callback when card is pressed       |
-| `pressable`         | `boolean`                                                             | `false`   | Whether the card is pressable       |
+### Chart Components
 
-### ProgressPieChart
-
-A React Native component that displays the distribution of mastered skills using a donut chart with interactive features and loading states.
-
-#### Features
-
-- **Donut Chart**: Uses `react-native-gifted-charts` for professional chart rendering
-- **Interactive**: Tap segments to see detailed information
-- **Loading States**: Handles loading and empty states gracefully
-- **Center Label**: Shows total percentage of mastered skills
-- **Legend**: Interactive legend with segment details
-- **TypeScript**: Fully typed with comprehensive prop interfaces
-
-#### Installation
-
-Make sure you have the required dependencies installed:
-
-```bash
-npm install react-native-gifted-charts
-```
-
-#### Usage
+#### ProgressPieChart
+Interactive pie chart component with animations and touch support.
 
 ```tsx
-import { ProgressPieChart } from '../components';
-
-// Basic usage
-const skillsData = [
-  { value: 25, color: '#6366f1', text: 'Programming' },
-  { value: 20, color: '#10b981', text: 'Design' },
-  { value: 15, color: '#f59e0b', text: 'Marketing' },
-];
+import { ProgressPieChart } from '@aether/react-native-charts';
 
 <ProgressPieChart
-  data={skillsData}
-  isLoading={false}
-  title="Skills Mastery"
-  onSegmentPress={(segment, index) => console.log(segment.text)}
-/>
-
-// With custom styling
-<ProgressPieChart
-  data={skillsData}
+  data={[
+    { label: 'Completed', value: 75, color: '#4CAF50' },
+    { label: 'In Progress', value: 20, color: '#FF9800' },
+    { label: 'Pending', value: 5, color: '#F44336' }
+  ]}
   size={250}
-  innerRadius={70}
+  innerRadius={60}
   showLabels={true}
-  onSegmentPress={handleSegmentPress}
+  title="Project Progress"
+  subtitle="Current status overview"
+  onSegmentPress={(segment, index) => console.log('Segment pressed:', segment)}
 />
 ```
 
-#### Props
+**Props:**
+- `data` - Array of pie chart data objects
+- `isLoading` - Whether the component is in a loading state
+- `title` - Title displayed above the chart
+- `subtitle` - Subtitle displayed below the title
+- `size` - Size of the chart (default: 200)
+- `innerRadius` - Inner radius for donut chart (default: 60)
+- `showLabels` - Whether to show labels on chart segments (default: true)
+- `onSegmentPress` - Callback when a segment is pressed
+- `style` - Additional styles for the container
 
-| Prop               | Type                                               | Default                               | Description                                 |
-| ------------------ | -------------------------------------------------- | ------------------------------------- | ------------------------------------------- |
-| `data`           | `PieChartData[]`                                 | -                                     | Array of data points for the pie chart      |
-| `isLoading`      | `boolean`                                        | `false`                             | Whether the component is in a loading state |
-| `title`          | `string`                                         | `'Skills Mastery'`                  | Title displayed above the chart             |
-| `subtitle`       | `string`                                         | `'Distribution of mastered skills'` | Subtitle displayed below the title          |
-| `size`           | `number`                                         | `200`                               | Size of the chart                           |
-| `innerRadius`    | `number`                                         | `60`                                | Inner radius for donut chart                |
-| `showLabels`     | `boolean`                                        | `true`                              | Whether to show labels on chart segments    |
-| `onSegmentPress` | `(segment: PieChartData, index: number) => void` | -                                     | Callback when a segment is pressed          |
-| `style`          | `any`                                            | -                                     | Additional styles for the container         |
-
-#### Data Structure
+#### BarChart3D
+3D bar chart component with Three.js integration.
 
 ```tsx
-interface PieChartData {
-  value: number;    // Percentage value (0-100)
-  color: string;    // Hex color for the segment
-  text: string;     // Label for the segment
-}
-```
-
-#### Blur Types
-
-- **light**: Subtle light blur effect
-- **dark**: Dark blur effect for light backgrounds
-- **xlight**: Extra light blur effect
-- **prominent**: Strong blur effect
-- **regular**: Standard blur effect
-- **extraDark**: Extra dark blur effect
-
-#### Styling
-
-The component uses styled-components for styling and includes:
-
-- **Border Radius**: 20px for modern rounded corners
-- **Border**: 1px solid white with 20% opacity
-- **Background**: Semi-transparent white overlay
-- **Overflow**: Hidden to maintain clean edges
-
-#### Animation
-
-The component includes several animation features:
-
-- **Entrance Animation**: Scale and opacity transitions on mount
-- **Press Animation**: Scale down effect when pressed (if pressable)
-- **Blur Animation**: Gradual blur intensity increase
-- **Staggered Timing**: Different animation timings for smooth effect
-
-#### Performance Considerations
-
-- Uses React Native Reanimated for 60fps animations
-- Blur effects are hardware accelerated on supported devices
-- Images are cached and optimized for performance
-- Minimal re-renders with proper memoization
-
-#### Platform Support
-
-- **iOS**: Full support with native blur effects
-- **Android**: Full support with native blur effects
-- **Web**: Limited support (fallback to CSS blur)
-
-#### Example
-
-See `AetherGlassCardExample.tsx` for comprehensive usage examples including:
-
-- Basic glass cards
-- Animated entrance effects
-- Pressable interactions
-- Custom blur settings
-- Grid layouts
-- Different blur types
-
-See `ProgressPieChartExample.tsx` for comprehensive usage examples including:
-
-- Basic pie charts
-- Interactive segment selection
-- Loading and empty states
-- Custom styling and colors
-- Data manipulation controls
-
-### BarChart3D
-
-A React Native component that renders an interactive 3D bar chart using `react-three-fiber` and `@react-three/drei` with orbit controls and lighting.
-
-#### Features
-
-- **3D Visualization**: Uses Three.js via react-three-fiber for high-quality 3D rendering
-- **Interactive Bars**: Tap bars to highlight and change colors
-- **Orbit Controls**: Full camera control with drag, zoom, and rotation
-- **Professional Lighting**: Ambient and directional lighting for realistic appearance
-- **Responsive Layout**: Automatically adjusts to data and screen size
-- **Animations**: Optional bar growth animations on mount
-- **TypeScript**: Fully typed with comprehensive prop interfaces
-
-#### Installation
-
-Make sure you have the required dependencies installed:
-
-```bash
-npm install @react-three/fiber @react-three/drei three
-npm install @types/three
-```
-
-For Expo projects, you may need to install additional packages:
-
-```bash
-npx expo install expo-gl expo-gl-cpp
-```
-
-#### Usage
-
-```tsx
-import { BarChart3D } from '../components';
-
-// Basic usage
-const data = [
-  { label: 'Jan', value: 120 },
-  { label: 'Feb', value: 180 },
-  { label: 'Mar', value: 150 },
-];
+import { BarChart3D } from '@aether/react-native-charts';
 
 <BarChart3D
-  data={data}
-  width={350}
+  data={[
+    { label: 'Q1', value: 120 },
+    { label: 'Q2', value: 180 },
+    { label: 'Q3', value: 150 },
+    { label: 'Q4', value: 220 }
+  ]}
+  width={600}
   height={400}
-/>
-
-// With custom styling and interactions
-<BarChart3D
-  data={data}
-  colors={['#FF6B6B', '#4ECDC4', '#45B7D1']}
-  showLabels={true}
-  animate={true}
   barWidth={0.8}
   barSpacing={1.2}
+  colors={['#667eea', '#764ba2', '#f093fb', '#f5576c']}
+  showLabels={true}
+  animate={true}
 />
 ```
 
-#### Props
+**Props:**
+- `data` - Array of objects with label and value properties
+- `width` - Width of the chart container (default: screen width)
+- `height` - Height of the chart container (default: 400)
+- `barWidth` - Width of each bar in 3D units (default: 0.8)
+- `barSpacing` - Spacing between bars in 3D units (default: 1.2)
+- `baseHeight` - Base height for bars (minimum height, default: 0.1)
+- `colors` - Array of colors for bars (default: default palette)
+- `backgroundColor` - Background color of the scene (default: '#f0f0f0')
+- `showLabels` - Whether to show labels on bars (default: true)
+- `animate` - Whether to animate bars on mount (default: true)
 
-| Prop                | Type          | Default             | Description                                      |
-| ------------------- | ------------- | ------------------- | ------------------------------------------------ |
-| `data`            | `BarData[]` | -                   | Array of objects with label and value properties |
-| `width`           | `number`    | `screen width`    | Width of the chart container                     |
-| `height`          | `number`    | `400`             | Height of the chart container                    |
-| `barWidth`        | `number`    | `0.8`             | Width of each bar in 3D units                    |
-| `barSpacing`      | `number`    | `1.2`             | Spacing between bars in 3D units                 |
-| `baseHeight`      | `number`    | `0.1`             | Base height for bars (minimum height)            |
-| `colors`          | `string[]`  | `default palette` | Array of colors for bars                         |
-| `backgroundColor` | `string`    | `'#f0f0f0'`       | Background color of the scene                    |
-| `showLabels`      | `boolean`   | `true`            | Whether to show labels on bars                   |
-| `animate`         | `boolean`   | `true`            | Whether to animate bars on mount                 |
+### Management Components
 
-#### Data Structure
+#### ColorPaletteManager
+Dynamic color palette management with real-time updates.
 
 ```tsx
-interface BarData {
-  label: string;    // Label for the bar
-  value: number;    // Numeric value (height will be proportional)
+import { ColorPaletteManager } from './ColorPaletteManager';
+
+<ColorPaletteManager
+  initialPalette={defaultPalette}
+  onPaletteChange={handlePaletteChange}
+  enableLivePreview={true}
+  showAdvancedControls={false}
+/>
+```
+
+#### IconographyManager
+Icon system management with search and categorization.
+
+```tsx
+import { IconographyManager } from './IconographyManager';
+
+<IconographyManager
+  icons={iconLibrary}
+  onIconSelect={handleIconSelect}
+  searchEnabled={true}
+  categories={['navigation', 'actions', 'status']}
+/>
+```
+
+## 🎯 Features
+
+### Cross-Platform Compatibility
+All components work seamlessly across React Native and web platforms:
+
+```tsx
+// Same component works on both platforms
+import { AetherGlassCard } from '@aether/react-native-ui';
+
+// React Native
+<AetherGlassCard>
+  <Text>Native Content</Text>
+</AetherGlassCard>
+
+// Web
+<AetherGlassCard>
+  <div>Web Content</div>
+</AetherGlassCard>
+```
+
+### Accessibility
+Built-in accessibility features for all components:
+
+```tsx
+<AetherGlassCard
+  accessible={true}
+  accessibilityLabel="Information card"
+  accessibilityHint="Double tap to view details"
+  accessibilityRole="button"
+>
+  <Text accessibilityRole="heading" accessibilityLevel={1}>
+    Accessible Content
+  </Text>
+</AetherGlassCard>
+```
+
+### Theme Integration
+Seamless integration with Aether theme system:
+
+```tsx
+import { useTheme } from '@aether/react-native-theme';
+
+const ThemedComponent = () => {
+  const theme = useTheme();
+  
+  return (
+    <AetherGlassCard
+      style={{
+        backgroundColor: theme.colors.surface,
+        borderColor: theme.colors.border
+      }}
+    >
+      <Text style={{ color: theme.colors.text.primary }}>
+        Themed Content
+      </Text>
+    </AetherGlassCard>
+  );
+};
+```
+
+### Performance Optimization
+Optimized for performance with memoization and lazy loading:
+
+```tsx
+// Memoized components for better performance
+const MemoizedCard = memo(AetherGlassCard);
+const MemoizedChart = memo(ProgressPieChart);
+
+// Lazy loading for heavy components
+const HeavyChart = lazy(() => import('@aether/react-native-charts').then(m => ({ 
+  default: m.BarChart3D 
+})));
+```
+
+## 🔧 Configuration
+
+### Theme Setup
+Configure the theme system for your application:
+
+```tsx
+import { ThemeProvider } from '@aether/react-native-theme';
+
+const App = () => {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
+  );
+};
+```
+
+### Accessibility Setup
+Configure accessibility features:
+
+```tsx
+import { AccessibilityProvider } from '@aether/react-native-accessibility';
+
+const App = () => {
+  return (
+    <AccessibilityProvider>
+      <AppContent />
+    </AccessibilityProvider>
+  );
+};
+```
+
+### Form Validation
+Set up form validation with the forms package:
+
+```tsx
+import { FormProvider } from '@aether/react-native-forms';
+
+const App = () => {
+  return (
+    <FormProvider>
+      <AppContent />
+    </FormProvider>
+  );
+};
+```
+
+## 🧪 Testing
+
+### Unit Tests
+Test individual components:
+
+```tsx
+import { render, fireEvent } from '@testing-library/react-native';
+import { AetherGlassCard } from '@aether/react-native-ui';
+
+describe('AetherGlassCard', () => {
+  it('should render with children', () => {
+    const { getByText } = render(
+      <AetherGlassCard>
+        <Text>Test Content</Text>
+      </AetherGlassCard>
+    );
+    
+    expect(getByText('Test Content')).toBeTruthy();
+  });
+  
+  it('should handle press events', () => {
+    const onPress = jest.fn();
+    const { getByTestId } = render(
+      <AetherGlassCard onPress={onPress} testID="glass-card">
+        <Text>Test Content</Text>
+      </AetherGlassCard>
+    );
+    
+    fireEvent.press(getByTestId('glass-card'));
+    expect(onPress).toHaveBeenCalled();
+  });
+});
+```
+
+### Integration Tests
+Test component interactions:
+
+```tsx
+import { render, fireEvent, waitFor } from '@testing-library/react-native';
+import { ProgressPieChart } from '@aether/react-native-charts';
+
+describe('ProgressPieChart', () => {
+  it('should handle segment press', async () => {
+    const onSegmentPress = jest.fn();
+    const data = [
+      { label: 'Test', value: 50, color: '#ff0000' }
+    ];
+    
+    const { getByTestId } = render(
+      <ProgressPieChart
+        data={data}
+        onSegmentPress={onSegmentPress}
+        testID="pie-chart"
+      />
+    );
+    
+    fireEvent.press(getByTestId('pie-chart'));
+    
+    await waitFor(() => {
+      expect(onSegmentPress).toHaveBeenCalled();
+    });
+  });
+});
+```
+
+## 📚 API Reference
+
+### Common Props
+All components support these common props:
+
+```typescript
+interface CommonProps {
+  style?: ViewStyle;
+  testID?: string;
+  accessible?: boolean;
+  accessibilityLabel?: string;
+  accessibilityHint?: string;
+  accessibilityRole?: AccessibilityRole;
 }
 ```
 
-#### 3D Controls
+### Animation Props
+Components with animations support:
 
-The component includes full 3D camera controls:
+```typescript
+interface AnimationProps {
+  animated?: boolean;
+  animationDuration?: number;
+  animationEasing?: 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out';
+}
+```
 
-- **Drag**: Rotate the view around the chart
-- **Pinch**: Zoom in and out
-- **Pan**: Move the camera position
-- **Auto-rotation**: Optional automatic rotation
+### Interaction Props
+Components with interactions support:
 
-#### Lighting Setup
+```typescript
+interface InteractionProps {
+  pressable?: boolean;
+  onPress?: () => void;
+  onLongPress?: () => void;
+  onPressIn?: () => void;
+  onPressOut?: () => void;
+}
+```
 
-The 3D scene includes professional lighting:
+## 🎨 Styling Guidelines
 
-- **Ambient Light**: Provides overall illumination
-- **Directional Light**: Creates shadows and depth
-- **Point Light**: Additional fill lighting
-- **Grid Helper**: Reference grid for orientation
+### Using Theme Values
+Always use theme values instead of hardcoded values:
 
-#### Performance Considerations
+```tsx
+// ✅ Good - Uses theme values
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: theme.colors.background.primary,
+    padding: theme.spacing.md,
+    borderRadius: theme.borderRadius.md
+  }
+});
 
-- Uses Three.js for hardware-accelerated 3D rendering
-- Optimized mesh creation and material usage
-- Efficient state management for interactions
-- Responsive design that adapts to screen size
+// ❌ Bad - Hardcoded values
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#ffffff',
+    padding: 16,
+    borderRadius: 8
+  }
+});
+```
 
-#### Platform Support
+### Responsive Design
+Use responsive utilities for different screen sizes:
 
-- **iOS**: Full support with native OpenGL rendering
-- **Android**: Full support with native OpenGL rendering
-- **Web**: Full support via WebGL
+```tsx
+// ✅ Good - Responsive design
+const styles = StyleSheet.create({
+  container: {
+    padding: responsive({
+      xs: theme.spacing.sm,
+      sm: theme.spacing.md,
+      md: theme.spacing.lg,
+      lg: theme.spacing.xl
+    })
+  }
+});
 
-#### Example
+// ❌ Bad - Fixed values
+const styles = StyleSheet.create({
+  container: {
+    padding: theme.spacing.md
+  }
+});
+```
 
-See `BarChart3DExample.tsx` for comprehensive usage examples including:
+### Performance Optimization
+Optimize component performance:
 
-- Multiple data sets (sales, revenue, users, performance)
-- Different color schemes (default, warm, cool, monochrome)
-- Interactive controls for labels and animations
-- Data summary and statistics
-- Usage instructions and tips
-- Interactive segment selection
-- Loading state simulation
-- Data manipulation
-- Statistics display
-- Different data sets
+```tsx
+// ✅ Good - Memoized components
+const MemoizedComponent = memo(MyComponent);
 
-## 📚 Component Documentation
+// ✅ Good - Lazy loading
+const LazyComponent = lazy(() => import('./HeavyComponent'));
 
-Each component has comprehensive documentation with detailed examples and API references:
+// ❌ Bad - No optimization
+const Component = MyComponent;
+```
 
-- **[ColorPaletteManager](./ColorPaletteManager.md)** - Advanced color palette management with color wheel tools
-- **[IconographyManager](./IconographyManager.md)** - Complete icon management system with customizable styles
-- **[ProgressLineChart](./ProgressLineChart.md)** - High-performance line charts with animations and haptic feedback
-- **[ProgressPieChart](./ProgressPieChart.md)** - Interactive donut charts with segment selection
-- **[BarChart3D](./BarChart3D.md)** - 3D bar charts with orbit controls and lighting
+## 🔍 Troubleshooting
 
-## 📦 Package Documentation
+### Common Issues
 
-Related packages with comprehensive documentation:
+#### Components not rendering
+Check imports and dependencies:
 
-- **[@aether/react-native-charts](../../packages/aether-react-native-charts/README.md)** - Chart library with high-performance rendering
-- **[@aether/react-native-accessibility](../../packages/aether-react-native-accessibility/README.md)** - Accessibility utilities and testing tools
-- **[@aether/react-native-forms](../../packages/aether-react-native-forms/README.md)** - Type-safe form library with validation
-- **[@aether/react-native-theme](../../packages/aether-react-native-theme/README.md)** - Theme management system
+```tsx
+// ✅ Correct
+import { AetherGlassCard } from '@aether/react-native-ui';
 
-## Development
+// ❌ Incorrect
+import AetherGlassCard from '@aether/react-native-ui/AetherGlassCard';
+```
 
-### Adding New Components
+#### Theme not applying
+Check theme provider setup:
 
-1. Create the component file in this directory
-2. Add TypeScript interfaces for props
-3. Include comprehensive documentation (create a `.md` file)
-4. Add to the index.ts export file
-5. Create example usage if needed
+```tsx
+// ✅ Correct
+<ThemeProvider>
+  <App />
+</ThemeProvider>
 
-### Documentation Standards
+// ❌ Incorrect
+<App />
+```
 
-- Create a comprehensive `.md` file for each component
-- Include overview, features, installation, usage examples
-- Provide complete API reference with prop tables
-- Add performance considerations and troubleshooting
-- Include accessibility features and platform support
+#### Performance issues
+Optimize with memoization and lazy loading:
 
-### Styling Guidelines
+```tsx
+// ✅ Good - Optimized imports
+import { AetherGlassCard } from '@aether/react-native-ui';
+const HeavyChart = lazy(() => import('@aether/react-native-charts').then(m => ({ 
+  default: m.BarChart3D 
+})));
 
-- Use styled-components for component styling
-- Follow the Aether design system colors and spacing
-- Ensure components work in both light and dark modes
-- Maintain consistent border radius and shadows
+// ❌ Bad - Import everything
+import * as Components from '@aether/react-native-ui';
+```
 
-### Testing
+### Debug Mode
+Enable debug mode for troubleshooting:
 
-- Test on both iOS and Android devices
-- Verify animations work smoothly
-- Check accessibility features
-- Test with different screen sizes
+```tsx
+import { setDebugMode } from '@aether/react-native-ui';
+
+// Enable debug mode
+setDebugMode(true);
+
+// Check component state
+console.log('Component debug info:', componentDebugInfo);
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests
+5. Update documentation
+6. Submit a pull request
+
+## 📄 License
+
+MIT License - see LICENSE file for details.
+
+## 🔗 Related Packages
+
+- `@aether/core` - Core utilities
+- `@aether/shared-types` - Shared TypeScript types
+- `@aether/react-native-theme` - React Native theming
+- `@aether/web-ui` - Web UI components

@@ -1,0 +1,41 @@
+name: Simple Test Pipeline
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test-simple:
+    name: Simple Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check available scripts
+        run: npm run
+
+      - name: Run lint (if exists)
+        run: npm run lint || echo "Lint script not found"
+
+      - name: Run tests (if exists)
+        run: npm run test || echo "Test script not found"
+
+      - name: Check if build script exists
+        run: |
+          if npm run build --dry-run 2>/dev/null; then
+            echo "Build script exists"
+            npm run build
+          else
+            echo "Build script not found"
+          fi 

@@ -1,5 +1,4 @@
 module.exports = {
-  preset: 'react-native',
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   transform: {
@@ -39,7 +38,7 @@ module.exports = {
     },
   },
   transformIgnorePatterns: [
-    'node_modules/(?!(react-native|@react-native/.*)/)',
+    'node_modules/(?!(react-native|@react-native/.*|@react-native-community/.*|react-native-.*|@react-native/js-polyfills)/)',
   ],
   testPathIgnorePatterns: [
     '/node_modules/',

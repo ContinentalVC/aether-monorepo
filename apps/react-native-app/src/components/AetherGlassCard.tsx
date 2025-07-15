@@ -12,6 +12,7 @@ import {
   ImageSourcePropType,
   ViewStyle,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 import { BlurView } from '@react-native-community/blur';
 import styled from 'styled-components/native';
@@ -153,12 +154,10 @@ const AetherGlassCard: React.FC<AetherGlassCardProps> = ({
     }
   };
 
-  return (
+  const CardContent = (
     <GlassContainer
       style={[animatedContainerStyle, style]}
-      onTouchStart={handlePressIn}
-      onTouchEnd={handlePressOut}
-      onPress={pressable ? onPress : undefined}
+      testID="aether-glass-card"
     >
       <BackgroundImage
         source={backgroundImage}
@@ -177,6 +176,22 @@ const AetherGlassCard: React.FC<AetherGlassCardProps> = ({
       </BackgroundImage>
     </GlassContainer>
   );
+
+  if (pressable) {
+    return (
+      <TouchableOpacity
+        onPress={onPress}
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
+        activeOpacity={1}
+        testID="aether-glass-card"
+      >
+        {CardContent}
+      </TouchableOpacity>
+    );
+  }
+
+  return CardContent;
 };
 
 // Styles for the component

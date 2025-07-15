@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "organization": "ContinentalVC",
+  "projects": [
+    {
+      "name": "aether-monorepo",
+      "path": ".",
+      "packageManager": "npm",
+      "targets": [
+        "apps/react-native-app",
+        "apps/swiftui-app",
+        "packages"
+      ]
+    }
+  ],
+  "settings": {
+    "severityThreshold": "high",
+    "failOn": "high",
+    "allProjects": true,
+    "detectionDepth": 10,
+    "exclude": [
+      "node_modules",
+      "**/node_modules",
+      "**/dist",
+      "**/build",
+      "**/.git",
+      "**/coverage"
+    ]
+  }
+} 

@@ -1,45 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import { Text, View } from 'react-native';
-
-// Mock the complex dependencies
-jest.mock('@react-native/js-polyfills/error-guard.js', () => ({}));
-jest.mock('@react-native/js-polyfills', () => ({}));
-
-jest.mock('@react-native-community/blur', () => ({
-  BlurView: ({ children, ...props }: any) => (
-    <View testID="blur-view" {...props}>
-      {children}
-    </View>
-  ),
-}));
-
-jest.mock('react-native-reanimated', () => ({
-  useSharedValue: (initialValue: any) => ({ value: initialValue }),
-  useAnimatedStyle: (factory: any) => ({}),
-  withSpring: (value: any) => value,
-  withTiming: (value: any) => value,
-  createAnimatedComponent: (Component: any) => Component,
-}));
-
-jest.mock('styled-components/native', () => {
-  const styled = (Component: any) => {
-    return ({ children, ...props }: any) => <Component {...props}>{children}</Component>;
-  };
-  styled.View = ({ children, ...props }: any) => <View {...props}>{children}</View>;
-  styled.ImageBackground = ({ children, ...props }: any) => <View {...props}>{children}</View>;
-  return styled;
-});
-
-jest.mock('react-native', () => {
-  const RN = jest.requireActual('react-native');
-  return {
-    ...RN,
-    StyleSheet: {
-      create: (styles: any) => styles,
-    },
-  };
-});
 
 // Import the actual component after mocking dependencies
 import AetherGlassCard from '../AetherGlassCard';
@@ -147,7 +108,7 @@ describe('AetherGlassCard', () => {
   describe('Interactions', () => {
     it('should handle press when pressable is true', () => {
       const mockOnPress = jest.fn();
-      const { getByTestId } = render(
+      const { getAllByTestId } = render(
         <AetherGlassCard 
           backgroundImage={mockBackgroundImage}
           pressable={true}
@@ -157,7 +118,9 @@ describe('AetherGlassCard', () => {
         </AetherGlassCard>
       );
 
-      fireEvent.press(getByTestId('aether-glass-card'));
+      // There may be multiple elements with this testID, so fireEvent.press on the first TouchableOpacity
+      const pressables = getAllByTestId('aether-glass-card');
+      fireEvent.press(pressables[0]);
       expect(mockOnPress).toHaveBeenCalledTimes(1);
     });
 

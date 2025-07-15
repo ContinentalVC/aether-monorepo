@@ -17,6 +17,9 @@ out/
 .env.test.local
 .env.production.local
 
+# Local secrets for act (GitHub Actions local runner)
+.secrets
+
 # IDE and editor files
 .vscode/
 .idea/

@@ -1,0 +1,24 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.25.1
+
+# Monorepo configuration
+# This tells Snyk how to handle the monorepo structure
+ignore:
+  # Ignore any known false positives or vulnerabilities that are acceptable
+  # Add specific vulnerabilities here if needed
+  # Example:
+  # 'npm:package-name@version':
+  #   - '*':
+  #       reason: 'False positive - not used in production'
+  #       expires: 2024-12-31T00:00:00.000Z
+
+# Patch configuration for automatic vulnerability fixes
+patch:
+  # Automatically patch vulnerabilities when possible
+  # Example:
+  # 'npm:package-name@version':
+  #   - '*':
+  #       patch: 'npm:package-name@new-version'
+
+# Organization settings
+org: ContinentalVC 
