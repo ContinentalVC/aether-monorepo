@@ -12,16 +12,15 @@ import {
   ImageSourcePropType,
   ViewStyle,
   StyleSheet,
-  TouchableOpacity,
+  TouchableOpacity
 } from 'react-native';
 import { BlurView } from '@react-native-community/blur';
 import styled from 'styled-components/native';
 import Animated, {
-  AnimatedProps,
   useSharedValue,
   useAnimatedStyle,
   withSpring,
-  withTiming,
+  withTiming
 } from 'react-native-reanimated';
 
 // Animated BlurView component for smooth animations
@@ -99,7 +98,7 @@ const AetherGlassCard: React.FC<AetherGlassCardProps> = ({
   blurAmount = 15,
   blurType = 'light',
   onPress,
-  pressable = false,
+  pressable = false
 }) => {
   // Shared values for animations
   const scale = useSharedValue(animated ? 0.8 : 1);
@@ -109,11 +108,11 @@ const AetherGlassCard: React.FC<AetherGlassCardProps> = ({
   // Animated styles
   const animatedContainerStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
-    opacity: opacity.value,
+    opacity: opacity.value
   }));
 
   const animatedBlurStyle = useAnimatedStyle(() => ({
-    opacity: blurIntensity.value / blurAmount,
+    opacity: blurIntensity.value / blurAmount
   }));
 
   // Animate on mount
@@ -122,15 +121,15 @@ const AetherGlassCard: React.FC<AetherGlassCardProps> = ({
       // Stagger the animations for a smooth entrance
       scale.value = withSpring(1, {
         damping: 15,
-        stiffness: 100,
+        stiffness: 100
       });
-      
+
       opacity.value = withTiming(1, {
-        duration: animationDuration,
+        duration: animationDuration
       });
-      
+
       blurIntensity.value = withTiming(blurAmount, {
-        duration: animationDuration * 0.8,
+        duration: animationDuration * 0.8
       });
     }
   }, [animated, animationDuration, blurAmount]);
@@ -140,7 +139,7 @@ const AetherGlassCard: React.FC<AetherGlassCardProps> = ({
     if (pressable) {
       scale.value = withSpring(0.95, {
         damping: 15,
-        stiffness: 100,
+        stiffness: 100
       });
     }
   };
@@ -149,7 +148,7 @@ const AetherGlassCard: React.FC<AetherGlassCardProps> = ({
     if (pressable) {
       scale.value = withSpring(1, {
         damping: 15,
-        stiffness: 100,
+        stiffness: 100
       });
     }
   };
@@ -197,14 +196,14 @@ const AetherGlassCard: React.FC<AetherGlassCardProps> = ({
 // Styles for the component
 const styles = StyleSheet.create({
   backgroundImage: {
-    flex: 1,
     borderRadius: 20,
+    flex: 1
   },
   blurView: {
-    flex: 1,
     borderRadius: 20,
-    overflow: 'hidden',
-  },
+    flex: 1,
+    overflow: 'hidden'
+  }
 });
 
-export default AetherGlassCard; 
+export default AetherGlassCard;

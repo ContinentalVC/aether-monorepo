@@ -1,6 +1,6 @@
 /**
  * Theme Schema
- * 
+ *
  * Comprehensive theme schema system with structured, hierarchical design
  * following Shopify's JSON template approach for maintainable theming.
  */
@@ -411,7 +411,7 @@ export interface CustomProperty {
 export const createDefaultThemeSchema = (name: string, author: string): ThemeSchema => ({
   id: generateId(),
   metadata: createDefaultMetadata(name, author),
-  properties: createDefaultProperties(),
+  properties: createDefaultProperties()
 });
 
 export const createDefaultMetadata = (name: string, author: string): ThemeMetadata => ({
@@ -426,7 +426,7 @@ export const createDefaultMetadata = (name: string, author: string): ThemeMetada
   platform: [Platform.IOS, Platform.ANDROID],
   license: undefined,
   website: undefined,
-  previewImage: undefined,
+  previewImage: undefined
 });
 
 export const createDefaultProperties = (): ThemeProperties => ({
@@ -437,7 +437,7 @@ export const createDefaultProperties = (): ThemeProperties => ({
   shadows: createDefaultShadowProperties(),
   animations: createDefaultAnimationProperties(),
   accessibility: createDefaultAccessibilityProperties(),
-  custom: {},
+  custom: {}
 });
 
 export const createDefaultColorProperties = (): ColorProperties => ({
@@ -447,29 +447,29 @@ export const createDefaultColorProperties = (): ColorProperties => ({
   background: {
     primary: { light: '#FFFFFF', dark: '#000000' },
     secondary: { light: '#F2F2F7', dark: '#1C1C1E' },
-    tertiary: { light: '#E5E5EA', dark: '#2C2C2E' },
+    tertiary: { light: '#E5E5EA', dark: '#2C2C2E' }
   },
   surface: {
     primary: { light: '#FFFFFF', dark: '#1C1C1E' },
     secondary: { light: '#F2F2F7', dark: '#2C2C2E' },
     tertiary: { light: '#E5E5EA', dark: '#3A3A3C' },
-    elevated: { light: '#FFFFFF', dark: '#2C2C2E' },
+    elevated: { light: '#FFFFFF', dark: '#2C2C2E' }
   },
   text: {
     primary: { light: '#1D1D1F', dark: '#FFFFFF' },
     secondary: { light: '#3C3C43', dark: '#EBEBF5' },
     tertiary: { light: '#787880', dark: '#EBEBF599' },
     quaternary: { light: '#787880', dark: '#EBEBF54D' },
-    inverse: { light: '#FFFFFF', dark: '#1D1D1F' },
+    inverse: { light: '#FFFFFF', dark: '#1D1D1F' }
   },
   semantic: {
     success: { light: '#34C759', dark: '#30D158' },
     warning: { light: '#FF9500', dark: '#FF9F0A' },
     error: { light: '#FF3B30', dark: '#FF453A' },
     info: { light: '#007AFF', dark: '#0A84FF' },
-    destructive: { light: '#FF3B30', dark: '#FF453A' },
+    destructive: { light: '#FF3B30', dark: '#FF453A' }
   },
-  custom: {},
+  custom: {}
 });
 
 export const createDefaultTypographyProperties = (): TypographyProperties => ({
@@ -484,18 +484,18 @@ export const createDefaultTypographyProperties = (): TypographyProperties => ({
     medium: '500',
     semibold: '600',
     bold: '700',
-    heavy: '800',
+    heavy: '800'
   },
   lineHeights: {
     tight: 1.2,
     normal: 1.5,
     relaxed: 1.75,
-    loose: 2.0,
+    loose: 2.0
   },
   letterSpacing: {
     tight: -0.5,
     normal: 0.0,
-    wide: 0.5,
+    wide: 0.5
   },
   textStyles: {
     heading: {
@@ -504,24 +504,24 @@ export const createDefaultTypographyProperties = (): TypographyProperties => ({
       h3: { size: 24, weight: '600', lineHeight: 1.3 },
       h4: { size: 20, weight: '600', lineHeight: 1.4 },
       h5: { size: 18, weight: '500', lineHeight: 1.4 },
-      h6: { size: 16, weight: '500', lineHeight: 1.5 },
+      h6: { size: 16, weight: '500', lineHeight: 1.5 }
     },
     body: {
       large: { size: 18, weight: '400', lineHeight: 1.5 },
       medium: { size: 16, weight: '400', lineHeight: 1.5 },
-      small: { size: 14, weight: '400', lineHeight: 1.5 },
+      small: { size: 14, weight: '400', lineHeight: 1.5 }
     },
     caption: {
       large: { size: 12, weight: '500', lineHeight: 1.3 },
       medium: { size: 11, weight: '400', lineHeight: 1.3 },
-      small: { size: 10, weight: '400', lineHeight: 1.2 },
+      small: { size: 10, weight: '400', lineHeight: 1.2 }
     },
     button: {
       large: { size: 18, weight: '600', lineHeight: 1.2 },
       medium: { size: 16, weight: '600', lineHeight: 1.2 },
-      small: { size: 14, weight: '500', lineHeight: 1.2 },
-    },
-  },
+      small: { size: 14, weight: '500', lineHeight: 1.2 }
+    }
+  }
 });
 
 export const createDefaultIconographyProperties = (): IconographyProperties => ({
@@ -530,22 +530,22 @@ export const createDefaultIconographyProperties = (): IconographyProperties => (
     small: 16,
     medium: 20,
     large: 24,
-    xlarge: 32,
+    xlarge: 32
   },
   weights: {
     light: '300',
     regular: '400',
     medium: '500',
     semibold: '600',
-    bold: '700',
+    bold: '700'
   },
   colors: {
     primary: { light: '#0A7AFF', dark: '#0A84FF' },
     secondary: { light: '#787880', dark: '#EBEBF599' },
     tertiary: { light: '#C7C7CC', dark: '#48484A' },
-    disabled: { light: '#C7C7CC', dark: '#48484A' },
+    disabled: { light: '#C7C7CC', dark: '#48484A' }
   },
-  custom: {},
+  custom: {}
 });
 
 export const createDefaultLayoutMetricsProperties = (): LayoutMetricsProperties => ({
@@ -556,21 +556,21 @@ export const createDefaultLayoutMetricsProperties = (): LayoutMetricsProperties 
     lg: 24,
     xl: 32,
     xxl: 48,
-    xxxl: 64,
+    xxxl: 64
   },
   padding: {
     xs: 8,
     sm: 12,
     md: 16,
     lg: 24,
-    xl: 32,
+    xl: 32
   },
   margins: {
     xs: 8,
     sm: 12,
     md: 16,
     lg: 24,
-    xl: 32,
+    xl: 32
   },
   borderRadius: {
     xs: 2,
@@ -578,63 +578,63 @@ export const createDefaultLayoutMetricsProperties = (): LayoutMetricsProperties 
     md: 8,
     lg: 12,
     xl: 16,
-    full: 999,
+    full: 999
   },
   grid: {
     columns: 12,
     gutter: 16,
-    margin: 16,
+    margin: 16
   },
   breakpoints: {
     mobile: 768,
     tablet: 1024,
     desktop: 1440,
-    wide: 1920,
-  },
+    wide: 1920
+  }
 });
 
 export const createDefaultShadowProperties = (): ShadowProperties => ({
   small: {
     radius: 2,
     offset: { x: 0, y: 1 },
-    opacity: 0.1,
+    opacity: 0.1
   },
   medium: {
     radius: 4,
     offset: { x: 0, y: 2 },
-    opacity: 0.15,
+    opacity: 0.15
   },
   large: {
     radius: 8,
     offset: { x: 0, y: 4 },
-    opacity: 0.2,
+    opacity: 0.2
   },
   xlarge: {
     radius: 16,
     offset: { x: 0, y: 8 },
-    opacity: 0.25,
+    opacity: 0.25
   },
-  custom: {},
+  custom: {}
 });
 
 export const createDefaultAnimationProperties = (): AnimationProperties => ({
   duration: {
     fast: 0.15,
     normal: 0.3,
-    slow: 0.5,
+    slow: 0.5
   },
   easing: {
     easeIn: 'easeIn',
     easeOut: 'easeOut',
     easeInOut: 'easeInOut',
-    linear: 'linear',
+    linear: 'linear'
   },
   spring: {
     response: 0.3,
     dampingFraction: 0.7,
-    blendDuration: 0.0,
+    blendDuration: 0.0
   },
-  custom: {},
+  custom: {}
 });
 
 export const createDefaultAccessibilityProperties = (): AccessibilityProperties => ({
@@ -647,13 +647,13 @@ export const createDefaultAccessibilityProperties = (): AccessibilityProperties 
     enabled: false,
     speakScreen: false,
     speakSelection: false,
-    largeCursor: false,
+    largeCursor: false
   },
   switchControl: {
     enabled: false,
     autoScanning: false,
-    groupItems: false,
-  },
+    groupItems: false
+  }
 });
 
 // MARK: - Validation
@@ -684,7 +684,7 @@ export class SchemaValidator {
       errors.push({
         type: ValidationErrorType.MISSING_REQUIRED_FIELD,
         field: 'metadata.name',
-        message: 'Theme name is required',
+        message: 'Theme name is required'
       });
     }
 
@@ -692,7 +692,7 @@ export class SchemaValidator {
       errors.push({
         type: ValidationErrorType.MISSING_REQUIRED_FIELD,
         field: 'metadata.author',
-        message: 'Theme author is required',
+        message: 'Theme author is required'
       });
     }
 
@@ -700,7 +700,7 @@ export class SchemaValidator {
       errors.push({
         type: ValidationErrorType.MISSING_REQUIRED_FIELD,
         field: 'metadata.version',
-        message: 'Theme version is required',
+        message: 'Theme version is required'
       });
     }
 
@@ -709,7 +709,7 @@ export class SchemaValidator {
       errors.push({
         type: ValidationErrorType.INVALID_VERSION,
         field: 'metadata.version',
-        message: 'Version must follow semantic versioning (e.g., 1.0.0)',
+        message: 'Version must follow semantic versioning (e.g., 1.0.0)'
       });
     }
 
@@ -718,7 +718,7 @@ export class SchemaValidator {
       errors.push({
         type: ValidationErrorType.INVALID_COLOR,
         field: 'properties.colors.primary',
-        message: 'Primary color must be a valid hex color',
+        message: 'Primary color must be a valid hex color'
       });
     }
 
@@ -726,7 +726,7 @@ export class SchemaValidator {
       errors.push({
         type: ValidationErrorType.INVALID_COLOR,
         field: 'properties.colors.secondary',
-        message: 'Secondary color must be a valid hex color',
+        message: 'Secondary color must be a valid hex color'
       });
     }
 
@@ -735,7 +735,7 @@ export class SchemaValidator {
       errors.push({
         type: ValidationErrorType.INVALID_FONT_SIZE,
         field: 'properties.typography.baseFontSize',
-        message: 'Base font size must be greater than 0',
+        message: 'Base font size must be greater than 0'
       });
     }
 
@@ -743,7 +743,7 @@ export class SchemaValidator {
       errors.push({
         type: ValidationErrorType.INVALID_SCALE_FACTOR,
         field: 'properties.typography.headingScaleFactor',
-        message: 'Heading scale factor must be greater than 0',
+        message: 'Heading scale factor must be greater than 0'
       });
     }
 
@@ -752,7 +752,7 @@ export class SchemaValidator {
       errors.push({
         type: ValidationErrorType.INVALID_SPACING,
         field: 'properties.layoutMetrics.spacing.xs',
-        message: 'Spacing must be non-negative',
+        message: 'Spacing must be non-negative'
       });
     }
 
@@ -761,7 +761,7 @@ export class SchemaValidator {
       errors.push({
         type: ValidationErrorType.INVALID_SHADOW_OPACITY,
         field: 'properties.shadows.small.opacity',
-        message: 'Shadow opacity must be between 0 and 1',
+        message: 'Shadow opacity must be between 0 and 1'
       });
     }
 
@@ -813,7 +813,7 @@ export class SchemaSerialization {
     const schema: ThemeSchema = {
       id: data.id || generateId(),
       metadata: data.metadata || createDefaultMetadata('Untitled Schema', 'Unknown'),
-      properties: data.properties || createDefaultProperties(),
+      properties: data.properties || createDefaultProperties()
     };
 
     return schema;
@@ -916,4 +916,4 @@ export function isTypographyProperties(obj: any): obj is TypographyProperties {
     typeof obj.headingScaleFactor === 'number' &&
     typeof obj.baseFontSize === 'number'
   );
-} 
+}

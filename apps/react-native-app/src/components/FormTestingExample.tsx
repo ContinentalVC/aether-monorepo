@@ -1,6 +1,6 @@
 /**
  * Form Testing Example Component
- * 
+ *
  * This component tests all the enhanced validation features of the aether-react-native-forms package
  * to ensure everything works correctly in the React Native app.
  */
@@ -12,7 +12,7 @@ import {
   ScrollView,
   StyleSheet,
   Alert,
-  Platform,
+  Platform
 } from 'react-native';
 import {
   Form,
@@ -22,12 +22,12 @@ import {
   ValidationRule,
   AccessibilityConfig,
   ErrorHandlerConfig,
-  ValidationConfig,
+  ValidationConfig
 } from '@aether/react-native-forms';
 import { useTheme } from '@aether/react-native-theme';
 
 // Utility to detect web environment
-const isWeb = typeof document !== 'undefined' && typeof window !== 'undefined';
+
 
 export const FormTestingExample: React.FC = () => {
   const [testResults, setTestResults] = useState<string[]>([]);
@@ -402,7 +402,7 @@ export const FormTestingExample: React.FC = () => {
     const testEmail = 'test@example.com';
     const testPassword = 'TestPass123';
     const testPhone = '+1234567890';
-    
+
     addTestResult(`Email validation test: ${testEmail}`);
     addTestResult(`Password validation test: ${testPassword}`);
     addTestResult(`Phone validation test: ${testPhone}`);
@@ -425,14 +425,14 @@ export const FormTestingExample: React.FC = () => {
   const runAllTests = () => {
     setTestResults([]);
     addTestResult('Starting comprehensive form testing...');
-    
+
     runTest('Enhanced Validation', testEnhancedValidation);
     runTest('Accessibility Features', testAccessibility);
     runTest('Error Handling', testErrorHandling);
     runTest('Basic Form', testBasicForm);
     runTest('Complex Form', testComplexForm);
     runTest('Field Array', testFieldArray);
-    
+
     addTestResult('All tests completed!');
   };
 
@@ -444,70 +444,70 @@ export const FormTestingExample: React.FC = () => {
 
     return StyleSheet.create({
       container: {
-        flex: 1,
         backgroundColor: theme.theme.background,
-        padding: theme.theme.spacing.md,
+        flex: 1,
+        padding: theme.theme.spacing.md
+      },
+      currentTest: {
+        color: theme.theme.primary,
+        fontSize: theme.theme.typography.fontSizes.md,
+        fontWeight: theme.theme.typography.fontWeights.medium as any,
+        marginBottom: theme.theme.spacing.sm
+      },
+      formContainer: {
+        backgroundColor: theme.theme.surface,
+        borderColor: theme.theme.border,
+        borderRadius: theme.theme.borderRadius.md,
+        borderWidth: 1,
+        marginBottom: theme.theme.spacing.md,
+        padding: theme.theme.spacing.md
+      },
+      resultText: {
+        color: theme.theme.textSecondary,
+        fontFamily: Platform.OS === 'ios' ? 'Menlo' : 'monospace',
+        fontSize: theme.theme.typography.fontSizes.sm,
+        marginBottom: theme.theme.spacing.xs
+      },
+      resultsContainer: {
+        backgroundColor: theme.theme.surface,
+        borderColor: theme.theme.border,
+        borderRadius: theme.theme.borderRadius.md,
+        borderWidth: 1,
+        marginTop: theme.theme.spacing.md,
+        padding: theme.theme.spacing.md
       },
       scrollView: {
-        flex: 1,
-      },
-      title: {
-        fontSize: theme.theme.typography.fontSizes.xl,
-        fontWeight: theme.theme.typography.fontWeights.bold as any,
-        color: theme.theme.textPrimary,
-        marginBottom: theme.theme.spacing.lg,
-        textAlign: 'center',
+        flex: 1
       },
       section: {
-        marginBottom: theme.theme.spacing.xl,
+        marginBottom: theme.theme.spacing.xl
       },
       sectionTitle: {
+        color: theme.theme.textPrimary,
         fontSize: theme.theme.typography.fontSizes.lg,
         fontWeight: theme.theme.typography.fontWeights.semibold as any,
-        color: theme.theme.textPrimary,
-        marginBottom: theme.theme.spacing.md,
+        marginBottom: theme.theme.spacing.md
       },
       testButton: {
+        alignItems: 'center',
         backgroundColor: theme.theme.primary,
         borderRadius: theme.theme.borderRadius.md,
-        paddingVertical: theme.theme.spacing.sm,
-        paddingHorizontal: theme.theme.spacing.md,
         marginBottom: theme.theme.spacing.sm,
-        alignItems: 'center',
+        paddingHorizontal: theme.theme.spacing.md,
+        paddingVertical: theme.theme.spacing.sm
       },
       testButtonText: {
         color: theme.theme.surface,
         fontSize: theme.theme.typography.fontSizes.md,
-        fontWeight: theme.theme.typography.fontWeights.medium as any,
+        fontWeight: theme.theme.typography.fontWeights.medium as any
       },
-      resultsContainer: {
-        backgroundColor: theme.theme.surface,
-        borderRadius: theme.theme.borderRadius.md,
-        padding: theme.theme.spacing.md,
-        marginTop: theme.theme.spacing.md,
-        borderWidth: 1,
-        borderColor: theme.theme.border,
-      },
-      resultText: {
-        fontSize: theme.theme.typography.fontSizes.sm,
-        color: theme.theme.textSecondary,
-        marginBottom: theme.theme.spacing.xs,
-        fontFamily: Platform.OS === 'ios' ? 'Menlo' : 'monospace',
-      },
-      currentTest: {
-        fontSize: theme.theme.typography.fontSizes.md,
-        color: theme.theme.primary,
-        fontWeight: theme.theme.typography.fontWeights.medium as any,
-        marginBottom: theme.theme.spacing.sm,
-      },
-      formContainer: {
-        backgroundColor: theme.theme.surface,
-        borderRadius: theme.theme.borderRadius.md,
-        padding: theme.theme.spacing.md,
-        marginBottom: theme.theme.spacing.md,
-        borderWidth: 1,
-        borderColor: theme.theme.border,
-      },
+      title: {
+        color: theme.theme.textPrimary,
+        fontSize: theme.theme.typography.fontSizes.xl,
+        fontWeight: theme.theme.typography.fontWeights.bold as any,
+        marginBottom: theme.theme.spacing.lg,
+        textAlign: 'center'
+      }
     });
   };
 
@@ -516,20 +516,20 @@ export const FormTestingExample: React.FC = () => {
   return (
     <ScrollView style={themeStyles.scrollView} contentContainerStyle={themeStyles.container}>
       <Text style={themeStyles.title}>Form Testing Example</Text>
-      
+
       <View style={themeStyles.section}>
         <Text style={themeStyles.sectionTitle}>Test Controls</Text>
-        
+
         <View style={themeStyles.testButton}>
           <Text style={themeStyles.testButtonText} onPress={runAllTests}>
             Run All Tests
           </Text>
         </View>
-        
+
         {currentTest && (
           <Text style={themeStyles.currentTest}>Running: {currentTest}</Text>
         )}
-        
+
         <View style={themeStyles.resultsContainer}>
           <Text style={themeStyles.sectionTitle}>Test Results</Text>
           {testResults.map((result, index) => (
@@ -631,70 +631,70 @@ export const FormTestingExample: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#f5f5f5',
-    padding: 16,
+    flex: 1,
+    padding: 16
+  },
+  currentTest: {
+    color: '#007AFF',
+    fontSize: 16,
+    fontWeight: '500',
+    marginBottom: 8
+  },
+  formContainer: {
+    backgroundColor: '#fff',
+    borderColor: '#e0e0e0',
+    borderRadius: 8,
+    borderWidth: 1,
+    marginBottom: 12,
+    padding: 16
+  },
+  resultText: {
+    color: '#666',
+    fontFamily: Platform.OS === 'ios' ? 'Menlo' : 'monospace',
+    fontSize: 12,
+    marginBottom: 4
+  },
+  resultsContainer: {
+    backgroundColor: '#fff',
+    borderColor: '#e0e0e0',
+    borderRadius: 8,
+    borderWidth: 1,
+    marginTop: 12,
+    padding: 16
   },
   scrollView: {
-    flex: 1,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 20,
-    textAlign: 'center',
+    flex: 1
   },
   section: {
-    marginBottom: 24,
+    marginBottom: 24
   },
   sectionTitle: {
+    color: '#333',
     fontSize: 18,
     fontWeight: '600',
-    color: '#333',
-    marginBottom: 12,
+    marginBottom: 12
   },
   testButton: {
+    alignItems: 'center',
     backgroundColor: '#007AFF',
     borderRadius: 8,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
     marginBottom: 8,
-    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 12
   },
   testButtonText: {
     color: '#fff',
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: '500'
   },
-  resultsContainer: {
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 16,
-    marginTop: 12,
-    borderWidth: 1,
-    borderColor: '#e0e0e0',
-  },
-  resultText: {
-    fontSize: 12,
-    color: '#666',
-    marginBottom: 4,
-    fontFamily: Platform.OS === 'ios' ? 'Menlo' : 'monospace',
-  },
-  currentTest: {
-    fontSize: 16,
-    color: '#007AFF',
-    fontWeight: '500',
-    marginBottom: 8,
-  },
-  formContainer: {
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 16,
-    marginBottom: 12,
-    borderWidth: 1,
-    borderColor: '#e0e0e0',
-  },
+  title: {
+    color: '#333',
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center'
+  }
 });
 
-export default FormTestingExample; 
+export default FormTestingExample;

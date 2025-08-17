@@ -1,11 +1,11 @@
 /**
  * Custom View Transitions Example for React Native
- * 
+ *
  * Comprehensive example demonstrating sophisticated custom view transitions
  * with asymmetric animations, transition container views, and complex effects.
  */
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -14,7 +14,7 @@ import {
   StyleSheet,
   Dimensions,
   Alert,
-  ActivityIndicator,
+  ActivityIndicator
 } from 'react-native';
 import {
   TransitionContainerView,
@@ -22,7 +22,7 @@ import {
   useAdvancedTransitionManager,
   TransitionPreviewCard,
   CUSTOM_TRANSITION_TYPES,
-  CustomTransitionType,
+  CustomTransitionType
 } from '../theme/CustomViewTransitions';
 import { useTheme, themes } from '../theme/ThemeProvider';
 
@@ -45,7 +45,7 @@ const CustomViewTransitionsExample: React.FC = () => {
 
   const themeOptions = [
     themes.light,
-    themes.dark,
+    themes.dark
   ];
 
   // MARK: - Header Section
@@ -58,12 +58,12 @@ const CustomViewTransitionsExample: React.FC = () => {
       <Text style={[styles.bodyText, { color: theme.textSecondary }]}>
         Experience advanced asymmetric animations with transition container views that host both 'from' and 'to' states simultaneously for complex, overlapping effects.
       </Text>
-      
+
       {/* Current theme indicator */}
       <View style={[styles.themeIndicator, { backgroundColor: theme.surface }]}>
         <View style={[styles.themeDot, { backgroundColor: theme.primary }]} />
         <Text style={[styles.themeText, { color: theme.textPrimary }]}>
-          Current: {getThemeName(themes[currentThemeIndex])}
+          Current: {getThemeName(themeOptions[currentThemeIndex])}
         </Text>
         <View style={styles.spacer} />
         <Text style={[styles.durationText, { color: theme.textSecondary }]}>
@@ -80,7 +80,7 @@ const CustomViewTransitionsExample: React.FC = () => {
       <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>
         Custom Transition Types
       </Text>
-      
+
       <View style={styles.transitionGrid}>
         {CUSTOM_TRANSITION_TYPES.map((type) => (
           <CustomTransitionTypeButton
@@ -102,7 +102,7 @@ const CustomViewTransitionsExample: React.FC = () => {
       <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>
         Live Preview with Container
       </Text>
-      
+
       {/* Transition container with both views */}
       {state.isTransitioning && state.fromTheme && state.toTheme ? (
         <View style={styles.previewContainer}>
@@ -130,7 +130,7 @@ const CustomViewTransitionsExample: React.FC = () => {
           />
         </View>
       )}
-      
+
       {/* Progress indicator */}
       {state.isTransitioning && (
         <View style={styles.progressContainer}>
@@ -140,8 +140,8 @@ const CustomViewTransitionsExample: React.FC = () => {
                 styles.progressFill,
                 {
                   backgroundColor: theme.primary,
-                  width: `${(state.transitionProgress as any)._value * 100}%`,
-                },
+                  width: `${(state.transitionProgress as any)._value * 100}%`
+                }
               ]}
             />
           </View>
@@ -160,7 +160,7 @@ const CustomViewTransitionsExample: React.FC = () => {
       <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>
         Available Themes
       </Text>
-      
+
       <View style={styles.themeGrid}>
         {Object.entries(themes).map(([themeName, themeOption], index) => (
           <ThemeButton
@@ -183,7 +183,7 @@ const CustomViewTransitionsExample: React.FC = () => {
       <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>
         Advanced Controls
       </Text>
-      
+
       {/* Demo buttons */}
       <View style={styles.buttonRow}>
         <TouchableOpacity
@@ -195,7 +195,7 @@ const CustomViewTransitionsExample: React.FC = () => {
             Quick Demo
           </Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity
           style={[styles.secondaryButton, { borderColor: theme.primary }]}
           onPress={performSequenceDemo}
@@ -206,7 +206,7 @@ const CustomViewTransitionsExample: React.FC = () => {
           </Text>
         </TouchableOpacity>
       </View>
-      
+
       {/* Transition status */}
       {state.isTransitioning && (
         <View style={[styles.statusContainer, { backgroundColor: theme.surface }]}>
@@ -226,7 +226,7 @@ const CustomViewTransitionsExample: React.FC = () => {
       <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>
         Debug Information
       </Text>
-      
+
       <View style={styles.debugContainer}>
         <DebugInfoRow
           label="Transition Type"
@@ -240,7 +240,7 @@ const CustomViewTransitionsExample: React.FC = () => {
         />
         <DebugInfoRow
           label="Is Transitioning"
-          value={state.isTransitioning ? "Yes" : "No"}
+          value={state.isTransitioning ? 'Yes' : 'No'}
           theme={theme}
         />
         <DebugInfoRow
@@ -250,12 +250,12 @@ const CustomViewTransitionsExample: React.FC = () => {
         />
         <DebugInfoRow
           label="From Theme"
-          value={state.fromTheme ? "Set" : "None"}
+          value={state.fromTheme ? 'Set' : 'None'}
           theme={theme}
         />
         <DebugInfoRow
           label="To Theme"
-          value={state.toTheme ? "Set" : "None"}
+          value={state.toTheme ? 'Set' : 'None'}
           theme={theme}
         />
       </View>
@@ -265,9 +265,9 @@ const CustomViewTransitionsExample: React.FC = () => {
   // MARK: - Helper Methods
 
   const getThemeName = (themeOption: any): string => {
-    if (themeOption.primary === themes.light.primary) return "Light";
-    if (themeOption.primary === themes.dark.primary) return "Dark";
-    return "Custom";
+    if (themeOption.primary === themes.light.primary) return 'Light';
+    if (themeOption.primary === themes.dark.primary) return 'Dark';
+    return 'Custom';
   };
 
   const performCustomTransition = (newTheme: any, index: number) => {
@@ -285,7 +285,7 @@ const CustomViewTransitionsExample: React.FC = () => {
   const performQuickDemo = () => {
     const demoSequence = [
       { theme: themes.light, type: CUSTOM_TRANSITION_TYPES[0] },
-      { theme: themes.dark, type: CUSTOM_TRANSITION_TYPES[1] },
+      { theme: themes.dark, type: CUSTOM_TRANSITION_TYPES[1] }
     ];
 
     demoSequence.forEach((item, index) => {
@@ -299,7 +299,7 @@ const CustomViewTransitionsExample: React.FC = () => {
   const performSequenceDemo = () => {
     const sequence = [
       { theme: themes.light, type: CUSTOM_TRANSITION_TYPES[0] },
-      { theme: themes.dark, type: CUSTOM_TRANSITION_TYPES[1] },
+      { theme: themes.dark, type: CUSTOM_TRANSITION_TYPES[1] }
     ];
 
     sequence.forEach((item, index) => {
@@ -338,7 +338,7 @@ const CustomTransitionTypeButton: React.FC<CustomTransitionTypeButtonProps> = ({
   type,
   isSelected,
   theme,
-  onPress,
+  onPress
 }) => {
   const getIconName = () => {
     switch (type.type) {
@@ -358,8 +358,8 @@ const CustomTransitionTypeButton: React.FC<CustomTransitionTypeButtonProps> = ({
         styles.transitionTypeButton,
         {
           backgroundColor: isSelected ? theme.primary : theme.surface,
-          borderColor: theme.border,
-        },
+          borderColor: theme.border
+        }
       ]}
       onPress={onPress}
     >
@@ -367,7 +367,7 @@ const CustomTransitionTypeButton: React.FC<CustomTransitionTypeButtonProps> = ({
       <Text
         style={[
           styles.transitionTypeTitle,
-          { color: isSelected ? theme.surface : theme.textPrimary },
+          { color: isSelected ? theme.surface : theme.textPrimary }
         ]}
       >
         {type.name}
@@ -375,7 +375,7 @@ const CustomTransitionTypeButton: React.FC<CustomTransitionTypeButtonProps> = ({
       <Text
         style={[
           styles.transitionTypeDescription,
-          { color: isSelected ? theme.surface : theme.textSecondary },
+          { color: isSelected ? theme.surface : theme.textSecondary }
         ]}
       >
         {type.description}
@@ -383,7 +383,7 @@ const CustomTransitionTypeButton: React.FC<CustomTransitionTypeButtonProps> = ({
       <Text
         style={[
           styles.transitionTypeDuration,
-          { color: isSelected ? theme.surface : theme.textSecondary },
+          { color: isSelected ? theme.surface : theme.textSecondary }
         ]}
       >
         {type.duration}ms
@@ -405,16 +405,16 @@ const ThemeButton: React.FC<ThemeButtonProps> = ({
   themeName,
   isSelected,
   currentTheme,
-  onPress,
+  onPress
 }) => {
   return (
     <TouchableOpacity
       style={[
         styles.themeButton,
         {
-          backgroundColor: isSelected ? currentTheme.primary + '20' : currentTheme.surface,
-          borderColor: isSelected ? currentTheme.primary : currentTheme.border,
-        },
+          backgroundColor: isSelected ? `${currentTheme.primary }20` : currentTheme.surface,
+          borderColor: isSelected ? currentTheme.primary : currentTheme.border
+        }
       ]}
       onPress={onPress}
     >
@@ -422,7 +422,7 @@ const ThemeButton: React.FC<ThemeButtonProps> = ({
       <Text
         style={[
           styles.themeButtonText,
-          { color: currentTheme.textPrimary },
+          { color: currentTheme.textPrimary }
         ]}
       >
         {themeName}
@@ -451,191 +451,191 @@ const DebugInfoRow: React.FC<DebugInfoRowProps> = ({ label, value, theme }) => (
 // MARK: - Styles
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  contentContainer: {
-    padding: 16,
-  },
-  section: {
-    marginBottom: 24,
-    borderRadius: 16,
-    padding: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
-  },
-  largeTitle: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 16,
-  },
   bodyText: {
     fontSize: 16,
-    textAlign: 'center',
     lineHeight: 24,
     marginBottom: 16,
-  },
-  themeIndicator: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  themeDot: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    marginRight: 12,
-  },
-  themeText: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  spacer: {
-    flex: 1,
-  },
-  durationText: {
-    fontSize: 12,
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: '600',
-    marginBottom: 16,
-  },
-  transitionGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-  transitionTypeButton: {
-    width: (screenWidth - 64) / 2,
-    paddingVertical: 16,
-    paddingHorizontal: 12,
-    borderRadius: 12,
-    borderWidth: 1,
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  transitionIcon: {
-    fontSize: 24,
-    marginBottom: 8,
-  },
-  transitionTypeTitle: {
-    fontSize: 14,
-    fontWeight: '600',
-    textAlign: 'center',
-    marginBottom: 4,
-  },
-  transitionTypeDescription: {
-    fontSize: 10,
-    textAlign: 'center',
-    marginBottom: 4,
-  },
-  transitionTypeDuration: {
-    fontSize: 10,
-  },
-  previewContainer: {
-    marginBottom: 16,
-  },
-  progressContainer: {
-    alignItems: 'center',
-  },
-  progressBar: {
-    width: '100%',
-    height: 4,
-    borderRadius: 2,
-    marginBottom: 8,
-  },
-  progressFill: {
-    height: '100%',
-    borderRadius: 2,
-  },
-  progressText: {
-    fontSize: 12,
-  },
-  themeGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-  themeButton: {
-    width: (screenWidth - 80) / 3,
-    paddingVertical: 12,
-    borderRadius: 8,
-    borderWidth: 2,
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  themeButtonIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    marginBottom: 8,
-  },
-  themeButtonText: {
-    fontSize: 12,
-    fontWeight: '500',
+    textAlign: 'center'
   },
   buttonRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 16,
-  },
-  primaryButton: {
-    flex: 1,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    marginRight: 8,
-  },
-  secondaryButton: {
-    flex: 1,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    borderWidth: 1,
-    marginLeft: 8,
+    marginBottom: 16
   },
   buttonText: {
     fontSize: 14,
     fontWeight: '600',
-    textAlign: 'center',
+    textAlign: 'center'
   },
-  statusContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 12,
-    borderRadius: 8,
+  container: {
+    flex: 1
   },
-  statusText: {
-    fontSize: 12,
-    marginLeft: 8,
+  contentContainer: {
+    padding: 16
   },
   debugContainer: {
-    gap: 8,
+    gap: 8
+  },
+  debugLabel: {
+    fontSize: 12
   },
   debugRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  debugLabel: {
-    fontSize: 12,
+    justifyContent: 'space-between'
   },
   debugValue: {
     fontSize: 12,
-    fontWeight: '500',
+    fontWeight: '500'
   },
+  durationText: {
+    fontSize: 12
+  },
+  largeTitle: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 16,
+    textAlign: 'center'
+  },
+  previewContainer: {
+    marginBottom: 16
+  },
+  primaryButton: {
+    borderRadius: 8,
+    flex: 1,
+    marginRight: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 12
+  },
+  progressBar: {
+    borderRadius: 2,
+    height: 4,
+    marginBottom: 8,
+    width: '100%'
+  },
+  progressContainer: {
+    alignItems: 'center'
+  },
+  progressFill: {
+    borderRadius: 2,
+    height: '100%'
+  },
+  progressText: {
+    fontSize: 12
+  },
+  secondaryButton: {
+    borderRadius: 8,
+    borderWidth: 1,
+    flex: 1,
+    marginLeft: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 12
+  },
+  section: {
+    borderRadius: 16,
+    elevation: 4,
+    marginBottom: 24,
+    padding: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: '600',
+    marginBottom: 16
+  },
+  spacer: {
+    flex: 1
+  },
+  statusContainer: {
+    alignItems: 'center',
+    borderRadius: 8,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: 12
+  },
+  statusText: {
+    fontSize: 12,
+    marginLeft: 8
+  },
+  themeButton: {
+    alignItems: 'center',
+    borderRadius: 8,
+    borderWidth: 2,
+    marginBottom: 16,
+    paddingVertical: 12,
+    width: (screenWidth - 80) / 3
+  },
+  themeButtonIcon: {
+    borderRadius: 20,
+    height: 40,
+    marginBottom: 8,
+    width: 40
+  },
+  themeButtonText: {
+    fontSize: 12,
+    fontWeight: '500'
+  },
+  themeDot: {
+    borderRadius: 10,
+    height: 20,
+    marginRight: 12,
+    width: 20
+  },
+  themeGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between'
+  },
+  themeIndicator: {
+    alignItems: 'center',
+    borderRadius: 12,
+    elevation: 2,
+    flexDirection: 'row',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4
+  },
+  themeText: {
+    fontSize: 16,
+    fontWeight: '600'
+  },
+  transitionGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between'
+  },
+  transitionIcon: {
+    fontSize: 24,
+    marginBottom: 8
+  },
+  transitionTypeButton: {
+    alignItems: 'center',
+    borderRadius: 12,
+    borderWidth: 1,
+    marginBottom: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 16,
+    width: (screenWidth - 64) / 2
+  },
+  transitionTypeDescription: {
+    fontSize: 10,
+    marginBottom: 4,
+    textAlign: 'center'
+  },
+  transitionTypeDuration: {
+    fontSize: 10
+  },
+  transitionTypeTitle: {
+    fontSize: 14,
+    fontWeight: '600',
+    marginBottom: 4,
+    textAlign: 'center'
+  }
 });
 
-export default CustomViewTransitionsExample; 
+export default CustomViewTransitionsExample;

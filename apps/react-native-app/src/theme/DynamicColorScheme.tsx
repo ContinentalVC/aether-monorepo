@@ -1,6 +1,6 @@
 /**
  * Dynamic Color Scheme for React Native
- * 
+ *
  * Dynamic color scheme support with automatic adaptation to system
  * appearance changes including light, dark, and high contrast modes.
  */
@@ -10,7 +10,7 @@ import {
   Appearance,
   ColorSchemeName,
   AccessibilityInfo,
-  Platform,
+  Platform
 } from 'react-native';
 
 // MARK: - Types and Interfaces
@@ -81,10 +81,10 @@ const hexToRgb = (hex: string): { r: number; g: number; b: number } | null => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
     ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
-      }
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    }
     : null;
 };
 
@@ -92,10 +92,10 @@ const hexToRgb = (hex: string): { r: number; g: number; b: number } | null => {
  * Convert RGB values to hex color
  */
 const rgbToHex = (r: number, g: number, b: number): string => {
-  return '#' + [r, g, b].map(x => {
+  return `#${ [r, g, b].map(x => {
     const hex = x.toString(16);
-    return hex.length === 1 ? '0' + hex : hex;
-  }).join('');
+    return hex.length === 1 ? `0${ hex}` : hex;
+  }).join('')}`;
 };
 
 /**
@@ -160,7 +160,7 @@ export const createDynamicColor = (
     light,
     dark,
     highContrastLight: adjustForHighContrast(light, highContrastMultiplier),
-    highContrastDark: adjustForHighContrast(dark, highContrastMultiplier),
+    highContrastDark: adjustForHighContrast(dark, highContrastMultiplier)
   };
 };
 
@@ -185,9 +185,9 @@ export const DEFAULT_DYNAMIC_THEMES: DynamicTheme[] = [
     successColor: createDynamicColor('#34C759', '#30D158'),
     warningColor: createDynamicColor('#FF9500', '#FF9F0A'),
     errorColor: createDynamicColor('#FF3B30', '#FF453A'),
-    infoColor: createDynamicColor('#007AFF', '#0A84FF'),
+    infoColor: createDynamicColor('#007AFF', '#0A84FF')
   },
-  
+
   // Sunset Theme
   {
     id: 'sunset',
@@ -206,9 +206,9 @@ export const DEFAULT_DYNAMIC_THEMES: DynamicTheme[] = [
     successColor: createDynamicColor('#10B981', '#34D399'),
     warningColor: createDynamicColor('#F59E0B', '#FBBF24'),
     errorColor: createDynamicColor('#EF4444', '#F87171'),
-    infoColor: createDynamicColor('#3B82F6', '#60A5FA'),
+    infoColor: createDynamicColor('#3B82F6', '#60A5FA')
   },
-  
+
   // Ocean Theme
   {
     id: 'ocean',
@@ -227,8 +227,8 @@ export const DEFAULT_DYNAMIC_THEMES: DynamicTheme[] = [
     successColor: createDynamicColor('#10B981', '#34D399'),
     warningColor: createDynamicColor('#F59E0B', '#FBBF24'),
     errorColor: createDynamicColor('#EF4444', '#F87171'),
-    infoColor: createDynamicColor('#3B82F6', '#60A5FA'),
-  },
+    infoColor: createDynamicColor('#3B82F6', '#60A5FA')
+  }
 ];
 
 // MARK: - Dynamic Theme Context
@@ -252,7 +252,7 @@ interface DynamicThemeProviderProps {
 
 export const DynamicThemeProvider: React.FC<DynamicThemeProviderProps> = ({
   children,
-  initialThemeId,
+  initialThemeId
 }) => {
   const [currentTheme, setCurrentTheme] = useState<DynamicTheme>(
     DEFAULT_DYNAMIC_THEMES.find(t => t.id === initialThemeId) || DEFAULT_DYNAMIC_THEMES[0]
@@ -372,7 +372,7 @@ export const DynamicThemeProvider: React.FC<DynamicThemeProviderProps> = ({
     getColor,
     getDynamicColor,
     exportTheme,
-    importTheme,
+    importTheme
   };
 
   return (
@@ -436,7 +436,7 @@ export const DynamicColorUtils = {
     highContrastMultiplier: number = 1.3
   ): DynamicColor => {
     return createDynamicColor(light, dark, highContrastMultiplier);
-  },
+  }
 };
 
 // MARK: - Theme Extensions
@@ -456,7 +456,7 @@ export const DynamicThemeUtils = {
     const requiredKeys: DynamicColorKey[] = [
       DynamicColorKey.PRIMARY,
       DynamicColorKey.BACKGROUND,
-      DynamicColorKey.TEXT_PRIMARY,
+      DynamicColorKey.TEXT_PRIMARY
     ];
 
     return requiredKeys.every(key => {
@@ -473,9 +473,9 @@ export const DynamicThemeUtils = {
       id: theme.id,
       name: theme.name,
       description: theme.description,
-      version: theme.version,
+      version: theme.version
     };
-  },
+  }
 };
 
 // MARK: - Export Default
@@ -487,5 +487,5 @@ export default {
   DynamicColorUtils,
   DynamicThemeUtils,
   DEFAULT_DYNAMIC_THEMES,
-  DynamicColorKey,
-}; 
+  DynamicColorKey
+};

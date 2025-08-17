@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
   ScrollView,
   TouchableOpacity,
   StyleSheet,
-  Alert,
+  Alert
 } from 'react-native';
 import { ThemeProvider, useTheme, getAvailableThemes } from '../theme/ThemeProvider';
 import { AetherGlassCard } from './AetherGlassCard.styled';
@@ -16,7 +16,7 @@ import { AetherGlassCard } from './AetherGlassCard.styled';
 const ThemeSwitcher: React.FC = () => {
   const { theme, themeName, switchTheme, toggleDarkMode, isDarkMode } = useTheme();
   const availableThemes = getAvailableThemes();
-  
+
   return (
     <AetherGlassCard
       title="Theme Controls"
@@ -39,8 +39,8 @@ const ThemeSwitcher: React.FC = () => {
                   styles.themeButton,
                   {
                     backgroundColor: themeKey === themeName ? theme.primary : theme.surface,
-                    borderColor: theme.border,
-                  },
+                    borderColor: theme.border
+                  }
                 ]}
                 onPress={() => switchTheme(themeKey)}
               >
@@ -48,8 +48,8 @@ const ThemeSwitcher: React.FC = () => {
                   style={[
                     styles.themeButtonText,
                     {
-                      color: themeKey === themeName ? 'white' : theme.textPrimary,
-                    },
+                      color: themeKey === themeName ? 'white' : theme.textPrimary
+                    }
                   ]}
                 >
                   {themeKey.charAt(0).toUpperCase() + themeKey.slice(1)}
@@ -58,7 +58,7 @@ const ThemeSwitcher: React.FC = () => {
             ))}
           </View>
         </View>
-        
+
         {/* Dark Mode Toggle */}
         <View>
           <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>
@@ -69,8 +69,8 @@ const ThemeSwitcher: React.FC = () => {
               styles.darkModeButton,
               {
                 backgroundColor: isDarkMode ? theme.primary : theme.surface,
-                borderColor: theme.border,
-              },
+                borderColor: theme.border
+              }
             ]}
             onPress={toggleDarkMode}
           >
@@ -78,15 +78,15 @@ const ThemeSwitcher: React.FC = () => {
               style={[
                 styles.darkModeButtonText,
                 {
-                  color: isDarkMode ? 'white' : theme.textPrimary,
-                },
+                  color: isDarkMode ? 'white' : theme.textPrimary
+                }
               ]}
             >
               {isDarkMode ? 'Dark Mode On' : 'Dark Mode Off'}
             </Text>
           </TouchableOpacity>
         </View>
-        
+
         {/* Current Theme Info */}
         <View>
           <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>
@@ -109,15 +109,15 @@ const ThemeSwitcher: React.FC = () => {
 /// Component showing different card variants and examples
 const CardExamples: React.FC = () => {
   const { theme } = useTheme();
-  
+
   const handleCardPress = (variant: string) => {
     Alert.alert('Card Pressed', `You pressed the ${variant} card!`);
   };
-  
+
   const handleActionPress = (action: string) => {
     Alert.alert('Action Pressed', `You pressed: ${action}`);
   };
-  
+
   return (
     <View style={{ gap: 16 }}>
       {/* Default Card */}
@@ -133,16 +133,16 @@ const CardExamples: React.FC = () => {
           {
             label: 'Learn More',
             onPress: () => handleActionPress('Learn More'),
-            type: 'primary',
+            type: 'primary'
           },
           {
             label: 'Dismiss',
             onPress: () => handleActionPress('Dismiss'),
-            type: 'outline',
-          },
+            type: 'outline'
+          }
         ]}
       />
-      
+
       {/* Elevated Card */}
       <AetherGlassCard
         title="Elevated Card"
@@ -157,16 +157,16 @@ const CardExamples: React.FC = () => {
           {
             label: 'Upgrade',
             onPress: () => handleActionPress('Upgrade'),
-            type: 'primary',
+            type: 'primary'
           },
           {
             label: 'Details',
             onPress: () => handleActionPress('Details'),
-            type: 'secondary',
-          },
+            type: 'secondary'
+          }
         ]}
       />
-      
+
       {/* Subtle Card */}
       <AetherGlassCard
         title="Subtle Card"
@@ -181,11 +181,11 @@ const CardExamples: React.FC = () => {
           {
             label: 'View',
             onPress: () => handleActionPress('View'),
-            type: 'outline',
-          },
+            type: 'outline'
+          }
         ]}
       />
-      
+
       {/* Small Card */}
       <AetherGlassCard
         title="Small Card"
@@ -194,7 +194,7 @@ const CardExamples: React.FC = () => {
         size="small"
         onPress={() => handleCardPress('small')}
       />
-      
+
       {/* Large Card with Custom Content */}
       <AetherGlassCard
         title="Large Card with Custom Content"
@@ -217,7 +217,7 @@ const CardExamples: React.FC = () => {
           </View>
         </View>
       </AetherGlassCard>
-      
+
       {/* Error Card */}
       <AetherGlassCard
         title="Error Card"
@@ -232,13 +232,13 @@ const CardExamples: React.FC = () => {
           {
             label: 'Retry',
             onPress: () => handleActionPress('Retry'),
-            type: 'primary',
+            type: 'primary'
           },
           {
             label: 'Report',
             onPress: () => handleActionPress('Report'),
-            type: 'outline',
-          },
+            type: 'outline'
+          }
         ]}
       />
     </View>
@@ -259,7 +259,7 @@ export const ThemeExample: React.FC = () => {
 /// Inner content component that uses the theme context
 const ThemeExampleContent: React.FC = () => {
   const { theme } = useTheme();
-  
+
   return (
     <ScrollView
       style={[styles.container, { backgroundColor: theme.background }]}
@@ -275,13 +275,13 @@ const ThemeExampleContent: React.FC = () => {
           Demonstrating styled-components ThemeProvider with AetherGlassCard
         </Text>
       </View>
-      
+
       {/* Theme Switcher */}
       <ThemeSwitcher />
-      
+
       {/* Card Examples */}
       <CardExamples />
-      
+
       {/* Footer */}
       <View style={styles.footer}>
         <Text style={[styles.footerText, { color: theme.textTertiary }]}>
@@ -295,97 +295,97 @@ const ThemeExampleContent: React.FC = () => {
 // MARK: - Styles
 
 const styles = StyleSheet.create({
+  colorPalette: {
+    borderRadius: 8,
+    borderWidth: 1,
+    flexDirection: 'row',
+    gap: 8,
+    padding: 8
+  },
+  colorSwatch: {
+    borderRadius: 12,
+    height: 24,
+    width: 24
+  },
   container: {
-    flex: 1,
+    flex: 1
   },
   contentContainer: {
-    padding: 16,
+    padding: 16
+  },
+  customContent: {
+    borderRadius: 8,
+    marginTop: 8,
+    padding: 16
+  },
+  customContentText: {
+    fontSize: 14,
+    lineHeight: 20,
+    marginBottom: 12
+  },
+  darkModeButton: {
+    alignItems: 'center',
+    borderRadius: 8,
+    borderWidth: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 12
+  },
+  darkModeButtonText: {
+    fontSize: 16,
+    fontWeight: '500'
+  },
+  footer: {
+    alignItems: 'center',
+    marginTop: 32
+  },
+  footerText: {
+    fontSize: 14,
+    fontStyle: 'italic',
+    textAlign: 'center'
   },
   header: {
-    marginBottom: 24,
     alignItems: 'center',
+    marginBottom: 24
+  },
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 8
+  },
+  subtitle: {
+    fontSize: 16,
+    lineHeight: 22,
+    textAlign: 'center'
+  },
+  themeButton: {
+    alignItems: 'center',
+    borderRadius: 8,
+    borderWidth: 1,
+    minWidth: 80,
+    paddingHorizontal: 16,
+    paddingVertical: 8
+  },
+  themeButtonText: {
+    fontSize: 14,
+    fontWeight: '500'
+  },
+  themeGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8
+  },
+  themeInfo: {
+    fontSize: 14,
+    marginBottom: 4
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 8,
-    textAlign: 'center',
-  },
-  subtitle: {
-    fontSize: 16,
-    textAlign: 'center',
-    lineHeight: 22,
-  },
-  footer: {
-    marginTop: 32,
-    alignItems: 'center',
-  },
-  footerText: {
-    fontSize: 14,
-    textAlign: 'center',
-    fontStyle: 'italic',
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 8,
-  },
-  themeGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-  },
-  themeButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 8,
-    borderWidth: 1,
-    minWidth: 80,
-    alignItems: 'center',
-  },
-  themeButtonText: {
-    fontSize: 14,
-    fontWeight: '500',
-  },
-  darkModeButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 8,
-    borderWidth: 1,
-    alignItems: 'center',
-  },
-  darkModeButtonText: {
-    fontSize: 16,
-    fontWeight: '500',
-  },
-  themeInfo: {
-    fontSize: 14,
-    marginBottom: 4,
-  },
-  customContent: {
-    padding: 16,
-    borderRadius: 8,
-    marginTop: 8,
-  },
-  customContentText: {
-    fontSize: 14,
-    lineHeight: 20,
-    marginBottom: 12,
-  },
-  colorPalette: {
-    flexDirection: 'row',
-    gap: 8,
-    borderWidth: 1,
-    borderRadius: 8,
-    padding: 8,
-  },
-  colorSwatch: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-  },
+    textAlign: 'center'
+  }
 });
 
 // MARK: - Type Exports
 
-// No additional type exports needed 
+// No additional type exports needed

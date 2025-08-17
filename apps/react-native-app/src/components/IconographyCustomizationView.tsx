@@ -6,7 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Alert,
+  Alert
 } from 'react-native';
 import { useIconography } from './IconographyManager';
 import { useEnhancedTheme } from '../theme/EnhancedThemeProvider';
@@ -37,7 +37,7 @@ const IconographyCustomizationView: React.FC<{ onClose: () => void }> = ({ onClo
     availableColorTreatments,
     availablePositionings,
     availableAnimations,
-    availableCategories,
+    availableCategories
   } = useIconography();
 
   const [selectedTab, setSelectedTab] = useState(0);
@@ -107,7 +107,7 @@ const IconStyleCustomizationView: React.FC = () => {
     availableSizes,
     availableColorTreatments,
     availablePositionings,
-    availableAnimations,
+    availableAnimations
   } = useIconography();
 
   return (
@@ -229,7 +229,7 @@ const IconBrowserView: React.FC = () => {
     getIconsByCategory,
     searchIcons,
     availableCategories,
-    getIcon,
+    getIcon
   } = useIconography();
 
   const [selectedCategory, setSelectedCategory] = useState(availableCategories[0]);
@@ -405,7 +405,7 @@ const IconPreviewView: React.FC = () => {
 
 const DetailRow: React.FC<{ label: string; value: string }> = ({ label, value }) => {
   const { theme } = useEnhancedTheme();
-  
+
   return (
     <DetailRowContainer>
       <DetailLabel>{label}</DetailLabel>
@@ -420,7 +420,7 @@ const FamilyCard: React.FC<{
   onPress: () => void;
 }> = ({ family, isSelected, onPress }) => {
   const { theme } = useEnhancedTheme();
-  
+
   return (
     <FamilyCardContainer isSelected={isSelected} onPress={onPress}>
       <FamilyIcon>★</FamilyIcon>
@@ -435,7 +435,7 @@ const WeightRow: React.FC<{
   onPress: () => void;
 }> = ({ weight, isSelected, onPress }) => {
   const { theme } = useEnhancedTheme();
-  
+
   return (
     <WeightRowContainer isSelected={isSelected} onPress={onPress}>
       <WeightIcon>★</WeightIcon>
@@ -454,7 +454,7 @@ const SizeRow: React.FC<{
   onPress: () => void;
 }> = ({ size, isSelected, onPress }) => {
   const { theme } = useEnhancedTheme();
-  
+
   return (
     <SizeRowContainer isSelected={isSelected} onPress={onPress}>
       <SizeIcon size={getIconSizeValue(size as any)}>★</SizeIcon>
@@ -473,7 +473,7 @@ const ColorTreatmentCard: React.FC<{
   onPress: () => void;
 }> = ({ treatment, isSelected, onPress }) => {
   const { theme } = useEnhancedTheme();
-  
+
   return (
     <ColorTreatmentCardContainer isSelected={isSelected} onPress={onPress}>
       <ColorTreatmentIcon>★</ColorTreatmentIcon>
@@ -489,7 +489,7 @@ const PositioningRow: React.FC<{
   onPress: () => void;
 }> = ({ positioning, isSelected, onPress }) => {
   const { theme } = useEnhancedTheme();
-  
+
   return (
     <PositioningRowContainer isSelected={isSelected} onPress={onPress}>
       <PositioningIcon>★</PositioningIcon>
@@ -508,7 +508,7 @@ const AnimationRow: React.FC<{
   onPress: () => void;
 }> = ({ animation, isSelected, onPress }) => {
   const { theme } = useEnhancedTheme();
-  
+
   return (
     <AnimationRowContainer isSelected={isSelected} onPress={onPress}>
       <AnimationIcon>★</AnimationIcon>
@@ -527,7 +527,7 @@ const CategoryButton: React.FC<{
   onPress: () => void;
 }> = ({ category, isSelected, onPress }) => {
   const { theme } = useEnhancedTheme();
-  
+
   return (
     <CategoryButtonContainer isSelected={isSelected} onPress={onPress}>
       <CategoryButtonText isSelected={isSelected}>{category}</CategoryButtonText>
@@ -538,7 +538,7 @@ const CategoryButton: React.FC<{
 const IconGridItem: React.FC<{ icon: any }> = ({ icon }) => {
   const { theme } = useEnhancedTheme();
   const { getIcon } = useIconography();
-  
+
   return (
     <IconGridItemContainer>
       <IconGridIcon>{getIcon(icon.name)}</IconGridIcon>
@@ -549,10 +549,10 @@ const IconGridItem: React.FC<{ icon: any }> = ({ icon }) => {
 
 const MappingRow: React.FC<{ originalName: string; mappedName: string }> = ({
   originalName,
-  mappedName,
+  mappedName
 }) => {
   const { theme } = useEnhancedTheme();
-  
+
   return (
     <MappingRowContainer>
       <MappingContent>
@@ -724,7 +724,7 @@ const WeightRowContainer = styled.TouchableOpacity<{ isSelected: boolean }>`
   align-items: center;
   padding: 12px;
   background-color: ${({ theme, isSelected }) =>
-    isSelected ? theme.primary + '20' : theme.surface};
+    isSelected ? `${theme.primary }20` : theme.surface};
   border-radius: 8px;
 `;
 
@@ -763,7 +763,7 @@ const SizeRowContainer = styled.TouchableOpacity<{ isSelected: boolean }>`
   align-items: center;
   padding: 12px;
   background-color: ${({ theme, isSelected }) =>
-    isSelected ? theme.primary + '20' : theme.surface};
+    isSelected ? `${theme.primary }20` : theme.surface};
   border-radius: 8px;
 `;
 
@@ -804,7 +804,7 @@ const ColorTreatmentCardContainer = styled.TouchableOpacity<{ isSelected: boolea
   align-items: center;
   padding: 12px;
   background-color: ${({ theme, isSelected }) =>
-    isSelected ? theme.primary + '20' : theme.surface};
+    isSelected ? `${theme.primary }20` : theme.surface};
   border-radius: 8px;
   border: 1px solid ${({ theme, isSelected }) =>
     isSelected ? theme.primary : theme.border};
@@ -840,7 +840,7 @@ const PositioningRowContainer = styled.TouchableOpacity<{ isSelected: boolean }>
   align-items: center;
   padding: 12px;
   background-color: ${({ theme, isSelected }) =>
-    isSelected ? theme.primary + '20' : theme.surface};
+    isSelected ? `${theme.primary }20` : theme.surface};
   border-radius: 8px;
 `;
 
@@ -879,7 +879,7 @@ const AnimationRowContainer = styled.TouchableOpacity<{ isSelected: boolean }>`
   align-items: center;
   padding: 12px;
   background-color: ${({ theme, isSelected }) =>
-    isSelected ? theme.primary + '20' : theme.surface};
+    isSelected ? `${theme.primary }20` : theme.surface};
   border-radius: 8px;
 `;
 
@@ -1149,8 +1149,8 @@ const getIconAnimationDescription = (animation: string): string => {
 
 const styles = StyleSheet.create({
   scrollView: {
-    flex: 1,
-  },
+    flex: 1
+  }
 });
 
-export default IconographyCustomizationView; 
+export default IconographyCustomizationView;

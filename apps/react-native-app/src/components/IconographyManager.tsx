@@ -1,5 +1,5 @@
 import React, { createContext, useContext, ReactNode, useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import { useEnhancedTheme } from '../theme/EnhancedThemeProvider';
 
 // MARK: - Icon Style System
@@ -7,19 +7,19 @@ import { useEnhancedTheme } from '../theme/EnhancedThemeProvider';
 export interface IconStyle {
   // Icon family/set
   family: IconFamily;
-  
+
   // Icon weight/style
   weight: IconWeight;
-  
+
   // Icon size scale
   size: IconSize;
-  
+
   // Icon color treatment
   colorTreatment: IconColorTreatment;
-  
+
   // Icon positioning and alignment
   positioning: IconPositioning;
-  
+
   // Animation style for interactive icons
   animation: IconAnimation;
 }
@@ -41,29 +41,29 @@ export const getIconFamilyDescription = (family: IconFamily): string => {
     case IconFamily.SF_SYMBOLS:
       return "Apple's system icons with consistent design language";
     case IconFamily.CUSTOM:
-      return "Custom icon set with unique visual style";
+      return 'Custom icon set with unique visual style';
     case IconFamily.OUTLINED:
-      return "Clean outlined icons with minimal weight";
+      return 'Clean outlined icons with minimal weight';
     case IconFamily.FILLED:
-      return "Solid filled icons with strong presence";
+      return 'Solid filled icons with strong presence';
     case IconFamily.ROUNDED:
-      return "Soft rounded corners for friendly feel";
+      return 'Soft rounded corners for friendly feel';
     case IconFamily.SHARP:
-      return "Sharp geometric shapes for modern look";
+      return 'Sharp geometric shapes for modern look';
     case IconFamily.TWO_TONE:
-      return "Two-color icons for visual interest";
+      return 'Two-color icons for visual interest';
   }
 };
 
 export const getIconFamilyPreview = (family: IconFamily): string => {
   switch (family) {
-    case IconFamily.SF_SYMBOLS: return "★";
-    case IconFamily.CUSTOM: return "★";
-    case IconFamily.OUTLINED: return "☆";
-    case IconFamily.FILLED: return "★";
-    case IconFamily.ROUNDED: return "●";
-    case IconFamily.SHARP: return "◆";
-    case IconFamily.TWO_TONE: return "◆";
+    case IconFamily.SF_SYMBOLS: return '★';
+    case IconFamily.CUSTOM: return '★';
+    case IconFamily.OUTLINED: return '☆';
+    case IconFamily.FILLED: return '★';
+    case IconFamily.ROUNDED: return '●';
+    case IconFamily.SHARP: return '◆';
+    case IconFamily.TWO_TONE: return '◆';
   }
 };
 
@@ -83,15 +83,15 @@ export enum IconWeight {
 
 export const getIconWeightDescription = (weight: IconWeight): string => {
   switch (weight) {
-    case IconWeight.ULTRA_LIGHT: return "Very thin lines for subtle appearance";
-    case IconWeight.THIN: return "Thin lines for elegant look";
-    case IconWeight.LIGHT: return "Light weight for clean design";
-    case IconWeight.REGULAR: return "Standard weight for most use cases";
-    case IconWeight.MEDIUM: return "Medium weight for emphasis";
-    case IconWeight.SEMIBOLD: return "Semi-bold for strong presence";
-    case IconWeight.BOLD: return "Bold weight for high emphasis";
-    case IconWeight.HEAVY: return "Heavy weight for maximum impact";
-    case IconWeight.BLACK: return "Black weight for strongest presence";
+    case IconWeight.ULTRA_LIGHT: return 'Very thin lines for subtle appearance';
+    case IconWeight.THIN: return 'Thin lines for elegant look';
+    case IconWeight.LIGHT: return 'Light weight for clean design';
+    case IconWeight.REGULAR: return 'Standard weight for most use cases';
+    case IconWeight.MEDIUM: return 'Medium weight for emphasis';
+    case IconWeight.SEMIBOLD: return 'Semi-bold for strong presence';
+    case IconWeight.BOLD: return 'Bold weight for high emphasis';
+    case IconWeight.HEAVY: return 'Heavy weight for maximum impact';
+    case IconWeight.BLACK: return 'Black weight for strongest presence';
   }
 };
 
@@ -119,12 +119,12 @@ export const getIconSizeValue = (size: IconSize): number => {
 
 export const getIconSizeDescription = (size: IconSize): string => {
   switch (size) {
-    case IconSize.TINY: return "12pt - For very small spaces";
-    case IconSize.SMALL: return "16pt - For compact interfaces";
-    case IconSize.MEDIUM: return "20pt - Standard size for most uses";
-    case IconSize.LARGE: return "24pt - For emphasis and buttons";
-    case IconSize.EXTRA_LARGE: return "32pt - For prominent features";
-    case IconSize.HUGE: return "48pt - For hero sections";
+    case IconSize.TINY: return '12pt - For very small spaces';
+    case IconSize.SMALL: return '16pt - For compact interfaces';
+    case IconSize.MEDIUM: return '20pt - Standard size for most uses';
+    case IconSize.LARGE: return '24pt - For emphasis and buttons';
+    case IconSize.EXTRA_LARGE: return '32pt - For prominent features';
+    case IconSize.HUGE: return '48pt - For hero sections';
   }
 };
 
@@ -141,15 +141,15 @@ export enum IconColorTreatment {
 export const getIconColorTreatmentDescription = (treatment: IconColorTreatment): string => {
   switch (treatment) {
     case IconColorTreatment.THEME:
-      return "Uses theme colors for consistency";
+      return 'Uses theme colors for consistency';
     case IconColorTreatment.MONOCHROME:
-      return "Single color for minimal look";
+      return 'Single color for minimal look';
     case IconColorTreatment.ACCENT:
-      return "Uses accent colors for emphasis";
+      return 'Uses accent colors for emphasis';
     case IconColorTreatment.SEMANTIC:
-      return "Colors based on meaning (success, warning, etc.)";
+      return 'Colors based on meaning (success, warning, etc.)';
     case IconColorTreatment.CUSTOM:
-      return "Custom color palette";
+      return 'Custom color palette';
   }
 };
 
@@ -165,11 +165,11 @@ export enum IconPositioning {
 
 export const getIconPositioningDescription = (positioning: IconPositioning): string => {
   switch (positioning) {
-    case IconPositioning.CENTER: return "Centered alignment";
-    case IconPositioning.LEADING: return "Left-aligned positioning";
-    case IconPositioning.TRAILING: return "Right-aligned positioning";
-    case IconPositioning.TOP: return "Top-aligned positioning";
-    case IconPositioning.BOTTOM: return "Bottom-aligned positioning";
+    case IconPositioning.CENTER: return 'Centered alignment';
+    case IconPositioning.LEADING: return 'Left-aligned positioning';
+    case IconPositioning.TRAILING: return 'Right-aligned positioning';
+    case IconPositioning.TOP: return 'Top-aligned positioning';
+    case IconPositioning.BOTTOM: return 'Bottom-aligned positioning';
   }
 };
 
@@ -186,12 +186,12 @@ export enum IconAnimation {
 
 export const getIconAnimationDescription = (animation: IconAnimation): string => {
   switch (animation) {
-    case IconAnimation.NONE: return "No animation";
-    case IconAnimation.SUBTLE: return "Gentle hover effects";
-    case IconAnimation.BOUNCE: return "Bouncy interaction feedback";
-    case IconAnimation.PULSE: return "Pulsing attention effect";
-    case IconAnimation.ROTATE: return "Rotation on interaction";
-    case IconAnimation.SCALE: return "Scale transformation";
+    case IconAnimation.NONE: return 'No animation';
+    case IconAnimation.SUBTLE: return 'Gentle hover effects';
+    case IconAnimation.BOUNCE: return 'Bouncy interaction feedback';
+    case IconAnimation.PULSE: return 'Pulsing attention effect';
+    case IconAnimation.ROTATE: return 'Rotation on interaction';
+    case IconAnimation.SCALE: return 'Scale transformation';
   }
 };
 
@@ -211,15 +211,15 @@ export enum IconCategory {
 
 export const getIconCategoryDescription = (category: IconCategory): string => {
   switch (category) {
-    case IconCategory.NAVIGATION: return "Navigation and wayfinding icons";
-    case IconCategory.ACTIONS: return "Action and interaction icons";
-    case IconCategory.STATUS: return "Status and state indicators";
-    case IconCategory.MEDIA: return "Media and content icons";
-    case IconCategory.COMMUNICATION: return "Communication and messaging";
-    case IconCategory.COMMERCE: return "Shopping and commerce";
-    case IconCategory.SOCIAL: return "Social media and sharing";
-    case IconCategory.SYSTEM: return "System and settings";
-    case IconCategory.CUSTOM: return "Custom application icons";
+    case IconCategory.NAVIGATION: return 'Navigation and wayfinding icons';
+    case IconCategory.ACTIONS: return 'Action and interaction icons';
+    case IconCategory.STATUS: return 'Status and state indicators';
+    case IconCategory.MEDIA: return 'Media and content icons';
+    case IconCategory.COMMUNICATION: return 'Communication and messaging';
+    case IconCategory.COMMERCE: return 'Shopping and commerce';
+    case IconCategory.SOCIAL: return 'Social media and sharing';
+    case IconCategory.SYSTEM: return 'System and settings';
+    case IconCategory.CUSTOM: return 'Custom application icons';
   }
 };
 
@@ -516,11 +516,11 @@ export const defaultIcons: IconDefinition[] = [
 interface IconographyContextType {
   // Current icon style
   currentStyle: IconStyle;
-  
+
   // Custom icons and mappings
   customIcons: Record<string, IconDefinition>;
   iconMappings: Record<string, string>;
-  
+
   // Style management
   updateIconStyle: (style: Partial<IconStyle>) => void;
   setIconFamily: (family: IconFamily) => void;
@@ -529,21 +529,21 @@ interface IconographyContextType {
   setIconColorTreatment: (treatment: IconColorTreatment) => void;
   setIconPositioning: (positioning: IconPositioning) => void;
   setIconAnimation: (animation: IconAnimation) => void;
-  
+
   // Icon management
   addCustomIcon: (icon: IconDefinition) => void;
   removeCustomIcon: (name: string) => void;
   mapIcon: (originalName: string, mappedName: string) => void;
-  
+
   // Icon retrieval
   getIcon: (name: string, style?: Partial<IconStyle>) => ReactNode;
   getIconColor: (style?: Partial<IconStyle>) => string;
   getIconSize: (style?: Partial<IconStyle>) => number;
-  
+
   // Icon search and filtering
   getIconsByCategory: (category: IconCategory) => IconDefinition[];
   searchIcons: (query: string) => IconDefinition[];
-  
+
   // Available options
   availableFamilies: IconFamily[];
   availableWeights: IconWeight[];
@@ -563,10 +563,10 @@ interface IconographyProviderProps {
 
 export const IconographyProvider: React.FC<IconographyProviderProps> = ({
   children,
-  initialStyle = {},
+  initialStyle = {}
 }) => {
   const { theme } = useEnhancedTheme();
-  
+
   const [currentStyle, setCurrentStyle] = useState<IconStyle>({
     family: IconFamily.SF_SYMBOLS,
     weight: IconWeight.REGULAR,
@@ -574,9 +574,9 @@ export const IconographyProvider: React.FC<IconographyProviderProps> = ({
     colorTreatment: IconColorTreatment.THEME,
     positioning: IconPositioning.CENTER,
     animation: IconAnimation.SUBTLE,
-    ...initialStyle,
+    ...initialStyle
   });
-  
+
   const [customIcons, setCustomIcons] = useState<Record<string, IconDefinition>>({});
   const [iconMappings, setIconMappings] = useState<Record<string, string>>({});
 
@@ -658,7 +658,7 @@ export const IconographyProvider: React.FC<IconographyProviderProps> = ({
 
   const getIconColor = (style?: Partial<IconStyle>): string => {
     const iconStyle = style ? { ...currentStyle, ...style } : currentStyle;
-    
+
     switch (iconStyle.colorTreatment) {
       case IconColorTreatment.THEME:
         return theme.textPrimary;
@@ -681,27 +681,27 @@ export const IconographyProvider: React.FC<IconographyProviderProps> = ({
   const getIcon = (name: string, style?: Partial<IconStyle>): ReactNode => {
     const iconStyle = style ? { ...currentStyle, ...style } : currentStyle;
     const iconName = iconMappings[name] || name;
-    
+
     // Find the icon definition
     const allIcons = [...defaultIcons, ...Object.values(customIcons)];
     const iconDef = allIcons.find(icon => icon.name === iconName);
-    
+
     if (!iconDef) {
       return null;
     }
 
     const color = getIconColor(iconStyle);
     const size = getIconSize(iconStyle);
-    
+
     return (
       <Text
         style={[
           styles.icon,
           {
             fontSize: size,
-            color: color,
-            fontWeight: getFontWeight(iconStyle.weight) as any,
-          },
+            color,
+            fontWeight: getFontWeight(iconStyle.weight) as any
+          }
         ]}
         accessibilityLabel={iconDef.accessibilityLabel}
       >
@@ -717,7 +717,7 @@ export const IconographyProvider: React.FC<IconographyProviderProps> = ({
 
   const searchIcons = (query: string): IconDefinition[] => {
     const allIcons = [...defaultIcons, ...Object.values(customIcons)];
-    return allIcons.filter(icon => 
+    return allIcons.filter(icon =>
       icon.name.toLowerCase().includes(query.toLowerCase()) ||
       icon.description.toLowerCase().includes(query.toLowerCase()) ||
       icon.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()))
@@ -763,7 +763,7 @@ export const IconographyProvider: React.FC<IconographyProviderProps> = ({
     availableColorTreatments: Object.values(IconColorTreatment),
     availablePositionings: Object.values(IconPositioning),
     availableAnimations: Object.values(IconAnimation),
-    availableCategories: Object.values(IconCategory),
+    availableCategories: Object.values(IconCategory)
   };
 
   return (
@@ -800,8 +800,8 @@ const saveIconStyle = async (style: IconStyle): Promise<void> => {
 
 const styles = StyleSheet.create({
   icon: {
-    textAlign: 'center',
-  },
+    textAlign: 'center'
+  }
 });
 
-export default IconographyProvider; 
+export default IconographyProvider;

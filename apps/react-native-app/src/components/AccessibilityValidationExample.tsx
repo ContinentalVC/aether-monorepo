@@ -1,9 +1,9 @@
 /**
  * AccessibilityValidationExample.tsx
- * 
+ *
  * Comprehensive WCAG AA accessibility validation example
  * Demonstrates automated contrast checking, color blindness simulation, and compliance reporting
- * 
+ *
  * @author AI Assistant
  * @copyright 2025 Aether
  */
@@ -16,20 +16,18 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
-  ActivityIndicator,
-  Dimensions
+  ActivityIndicator
 } from 'react-native';
-import AccessibilityValidator, { 
-  AccessibilityValidationResult, 
-  AccessibilityError, 
+import AccessibilityValidator, {
+  AccessibilityValidationResult,
   ContrastTest,
   WCAGLevel,
   ColorBlindnessType,
   ColorUtilities
 } from '../theme/AccessibilityValidator';
-import { ThemeSchema, ThemeCategory, Platform as ThemePlatform } from '../theme/ThemeSchema';
+import { ThemeSchema, ThemeCategory } from '../theme/ThemeSchema';
 
-const { width } = Dimensions.get('window');
+
 
 // MARK: - Sample Themes for Testing
 
@@ -264,7 +262,7 @@ const sampleThemes: Record<string, ThemeSchema> = {
       custom: {}
     }
   },
-  
+
   wcagNonCompliant: {
     id: 'wcag-non-compliant',
     metadata: {
@@ -495,7 +493,7 @@ const sampleThemes: Record<string, ThemeSchema> = {
       custom: {}
     }
   },
-  
+
   colorBlindnessIssues: {
     id: 'color-blindness-issues',
     metadata: {
@@ -741,19 +739,19 @@ const AccessibilityValidationExample: React.FC = () => {
 
   const handleValidation = async () => {
     setIsValidating(true);
-    
+
     try {
       const validator = new AccessibilityValidator(selectedWCAGLevel);
       const theme = sampleThemes[selectedTheme];
       const result = await validator.validateAccessibility(theme);
       setValidationResult(result);
-      
+
       // Show alert with summary
       const status = result.isValid ? '✅ WCAG Compliant' : '❌ Non-Compliant';
       const errorCount = result.errors.length;
       const passedTests = result.passedTests;
       const totalTests = result.totalTests;
-      
+
       Alert.alert(
         'WCAG Validation Complete',
         `${status}\n\nWCAG Level: ${result.wcagLevel}\nContrast Tests: ${passedTests}/${totalTests} Passed\nAccessibility Score: ${result.accessibilityScore.toFixed(1)}%\nErrors: ${errorCount}`
@@ -779,19 +777,18 @@ const AccessibilityValidationExample: React.FC = () => {
         <Text style={styles.simulationSubtitle}>
           How colors appear to users with different types of color blindness
         </Text>
-        
+
         {Object.values(ColorBlindnessType).map(blindnessType => (
           <View key={blindnessType} style={styles.simulationSection}>
             <Text style={styles.blindnessType}>{blindnessType}</Text>
             <Text style={styles.blindnessDescription}>
               {getBlindnessDescription(blindnessType)}
             </Text>
-            
+
             <View style={styles.colorPairsContainer}>
-              {colorPairs.slice(0, 3).map(([color1, color2], index) => {
+              {colorPairs.slice(0, 3).map(([color1, _color2], index) => {
                 const simulated1 = ColorUtilities.simulateColorBlindness(color1, blindnessType);
-                const simulated2 = ColorUtilities.simulateColorBlindness(color2, blindnessType);
-                
+
                 return (
                   <View key={index} style={styles.colorPairRow}>
                     <View style={styles.colorPair}>
@@ -878,7 +875,7 @@ const AccessibilityValidationExample: React.FC = () => {
           </Text>
         </View>
       </View>
-      
+
       <View style={styles.testDetails}>
         <View style={styles.colorPreview}>
           <View style={[styles.colorSwatch, { backgroundColor: test.foreground }]} />
@@ -890,7 +887,7 @@ const AccessibilityValidationExample: React.FC = () => {
           <Text style={styles.colorCode}>{test.background}</Text>
         </View>
       </View>
-      
+
       <View style={styles.contrastRatio}>
         <Text style={styles.ratioText}>
           Contrast Ratio: {test.contrastRatio.toFixed(2)}:1
@@ -899,7 +896,7 @@ const AccessibilityValidationExample: React.FC = () => {
           Required: {test.requiredRatio}:1
         </Text>
       </View>
-      
+
       {!test.passed && (
         <View style={styles.failureIndicator}>
           <Text style={styles.failureText}>
@@ -1001,7 +998,7 @@ const AccessibilityValidationExample: React.FC = () => {
 
   const generateColorPairs = (colors: any): [string, string][] => {
     const colorArray: string[] = [];
-    
+
     // Extract light colors from the nested structure
     if (colors.primary?.light) colorArray.push(colors.primary.light);
     if (colors.secondary?.light) colorArray.push(colors.secondary.light);
@@ -1013,15 +1010,15 @@ const AccessibilityValidationExample: React.FC = () => {
     if (colors.semantic?.success?.light) colorArray.push(colors.semantic.success.light);
     if (colors.semantic?.error?.light) colorArray.push(colors.semantic.error.light);
     if (colors.semantic?.warning?.light) colorArray.push(colors.semantic.warning.light);
-    
+
     const pairs: [string, string][] = [];
-    
+
     for (let i = 0; i < colorArray.length; i++) {
       for (let j = i + 1; j < colorArray.length; j++) {
         pairs.push([colorArray[i], colorArray[j]]);
       }
     }
-    
+
     return pairs;
   };
 
@@ -1075,439 +1072,439 @@ const AccessibilityValidationExample: React.FC = () => {
 // MARK: - Styles
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5F5F5',
-    padding: 16
-  },
-  
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#1A1A1A',
-    marginBottom: 8
-  },
-  
-  subtitle: {
-    fontSize: 16,
+  arrow: {
     color: '#666666',
-    marginBottom: 24
+    fontSize: 16
   },
-  
-  levelSelector: {
-    marginBottom: 20
-  },
-  
-  levelTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#1A1A1A',
+
+  blindnessDescription: {
+    color: '#666666',
+    fontSize: 12,
     marginBottom: 12
   },
-  
-  levelButtons: {
+
+  blindnessType: {
+    color: '#1A1A1A',
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 4
+  },
+
+  colorCode: {
+    color: '#666666',
+    fontFamily: 'monospace',
+    fontSize: 10
+  },
+
+  colorLabel: {
+    color: '#666666',
+    fontSize: 10,
+    marginTop: 4
+  },
+
+  colorPair: {
+    alignItems: 'center'
+  },
+
+  colorPairRow: {
+    alignItems: 'center',
     flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+
+  colorPairsContainer: {
     gap: 8
   },
-  
-  levelButton: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#E0E0E0',
-    alignItems: 'center'
-  },
-  
-  levelButtonActive: {
-    backgroundColor: '#2563EB',
-    borderColor: '#2563EB'
-  },
-  
-  levelButtonText: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#1A1A1A'
-  },
-  
-  levelButtonTextActive: {
-    color: '#FFFFFF'
-  },
-  
-  themeSelector: {
-    marginBottom: 20
-  },
-  
-  themeTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#1A1A1A',
-    marginBottom: 12
-  },
-  
-  themeButtons: {
-    gap: 8
-  },
-  
-  themeButton: {
-    backgroundColor: '#FFFFFF',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#E0E0E0',
-    alignItems: 'center'
-  },
-  
-  themeButtonActive: {
-    backgroundColor: '#2563EB',
-    borderColor: '#2563EB'
-  },
-  
-  themeButtonText: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#1A1A1A'
-  },
-  
-  themeButtonTextActive: {
-    color: '#FFFFFF'
-  },
-  
-  validateButton: {
-    backgroundColor: '#2563EB',
-    paddingVertical: 16,
-    paddingHorizontal: 24,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginBottom: 24
-  },
-  
-  validateButtonDisabled: {
-    backgroundColor: '#B0B0B0'
-  },
-  
-  validateButtonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '600'
-  },
-  
-  resultContainer: {
-    flex: 1
-  },
-  
-  statusCard: {
-    padding: 16,
-    borderRadius: 8,
-    marginBottom: 16
-  },
-  
-  statusHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  
-  statusText: {
-    fontSize: 18,
-    fontWeight: '600'
-  },
-  
-  wcagLevel: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#666666'
-  },
-  
-  scoreContainer: {
-    backgroundColor: '#FFFFFF',
-    padding: 20,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginBottom: 16
-  },
-  
-  scoreTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#1A1A1A',
-    marginBottom: 12
-  },
-  
-  scoreCircle: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    borderWidth: 4,
-    borderColor: '#2563EB',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 8
-  },
-  
-  scoreValue: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#2563EB'
-  },
-  
-  scoreLabel: {
-    fontSize: 12,
-    color: '#666666'
-  },
-  
-  scoreDescription: {
-    fontSize: 12,
-    color: '#666666',
-    textAlign: 'center'
-  },
-  
-  testsContainer: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 8,
-    marginBottom: 16,
-    overflow: 'hidden'
-  },
-  
-  testsHeader: {
-    backgroundColor: '#F8FAFC',
-    padding: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#E2E8F0'
-  },
-  
-  testsTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#1A1A1A'
-  },
-  
-  contrastTest: {
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#F1F5F9'
-  },
-  
-  testHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 12
-  },
-  
-  testElementType: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#1A1A1A'
-  },
-  
-  testStatus: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 4
-  },
-  
-  testStatusText: {
-    fontSize: 12,
-    fontWeight: 'bold',
-    color: '#FFFFFF'
-  },
-  
-  testDetails: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 8
-  },
-  
+
   colorPreview: {
     alignItems: 'center'
   },
-  
+
   colorSwatch: {
-    width: 24,
-    height: 24,
     borderRadius: 4,
-    marginBottom: 4
+    height: 24,
+    marginBottom: 4,
+    width: 24
   },
-  
-  colorCode: {
-    fontSize: 10,
-    color: '#666666',
-    fontFamily: 'monospace'
+
+  container: {
+    backgroundColor: '#F5F5F5',
+    flex: 1,
+    padding: 16
   },
-  
-  onText: {
-    fontSize: 12,
-    color: '#666666',
-    marginHorizontal: 8
-  },
-  
+
   contrastRatio: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 8
   },
-  
-  ratioText: {
+
+  contrastTest: {
+    borderBottomColor: '#F1F5F9',
+    borderBottomWidth: 1,
+    padding: 16
+  },
+
+  errorContent: {
+    flex: 1
+  },
+
+  errorIcon: {
+    alignItems: 'center',
+    backgroundColor: '#EF4444',
+    borderRadius: 12,
+    height: 24,
+    justifyContent: 'center',
+    marginRight: 12,
+    width: 24
+  },
+
+  errorIconText: {
+    color: '#FFFFFF',
     fontSize: 12,
-    fontWeight: '500',
-    color: '#1A1A1A'
+    fontWeight: 'bold'
   },
-  
-  requiredText: {
+
+  errorItem: {
+    borderBottomColor: '#FECACA',
+    borderBottomWidth: 1,
+    flexDirection: 'row',
+    padding: 12
+  },
+
+  errorMessage: {
+    color: '#1A1A1A',
+    fontSize: 14,
+    marginBottom: 4
+  },
+
+  errorSuggestion: {
+    color: '#666666',
     fontSize: 12,
-    color: '#666666'
+    fontStyle: 'italic'
   },
-  
-  failureIndicator: {
-    backgroundColor: '#FEF2F2',
-    padding: 8,
-    borderRadius: 4
-  },
-  
-  failureText: {
-    fontSize: 12,
-    color: '#DC2626',
-    fontWeight: '500'
-  },
-  
+
   errorsContainer: {
     backgroundColor: '#FEF2F2',
     borderRadius: 8,
     marginBottom: 16,
     overflow: 'hidden'
   },
-  
+
   errorsHeader: {
     backgroundColor: '#FEE2E2',
-    padding: 12,
+    borderBottomColor: '#FECACA',
     borderBottomWidth: 1,
-    borderBottomColor: '#FECACA'
+    padding: 12
   },
-  
+
   errorsTitle: {
+    color: '#991B1B',
+    fontSize: 16,
+    fontWeight: '600'
+  },
+
+  failureIndicator: {
+    backgroundColor: '#FEF2F2',
+    borderRadius: 4,
+    padding: 8
+  },
+
+  failureText: {
+    color: '#DC2626',
+    fontSize: 12,
+    fontWeight: '500'
+  },
+
+  levelButton: {
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    borderColor: '#E0E0E0',
+    borderRadius: 8,
+    borderWidth: 1,
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 12
+  },
+
+  levelButtonActive: {
+    backgroundColor: '#2563EB',
+    borderColor: '#2563EB'
+  },
+
+  levelButtonText: {
+    color: '#1A1A1A',
+    fontSize: 14,
+    fontWeight: '500'
+  },
+
+  levelButtonTextActive: {
+    color: '#FFFFFF'
+  },
+
+  levelButtons: {
+    flexDirection: 'row',
+    gap: 8
+  },
+
+  levelSelector: {
+    marginBottom: 20
+  },
+
+  levelTitle: {
+    color: '#1A1A1A',
     fontSize: 16,
     fontWeight: '600',
-    color: '#991B1B'
+    marginBottom: 12
   },
-  
-  errorItem: {
-    flexDirection: 'row',
-    padding: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#FECACA'
+
+  onText: {
+    color: '#666666',
+    fontSize: 12,
+    marginHorizontal: 8
   },
-  
-  errorIcon: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: '#EF4444',
-    justifyContent: 'center',
+
+  ratioText: {
+    color: '#1A1A1A',
+    fontSize: 12,
+    fontWeight: '500'
+  },
+
+  requiredText: {
+    color: '#666666',
+    fontSize: 12
+  },
+
+  resultContainer: {
+    flex: 1
+  },
+
+  scoreCircle: {
     alignItems: 'center',
-    marginRight: 12
+    borderColor: '#2563EB',
+    borderRadius: 40,
+    borderWidth: 4,
+    height: 80,
+    justifyContent: 'center',
+    marginBottom: 8,
+    width: 80
   },
-  
-  errorIconText: {
+
+  scoreContainer: {
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 8,
+    marginBottom: 16,
+    padding: 20
+  },
+
+  scoreDescription: {
+    color: '#666666',
+    fontSize: 12,
+    textAlign: 'center'
+  },
+
+  scoreLabel: {
+    color: '#666666',
+    fontSize: 12
+  },
+
+  scoreTitle: {
+    color: '#1A1A1A',
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 12
+  },
+
+  scoreValue: {
+    color: '#2563EB',
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+
+  simulationContainer: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 8,
+    marginBottom: 16,
+    padding: 16
+  },
+
+  simulationSection: {
+    marginBottom: 20
+  },
+
+  simulationSubtitle: {
+    color: '#666666',
+    fontSize: 14,
+    marginBottom: 16
+  },
+
+  simulationTitle: {
+    color: '#1A1A1A',
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 4
+  },
+
+  simulationToggle: {
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 8,
+    marginBottom: 16,
+    padding: 16
+  },
+
+  simulationToggleText: {
+    color: '#2563EB',
+    fontSize: 16,
+    fontWeight: '600'
+  },
+
+  statusCard: {
+    borderRadius: 8,
+    marginBottom: 16,
+    padding: 16
+  },
+
+  statusHeader: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+
+  statusText: {
+    fontSize: 18,
+    fontWeight: '600'
+  },
+
+  subtitle: {
+    color: '#666666',
+    fontSize: 16,
+    marginBottom: 24
+  },
+
+  testDetails: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginBottom: 8
+  },
+
+  testElementType: {
+    color: '#1A1A1A',
+    fontSize: 14,
+    fontWeight: '600'
+  },
+
+  testHeader: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 12
+  },
+
+  testStatus: {
+    borderRadius: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 4
+  },
+
+  testStatusText: {
     color: '#FFFFFF',
     fontSize: 12,
     fontWeight: 'bold'
   },
-  
-  errorContent: {
-    flex: 1
-  },
-  
-  errorMessage: {
-    fontSize: 14,
-    color: '#1A1A1A',
-    marginBottom: 4
-  },
-  
-  errorSuggestion: {
-    fontSize: 12,
-    color: '#666666',
-    fontStyle: 'italic'
-  },
-  
-  simulationToggle: {
+
+  testsContainer: {
     backgroundColor: '#FFFFFF',
-    padding: 16,
     borderRadius: 8,
+    marginBottom: 16,
+    overflow: 'hidden'
+  },
+
+  testsHeader: {
+    backgroundColor: '#F8FAFC',
+    borderBottomColor: '#E2E8F0',
+    borderBottomWidth: 1,
+    padding: 12
+  },
+
+  testsTitle: {
+    color: '#1A1A1A',
+    fontSize: 16,
+    fontWeight: '600'
+  },
+
+  themeButton: {
     alignItems: 'center',
-    marginBottom: 16
-  },
-  
-  simulationToggleText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#2563EB'
-  },
-  
-  simulationContainer: {
     backgroundColor: '#FFFFFF',
+    borderColor: '#E0E0E0',
     borderRadius: 8,
-    padding: 16,
-    marginBottom: 16
+    borderWidth: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 12
   },
-  
-  simulationTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
+
+  themeButtonActive: {
+    backgroundColor: '#2563EB',
+    borderColor: '#2563EB'
+  },
+
+  themeButtonText: {
     color: '#1A1A1A',
-    marginBottom: 4
-  },
-  
-  simulationSubtitle: {
     fontSize: 14,
-    color: '#666666',
-    marginBottom: 16
+    fontWeight: '500'
   },
-  
-  simulationSection: {
-    marginBottom: 20
+
+  themeButtonTextActive: {
+    color: '#FFFFFF'
   },
-  
-  blindnessType: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#1A1A1A',
-    marginBottom: 4
-  },
-  
-  blindnessDescription: {
-    fontSize: 12,
-    color: '#666666',
-    marginBottom: 12
-  },
-  
-  colorPairsContainer: {
+
+  themeButtons: {
     gap: 8
   },
-  
-  colorPairRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between'
+
+  themeSelector: {
+    marginBottom: 20
   },
-  
-  colorPair: {
-    alignItems: 'center'
-  },
-  
-  arrow: {
+
+  themeTitle: {
+    color: '#1A1A1A',
     fontSize: 16,
-    color: '#666666'
+    fontWeight: '600',
+    marginBottom: 12
   },
-  
-  colorLabel: {
-    fontSize: 10,
+
+  title: {
+    color: '#1A1A1A',
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 8
+  },
+
+  validateButton: {
+    alignItems: 'center',
+    backgroundColor: '#2563EB',
+    borderRadius: 8,
+    marginBottom: 24,
+    paddingHorizontal: 24,
+    paddingVertical: 16
+  },
+
+  validateButtonDisabled: {
+    backgroundColor: '#B0B0B0'
+  },
+
+  validateButtonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600'
+  },
+
+  wcagLevel: {
     color: '#666666',
-    marginTop: 4
+    fontSize: 14,
+    fontWeight: '500'
   }
 });
 
-export default AccessibilityValidationExample; 
+export default AccessibilityValidationExample;

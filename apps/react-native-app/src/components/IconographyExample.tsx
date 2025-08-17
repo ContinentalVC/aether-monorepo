@@ -5,7 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Modal,
-  SafeAreaView,
+  SafeAreaView
 } from 'react-native';
 import { useEnhancedTheme } from '../theme/EnhancedThemeProvider';
 import { useIconography, IconCategory } from './IconographyManager';
@@ -34,8 +34,8 @@ const IconographyExample: React.FC = () => {
         <DescriptionSection>
           <DescriptionTitle>What is Iconography?</DescriptionTitle>
           <DescriptionText>
-            The Iconography system provides consistent icon styling across your application. 
-            It ensures all icons follow the same design principles regarding size, weight, 
+            The Iconography system provides consistent icon styling across your application.
+            It ensures all icons follow the same design principles regarding size, weight,
             positioning, and color treatment.
           </DescriptionText>
         </DescriptionSection>
@@ -168,7 +168,7 @@ const IconFamilyCard: React.FC<{
   icon: string;
 }> = ({ family, description, icon }) => {
   const { theme } = useEnhancedTheme();
-  
+
   return (
     <IconFamilyCardContainer>
       <IconFamilyIcon>{icon}</IconFamilyIcon>
@@ -183,7 +183,7 @@ const IconCategoryItem: React.FC<{
   count: number;
 }> = ({ category, count }) => {
   const { theme } = useEnhancedTheme();
-  
+
   return (
     <IconCategoryItemContainer>
       <IconCategoryContent>
@@ -197,7 +197,7 @@ const IconCategoryItem: React.FC<{
 
 const StyleDetail: React.FC<{ label: string; value: string }> = ({ label, value }) => {
   const { theme } = useEnhancedTheme();
-  
+
   return (
     <StyleDetailContainer>
       <StyleDetailLabel>{label}</StyleDetailLabel>
@@ -524,8 +524,8 @@ const PrimaryButtonText = styled.Text`
 
 const styles = StyleSheet.create({
   modalContainer: {
-    flex: 1,
-  },
+    flex: 1
+  }
 });
 
-export default IconographyExample; 
+export default IconographyExample;

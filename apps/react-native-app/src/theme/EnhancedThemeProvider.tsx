@@ -8,10 +8,10 @@ export interface Typography {
   // Font families
   primaryFont: string;
   secondaryFont: string;
-  
+
   // Available font weights
   availableWeights: string[];
-  
+
   // Font sizes
   fontSizes: {
     xs: number;
@@ -22,21 +22,21 @@ export interface Typography {
     xxl: number;
     xxxl: number;
   };
-  
+
   // Line heights
   lineHeights: {
     tight: number;
     normal: number;
     relaxed: number;
   };
-  
+
   // Letter spacing
   letterSpacing: {
     tight: number;
     normal: number;
     wide: number;
   };
-  
+
   // Helper methods
   getFont: (weight: string, size: number) => string;
   getHeading: (size: HeadingSize) => string;
@@ -64,16 +64,16 @@ export enum BodySize {
 export interface AccessibilityConfig {
   // Minimum contrast ratio for text readability
   minimumContrastRatio: number;
-  
+
   // Whether to use high contrast colors
   useHighContrast: boolean;
-  
+
   // Whether to reduce motion for users with vestibular disorders
   reduceMotion: boolean;
-  
+
   // Whether to use larger text sizes
   useLargeText: boolean;
-  
+
   // Color blindness support
   colorBlindnessSupport: ColorBlindnessSupport;
 }
@@ -112,7 +112,7 @@ export interface EnhancedTheme {
   borderLight: string;
   shadow: string;
   shadowLight: string;
-  
+
   // Spacing and sizing
   spacing: {
     xs: number;
@@ -122,7 +122,7 @@ export interface EnhancedTheme {
     xl: number;
     xxl: number;
   };
-  
+
   // Border radius values
   borderRadius: {
     sm: number;
@@ -131,13 +131,13 @@ export interface EnhancedTheme {
     xl: number;
     xxl: number;
   };
-  
+
   // Enhanced typography
   typography: Typography;
-  
+
   // Accessibility configuration
   accessibility: AccessibilityConfig;
-  
+
   // Helper methods
   colorsForColorBlindness: () => EnhancedTheme;
   hasSufficientContrast: (textColor: string, backgroundColor: string) => boolean;
@@ -157,21 +157,21 @@ export const createTypography = (
     lg: 18,
     xl: 20,
     xxl: 24,
-    xxxl: 32,
+    xxxl: 32
   };
-  
+
   const lineHeights = {
     tight: 1.2,
     normal: 1.5,
-    relaxed: 1.8,
+    relaxed: 1.8
   };
-  
+
   const letterSpacing = {
     tight: -0.5,
     normal: 0,
-    wide: 0.5,
+    wide: 0.5
   };
-  
+
   return {
     primaryFont: primaryFontName,
     secondaryFont: secondaryFontName,
@@ -179,15 +179,15 @@ export const createTypography = (
     fontSizes,
     lineHeights,
     letterSpacing,
-    
+
     getFont: (weight: string, size: number) => {
       return `${weight} ${size}px ${primaryFontName}`;
     },
-    
+
     getHeading: (size: HeadingSize) => {
       let fontSize: number;
       let weight: string;
-      
+
       switch (size) {
         case HeadingSize.H1:
           fontSize = fontSizes.xxxl;
@@ -217,10 +217,10 @@ export const createTypography = (
           fontSize = fontSizes.md;
           weight = '400';
       }
-      
+
       return `${weight} ${fontSize}px ${primaryFontName}`;
     },
-    
+
     getBody: (size: BodySize = BodySize.MD) => {
       let fontSize: number;
       switch (size) {
@@ -240,7 +240,7 @@ export const createTypography = (
           fontSize = fontSizes.md;
       }
       return `400 ${fontSize}px ${primaryFontName}`;
-    },
+    }
   };
 };
 
@@ -257,62 +257,62 @@ export const createEnhancedTheme = (
     useHighContrast: false,
     reduceMotion: false,
     useLargeText: false,
-    colorBlindnessSupport: ColorBlindnessSupport.NONE,
+    colorBlindnessSupport: ColorBlindnessSupport.NONE
   };
-  
+
   const theme: EnhancedTheme = {
     ...baseTheme,
     typography: typography || defaultTypography,
     accessibility: accessibility || defaultAccessibility,
-    
+
     // Helper methods
-    colorsForColorBlindness: function() {
+    colorsForColorBlindness() {
       if (this.accessibility.colorBlindnessSupport === ColorBlindnessSupport.NONE) {
         return this;
       }
-      
+
       // Apply color blindness filters
       const adaptedPrimary = this.adaptColorForColorBlindness(this.primary);
       const adaptedSecondary = this.adaptColorForColorBlindness(this.secondary);
       const adaptedTextPrimary = this.adaptColorForColorBlindness(this.textPrimary);
-      
+
       return createEnhancedTheme(
         {
           ...this,
           primary: adaptedPrimary,
           secondary: adaptedSecondary,
-          textPrimary: adaptedTextPrimary,
+          textPrimary: adaptedTextPrimary
         },
         this.typography,
         this.accessibility
       );
     },
-    
-    hasSufficientContrast: function(textColor: string, backgroundColor: string) {
+
+    hasSufficientContrast(textColor: string, backgroundColor: string) {
       const contrast = this.calculateContrastRatio(textColor, backgroundColor);
       return contrast >= this.accessibility.minimumContrastRatio;
     },
-    
+
     // Private helper methods (simplified implementations)
-    adaptColorForColorBlindness: function(color: string) {
+    adaptColorForColorBlindness(color: string) {
       // Simplified color adaptation
       switch (this.accessibility.colorBlindnessSupport) {
         case ColorBlindnessSupport.DEUTERANOPIA:
         case ColorBlindnessSupport.PROTANOPIA:
-          return color + 'CC'; // Add transparency
+          return `${color }CC`; // Add transparency
         case ColorBlindnessSupport.TRITANOPIA:
-          return color + 'CC'; // Add transparency
+          return `${color }CC`; // Add transparency
         default:
           return color;
       }
     },
-    
-    calculateContrastRatio: function(textColor: string, backgroundColor: string) {
+
+    calculateContrastRatio(textColor: string, backgroundColor: string) {
       // Simplified contrast calculation
       return 4.5; // Placeholder value
-    },
+    }
   };
-  
+
   return theme;
 };
 
@@ -323,22 +323,22 @@ interface EnhancedThemeContextType {
   themeName: string;
   typography: Typography;
   accessibility: AccessibilityConfig;
-  
+
   // Theme management
   switchTheme: (themeName: string) => void;
   toggleDarkMode: () => void;
   isDarkMode: boolean;
-  
+
   // Typography management
   updateTypography: (primaryFont: string, secondaryFont?: string, weights?: string[]) => void;
   getRecommendedFontCombinations: () => Array<{primary: string; secondary: string; description: string}>;
-  
+
   // Accessibility management
   updateAccessibility: (config: AccessibilityConfig) => void;
   toggleHighContrast: () => void;
   toggleReducedMotion: () => void;
   setColorBlindnessSupport: (support: ColorBlindnessSupport) => void;
-  
+
   // Available options
   availableFontFamilies: string[];
   availableFontWeights: string[];
@@ -353,7 +353,7 @@ const EnhancedThemeContext = createContext<EnhancedThemeContextType | undefined>
 
 export const EnhancedThemeProvider: React.FC<EnhancedThemeProviderProps> = ({
   children,
-  initialTheme = 'light',
+  initialTheme = 'light'
 }) => {
   const [themeName, setThemeName] = useState(initialTheme);
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -363,9 +363,9 @@ export const EnhancedThemeProvider: React.FC<EnhancedThemeProviderProps> = ({
     useHighContrast: false,
     reduceMotion: false,
     useLargeText: false,
-    colorBlindnessSupport: ColorBlindnessSupport.NONE,
+    colorBlindnessSupport: ColorBlindnessSupport.NONE
   });
-  
+
   // Available options
   const availableFontFamilies = [
     'System',
@@ -374,25 +374,25 @@ export const EnhancedThemeProvider: React.FC<EnhancedThemeProviderProps> = ({
     'Georgia',
     'Times New Roman',
     'SF Pro Display',
-    'SF Pro Text',
+    'SF Pro Text'
   ];
-  
+
   const availableFontWeights = [
-    '100', '200', '300', '400', '500', '600', '700', '800', '900',
+    '100', '200', '300', '400', '500', '600', '700', '800', '900'
   ];
-  
+
   // Load saved settings
   useEffect(() => {
     loadSettings();
   }, []);
-  
+
   const loadSettings = async () => {
     try {
       const savedTheme = await AsyncStorage.getItem('selectedTheme');
       const savedDarkMode = await AsyncStorage.getItem('isDarkMode');
       const savedTypography = await AsyncStorage.getItem('selectedTypography');
       const savedAccessibility = await AsyncStorage.getItem('accessibilitySettings');
-      
+
       if (savedTheme) setThemeName(savedTheme);
       if (savedDarkMode) setIsDarkMode(JSON.parse(savedDarkMode));
       if (savedTypography) setTypography(JSON.parse(savedTypography));
@@ -401,7 +401,7 @@ export const EnhancedThemeProvider: React.FC<EnhancedThemeProviderProps> = ({
       console.error('Error loading theme settings:', error);
     }
   };
-  
+
   // Get base theme
   const getBaseTheme = (name: string) => {
     const themes = {
@@ -430,7 +430,7 @@ export const EnhancedThemeProvider: React.FC<EnhancedThemeProviderProps> = ({
         shadow: 'rgba(0, 0, 0, 0.1)',
         shadowLight: 'rgba(0, 0, 0, 0.05)',
         spacing: { xs: 4, sm: 8, md: 16, lg: 24, xl: 32, xxl: 48 },
-        borderRadius: { sm: 4, md: 8, lg: 12, xl: 16, xxl: 24 },
+        borderRadius: { sm: 4, md: 8, lg: 12, xl: 16, xxl: 24 }
       },
       dark: {
         primary: '#60A5FA',
@@ -457,34 +457,34 @@ export const EnhancedThemeProvider: React.FC<EnhancedThemeProviderProps> = ({
         shadow: 'rgba(0, 0, 0, 0.3)',
         shadowLight: 'rgba(0, 0, 0, 0.15)',
         spacing: { xs: 4, sm: 8, md: 16, lg: 24, xl: 32, xxl: 48 },
-        borderRadius: { sm: 4, md: 8, lg: 12, xl: 16, xxl: 24 },
-      },
+        borderRadius: { sm: 4, md: 8, lg: 12, xl: 16, xxl: 24 }
+      }
     };
-    
+
     return themes[name as keyof typeof themes] || themes.light;
   };
-  
+
   // Create enhanced theme
   const theme = createEnhancedTheme(getBaseTheme(themeName), typography, accessibility);
-  
+
   // Theme management methods
   const switchTheme = async (newThemeName: string) => {
     setThemeName(newThemeName);
     await AsyncStorage.setItem('selectedTheme', newThemeName);
   };
-  
+
   const toggleDarkMode = async () => {
     const newDarkMode = !isDarkMode;
     setIsDarkMode(newDarkMode);
     await AsyncStorage.setItem('isDarkMode', JSON.stringify(newDarkMode));
-    
+
     if (newDarkMode) {
       await switchTheme('dark');
     } else {
       await switchTheme('light');
     }
   };
-  
+
   // Typography management methods
   const updateTypography = async (
     primaryFont: string,
@@ -493,60 +493,60 @@ export const EnhancedThemeProvider: React.FC<EnhancedThemeProviderProps> = ({
   ) => {
     const validatedPrimaryFont = validateFontSelection(primaryFont);
     const validatedSecondaryFont = secondaryFont ? validateFontSelection(secondaryFont) : validatedPrimaryFont;
-    
+
     const newTypography = createTypography(
       validatedPrimaryFont,
       validatedSecondaryFont,
       weights || typography.availableWeights
     );
-    
+
     setTypography(newTypography);
     await AsyncStorage.setItem('selectedTypography', JSON.stringify(newTypography));
   };
-  
+
   const validateFontSelection = (fontName: string): string => {
     return availableFontFamilies.includes(fontName) ? fontName : 'System';
   };
-  
+
   const getRecommendedFontCombinations = () => {
     return [
       { primary: 'System', secondary: 'System', description: 'Modern and clean' },
       { primary: 'Helvetica', secondary: 'Georgia', description: 'Classic and readable' },
       { primary: 'Arial', secondary: 'Times New Roman', description: 'Traditional and formal' },
-      { primary: 'SF Pro Display', secondary: 'SF Pro Text', description: 'iOS native feel' },
+      { primary: 'SF Pro Display', secondary: 'SF Pro Text', description: 'iOS native feel' }
     ];
   };
-  
+
   // Accessibility management methods
   const updateAccessibility = async (config: AccessibilityConfig) => {
     setAccessibility(config);
     await AsyncStorage.setItem('accessibilitySettings', JSON.stringify(config));
   };
-  
+
   const toggleHighContrast = async () => {
     const newConfig = {
       ...accessibility,
-      useHighContrast: !accessibility.useHighContrast,
+      useHighContrast: !accessibility.useHighContrast
     };
     await updateAccessibility(newConfig);
   };
-  
+
   const toggleReducedMotion = async () => {
     const newConfig = {
       ...accessibility,
-      reduceMotion: !accessibility.reduceMotion,
+      reduceMotion: !accessibility.reduceMotion
     };
     await updateAccessibility(newConfig);
   };
-  
+
   const setColorBlindnessSupport = async (support: ColorBlindnessSupport) => {
     const newConfig = {
       ...accessibility,
-      colorBlindnessSupport: support,
+      colorBlindnessSupport: support
     };
     await updateAccessibility(newConfig);
   };
-  
+
   const contextValue: EnhancedThemeContextType = {
     theme,
     themeName,
@@ -562,9 +562,9 @@ export const EnhancedThemeProvider: React.FC<EnhancedThemeProviderProps> = ({
     toggleReducedMotion,
     setColorBlindnessSupport,
     availableFontFamilies,
-    availableFontWeights,
+    availableFontWeights
   };
-  
+
   return (
     <EnhancedThemeContext.Provider value={contextValue}>
       <StyledThemeProvider theme={theme}>
@@ -598,4 +598,4 @@ export const createCustomTheme = (
   return { ...base, ...overrides };
 };
 
-export type ThemeName = string; 
+export type ThemeName = string;

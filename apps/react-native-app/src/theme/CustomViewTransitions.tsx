@@ -1,6 +1,6 @@
 /**
  * Custom View Transitions for React Native
- * 
+ *
  * Sophisticated custom view transitions with asymmetric animations and
  * transition container views for complex, overlapping theme transitions.
  */
@@ -11,7 +11,7 @@ import {
   Animated,
   StyleSheet,
   ViewStyle,
-  Text,
+  Text
 } from 'react-native';
 import { useTheme } from './ThemeProvider';
 
@@ -53,38 +53,38 @@ export const CUSTOM_TRANSITION_TYPES: CustomTransitionType[] = [
     name: 'Slide In/Out',
     description: 'Asymmetric slide with fade',
     duration: 800,
-    type: 'slideInOut',
+    type: 'slideInOut'
   },
   {
     name: 'Scale & Rotate',
     description: 'Scale and rotation combination',
     duration: 1000,
-    type: 'scaleRotate',
+    type: 'scaleRotate'
   },
   {
     name: 'Morph & Blur',
     description: 'Morphing with blur effects',
     duration: 900,
-    type: 'morphBlur',
+    type: 'morphBlur'
   },
   {
     name: 'Crossfade Overlap',
     description: 'Overlapping crossfade',
     duration: 700,
-    type: 'crossfadeOverlap',
+    type: 'crossfadeOverlap'
   },
   {
     name: 'Dissolve Particle',
     description: 'Particle-like dissolve',
     duration: 600,
-    type: 'dissolveParticle',
+    type: 'dissolveParticle'
   },
   {
     name: 'Flip Card',
     description: '3D card flip effect',
     duration: 1200,
-    type: 'flipCard',
-  },
+    type: 'flipCard'
+  }
 ];
 
 // MARK: - Transition Container View
@@ -99,10 +99,10 @@ export const TransitionContainerView: React.FC<TransitionContainerProps> = ({
   transitionProgress,
   transitionType,
   isTransitioning,
-  style,
+  style
 }) => {
   const theme = useTheme();
-  
+
   // Create animated values for transition states
   const [transitionState] = useState<TransitionState>(() => ({
     fromViewOpacity: new Animated.Value(1),
@@ -114,7 +114,7 @@ export const TransitionContainerView: React.FC<TransitionContainerProps> = ({
     fromViewRotation: new Animated.Value(0),
     toViewRotation: new Animated.Value(0),
     fromViewBlur: new Animated.Value(0),
-    toViewBlur: new Animated.Value(0),
+    toViewBlur: new Animated.Value(0)
   }));
 
   const setupInitialState = useCallback(() => {
@@ -243,11 +243,11 @@ export const TransitionContainerView: React.FC<TransitionContainerProps> = ({
               {
                 rotate: transitionState.fromViewRotation.interpolate({
                   inputRange: [0, 360],
-                  outputRange: ['0deg', '360deg'],
-                }),
-              },
-            ],
-          },
+                  outputRange: ['0deg', '360deg']
+                })
+              }
+            ]
+          }
         ]}
       >
         {fromView}
@@ -266,11 +266,11 @@ export const TransitionContainerView: React.FC<TransitionContainerProps> = ({
               {
                 rotate: transitionState.toViewRotation.interpolate({
                   inputRange: [0, 360],
-                  outputRange: ['0deg', '360deg'],
-                }),
-              },
-            ],
-          },
+                  outputRange: ['0deg', '360deg']
+                })
+              }
+            ]
+          }
         ]}
       >
         {toView}
@@ -300,7 +300,7 @@ export class AdvancedTransitionManager {
       isTransitioning: false,
       currentTransitionType: CUSTOM_TRANSITION_TYPES[0],
       fromTheme: null,
-      toTheme: null,
+      toTheme: null
     };
   }
 
@@ -355,7 +355,7 @@ export class AdvancedTransitionManager {
       transitionProgress: this.state.transitionProgress,
       transitionType: this.state.currentTransitionType,
       isTransitioning: this.state.isTransitioning,
-      style,
+      style
     });
   };
 
@@ -432,7 +432,7 @@ export const TransitionPreviewCard: React.FC<TransitionPreviewCardProps> = ({
   theme,
   title,
   subtitle,
-  style,
+  style
 }) => {
   return (
     <View style={[styles.previewCard, { backgroundColor: theme.surface }, style]}>
@@ -498,90 +498,90 @@ export const TransitionPreviewCard: React.FC<TransitionPreviewCardProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    position: 'relative',
+    position: 'relative'
   },
-  viewContainer: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
+  previewButton: {
+    borderRadius: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 6
+  },
+  previewButtonText: {
+    fontSize: 12,
+    fontWeight: '500'
   },
   previewCard: {
     borderRadius: 12,
+    elevation: 4,
     padding: 16,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 4,
+    shadowRadius: 4
   },
-  previewHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  previewIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    marginRight: 12,
-  },
-  previewTextContainer: {
-    flex: 1,
-  },
-  previewTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  previewSubtitle: {
-    fontSize: 12,
-    marginTop: 2,
-  },
-  previewSpacer: {
-    flex: 1,
-  },
-  previewButton: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+  previewColorDot: {
     borderRadius: 6,
+    height: 12,
+    marginRight: 8,
+    width: 12
   },
-  previewButtonText: {
-    fontSize: 12,
-    fontWeight: '500',
+  previewColorItem: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginBottom: 8
   },
-  previewDivider: {
-    height: 1,
-    marginBottom: 16,
+  previewColorText: {
+    fontSize: 12
   },
   previewContent: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
+  },
+  previewDivider: {
+    height: 1,
+    marginBottom: 16
+  },
+  previewHeader: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginBottom: 16
+  },
+  previewIcon: {
+    borderRadius: 20,
+    height: 40,
+    marginRight: 12,
+    width: 40
   },
   previewLeftContent: {
-    flex: 1,
-  },
-  previewColorItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  previewColorDot: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    marginRight: 8,
-  },
-  previewColorText: {
-    fontSize: 12,
+    flex: 1
   },
   previewRightContent: {
-    alignItems: 'flex-end',
+    alignItems: 'flex-end'
   },
   previewSampleText: {
     fontSize: 12,
-    marginBottom: 4,
+    marginBottom: 4
   },
+  previewSpacer: {
+    flex: 1
+  },
+  previewSubtitle: {
+    fontSize: 12,
+    marginTop: 2
+  },
+  previewTextContainer: {
+    flex: 1
+  },
+  previewTitle: {
+    fontSize: 16,
+    fontWeight: '600'
+  },
+  viewContainer: {
+    bottom: 0,
+    left: 0,
+    position: 'absolute',
+    right: 0,
+    top: 0
+  }
 });
 
 // MARK: - Export Default
@@ -591,5 +591,5 @@ export default {
   AdvancedTransitionManager,
   useAdvancedTransitionManager,
   TransitionPreviewCard,
-  CUSTOM_TRANSITION_TYPES,
-}; 
+  CUSTOM_TRANSITION_TYPES
+};

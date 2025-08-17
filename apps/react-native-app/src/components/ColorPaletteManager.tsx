@@ -8,18 +8,18 @@
 //
 
 import React, { createContext, useContext, useState, useCallback } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import { PanGestureHandler, State } from 'react-native-gesture-handler';
+import { View, StyleSheet } from 'react-native';
+import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, {
   useSharedValue,
   useAnimatedGestureHandler,
   useAnimatedStyle,
-  runOnJS,
+  runOnJS
 } from 'react-native-reanimated';
 import { LinearGradient } from 'expo-linear-gradient';
-import { 
-  ColorUtils, 
-  ColorHarmonyGenerator, 
+import {
+  ColorUtils,
+  ColorHarmonyGenerator,
   ColorHarmonyType,
   HSLColor,
   RGBColor,
@@ -76,7 +76,7 @@ export const PredefinedPalettes: ColorPalette[] = [
     neutralDark: '#B3B3B3',
     name: 'Modern Blue',
     description: 'Professional and trustworthy',
-    harmonyType: ColorHarmonyType.COMPLEMENTARY,
+    harmonyType: ColorHarmonyType.COMPLEMENTARY
   },
   {
     primary: '#33CC66',
@@ -86,7 +86,7 @@ export const PredefinedPalettes: ColorPalette[] = [
     neutralDark: '#CCE6CC',
     name: 'Nature Green',
     description: 'Fresh and organic',
-    harmonyType: ColorHarmonyType.ANALOGOUS,
+    harmonyType: ColorHarmonyType.ANALOGOUS
   },
   {
     primary: '#FF6633',
@@ -96,7 +96,7 @@ export const PredefinedPalettes: ColorPalette[] = [
     neutralDark: '#FFE6D9',
     name: 'Sunset Orange',
     description: 'Warm and energetic',
-    harmonyType: ColorHarmonyType.MONOCHROMATIC,
+    harmonyType: ColorHarmonyType.MONOCHROMATIC
   },
   {
     primary: '#9933CC',
@@ -106,7 +106,7 @@ export const PredefinedPalettes: ColorPalette[] = [
     neutralDark: '#E6D9FF',
     name: 'Royal Purple',
     description: 'Creative and luxurious',
-    harmonyType: ColorHarmonyType.TRIADIC,
+    harmonyType: ColorHarmonyType.TRIADIC
   },
   {
     primary: '#0099CC',
@@ -116,8 +116,8 @@ export const PredefinedPalettes: ColorPalette[] = [
     neutralDark: '#CCF2F2',
     name: 'Ocean Teal',
     description: 'Calm and refreshing',
-    harmonyType: ColorHarmonyType.SPLIT_COMPLEMENTARY,
-  },
+    harmonyType: ColorHarmonyType.SPLIT_COMPLEMENTARY
+  }
 ];
 
 // MARK: - Palette Validation
@@ -127,12 +127,12 @@ export class PaletteValidation {
     const hasGoodContrast = this.checkContrast(palette);
     const isHarmonious = this.checkHarmony(palette);
     const hasBalancedSaturation = this.checkSaturation(palette);
-    
+
     let score = 0;
     if (hasGoodContrast) score += 40;
     if (isHarmonious) score += 30;
     if (hasBalancedSaturation) score += 30;
-    
+
     const messages: string[] = [];
     if (!hasGoodContrast) {
       messages.push('Colors may not have sufficient contrast for accessibility');
@@ -143,29 +143,29 @@ export class PaletteValidation {
     if (!hasBalancedSaturation) {
       messages.push('Colors may be too saturated for professional use');
     }
-    
+
     return {
       hasGoodContrast,
       isHarmonious,
       hasBalancedSaturation,
       score,
-      messages,
+      messages
     };
   }
 
   private static checkContrast(palette: ColorPalette): boolean {
     const primaryContrast = ColorUtils.calculateContrastRatio(palette.primary, palette.neutral);
     const secondaryContrast = ColorUtils.calculateContrastRatio(palette.secondary, palette.neutral);
-    
-    return primaryContrast >= 4.5 && secondaryContrast >= 4.5;
+
+    return (primaryContrast ?? 0) >= 4.5 && (secondaryContrast ?? 0) >= 4.5;
   }
 
   private static checkHarmony(palette: ColorPalette): boolean {
     const primaryHSL = ColorUtils.hexToHsl(palette.primary);
     const secondaryHSL = ColorUtils.hexToHsl(palette.secondary);
-    
+
     const hueDiff = Math.abs(primaryHSL.hue - secondaryHSL.hue);
-    
+
     switch (palette.harmonyType) {
       case ColorHarmonyType.COMPLEMENTARY:
         return hueDiff >= 150 && hueDiff <= 210;
@@ -185,7 +185,7 @@ export class PaletteValidation {
   private static checkSaturation(palette: ColorPalette): boolean {
     const primaryHSL = ColorUtils.hexToHsl(palette.primary);
     const secondaryHSL = ColorUtils.hexToHsl(palette.secondary);
-    
+
     return primaryHSL.saturation <= 80 && secondaryHSL.saturation <= 80;
   }
 }
@@ -253,7 +253,7 @@ export const ColorPaletteProvider: React.FC<{ children: React.ReactNode }> = ({ 
     generateNewPalette,
     currentValidation,
     predefinedPalettes: PredefinedPalettes,
-    harmonyTypes: Object.values(ColorHarmonyType),
+    harmonyTypes: Object.values(ColorHarmonyType)
   };
 
   return (
@@ -274,7 +274,7 @@ interface ColorWheelProps {
 export const ColorWheel: React.FC<ColorWheelProps> = ({
   selectedColor,
   onColorChange,
-  size = 280,
+  size = 280
 }) => {
   const centerX = useSharedValue(size / 2);
   const centerY = useSharedValue(size / 2);
@@ -292,12 +292,12 @@ export const ColorWheel: React.FC<ColorWheelProps> = ({
     onActive: (event, context: any) => {
       const deltaX = event.translationX;
       const deltaY = event.translationY;
-      
+
       const newX = context.startX + deltaX;
       const newY = context.startY + deltaY;
-      
+
       const distance = Math.sqrt(newX * newX + newY * newY);
-      
+
       if (distance <= centerRadius) {
         // Center area - neutral colors
         const grayValue = 1 - (distance / centerRadius);
@@ -310,20 +310,20 @@ export const ColorWheel: React.FC<ColorWheelProps> = ({
         const hue = angle < 0 ? angle + 360 : angle;
         const saturation = Math.min(1, (distance - centerRadius) / (wheelRadius - centerRadius));
         const lightness = 0.5;
-        
+
         const newColor = ColorUtils.hslToHex(hue, saturation * 100, lightness * 100);
         runOnJS(onColorChange)(newColor);
       }
     },
     onEnd: () => {
       isDragging.value = false;
-    },
+    }
   });
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [
-      { translateX: centerX.value - 10, translateY: centerY.value - 10 },
-    ] as any,
+      { translateX: centerX.value - 10, translateY: centerY.value - 10 }
+    ] as any
   }));
 
   return (
@@ -335,10 +335,10 @@ export const ColorWheel: React.FC<ColorWheelProps> = ({
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
       />
-      
+
       {/* Center neutral area */}
       <View style={[styles.centerArea, { width: centerRadius * 2, height: centerRadius * 2 }]} />
-      
+
       {/* Selection indicator */}
       <PanGestureHandler onGestureEvent={gestureHandler}>
         <Animated.View style={[styles.selectionIndicator, animatedStyle]}>
@@ -360,33 +360,33 @@ const generateHueSpectrum = (): string[] => {
 // MARK: - Styles
 
 const styles = StyleSheet.create({
-  colorWheelContainer: {
-    position: 'relative',
-    alignItems: 'center',
-    justifyContent: 'center',
+  centerArea: {
+    backgroundColor: '#E0E0E0',
+    borderRadius: 20,
+    position: 'absolute'
   },
   colorWheel: {
-    position: 'absolute',
+    position: 'absolute'
   },
-  centerArea: {
-    position: 'absolute',
-    borderRadius: 20,
-    backgroundColor: '#E0E0E0',
-  },
-  selectionIndicator: {
-    position: 'absolute',
-    width: 20,
-    height: 20,
+  colorWheelContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative'
   },
   indicator: {
-    width: 20,
-    height: 20,
+    borderColor: '#FFFFFF',
     borderRadius: 10,
     borderWidth: 3,
-    borderColor: '#FFFFFF',
+    height: 20,
+    width: 20
   },
+  selectionIndicator: {
+    height: 20,
+    position: 'absolute',
+    width: 20
+  }
 });
 
 // MARK: - Export
 
-export default ColorPaletteProvider; 
+export default ColorPaletteProvider;

@@ -14,14 +14,14 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
-  Dimensions,
+  Dimensions
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import {
   ColorPaletteProvider,
   useColorPalette,
   ColorHarmonyType,
-  PredefinedPalettes,
+  PredefinedPalettes
 } from './ColorPaletteManager';
 import ColorPaletteSelectionScreen from './ColorPaletteSelectionScreen';
 
@@ -39,41 +39,38 @@ export const ColorPaletteExample: React.FC = () => {
 
 const ColorPaletteExampleContent: React.FC = () => {
   const [showingColorPaletteSelection, setShowingColorPaletteSelection] = useState(false);
-  
+
   const {
     currentPalette,
-    selectedHarmonyType,
     updateBaseColor,
-    updateHarmonyType,
     setPredefinedPalette,
     currentValidation,
-    predefinedPalettes,
-    harmonyTypes,
+    harmonyTypes
   } = useColorPalette();
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       {/* Header */}
       <ColorPaletteHeader />
-      
+
       {/* Current Palette Display */}
       <CurrentPaletteDisplay />
-      
+
       {/* Quick Actions */}
       <QuickActionsSection />
-      
+
       {/* Validation Status */}
       <ValidationStatusSection />
-      
+
       {/* Predefined Palettes Preview */}
       <PredefinedPalettesPreview />
-      
+
       {/* Color Harmony Examples */}
       <ColorHarmonyExamples />
-      
+
       {/* Integration Example */}
       <ThemeIntegrationExample />
-      
+
       {/* Customize Button */}
       <TouchableOpacity
         style={styles.customizeButton}
@@ -82,7 +79,7 @@ const ColorPaletteExampleContent: React.FC = () => {
         <Ionicons name="color-palette" size={20} color="#FFFFFF" />
         <Text style={styles.customizeButtonText}>Customize Palette</Text>
       </TouchableOpacity>
-      
+
       {/* Color Palette Selection Modal */}
       {showingColorPaletteSelection && (
         <ColorPaletteSelectionScreen />
@@ -113,7 +110,7 @@ const CurrentPaletteDisplay: React.FC = () => {
   return (
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>Current Palette</Text>
-      
+
       <View style={styles.paletteDisplay}>
         {/* Color swatches */}
         <View style={styles.colorSwatchesGrid}>
@@ -126,18 +123,18 @@ const CurrentPaletteDisplay: React.FC = () => {
           <ColorSwatchLarge color={currentPalette.neutralLight} label="Light" />
           <ColorSwatchLarge color={currentPalette.neutralDark} label="Dark" />
         </View>
-        
+
         {/* Palette info */}
         <View style={styles.paletteInfo}>
           <View style={styles.paletteHeader}>
             <Text style={styles.paletteName}>{currentPalette.name}</Text>
             <Ionicons name="color-palette" size={20} color="#007AFF" />
           </View>
-          
+
           <Text style={styles.paletteDescription}>
             {currentPalette.description}
           </Text>
-          
+
           <View style={styles.harmonyTypeBadge}>
             <Text style={styles.harmonyTypeText}>
               {currentPalette.harmonyType}
@@ -189,7 +186,7 @@ const QuickActionsSection: React.FC = () => {
   return (
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>Quick Actions</Text>
-      
+
       <View style={styles.quickActionsGrid}>
         <QuickActionButton
           title="Random Palette"
@@ -197,21 +194,21 @@ const QuickActionsSection: React.FC = () => {
           color="#007AFF"
           onPress={generateRandomPalette}
         />
-        
+
         <QuickActionButton
           title="Reset to Default"
           icon="refresh"
           color="#FF9500"
           onPress={resetToDefault}
         />
-        
+
         <QuickActionButton
           title="Export Palette"
           icon="share"
           color="#34C759"
           onPress={exportPalette}
         />
-        
+
         <QuickActionButton
           title="Import Palette"
           icon="download"
@@ -234,7 +231,7 @@ const QuickActionButton: React.FC<QuickActionButtonProps> = ({
   title,
   icon,
   color,
-  onPress,
+  onPress
 }) => {
   return (
     <TouchableOpacity style={styles.quickActionButton} onPress={onPress}>
@@ -264,7 +261,7 @@ const ValidationStatusSection: React.FC = () => {
   return (
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>Validation Status</Text>
-      
+
       <View style={styles.validationStatus}>
         {/* Score indicator */}
         <View style={styles.validationScore}>
@@ -275,7 +272,7 @@ const ValidationStatusSection: React.FC = () => {
             </Text>
             <Text style={styles.validationScoreMax}>/100</Text>
           </View>
-          
+
           <View style={styles.validationScoreRight}>
             <Text style={styles.validationScoreLabel}>Status</Text>
             <Text style={[styles.validationScoreDescription, { color: getScoreColor(currentValidation.score) }]}>
@@ -283,7 +280,7 @@ const ValidationStatusSection: React.FC = () => {
             </Text>
           </View>
         </View>
-        
+
         {/* Validation details */}
         <View style={styles.validationDetails}>
           <ValidationDetailRow
@@ -291,13 +288,13 @@ const ValidationStatusSection: React.FC = () => {
             isPassing={currentValidation.hasGoodContrast}
             description="Colors have sufficient contrast for accessibility"
           />
-          
+
           <ValidationDetailRow
             title="Harmony"
             isPassing={currentValidation.isHarmonious}
             description="Colors follow the selected harmony type"
           />
-          
+
           <ValidationDetailRow
             title="Saturation"
             isPassing={currentValidation.hasBalancedSaturation}
@@ -318,7 +315,7 @@ interface ValidationDetailRowProps {
 const ValidationDetailRow: React.FC<ValidationDetailRowProps> = ({
   title,
   isPassing,
-  description,
+  description
 }) => {
   return (
     <View style={styles.validationDetailRow}>
@@ -327,7 +324,7 @@ const ValidationDetailRow: React.FC<ValidationDetailRowProps> = ({
         size={20}
         color={isPassing ? '#34C759' : '#FF3B30'}
       />
-      
+
       <View style={styles.validationDetailContent}>
         <Text style={styles.validationDetailTitle}>{title}</Text>
         <Text style={styles.validationDetailDescription}>{description}</Text>
@@ -344,7 +341,7 @@ const PredefinedPalettesPreview: React.FC = () => {
   return (
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>Predefined Palettes</Text>
-      
+
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View style={styles.predefinedPalettesContainer}>
           {PredefinedPalettes.map((palette) => (
@@ -370,13 +367,13 @@ interface PredefinedPaletteCardProps {
 const PredefinedPaletteCard: React.FC<PredefinedPaletteCardProps> = ({
   palette,
   isSelected,
-  onSelect,
+  onSelect
 }) => {
   return (
     <TouchableOpacity
       style={[
         styles.predefinedPaletteCard,
-        isSelected && styles.predefinedPaletteCardActive,
+        isSelected && styles.predefinedPaletteCardActive
       ]}
       onPress={onSelect}
     >
@@ -389,7 +386,7 @@ const PredefinedPaletteCard: React.FC<PredefinedPaletteCardProps> = ({
           />
         ))}
       </View>
-      
+
       {/* Palette info */}
       <View style={styles.predefinedPaletteInfo}>
         <View style={styles.predefinedPaletteHeader}>
@@ -398,11 +395,11 @@ const PredefinedPaletteCard: React.FC<PredefinedPaletteCardProps> = ({
             <Ionicons name="checkmark-circle" size={20} color="#007AFF" />
           )}
         </View>
-        
+
         <Text style={styles.predefinedPaletteDescription}>
           {palette.description}
         </Text>
-        
+
         <View style={styles.predefinedPaletteHarmony}>
           <Ionicons name="color-palette" size={16} color="#666" />
           <Text style={styles.predefinedPaletteHarmonyText}>
@@ -422,7 +419,7 @@ const ColorHarmonyExamples: React.FC = () => {
   return (
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>Harmony Examples</Text>
-      
+
       <View style={styles.harmonyExamplesGrid}>
         {harmonyTypes.map((harmonyType) => (
           <HarmonyExampleCard key={harmonyType} harmonyType={harmonyType} />
@@ -498,7 +495,7 @@ const HarmonyExampleCard: React.FC<HarmonyExampleCardProps> = ({ harmonyType }) 
         <Ionicons name={getHarmonyIcon(harmonyType) as any} size={20} color="#007AFF" />
         <Text style={styles.harmonyExampleTitle}>{harmonyType}</Text>
       </View>
-      
+
       {/* Color preview */}
       <View style={styles.harmonyExampleColors}>
         {getExampleColors(harmonyType).slice(0, 3).map((color, index) => (
@@ -508,7 +505,7 @@ const HarmonyExampleCard: React.FC<HarmonyExampleCardProps> = ({ harmonyType }) 
           />
         ))}
       </View>
-      
+
       {/* Description */}
       <Text style={styles.harmonyExampleDescription}>
         {getHarmonyDescription(harmonyType)}
@@ -528,7 +525,7 @@ const ThemeIntegrationExample: React.FC = () => {
       `This palette (${currentPalette.name}) will be applied to your app's theme. Continue?`,
       [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'Apply', onPress: () => console.log('Applied palette:', currentPalette.name) },
+        { text: 'Apply', onPress: () => console.log('Applied palette:', currentPalette.name) }
       ]
     );
   };
@@ -536,19 +533,19 @@ const ThemeIntegrationExample: React.FC = () => {
   return (
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>Theme Integration</Text>
-      
+
       <View style={styles.themeIntegration}>
         {/* Example UI using the current palette */}
         <View style={styles.exampleUI}>
           <Text style={styles.exampleUITitle}>Example UI</Text>
-          
+
           <View style={styles.exampleButtons}>
             <TouchableOpacity
               style={[styles.exampleButton, { backgroundColor: currentPalette.primary }]}
             >
               <Text style={styles.exampleButtonText}>Primary Action</Text>
             </TouchableOpacity>
-            
+
             <TouchableOpacity
               style={[styles.exampleButtonSecondary, { borderColor: currentPalette.secondary }]}
             >
@@ -557,7 +554,7 @@ const ThemeIntegrationExample: React.FC = () => {
               </Text>
             </TouchableOpacity>
           </View>
-          
+
           <View style={[styles.exampleCard, { backgroundColor: currentPalette.neutralLight }]}>
             <Text style={[styles.exampleCardTitle, { color: currentPalette.primary }]}>
               Example Card
@@ -567,7 +564,7 @@ const ThemeIntegrationExample: React.FC = () => {
             </Text>
           </View>
         </View>
-        
+
         {/* Apply button */}
         <TouchableOpacity
           style={styles.applyThemeButton}
@@ -587,32 +584,32 @@ const UsageInstructions: React.FC = () => {
   return (
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>Usage Instructions</Text>
-      
+
       <View style={styles.instructionsContainer}>
         <InstructionItem
           number="1"
           title="Basic Integration"
           description="Add ColorPaletteProvider to your app root and use useColorPalette hook"
         />
-        
+
         <InstructionItem
           number="2"
           title="Quick Palette Changes"
           description="Use setPredefinedPalette() for quick changes or updateBaseColor() for custom colors"
         />
-        
+
         <InstructionItem
           number="3"
           title="Validation"
           description="Check currentValidation.score for overall quality and accessibility compliance"
         />
-        
+
         <InstructionItem
           number="4"
           title="Custom Integration"
           description="Apply palette colors to your app's theme system and UI components"
         />
-        
+
         <InstructionItem
           number="5"
           title="Best Practices"
@@ -632,14 +629,14 @@ interface InstructionItemProps {
 const InstructionItem: React.FC<InstructionItemProps> = ({
   number,
   title,
-  description,
+  description
 }) => {
   return (
     <View style={styles.instructionItem}>
       <View style={styles.instructionNumber}>
         <Text style={styles.instructionNumberText}>{number}</Text>
       </View>
-      
+
       <View style={styles.instructionContent}>
         <Text style={styles.instructionTitle}>{title}</Text>
         <Text style={styles.instructionDescription}>{description}</Text>
@@ -651,394 +648,394 @@ const InstructionItem: React.FC<InstructionItemProps> = ({
 // MARK: - Styles
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F8F9FA',
-  },
-  header: {
+  applyThemeButton: {
     alignItems: 'center',
-    padding: 24,
-    backgroundColor: '#FFFFFF',
-    marginBottom: 16,
-  },
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
-    marginTop: 12,
-    marginBottom: 8,
-  },
-  headerDescription: {
-    fontSize: 16,
-    color: '#666',
-    textAlign: 'center',
-    lineHeight: 22,
-  },
-  section: {
-    marginBottom: 24,
-    paddingHorizontal: 20,
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 16,
-  },
-  paletteDisplay: {
-    backgroundColor: '#F0F0F0',
-    padding: 16,
-    borderRadius: 12,
-  },
-  colorSwatchesGrid: {
+    backgroundColor: '#007AFF',
+    borderRadius: 8,
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 12,
-    marginBottom: 16,
+    gap: 8,
+    justifyContent: 'center',
+    paddingVertical: 12
+  },
+  applyThemeButtonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600'
   },
   colorSwatchLarge: {
     alignItems: 'center',
     flex: 1,
-    minWidth: 80,
+    minWidth: 80
   },
   colorSwatchLargeBox: {
-    width: 60,
-    height: 60,
+    borderColor: '#E0E0E0',
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#E0E0E0',
+    elevation: 2,
+    height: 60,
     marginBottom: 8,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
     shadowRadius: 2,
-    elevation: 2,
+    width: 60
   },
   colorSwatchLargeLabel: {
+    color: '#666',
     fontSize: 12,
-    fontWeight: '500',
-    color: '#666',
+    fontWeight: '500'
   },
-  paletteInfo: {
-    gap: 8,
-  },
-  paletteHeader: {
+  colorSwatchesGrid: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    gap: 12,
+    marginBottom: 16
+  },
+  container: {
+    backgroundColor: '#F8F9FA',
+    flex: 1
+  },
+  customizeButton: {
     alignItems: 'center',
-  },
-  paletteName: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  paletteDescription: {
-    fontSize: 14,
-    color: '#666',
-  },
-  harmonyTypeBadge: {
-    alignSelf: 'flex-start',
     backgroundColor: '#007AFF',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 8,
+    borderRadius: 12,
+    flexDirection: 'row',
+    gap: 8,
+    justifyContent: 'center',
+    marginBottom: 24,
+    marginHorizontal: 20,
+    paddingVertical: 16
   },
-  harmonyTypeText: {
-    fontSize: 12,
-    fontWeight: '500',
+  customizeButtonText: {
     color: '#FFFFFF',
-  },
-  quickActionsGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 12,
-  },
-  quickActionButton: {
-    backgroundColor: '#F0F0F0',
-    padding: 16,
-    borderRadius: 12,
-    alignItems: 'center',
-    width: (screenWidth - 52) / 2,
-  },
-  quickActionButtonText: {
-    fontSize: 12,
-    fontWeight: '500',
-    color: '#333',
-    marginTop: 8,
-    textAlign: 'center',
-  },
-  validationStatus: {
-    backgroundColor: '#F0F0F0',
-    padding: 16,
-    borderRadius: 12,
-  },
-  validationScore: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 16,
-  },
-  validationScoreLeft: {
-    alignItems: 'flex-start',
-  },
-  validationScoreRight: {
-    alignItems: 'flex-end',
-  },
-  validationScoreLabel: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 4,
-  },
-  validationScoreValue: {
-    fontSize: 32,
-    fontWeight: 'bold',
-  },
-  validationScoreMax: {
-    fontSize: 14,
-    color: '#666',
-  },
-  validationScoreDescription: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  validationDetails: {
-    gap: 8,
-  },
-  validationDetailRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-  },
-  validationDetailContent: {
-    marginLeft: 12,
-    flex: 1,
-  },
-  validationDetailTitle: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 2,
-  },
-  validationDetailDescription: {
-    fontSize: 12,
-    color: '#666',
-  },
-  predefinedPalettesContainer: {
-    flexDirection: 'row',
-    gap: 16,
-    paddingHorizontal: 4,
-  },
-  predefinedPaletteCard: {
-    backgroundColor: '#F0F0F0',
-    padding: 16,
-    borderRadius: 12,
-    width: 200,
-  },
-  predefinedPaletteCardActive: {
-    backgroundColor: '#E3F2FD',
-    borderWidth: 2,
-    borderColor: '#007AFF',
-  },
-  predefinedPaletteSwatches: {
-    flexDirection: 'row',
-    gap: 8,
-    marginBottom: 12,
-  },
-  predefinedPaletteSwatch: {
-    width: 24,
-    height: 24,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: '#E0E0E0',
-  },
-  predefinedPaletteInfo: {
-    gap: 4,
-  },
-  predefinedPaletteHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  predefinedPaletteName: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  predefinedPaletteDescription: {
-    fontSize: 14,
-    color: '#666',
-  },
-  predefinedPaletteHarmony: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-  },
-  predefinedPaletteHarmonyText: {
-    fontSize: 12,
-    fontWeight: '500',
-    color: '#666',
-  },
-  harmonyExamplesGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 16,
-  },
-  harmonyExampleCard: {
-    backgroundColor: '#F0F0F0',
-    padding: 16,
-    borderRadius: 12,
-    width: (screenWidth - 52) / 2,
-  },
-  harmonyExampleHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  harmonyExampleTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-    marginLeft: 8,
-  },
-  harmonyExampleColors: {
-    flexDirection: 'row',
-    gap: 8,
-    marginBottom: 8,
-  },
-  harmonyExampleColor: {
-    width: 32,
-    height: 32,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#E0E0E0',
-  },
-  harmonyExampleDescription: {
-    fontSize: 12,
-    color: '#666',
-    lineHeight: 16,
-  },
-  themeIntegration: {
-    backgroundColor: '#F0F0F0',
-    padding: 16,
-    borderRadius: 12,
-  },
-  exampleUI: {
-    marginBottom: 16,
-  },
-  exampleUITitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 12,
-  },
-  exampleButtons: {
-    flexDirection: 'row',
-    gap: 12,
-    marginBottom: 16,
+    fontSize: 18,
+    fontWeight: '600'
   },
   exampleButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
     borderRadius: 8,
     flex: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 8
+  },
+  exampleButtonSecondary: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 8,
+    borderWidth: 1,
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 8
   },
   exampleButtonText: {
     color: '#FFFFFF',
     fontSize: 14,
     fontWeight: '600',
-    textAlign: 'center',
-  },
-  exampleButtonSecondary: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 8,
-    borderWidth: 1,
-    flex: 1,
-    backgroundColor: '#FFFFFF',
+    textAlign: 'center'
   },
   exampleButtonTextSecondary: {
     fontSize: 14,
     fontWeight: '600',
-    textAlign: 'center',
+    textAlign: 'center'
+  },
+  exampleButtons: {
+    flexDirection: 'row',
+    gap: 12,
+    marginBottom: 16
   },
   exampleCard: {
-    padding: 16,
     borderRadius: 12,
+    padding: 16
+  },
+  exampleCardText: {
+    color: '#333',
+    fontSize: 14,
+    lineHeight: 20
   },
   exampleCardTitle: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 8,
+    marginBottom: 8
   },
-  exampleCardText: {
-    fontSize: 14,
+  exampleUI: {
+    marginBottom: 16
+  },
+  exampleUITitle: {
     color: '#333',
-    lineHeight: 20,
-  },
-  applyThemeButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#007AFF',
-    paddingVertical: 12,
-    borderRadius: 8,
-    gap: 8,
-  },
-  applyThemeButtonText: {
-    color: '#FFFFFF',
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: 'bold',
+    marginBottom: 12
   },
-  customizeButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#007AFF',
-    marginHorizontal: 20,
-    marginBottom: 24,
-    paddingVertical: 16,
-    borderRadius: 12,
-    gap: 8,
-  },
-  customizeButtonText: {
-    color: '#FFFFFF',
-    fontSize: 18,
-    fontWeight: '600',
-  },
-  instructionsContainer: {
+  harmonyExampleCard: {
     backgroundColor: '#F0F0F0',
-    padding: 16,
     borderRadius: 12,
+    padding: 16,
+    width: (screenWidth - 52) / 2
+  },
+  harmonyExampleColor: {
+    borderColor: '#E0E0E0',
+    borderRadius: 8,
+    borderWidth: 1,
+    height: 32,
+    width: 32
+  },
+  harmonyExampleColors: {
+    flexDirection: 'row',
+    gap: 8,
+    marginBottom: 8
+  },
+  harmonyExampleDescription: {
+    color: '#666',
+    fontSize: 12,
+    lineHeight: 16
+  },
+  harmonyExampleHeader: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginBottom: 12
+  },
+  harmonyExampleTitle: {
+    color: '#333',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginLeft: 8
+  },
+  harmonyExamplesGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 16
+  },
+  harmonyTypeBadge: {
+    alignSelf: 'flex-start',
+    backgroundColor: '#007AFF',
+    borderRadius: 8,
+    paddingHorizontal: 8,
+    paddingVertical: 4
+  },
+  harmonyTypeText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: '500'
+  },
+  header: {
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    marginBottom: 16,
+    padding: 24
+  },
+  headerDescription: {
+    color: '#666',
+    fontSize: 16,
+    lineHeight: 22,
+    textAlign: 'center'
+  },
+  headerTitle: {
+    color: '#333',
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    marginTop: 12
+  },
+  instructionContent: {
+    flex: 1
+  },
+  instructionDescription: {
+    color: '#666',
+    fontSize: 12,
+    lineHeight: 16
   },
   instructionItem: {
     flexDirection: 'row',
-    marginBottom: 16,
+    marginBottom: 16
   },
   instructionNumber: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: '#007AFF',
     alignItems: 'center',
+    backgroundColor: '#007AFF',
+    borderRadius: 12,
+    height: 24,
     justifyContent: 'center',
     marginRight: 12,
+    width: 24
   },
   instructionNumberText: {
     color: '#FFFFFF',
     fontSize: 12,
-    fontWeight: 'bold',
-  },
-  instructionContent: {
-    flex: 1,
+    fontWeight: 'bold'
   },
   instructionTitle: {
+    color: '#333',
     fontSize: 14,
     fontWeight: '600',
-    color: '#333',
-    marginBottom: 4,
+    marginBottom: 4
   },
-  instructionDescription: {
-    fontSize: 12,
+  instructionsContainer: {
+    backgroundColor: '#F0F0F0',
+    borderRadius: 12,
+    padding: 16
+  },
+  paletteDescription: {
     color: '#666',
-    lineHeight: 16,
+    fontSize: 14
   },
+  paletteDisplay: {
+    backgroundColor: '#F0F0F0',
+    borderRadius: 12,
+    padding: 16
+  },
+  paletteHeader: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  paletteInfo: {
+    gap: 8
+  },
+  paletteName: {
+    color: '#333',
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
+  predefinedPaletteCard: {
+    backgroundColor: '#F0F0F0',
+    borderRadius: 12,
+    padding: 16,
+    width: 200
+  },
+  predefinedPaletteCardActive: {
+    backgroundColor: '#E3F2FD',
+    borderColor: '#007AFF',
+    borderWidth: 2
+  },
+  predefinedPaletteDescription: {
+    color: '#666',
+    fontSize: 14
+  },
+  predefinedPaletteHarmony: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 4
+  },
+  predefinedPaletteHarmonyText: {
+    color: '#666',
+    fontSize: 12,
+    fontWeight: '500'
+  },
+  predefinedPaletteHeader: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  predefinedPaletteInfo: {
+    gap: 4
+  },
+  predefinedPaletteName: {
+    color: '#333',
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
+  predefinedPaletteSwatch: {
+    borderColor: '#E0E0E0',
+    borderRadius: 6,
+    borderWidth: 1,
+    height: 24,
+    width: 24
+  },
+  predefinedPaletteSwatches: {
+    flexDirection: 'row',
+    gap: 8,
+    marginBottom: 12
+  },
+  predefinedPalettesContainer: {
+    flexDirection: 'row',
+    gap: 16,
+    paddingHorizontal: 4
+  },
+  quickActionButton: {
+    alignItems: 'center',
+    backgroundColor: '#F0F0F0',
+    borderRadius: 12,
+    padding: 16,
+    width: (screenWidth - 52) / 2
+  },
+  quickActionButtonText: {
+    color: '#333',
+    fontSize: 12,
+    fontWeight: '500',
+    marginTop: 8,
+    textAlign: 'center'
+  },
+  quickActionsGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 12
+  },
+  section: {
+    marginBottom: 24,
+    paddingHorizontal: 20
+  },
+  sectionTitle: {
+    color: '#333',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 16
+  },
+  themeIntegration: {
+    backgroundColor: '#F0F0F0',
+    borderRadius: 12,
+    padding: 16
+  },
+  validationDetailContent: {
+    flex: 1,
+    marginLeft: 12
+  },
+  validationDetailDescription: {
+    color: '#666',
+    fontSize: 12
+  },
+  validationDetailRow: {
+    alignItems: 'flex-start',
+    flexDirection: 'row'
+  },
+  validationDetailTitle: {
+    color: '#333',
+    fontSize: 14,
+    fontWeight: '600',
+    marginBottom: 2
+  },
+  validationDetails: {
+    gap: 8
+  },
+  validationScore: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 16
+  },
+  validationScoreDescription: {
+    fontSize: 16,
+    fontWeight: '600'
+  },
+  validationScoreLabel: {
+    color: '#666',
+    fontSize: 14,
+    marginBottom: 4
+  },
+  validationScoreLeft: {
+    alignItems: 'flex-start'
+  },
+  validationScoreMax: {
+    color: '#666',
+    fontSize: 14
+  },
+  validationScoreRight: {
+    alignItems: 'flex-end'
+  },
+  validationScoreValue: {
+    fontSize: 32,
+    fontWeight: 'bold'
+  },
+  validationStatus: {
+    backgroundColor: '#F0F0F0',
+    borderRadius: 12,
+    padding: 16
+  }
 });
 
-export default ColorPaletteExample; 
+export default ColorPaletteExample;

@@ -1,6 +1,6 @@
 /**
  * Theme Data Model
- * 
+ *
  * Comprehensive theme data structure with JSON serialization,
  * validation, and portability features for consistent theming.
  */
@@ -302,7 +302,7 @@ export const createDefaultThemeDataModel = (name: string): ThemeDataModel => ({
   shadows: createDefaultShadowSystem(),
   animations: createDefaultAnimationSystem(),
   icons: createDefaultIconSystem(),
-  accessibility: createDefaultAccessibilitySettings(),
+  accessibility: createDefaultAccessibilitySettings()
 });
 
 export const createDefaultMetadata = (): ThemeMetadata => ({
@@ -313,7 +313,7 @@ export const createDefaultMetadata = (): ThemeMetadata => ({
   maxVersion: undefined,
   license: undefined,
   website: undefined,
-  previewImage: undefined,
+  previewImage: undefined
 });
 
 export const createDefaultColorPalette = (): ColorPalette => ({
@@ -323,35 +323,35 @@ export const createDefaultColorPalette = (): ColorPalette => ({
   background: {
     primary: { light: '#FFFFFF', dark: '#000000' },
     secondary: { light: '#F2F2F7', dark: '#1C1C1E' },
-    tertiary: { light: '#E5E5EA', dark: '#2C2C2E' },
+    tertiary: { light: '#E5E5EA', dark: '#2C2C2E' }
   },
   surface: {
     primary: { light: '#FFFFFF', dark: '#1C1C1E' },
     secondary: { light: '#F2F2F7', dark: '#2C2C2E' },
     tertiary: { light: '#E5E5EA', dark: '#3A3A3C' },
-    elevated: { light: '#FFFFFF', dark: '#2C2C2E' },
+    elevated: { light: '#FFFFFF', dark: '#2C2C2E' }
   },
   text: {
     primary: { light: '#000000', dark: '#FFFFFF' },
     secondary: { light: '#3C3C43', dark: '#EBEBF5' },
     tertiary: { light: '#787880', dark: '#EBEBF599' },
     quaternary: { light: '#787880', dark: '#EBEBF54D' },
-    inverse: { light: '#FFFFFF', dark: '#000000' },
+    inverse: { light: '#FFFFFF', dark: '#000000' }
   },
   semantic: {
     success: { light: '#34C759', dark: '#30D158' },
     warning: { light: '#FF9500', dark: '#FF9F0A' },
     error: { light: '#FF3B30', dark: '#FF453A' },
-    info: { light: '#007AFF', dark: '#0A84FF' },
+    info: { light: '#007AFF', dark: '#0A84FF' }
   },
-  custom: {},
+  custom: {}
 });
 
 export const createDefaultTypographySystem = (): TypographySystem => ({
   fontFamilies: {
     primary: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
     secondary: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
-    monospace: Platform.OS === 'ios' ? 'SF Mono' : 'Roboto Mono',
+    monospace: Platform.OS === 'ios' ? 'SF Mono' : 'Roboto Mono'
   },
   fontSizes: {
     xs: 12,
@@ -360,7 +360,7 @@ export const createDefaultTypographySystem = (): TypographySystem => ({
     lg: 18,
     xl: 20,
     xxl: 24,
-    xxxl: 32,
+    xxxl: 32
   },
   fontWeights: {
     light: '300',
@@ -368,18 +368,18 @@ export const createDefaultTypographySystem = (): TypographySystem => ({
     medium: '500',
     semibold: '600',
     bold: '700',
-    heavy: '800',
+    heavy: '800'
   },
   lineHeights: {
     tight: 1.2,
     normal: 1.5,
     relaxed: 1.75,
-    loose: 2.0,
+    loose: 2.0
   },
   letterSpacing: {
     tight: -0.5,
     normal: 0.0,
-    wide: 0.5,
+    wide: 0.5
   },
   textStyles: {
     heading: {
@@ -388,24 +388,24 @@ export const createDefaultTypographySystem = (): TypographySystem => ({
       h3: { size: 24, weight: '600', lineHeight: 1.3 },
       h4: { size: 20, weight: '600', lineHeight: 1.4 },
       h5: { size: 18, weight: '500', lineHeight: 1.4 },
-      h6: { size: 16, weight: '500', lineHeight: 1.5 },
+      h6: { size: 16, weight: '500', lineHeight: 1.5 }
     },
     body: {
       large: { size: 18, weight: '400', lineHeight: 1.5 },
       medium: { size: 16, weight: '400', lineHeight: 1.5 },
-      small: { size: 14, weight: '400', lineHeight: 1.5 },
+      small: { size: 14, weight: '400', lineHeight: 1.5 }
     },
     caption: {
       large: { size: 12, weight: '500', lineHeight: 1.3 },
       medium: { size: 11, weight: '400', lineHeight: 1.3 },
-      small: { size: 10, weight: '400', lineHeight: 1.2 },
+      small: { size: 10, weight: '400', lineHeight: 1.2 }
     },
     button: {
       large: { size: 18, weight: '600', lineHeight: 1.2 },
       medium: { size: 16, weight: '600', lineHeight: 1.2 },
-      small: { size: 14, weight: '500', lineHeight: 1.2 },
-    },
-  },
+      small: { size: 14, weight: '500', lineHeight: 1.2 }
+    }
+  }
 });
 
 export const createDefaultSpacingSystem = (): SpacingSystem => ({
@@ -415,49 +415,49 @@ export const createDefaultSpacingSystem = (): SpacingSystem => ({
   lg: 24,
   xl: 32,
   xxl: 48,
-  xxxl: 64,
+  xxxl: 64
 });
 
 export const createDefaultShadowSystem = (): ShadowSystem => ({
   small: {
     radius: 2,
     offset: { x: 0, y: 1 },
-    opacity: 0.1,
+    opacity: 0.1
   },
   medium: {
     radius: 4,
     offset: { x: 0, y: 2 },
-    opacity: 0.15,
+    opacity: 0.15
   },
   large: {
     radius: 8,
     offset: { x: 0, y: 4 },
-    opacity: 0.2,
+    opacity: 0.2
   },
   xlarge: {
     radius: 16,
     offset: { x: 0, y: 8 },
-    opacity: 0.25,
-  },
+    opacity: 0.25
+  }
 });
 
 export const createDefaultAnimationSystem = (): AnimationSystem => ({
   duration: {
     fast: 0.15,
     normal: 0.3,
-    slow: 0.5,
+    slow: 0.5
   },
   easing: {
     easeIn: 'easeIn',
     easeOut: 'easeOut',
     easeInOut: 'easeInOut',
-    linear: 'linear',
+    linear: 'linear'
   },
   spring: {
     response: 0.3,
     dampingFraction: 0.7,
-    blendDuration: 0.0,
-  },
+    blendDuration: 0.0
+  }
 });
 
 export const createDefaultIconSystem = (): IconSystem => ({
@@ -466,15 +466,15 @@ export const createDefaultIconSystem = (): IconSystem => ({
     small: 16,
     medium: 20,
     large: 24,
-    xlarge: 32,
+    xlarge: 32
   },
   weights: {
     light: '300',
     regular: '400',
     medium: '500',
     semibold: '600',
-    bold: '700',
-  },
+    bold: '700'
+  }
 });
 
 export const createDefaultAccessibilitySettings = (): AccessibilitySettings => ({
@@ -482,7 +482,7 @@ export const createDefaultAccessibilitySettings = (): AccessibilitySettings => (
   reducedMotion: false,
   increasedContrast: false,
   darkMode: true,
-  dynamicType: true,
+  dynamicType: true
 });
 
 // MARK: - Validation
@@ -512,7 +512,7 @@ export class ThemeValidator {
       errors.push({
         type: ValidationErrorType.MISSING_REQUIRED_FIELD,
         field: 'name',
-        message: 'Theme name is required',
+        message: 'Theme name is required'
       });
     }
 
@@ -520,7 +520,7 @@ export class ThemeValidator {
       errors.push({
         type: ValidationErrorType.MISSING_REQUIRED_FIELD,
         field: 'version',
-        message: 'Theme version is required',
+        message: 'Theme version is required'
       });
     }
 
@@ -529,7 +529,7 @@ export class ThemeValidator {
       errors.push({
         type: ValidationErrorType.INVALID_VERSION,
         field: 'version',
-        message: 'Version must follow semantic versioning (e.g., 1.0.0)',
+        message: 'Version must follow semantic versioning (e.g., 1.0.0)'
       });
     }
 
@@ -538,7 +538,7 @@ export class ThemeValidator {
       errors.push({
         type: ValidationErrorType.INVALID_COLOR,
         field: 'colors.primary',
-        message: 'Primary color must be a valid hex color',
+        message: 'Primary color must be a valid hex color'
       });
     }
 
@@ -546,7 +546,7 @@ export class ThemeValidator {
       errors.push({
         type: ValidationErrorType.INVALID_COLOR,
         field: 'colors.secondary',
-        message: 'Secondary color must be a valid hex color',
+        message: 'Secondary color must be a valid hex color'
       });
     }
 
@@ -555,7 +555,7 @@ export class ThemeValidator {
       errors.push({
         type: ValidationErrorType.INVALID_FONT_SIZE,
         field: 'typography.fontSizes.xs',
-        message: 'Font size must be greater than 0',
+        message: 'Font size must be greater than 0'
       });
     }
 
@@ -564,7 +564,7 @@ export class ThemeValidator {
       errors.push({
         type: ValidationErrorType.INVALID_SPACING,
         field: 'spacing.xs',
-        message: 'Spacing must be non-negative',
+        message: 'Spacing must be non-negative'
       });
     }
 
@@ -573,7 +573,7 @@ export class ThemeValidator {
       errors.push({
         type: ValidationErrorType.INVALID_SHADOW,
         field: 'shadows.small.opacity',
-        message: 'Shadow opacity must be between 0 and 1',
+        message: 'Shadow opacity must be between 0 and 1'
       });
     }
 
@@ -637,7 +637,7 @@ export class ThemeSerialization {
       shadows: data.shadows || createDefaultShadowSystem(),
       animations: data.animations || createDefaultAnimationSystem(),
       icons: data.icons || createDefaultIconSystem(),
-      accessibility: data.accessibility || createDefaultAccessibilitySettings(),
+      accessibility: data.accessibility || createDefaultAccessibilitySettings()
     };
 
     return theme;
@@ -752,4 +752,4 @@ export function isTypographySystem(obj: any): obj is TypographySystem {
     typeof obj.letterSpacing === 'object' &&
     typeof obj.textStyles === 'object'
   );
-} 
+}

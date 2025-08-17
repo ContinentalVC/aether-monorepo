@@ -5,7 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Modal,
-  SafeAreaView,
+  SafeAreaView
 } from 'react-native';
 import { useEnhancedTheme } from '../theme/EnhancedThemeProvider';
 import LayoutPreviewView from './LayoutPreviewView';
@@ -32,7 +32,7 @@ const LayoutPreviewExample: React.FC = () => {
         <DescriptionSection>
           <DescriptionTitle>What is Layout Preview?</DescriptionTitle>
           <DescriptionText>
-            The Layout Preview system provides real-time visual feedback as you modify design tokens. 
+            The Layout Preview system provides real-time visual feedback as you modify design tokens.
             It shows how changes affect visual hierarchy, contrast, and spacing across different interface types.
           </DescriptionText>
         </DescriptionSection>
@@ -374,8 +374,8 @@ const CloseButtonText = styled.Text`
 
 const styles = StyleSheet.create({
   modalContainer: {
-    flex: 1,
-  },
+    flex: 1
+  }
 });
 
-export default LayoutPreviewExample; 
+export default LayoutPreviewExample;

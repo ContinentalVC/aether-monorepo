@@ -1,9 +1,9 @@
 /**
  * AccessibilityValidator.ts
- * 
+ *
  * Comprehensive WCAG AA compliance validator for React Native
  * Implements precise contrast ratio calculations and automated accessibility validation
- * 
+ *
  * @author AI Assistant
  * @copyright 2025 Aether
  */
@@ -90,47 +90,47 @@ export enum ColorBlindnessType {
 // MARK: - Color Utilities
 
 export class ColorUtilities {
-  
+
   // MARK: - Color Parsing
-  
+
   static parseColor(colorString: string): { red: number; green: number; blue: number; alpha: number } | null {
     const trimmed = colorString.trim();
-    
+
     // Hex color parsing
     if (trimmed.startsWith('#')) {
       return this.parseHexColor(trimmed);
     }
-    
+
     // Named color parsing
     const namedColor = this.parseNamedColor(trimmed);
     if (namedColor) {
       return namedColor;
     }
-    
+
     // RGBA color parsing
     if (trimmed.startsWith('rgba') || trimmed.startsWith('rgb')) {
       return this.parseRGBAColor(trimmed);
     }
-    
+
     return null;
   }
-  
+
   private static parseHexColor(hex: string): { red: number; green: number; blue: number; alpha: number } | null {
     const cleanHex = hex.replace('#', '');
-    
+
     if (cleanHex.length !== 6 && cleanHex.length !== 8) {
       return null;
     }
-    
+
     const r = parseInt(cleanHex.substring(0, 2), 16);
     const g = parseInt(cleanHex.substring(2, 4), 16);
     const b = parseInt(cleanHex.substring(4, 6), 16);
     const a = cleanHex.length === 8 ? parseInt(cleanHex.substring(6, 8), 16) : 255;
-    
+
     if (isNaN(r) || isNaN(g) || isNaN(b) || isNaN(a)) {
       return null;
     }
-    
+
     return {
       red: r / 255,
       green: g / 255,
@@ -138,7 +138,7 @@ export class ColorUtilities {
       alpha: a / 255
     };
   }
-  
+
   private static parseNamedColor(name: string): { red: number; green: number; blue: number; alpha: number } | null {
     const namedColors: Record<string, { red: number; green: number; blue: number }> = {
       black: { red: 0, green: 0, blue: 0 },
@@ -163,12 +163,12 @@ export class ColorUtilities {
       silver: { red: 0.75, green: 0.75, blue: 0.75 },
       gold: { red: 1, green: 0.84, blue: 0 }
     };
-    
+
     const color = namedColors[name.toLowerCase()];
     if (!color) {
       return null;
     }
-    
+
     return {
       red: color.red,
       green: color.green,
@@ -176,72 +176,72 @@ export class ColorUtilities {
       alpha: 1
     };
   }
-  
+
   private static parseRGBAColor(rgba: string): { red: number; green: number; blue: number; alpha: number } | null {
     const pattern = /rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*([\d.]+)\s*)?\)/;
     const match = rgba.match(pattern);
-    
+
     if (!match) {
       return null;
     }
-    
+
     const r = parseInt(match[1]) / 255;
     const g = parseInt(match[2]) / 255;
     const b = parseInt(match[3]) / 255;
     const a = match[4] ? parseFloat(match[4]) : 1;
-    
+
     return { red: r, green: g, blue: b, alpha: a };
   }
-  
+
   // MARK: - Luminance Calculation
-  
+
   static calculateLuminance(red: number, green: number, blue: number): number {
     // Convert sRGB to linear RGB
     const linearRed = red <= 0.03928 ? red / 12.92 : Math.pow((red + 0.055) / 1.055, 2.4);
     const linearGreen = green <= 0.03928 ? green / 12.92 : Math.pow((green + 0.055) / 1.055, 2.4);
     const linearBlue = blue <= 0.03928 ? blue / 12.92 : Math.pow((blue + 0.055) / 1.055, 2.4);
-    
+
     // Calculate relative luminance
     return 0.2126 * linearRed + 0.7152 * linearGreen + 0.0722 * linearBlue;
   }
-  
+
   static calculateLuminanceForColor(colorString: string): number | null {
     const color = this.parseColor(colorString);
     if (!color) {
       return null;
     }
-    
+
     return this.calculateLuminance(color.red, color.green, color.blue);
   }
-  
+
   // MARK: - Contrast Ratio Calculation
-  
+
   static calculateContrastRatio(color1: string, color2: string): number | null {
     const luminance1 = this.calculateLuminanceForColor(color1);
     const luminance2 = this.calculateLuminanceForColor(color2);
-    
+
     if (luminance1 === null || luminance2 === null) {
       return null;
     }
-    
+
     const lighter = Math.max(luminance1, luminance2);
     const darker = Math.min(luminance1, luminance2);
-    
+
     return (lighter + 0.05) / (darker + 0.05);
   }
-  
+
   // MARK: - Color Blindness Simulation
-  
+
   static simulateColorBlindness(color: string, type: ColorBlindnessType): string | null {
     const parsed = this.parseColor(color);
     if (!parsed) {
       return null;
     }
-    
+
     let newRed: number;
     let newGreen: number;
     let newBlue: number;
-    
+
     switch (type) {
       case ColorBlindnessType.PROTANOPIA:
         // Red-green color blindness (red appears darker)
@@ -249,28 +249,28 @@ export class ColorUtilities {
         newGreen = 0.558 * parsed.red + 0.442 * parsed.green;
         newBlue = parsed.blue;
         break;
-        
+
       case ColorBlindnessType.DEUTERANOPIA:
         // Red-green color blindness (green appears darker)
         newRed = 0.625 * parsed.red + 0.375 * parsed.green;
         newGreen = 0.7 * parsed.red + 0.3 * parsed.green;
         newBlue = parsed.blue;
         break;
-        
+
       case ColorBlindnessType.TRITANOPIA:
         // Blue-yellow color blindness
         newRed = 0.95 * parsed.red + 0.05 * parsed.blue;
         newGreen = 0.433 * parsed.green + 0.567 * parsed.blue;
         newBlue = 0.475 * parsed.green + 0.525 * parsed.blue;
         break;
-        
+
       default:
         return null;
     }
-    
+
     return this.rgbToString(newRed, newGreen, newBlue);
   }
-  
+
   private static rgbToString(red: number, green: number, blue: number): string {
     const r = Math.round(red * 255);
     const g = Math.round(green * 255);
@@ -284,52 +284,52 @@ export class ColorUtilities {
 export class AccessibilityValidator {
   private wcagLevel: WCAGLevel;
   private isValidationInProgress = false;
-  
+
   constructor(wcagLevel: WCAGLevel = WCAGLevel.AA) {
     this.wcagLevel = wcagLevel;
   }
-  
+
   // MARK: - Main Validation Method
-  
+
   async validateAccessibility(theme: ThemeSchema): Promise<AccessibilityValidationResult> {
     this.isValidationInProgress = true;
-    
+
     try {
       const errors: AccessibilityError[] = [];
       const warnings: string[] = [];
       const contrastTests: ContrastTest[] = [];
-      
+
       // Validate text-to-background contrast
       const textContrastResult = await this.validateTextContrast(theme);
       errors.push(...textContrastResult.errors);
       contrastTests.push(...textContrastResult.tests);
-      
+
       // Validate UI component contrast
       const uiContrastResult = await this.validateUIContrast(theme);
       errors.push(...uiContrastResult.errors);
       contrastTests.push(...uiContrastResult.tests);
-      
+
       // Validate color blindness compatibility
       const colorBlindnessErrors = await this.validateColorBlindness(theme);
       errors.push(...colorBlindnessErrors);
-      
+
       // Validate touch targets
       const touchTargetErrors = await this.validateTouchTargets(theme);
       errors.push(...touchTargetErrors);
-      
+
       // Validate color-only information
       const colorOnlyErrors = await this.validateColorOnlyInformation(theme);
       errors.push(...colorOnlyErrors);
-      
+
       // Calculate accessibility score
       const accessibilityScore = this.calculateAccessibilityScore(
         contrastTests.length,
         errors.filter(error => error.type === 'insufficientContrast').length
       );
-      
+
       const passedTests = contrastTests.filter(test => test.passed).length;
       const failedTests = contrastTests.filter(test => !test.passed).length;
-      
+
       return {
         isValid: errors.length === 0,
         errors,
@@ -345,22 +345,22 @@ export class AccessibilityValidator {
       this.isValidationInProgress = false;
     }
   }
-  
+
   // MARK: - Text Contrast Validation
-  
+
   private async validateTextContrast(theme: ThemeSchema): Promise<{ errors: AccessibilityError[]; tests: ContrastTest[] }> {
     const errors: AccessibilityError[] = [];
     const tests: ContrastTest[] = [];
-    
+
     const textColor = theme.properties.colors.text.primary.light;
     const backgroundColor = theme.properties.colors.background.primary.light;
-    
+
     if (!textColor || !backgroundColor) {
       return { errors, tests };
     }
-    
+
     const thresholds = WCAG_THRESHOLDS[this.wcagLevel];
-    
+
     // Normal text contrast (4.5:1 for AA)
     const normalContrastRatio = ColorUtilities.calculateContrastRatio(textColor, backgroundColor);
     if (normalContrastRatio !== null) {
@@ -374,7 +374,7 @@ export class AccessibilityValidator {
         passed: normalContrastRatio >= thresholds.normalTextContrast
       };
       tests.push(test);
-      
+
       if (!test.passed) {
         errors.push({
           id: `normal_text_error_${textColor}_${backgroundColor}`,
@@ -388,7 +388,7 @@ export class AccessibilityValidator {
         });
       }
     }
-    
+
     // Large text contrast (3:1 for AA)
     const largeContrastRatio = ColorUtilities.calculateContrastRatio(textColor, backgroundColor);
     if (largeContrastRatio !== null) {
@@ -402,7 +402,7 @@ export class AccessibilityValidator {
         passed: largeContrastRatio >= thresholds.largeTextContrast
       };
       tests.push(test);
-      
+
       if (!test.passed) {
         errors.push({
           id: `large_text_error_${textColor}_${backgroundColor}`,
@@ -416,7 +416,7 @@ export class AccessibilityValidator {
         });
       }
     }
-    
+
     // Secondary text contrast
     const secondaryTextColor = theme.properties.colors.text.secondary.light;
     if (secondaryTextColor) {
@@ -432,7 +432,7 @@ export class AccessibilityValidator {
           passed: secondaryContrastRatio >= thresholds.normalTextContrast
         };
         tests.push(test);
-        
+
         if (!test.passed) {
           errors.push({
             id: `secondary_text_error_${secondaryTextColor}_${backgroundColor}`,
@@ -447,23 +447,23 @@ export class AccessibilityValidator {
         }
       }
     }
-    
+
     return { errors, tests };
   }
-  
+
   // MARK: - UI Component Contrast Validation
-  
+
   private async validateUIContrast(theme: ThemeSchema): Promise<{ errors: AccessibilityError[]; tests: ContrastTest[] }> {
     const errors: AccessibilityError[] = [];
     const tests: ContrastTest[] = [];
-    
+
     const backgroundColor = theme.properties.colors.background.primary.light;
     if (!backgroundColor) {
       return { errors, tests };
     }
-    
+
     const thresholds = WCAG_THRESHOLDS[this.wcagLevel];
-    
+
     // Validate primary button contrast
     const primaryColor = theme.properties.colors.primary.light;
     if (primaryColor) {
@@ -479,7 +479,7 @@ export class AccessibilityValidator {
           passed: primaryContrastRatio >= thresholds.uiComponentContrast
         };
         tests.push(test);
-        
+
         if (!test.passed) {
           errors.push({
             id: `primary_button_error_${primaryColor}_${backgroundColor}`,
@@ -494,7 +494,7 @@ export class AccessibilityValidator {
         }
       }
     }
-    
+
     // Validate border contrast
     const borderColor = theme.properties.colors.semantic.error.light;
     if (borderColor) {
@@ -510,7 +510,7 @@ export class AccessibilityValidator {
           passed: borderContrastRatio >= thresholds.uiComponentContrast
         };
         tests.push(test);
-        
+
         if (!test.passed) {
           errors.push({
             id: `border_error_${borderColor}_${backgroundColor}`,
@@ -525,7 +525,7 @@ export class AccessibilityValidator {
         }
       }
     }
-    
+
     // Validate error and success states
     const stateColors = [
       { key: 'error', color: theme.properties.colors.semantic.error.light },
@@ -548,7 +548,7 @@ export class AccessibilityValidator {
             passed: stateContrastRatio >= thresholds.uiComponentContrast
           };
           tests.push(test);
-          
+
           if (!test.passed) {
             errors.push({
               id: `${stateColor}_state_error_${color}_${backgroundColor}`,
@@ -564,24 +564,24 @@ export class AccessibilityValidator {
         }
       }
     }
-    
+
     return { errors, tests };
   }
-  
+
   // MARK: - Color Blindness Validation
-  
+
   private async validateColorBlindness(theme: ThemeSchema): Promise<AccessibilityError[]> {
     const errors: AccessibilityError[] = [];
-    
+
     const colorPairs = this.generateColorPairs(theme.properties.colors);
-    
+
     for (const [color1, color2] of colorPairs) {
       for (const blindnessType of Object.values(ColorBlindnessType)) {
         const simulated1 = ColorUtilities.simulateColorBlindness(color1, blindnessType);
-        const simulated2 = ColorUtilities.simulateColorBlindness(color2, blindnessType);
-        
-        if (simulated1 && simulated2) {
-          const contrastRatio = ColorUtilities.calculateContrastRatio(simulated1, simulated2);
+        const _simulated2 = ColorUtilities.simulateColorBlindness(color2, blindnessType);
+
+        if (simulated1 && _simulated2) {
+          const contrastRatio = ColorUtilities.calculateContrastRatio(simulated1, _simulated2);
           if (contrastRatio !== null && contrastRatio < 2.0) {
             errors.push({
               id: `colorblind_${color1}_${color2}_${blindnessType}`,
@@ -594,17 +594,17 @@ export class AccessibilityValidator {
         }
       }
     }
-    
+
     return errors;
   }
-  
+
   // MARK: - Touch Target Validation
-  
+
   private async validateTouchTargets(theme: ThemeSchema): Promise<AccessibilityError[]> {
     const errors: AccessibilityError[] = [];
-    
+
     const minimumTouchTarget = 44; // iOS Human Interface Guidelines
-    
+
     for (const [key, spacing] of Object.entries(theme.properties.layoutMetrics.spacing)) {
       if (typeof spacing === 'number' && spacing < minimumTouchTarget) {
         errors.push({
@@ -616,27 +616,27 @@ export class AccessibilityValidator {
         });
       }
     }
-    
+
     return errors;
   }
-  
+
   // MARK: - Color-Only Information Validation
-  
+
   private async validateColorOnlyInformation(theme: ThemeSchema): Promise<AccessibilityError[]> {
     const errors: AccessibilityError[] = [];
-    
+
     // Note: Color-only validation would require additional theme metadata
     // to check if semantic colors are used with proper icons/labels
     // For now, we'll skip this validation as it requires theme usage context
-    
+
     return errors;
   }
-  
+
   // MARK: - Helper Methods
-  
+
   private generateColorPairs(colors: any): [string, string][] {
     const colorArray: string[] = [];
-    
+
     // Extract all color values from the nested structure
     const extractColors = (obj: any) => {
       if (typeof obj === 'string' && (obj.startsWith('#') || obj.startsWith('rgb'))) {
@@ -645,52 +645,52 @@ export class AccessibilityValidator {
         Object.values(obj).forEach(extractColors);
       }
     };
-    
+
     extractColors(colors);
-    
+
     const pairs: [string, string][] = [];
     for (let i = 0; i < colorArray.length; i++) {
       for (let j = i + 1; j < colorArray.length; j++) {
         pairs.push([colorArray[i], colorArray[j]]);
       }
     }
-    
+
     return pairs;
   }
-  
+
   private calculateAccessibilityScore(totalTests: number, failedTests: number): number {
     if (totalTests === 0) {
       return 100;
     }
     return Math.max(0, (totalTests - failedTests) / totalTests * 100);
   }
-  
+
   // MARK: - Public Utility Methods
-  
+
   getValidationStatus(): boolean {
     return this.isValidationInProgress;
   }
-  
+
   setWCAGLevel(level: WCAGLevel): void {
     this.wcagLevel = level;
   }
-  
+
   // MARK: - Static Validation Methods
-  
+
   static validateContrastRatio(color1: string, color2: string, requiredRatio: number): boolean {
     const contrastRatio = ColorUtilities.calculateContrastRatio(color1, color2);
     return contrastRatio !== null && contrastRatio >= requiredRatio;
   }
-  
+
   static validateTouchTarget(size: number, minimumSize: number = 44): boolean {
     return size >= minimumSize;
   }
-  
+
   static validateColorBlindnessCompatibility(color1: string, color2: string): boolean {
     for (const blindnessType of Object.values(ColorBlindnessType)) {
       const simulated1 = ColorUtilities.simulateColorBlindness(color1, blindnessType);
       const simulated2 = ColorUtilities.simulateColorBlindness(color2, blindnessType);
-      
+
       if (simulated1 && simulated2) {
         const contrastRatio = ColorUtilities.calculateContrastRatio(simulated1, simulated2);
         if (contrastRatio !== null && contrastRatio < 2.0) {
@@ -746,4 +746,4 @@ export const useAccessibilityValidation = () => {
 
 // MARK: - Export
 
-export default AccessibilityValidator; 
+export default AccessibilityValidator;

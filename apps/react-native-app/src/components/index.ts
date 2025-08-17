@@ -30,14 +30,14 @@ export {
   getTheme,
   getAvailableThemes,
   createCustomTheme,
-  themes,
+  themes
 } from '../theme/ThemeProvider';
 
 export type {
   Theme,
-  ThemeName,
+  ThemeName
 } from '../theme/ThemeProvider';
 
 export type {
-  AetherGlassCardProps,
-} from './AetherGlassCard.styled'; 
+  AetherGlassCardProps
+} from './AetherGlassCard.styled';

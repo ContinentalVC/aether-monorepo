@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { Canvas, useFrame } from '@react-three/fiber/native';
-import { 
-  Box, 
-  OrbitControls, 
+import {
+  Box,
+  OrbitControls,
   Text as DreiText
 } from '@react-three/drei/native';
 import * as THREE from 'three';
@@ -22,21 +22,20 @@ interface BarChart3DProps {
   barSpacing?: number;
   baseHeight?: number;
   colors?: string[];
-  backgroundColor?: string;
   showLabels?: boolean;
   animate?: boolean;
 }
 
 /**
  * 3D Bar Chart Component for React Native using react-three-fiber
- * 
+ *
  * This component renders an interactive 3D bar chart with the following features:
  * - Interactive bars that change color on tap
  * - Orbit controls for camera manipulation
  * - Proper lighting setup
  * - Responsive layout based on data
  * - Optional animations and labels
- * 
+ *
  * @param data - Array of objects with label and value properties
  * @param width - Width of the chart container
  * @param height - Height of the chart container
@@ -44,7 +43,6 @@ interface BarChart3DProps {
  * @param barSpacing - Spacing between bars
  * @param baseHeight - Base height for bars (minimum height)
  * @param colors - Array of colors for bars
- * @param backgroundColor - Background color of the scene
  * @param showLabels - Whether to show labels on bars
  * @param animate - Whether to animate bars on mount
  */
@@ -56,17 +54,15 @@ const BarChart3D: React.FC<BarChart3DProps> = ({
   barSpacing = 1.2,
   baseHeight = 0.1,
   colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8'],
-  backgroundColor = '#f0f0f0',
   showLabels = true,
   animate = true
 }) => {
   // State to track which bar is currently active/selected
   const [activeBar, setActiveBar] = useState<number | null>(null);
-  
+
   // Calculate chart dimensions based on data
-  const totalWidth = data.length * barSpacing;
   const maxValue = Math.max(...data.map(item => item.value), 1);
-  
+
   // Generate random colors if not enough provided
   const getBarColor = (index: number, isActive: boolean) => {
     if (isActive) {
@@ -79,19 +75,19 @@ const BarChart3D: React.FC<BarChart3DProps> = ({
    * Individual Bar Component
    * Renders a single 3D bar with interactive features
    */
-  const Bar: React.FC<{ 
-    data: BarData; 
-    index: number; 
+  const Bar: React.FC<{
+    data: BarData;
+    index: number;
     position: [number, number, number];
     isActive: boolean;
     onTap: () => void;
   }> = ({ data, index, position, isActive, onTap }) => {
     const meshRef = useRef<THREE.Mesh>(null);
     const barHeight = (data.value / maxValue) * 5 + baseHeight; // Scale height to reasonable 3D size
-    
+
     // Animation for bar growth on mount
     const [animatedHeight, setAnimatedHeight] = useState(animate ? 0 : barHeight);
-    
+
     // Animate bar height on mount if animation is enabled
     useFrame(() => {
       if (animate && meshRef.current && animatedHeight < barHeight) {
@@ -108,13 +104,13 @@ const BarChart3D: React.FC<BarChart3DProps> = ({
           position={[0, animatedHeight / 2, 0]}
           onClick={onTap}
         >
-          <meshStandardMaterial 
+          <meshStandardMaterial
             color={getBarColor(index, isActive)}
             roughness={0.3}
             metalness={0.1}
           />
         </Box>
-        
+
         {/* Bar label */}
         {showLabels && (
           <DreiText
@@ -128,7 +124,7 @@ const BarChart3D: React.FC<BarChart3DProps> = ({
             {data.label}
           </DreiText>
         )}
-        
+
         {/* Value label */}
         <DreiText
           position={[0, animatedHeight / 2, barWidth / 2 + 0.2]}
@@ -152,22 +148,22 @@ const BarChart3D: React.FC<BarChart3DProps> = ({
       <>
         {/* Lighting setup */}
         <ambientLight intensity={0.4} />
-        <directionalLight 
-          position={[10, 10, 5]} 
+        <directionalLight
+          position={[10, 10, 5]}
           intensity={0.8}
           castShadow
           shadow-mapSize-width={2048}
           shadow-mapSize-height={2048}
         />
         <pointLight position={[-10, -10, -10]} intensity={0.3} />
-        
+
         {/* Grid for reference */}
         <gridHelper args={[20, 20, '#ddd', '#ddd']} />
-        
+
         {/* Render bars */}
         {data.map((item, index) => {
           const xPosition = (index - (data.length - 1) / 2) * barSpacing;
-          
+
           return (
             <Bar
               key={`bar-${index}`}
@@ -179,17 +175,9 @@ const BarChart3D: React.FC<BarChart3DProps> = ({
             />
           );
         })}
-        
+
         {/* Orbit controls for camera manipulation */}
-        <OrbitControls 
-          enablePan={true}
-          enableZoom={true}
-          enableRotate={true}
-          minDistance={5}
-          maxDistance={20}
-          autoRotate={false}
-          autoRotateSpeed={1}
-        />
+        <OrbitControls />
       </>
     );
   };
@@ -207,17 +195,17 @@ const BarChart3D: React.FC<BarChart3DProps> = ({
     <View style={[styles.container, { width, height }]}>
       {/* Chart title */}
       <Text style={styles.title}>3D Bar Chart</Text>
-      
+
       {/* 3D Canvas */}
       <Canvas
         style={styles.canvas}
-        camera={{ 
-          position: [0, 5, 8], 
+        camera={{
+          position: [0, 5, 8],
           fov: 50,
           near: 0.1,
           far: 1000
         }}
-        gl={{ 
+        gl={{
           antialias: true,
           alpha: true,
           preserveDrawingBuffer: true
@@ -225,7 +213,7 @@ const BarChart3D: React.FC<BarChart3DProps> = ({
       >
         <ChartScene />
       </Canvas>
-      
+
       {/* Legend/Info */}
       <View style={styles.infoContainer}>
         <Text style={styles.infoText}>
@@ -243,53 +231,53 @@ const BarChart3D: React.FC<BarChart3DProps> = ({
 
 // Styles for the component
 const styles = StyleSheet.create({
+  canvas: {
+    flex: 1
+  },
   container: {
     backgroundColor: '#f8f9fa',
     borderRadius: 12,
+    elevation: 5,
     overflow: 'hidden',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 2
     },
     shadowOpacity: 0.1,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    padding: 16,
-    color: '#333',
-  },
-  canvas: {
-    flex: 1,
-  },
-  infoContainer: {
-    padding: 12,
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    borderTopWidth: 1,
-    borderTopColor: '#e0e0e0',
-  },
-  infoText: {
-    fontSize: 12,
-    color: '#666',
-    textAlign: 'center',
-  },
-  selectedText: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#FFD700',
-    textAlign: 'center',
-    marginTop: 4,
+    shadowRadius: 3.84
   },
   errorText: {
-    fontSize: 16,
     color: '#666',
-    textAlign: 'center',
+    fontSize: 16,
     padding: 20,
+    textAlign: 'center'
   },
+  infoContainer: {
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    borderTopColor: '#e0e0e0',
+    borderTopWidth: 1,
+    padding: 12
+  },
+  infoText: {
+    color: '#666',
+    fontSize: 12,
+    textAlign: 'center'
+  },
+  selectedText: {
+    color: '#FFD700',
+    fontSize: 14,
+    fontWeight: '600',
+    marginTop: 4,
+    textAlign: 'center'
+  },
+  title: {
+    color: '#333',
+    fontSize: 18,
+    fontWeight: 'bold',
+    padding: 16,
+    textAlign: 'center'
+  }
 });
 
-export default BarChart3D; 
+export default BarChart3D;

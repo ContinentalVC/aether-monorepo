@@ -37,7 +37,7 @@ export interface StorageError {
 const STORAGE_KEYS = {
   CHART_DATA: 'pie_chart_data',
   CHART_HISTORY: 'pie_chart_history',
-  SETTINGS: 'pie_chart_settings',
+  SETTINGS: 'pie_chart_settings'
 } as const;
 
 // MARK: - Utility Functions
@@ -62,7 +62,7 @@ export const saveChartData = async (
     const total = data.reduce((sum, item) => sum + item.value, 0);
     const processedData = data.map(item => ({
       ...item,
-      percentage: total > 0 ? (item.value / total) * 100 : 0,
+      percentage: total > 0 ? (item.value / total) * 100 : 0
     }));
 
     // Create chart data object
@@ -71,7 +71,7 @@ export const saveChartData = async (
       title,
       data: processedData,
       createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     };
 
     // Save to AsyncStorage
@@ -86,7 +86,7 @@ export const saveChartData = async (
     const storageError: StorageError = {
       message: error instanceof Error ? error.message : 'Unknown error occurred',
       code: 'SAVE_ERROR',
-      timestamp: new Date().toISOString(),
+      timestamp: new Date().toISOString()
     };
     console.error('Error saving chart data:', storageError);
     throw storageError;
@@ -100,14 +100,14 @@ export const saveChartData = async (
 export const loadChartData = async (): Promise<PieChartData[]> => {
   try {
     const storedData = await AsyncStorage.getItem(STORAGE_KEYS.CHART_DATA);
-    
+
     if (!storedData) {
       console.log('No saved chart data found');
       return [];
     }
 
     const chartData: ChartData = JSON.parse(storedData);
-    
+
     // Validate loaded data
     if (!isValidChartData(chartData)) {
       throw new Error('Invalid chart data format');
@@ -119,7 +119,7 @@ export const loadChartData = async (): Promise<PieChartData[]> => {
     const storageError: StorageError = {
       message: error instanceof Error ? error.message : 'Unknown error occurred',
       code: 'LOAD_ERROR',
-      timestamp: new Date().toISOString(),
+      timestamp: new Date().toISOString()
     };
     console.error('Error loading chart data:', storageError);
     throw storageError;
@@ -135,7 +135,7 @@ export const loadChartDataById = async (id: string): Promise<ChartData | null> =
   try {
     const history = await loadChartHistory();
     const chartData = history.find(chart => chart.id === id);
-    
+
     if (!chartData) {
       console.log(`Chart data not found for ID: ${id}`);
       return null;
@@ -147,7 +147,7 @@ export const loadChartDataById = async (id: string): Promise<ChartData | null> =
     const storageError: StorageError = {
       message: error instanceof Error ? error.message : 'Unknown error occurred',
       code: 'LOAD_BY_ID_ERROR',
-      timestamp: new Date().toISOString(),
+      timestamp: new Date().toISOString()
     };
     console.error('Error loading chart data by ID:', storageError);
     throw storageError;
@@ -182,7 +182,7 @@ export const updateChartData = async (
     const total = data.reduce((sum, item) => sum + item.value, 0);
     const processedData = data.map(item => ({
       ...item,
-      percentage: total > 0 ? (item.value / total) * 100 : 0,
+      percentage: total > 0 ? (item.value / total) * 100 : 0
     }));
 
     // Update chart data
@@ -190,12 +190,12 @@ export const updateChartData = async (
       ...existingChart,
       title: title || existingChart.title,
       data: processedData,
-      updatedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     };
 
     // Save updated data
     await AsyncStorage.setItem(STORAGE_KEYS.CHART_DATA, JSON.stringify(updatedChart));
-    
+
     // Update in history
     await updateInHistory(updatedChart);
 
@@ -205,7 +205,7 @@ export const updateChartData = async (
     const storageError: StorageError = {
       message: error instanceof Error ? error.message : 'Unknown error occurred',
       code: 'UPDATE_ERROR',
-      timestamp: new Date().toISOString(),
+      timestamp: new Date().toISOString()
     };
     console.error('Error updating chart data:', storageError);
     throw storageError;
@@ -221,9 +221,9 @@ export const deleteChartData = async (id: string): Promise<boolean> => {
   try {
     const history = await loadChartHistory();
     const updatedHistory = history.filter(chart => chart.id !== id);
-    
+
     await AsyncStorage.setItem(STORAGE_KEYS.CHART_HISTORY, JSON.stringify(updatedHistory));
-    
+
     // If deleting current chart, clear current data
     const currentData = await AsyncStorage.getItem(STORAGE_KEYS.CHART_DATA);
     if (currentData) {
@@ -239,7 +239,7 @@ export const deleteChartData = async (id: string): Promise<boolean> => {
     const storageError: StorageError = {
       message: error instanceof Error ? error.message : 'Unknown error occurred',
       code: 'DELETE_ERROR',
-      timestamp: new Date().toISOString(),
+      timestamp: new Date().toISOString()
     };
     console.error('Error deleting chart data:', storageError);
     throw storageError;
@@ -254,16 +254,16 @@ export const clearAllChartData = async (): Promise<boolean> => {
   try {
     await AsyncStorage.multiRemove([
       STORAGE_KEYS.CHART_DATA,
-      STORAGE_KEYS.CHART_HISTORY,
+      STORAGE_KEYS.CHART_HISTORY
     ]);
-    
+
     console.log('All chart data cleared successfully');
     return true;
   } catch (error) {
     const storageError: StorageError = {
       message: error instanceof Error ? error.message : 'Unknown error occurred',
       code: 'CLEAR_ERROR',
-      timestamp: new Date().toISOString(),
+      timestamp: new Date().toISOString()
     };
     console.error('Error clearing chart data:', storageError);
     throw storageError;
@@ -277,13 +277,13 @@ export const clearAllChartData = async (): Promise<boolean> => {
 export const loadChartHistory = async (): Promise<ChartData[]> => {
   try {
     const historyData = await AsyncStorage.getItem(STORAGE_KEYS.CHART_HISTORY);
-    
+
     if (!historyData) {
       return [];
     }
 
     const history: ChartData[] = JSON.parse(historyData);
-    
+
     // Validate history data
     if (!Array.isArray(history)) {
       throw new Error('Invalid history data format');
@@ -308,19 +308,19 @@ export const getChartStatistics = async (): Promise<{
 }> => {
   try {
     const history = await loadChartHistory();
-    
+
     if (history.length === 0) {
       return {
         totalCharts: 0,
         totalDataPoints: 0,
         averageDataPoints: 0,
-        lastUpdated: null,
+        lastUpdated: null
       };
     }
 
     const totalDataPoints = history.reduce((sum, chart) => sum + chart.data.length, 0);
     const averageDataPoints = totalDataPoints / history.length;
-    const lastUpdated = history.reduce((latest, chart) => 
+    const lastUpdated = history.reduce((latest, chart) =>
       chart.updatedAt > latest ? chart.updatedAt : latest, history[0].updatedAt
     );
 
@@ -328,7 +328,7 @@ export const getChartStatistics = async (): Promise<{
       totalCharts: history.length,
       totalDataPoints,
       averageDataPoints: Math.round(averageDataPoints * 100) / 100,
-      lastUpdated,
+      lastUpdated
     };
   } catch (error) {
     console.error('Error getting chart statistics:', error);
@@ -336,7 +336,7 @@ export const getChartStatistics = async (): Promise<{
       totalCharts: 0,
       totalDataPoints: 0,
       averageDataPoints: 0,
-      lastUpdated: null,
+      lastUpdated: null
     };
   }
 };
@@ -358,13 +358,13 @@ const generateId = (): string => {
 const addToHistory = async (chartData: ChartData): Promise<void> => {
   try {
     const history = await loadChartHistory();
-    
+
     // Remove existing entry with same ID if exists
     const filteredHistory = history.filter(chart => chart.id !== chartData.id);
-    
+
     // Add new entry at the beginning
     const updatedHistory = [chartData, ...filteredHistory].slice(0, 50); // Keep last 50 charts
-    
+
     await AsyncStorage.setItem(STORAGE_KEYS.CHART_HISTORY, JSON.stringify(updatedHistory));
   } catch (error) {
     console.error('Error adding to history:', error);
@@ -378,10 +378,10 @@ const addToHistory = async (chartData: ChartData): Promise<void> => {
 const updateInHistory = async (chartData: ChartData): Promise<void> => {
   try {
     const history = await loadChartHistory();
-    const updatedHistory = history.map(chart => 
+    const updatedHistory = history.map(chart =>
       chart.id === chartData.id ? chartData : chart
     );
-    
+
     await AsyncStorage.setItem(STORAGE_KEYS.CHART_HISTORY, JSON.stringify(updatedHistory));
   } catch (error) {
     console.error('Error updating in history:', error);
@@ -403,7 +403,7 @@ const isValidChartData = (chartData: any): chartData is ChartData => {
     chartData.data.length > 0 &&
     typeof chartData.createdAt === 'string' &&
     typeof chartData.updatedAt === 'string' &&
-    chartData.data.every((item: any) => 
+    chartData.data.every((item: any) =>
       item &&
       typeof item.id === 'string' &&
       typeof item.label === 'string' &&
@@ -424,9 +424,9 @@ export const exportChartDataAsJSON = (data: PieChartData[]): string => {
     exportedAt: new Date().toISOString(),
     data,
     total: data.reduce((sum, item) => sum + item.value, 0),
-    count: data.length,
+    count: data.length
   };
-  
+
   return JSON.stringify(exportData, null, 2);
 };
 
@@ -438,19 +438,19 @@ export const exportChartDataAsJSON = (data: PieChartData[]): string => {
 export const importChartDataFromJSON = (jsonString: string): PieChartData[] => {
   try {
     const parsed = JSON.parse(jsonString);
-    
+
     if (parsed.data && Array.isArray(parsed.data)) {
       return parsed.data.map((item: any) => ({
         id: item.id || generateId(),
         label: item.label || 'Unknown',
         value: typeof item.value === 'number' ? item.value : 0,
         color: item.color || '#007AFF',
-        percentage: item.percentage,
+        percentage: item.percentage
       }));
     }
-    
+
     throw new Error('Invalid JSON format: missing data array');
   } catch (error) {
     throw new Error(`Failed to import chart data: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
-}; 
+};

@@ -6,15 +6,14 @@
 //  Copyright © 2025 Aether Design System. All rights reserved.
 //
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
   ScrollView,
   TouchableOpacity,
   StyleSheet,
-  Alert,
-  Platform,
+  Platform
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -45,7 +44,9 @@ class IntelligentCacheManager {
     if (this.memoryCache.size >= this.MEMORY_CACHE_LIMIT) {
       // Remove oldest entry
       const firstKey = this.memoryCache.keys().next().value;
-      this.memoryCache.delete(firstKey);
+      if (firstKey) {
+        this.memoryCache.delete(firstKey);
+      }
     }
     this.memoryCache.set(key, object);
   }
@@ -213,7 +214,7 @@ class DataValidator {
 
     return {
       isValid,
-      errors: isValid ? [] : ['Invalid email format'],
+      errors: isValid ? [] : ['Invalid email format']
     };
   }
 
@@ -236,7 +237,7 @@ class DataValidator {
 
     return {
       isValid: errors.length === 0,
-      errors,
+      errors
     };
   }
 
@@ -331,7 +332,7 @@ class DataExportManager {
 
     const headers = Object.keys(data[0]);
     const csvHeaders = headers.join(',');
-    const csvRows = data.map(row => 
+    const csvRows = data.map(row =>
       headers.map(header => JSON.stringify(row[header])).join(',')
     );
 
@@ -373,7 +374,7 @@ export const DataArchitectureTestingView: React.FC = () => {
   const testMemoryCache = async () => {
     const testData = { id: 1, name: 'Test Data', timestamp: Date.now() };
     cacheManager.cacheInMemory('test_key', testData);
-    
+
     const retrieved = cacheManager.retrieveFromMemory('test_key') as typeof testData;
     if (retrieved && retrieved.id === testData.id) {
       setTestResults(prev => [...prev, 'Memory cache: ✅ Data retrieved successfully']);
@@ -385,7 +386,7 @@ export const DataArchitectureTestingView: React.FC = () => {
   const testLRUCache = async () => {
     const testData = { id: 2, name: 'LRU Test Data' };
     cacheManager.cacheInLRU('lru_test', testData);
-    
+
     const retrieved = cacheManager.retrieveFromLRU('lru_test');
     if (retrieved && retrieved.id === testData.id) {
       setTestResults(prev => [...prev, 'LRU cache: ✅ Data retrieved successfully']);
@@ -397,7 +398,7 @@ export const DataArchitectureTestingView: React.FC = () => {
   const testDiskCache = async () => {
     const testData = { id: 3, name: 'Disk Test Data' };
     await cacheManager.cacheOnDisk('disk_test', testData);
-    
+
     const retrieved = await cacheManager.retrieveFromDisk('disk_test');
     if (retrieved && retrieved.id === testData.id) {
       setTestResults(prev => [...prev, 'Disk cache: ✅ Data retrieved successfully']);
@@ -410,7 +411,7 @@ export const DataArchitectureTestingView: React.FC = () => {
     const originalData = 'This is a test string that will be compressed using our compression algorithm';
     const compressed = compressionManager.compressData(originalData);
     const decompressed = compressionManager.decompressData(compressed);
-    
+
     if (decompressed === originalData) {
       const ratio = compressionManager.calculateCompressionRatio(originalData, compressed);
       setTestResults(prev => [...prev, `Compression: ✅ Ratio: ${ratio.toFixed(2)}`]);
@@ -423,31 +424,31 @@ export const DataArchitectureTestingView: React.FC = () => {
     const emailResult = validator.validateEmail('test@example.com');
     const usernameResult = validator.validateUsername('valid_username');
     const requiredResult = validator.validateRequired('', 'Test Field');
-    
+
     const results = [
       `Email validation: ${emailResult.isValid ? '✅' : '❌'}`,
       `Username validation: ${usernameResult.isValid ? '✅' : '❌'}`,
-      `Required validation: ${requiredResult.isValid ? '✅' : '❌'}`,
+      `Required validation: ${requiredResult.isValid ? '✅' : '❌'}`
     ];
-    
+
     setTestResults(prev => [...prev, ...results]);
   };
 
   const testDataExport = async () => {
     const testData = [
       { id: 1, name: 'John Doe', email: 'john@example.com' },
-      { id: 2, name: 'Jane Smith', email: 'jane@example.com' },
+      { id: 2, name: 'Jane Smith', email: 'jane@example.com' }
     ];
-    
+
     const jsonExport = exportManager.exportToJSON(testData);
     const csvExport = exportManager.exportToCSV(testData);
     const svgExport = exportManager.exportToSVG(testData);
-    
+
     setTestResults(prev => [
       ...prev,
       `JSON Export: ✅ ${jsonExport.length} characters`,
       `CSV Export: ✅ ${csvExport.length} characters`,
-      `SVG Export: ✅ ${svgExport.length} characters`,
+      `SVG Export: ✅ ${svgExport.length} characters`
     ]);
   };
 
@@ -553,78 +554,78 @@ export const DataArchitectureTestingView: React.FC = () => {
 
 // MARK: - Styles
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
-  content: {
-    padding: 20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    color: '#333',
-  },
-  section: {
-    backgroundColor: '#f0f0f0',
-    padding: 15,
-    borderRadius: 8,
-    marginBottom: 15,
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 10,
-    color: '#333',
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#007AFF',
+    borderRadius: 6,
+    minWidth: 120,
+    padding: 12
   },
   buttonRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 10,
-  },
-  button: {
-    backgroundColor: '#007AFF',
-    padding: 12,
-    borderRadius: 6,
-    minWidth: 120,
-    alignItems: 'center',
+    gap: 10
   },
   buttonText: {
     color: 'white',
     fontSize: 14,
-    fontWeight: '600',
-  },
-  resultsHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 10,
+    fontWeight: '600'
   },
   clearButton: {
     backgroundColor: '#FF3B30',
-    padding: 6,
     borderRadius: 4,
+    padding: 6
   },
   clearButtonText: {
     color: 'white',
     fontSize: 12,
-    fontWeight: '600',
+    fontWeight: '600'
   },
-  resultText: {
-    fontSize: 12,
-    marginBottom: 5,
-    color: '#333',
+  container: {
+    backgroundColor: '#f5f5f5',
+    flex: 1
+  },
+  content: {
+    padding: 20
   },
   loadingContainer: {
     alignItems: 'center',
-    padding: 20,
+    padding: 20
   },
   loadingText: {
-    fontSize: 16,
     color: '#666',
-    fontStyle: 'italic',
+    fontSize: 16,
+    fontStyle: 'italic'
   },
+  resultText: {
+    color: '#333',
+    fontSize: 12,
+    marginBottom: 5
+  },
+  resultsHeader: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10
+  },
+  section: {
+    backgroundColor: '#f0f0f0',
+    borderRadius: 8,
+    marginBottom: 15,
+    padding: 15
+  },
+  sectionTitle: {
+    color: '#333',
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 10
+  },
+  title: {
+    color: '#333',
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20
+  }
 });
 
-export default DataArchitectureTestingView; 
+export default DataArchitectureTestingView;

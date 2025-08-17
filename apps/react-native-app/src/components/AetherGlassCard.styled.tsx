@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { ViewStyle, TextStyle } from 'react-native';
+import { ViewStyle } from 'react-native';
 import { Theme } from '../theme/ThemeProvider';
 
 // MARK: - Styled Components
@@ -284,7 +284,7 @@ export const BadgeContainer = styled.View<{
           return theme.primary;
       }
     }
-    
+
     switch (variant) {
       case 'elevated':
         return theme.primary;
@@ -348,11 +348,11 @@ export const ActionButton = styled.TouchableOpacity<{
     if (buttonType === 'outline') {
       return 'transparent';
     }
-    
+
     if (buttonType === 'secondary') {
       return theme.secondary;
     }
-    
+
     switch (variant) {
       case 'elevated':
         return theme.primary;
@@ -363,9 +363,9 @@ export const ActionButton = styled.TouchableOpacity<{
     }
   }};
   
-  border: ${({ theme, buttonType }: { theme: Theme; buttonType?: 'primary' | 'secondary' | 'outline' }) => 
+  border: ${({ theme, buttonType }: { theme: Theme; buttonType?: 'primary' | 'secondary' | 'outline' }) =>
     buttonType === 'outline' ? `1px solid ${theme.primary}` : 'none'
-  };
+};
   
   padding-horizontal: ${({ theme }: { theme: Theme }) => `${theme.spacing.md}px`};
   padding-vertical: ${({ theme }: { theme: Theme }) => `${theme.spacing.sm}px`};
@@ -381,9 +381,9 @@ export const ActionButtonText = styled.Text<{
   theme: Theme;
   buttonType?: 'primary' | 'secondary' | 'outline';
 }>`
-  color: ${({ theme, buttonType }: { theme: Theme; buttonType?: 'primary' | 'secondary' | 'outline' }) => 
+  color: ${({ theme, buttonType }: { theme: Theme; buttonType?: 'primary' | 'secondary' | 'outline' }) =>
     buttonType === 'outline' ? theme.primary : 'white'
-  };
+};
   
   font-size: ${({ theme }: { theme: Theme }) => `${theme.typography.fontSizes.sm}px`};
   font-weight: ${({ theme }: { theme: Theme }) => theme.typography.fontWeights.medium};
@@ -395,44 +395,44 @@ export const ActionButtonText = styled.Text<{
 export interface AetherGlassCardProps {
   /// Title text to display
   title?: string;
-  
+
   /// Subtitle text to display
   subtitle?: string;
-  
+
   /// Description text to display
   description?: string;
-  
+
   /// Badge text to display
   badge?: string;
-  
+
   /// Type of badge styling
   badgeType?: 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info';
-  
+
   /// Actions to display as buttons
   actions?: Array<{
     label: string;
     onPress: () => void;
     type?: 'primary' | 'secondary' | 'outline';
   }>;
-  
+
   /// Visual variant of the card
   variant?: 'default' | 'elevated' | 'subtle';
-  
+
   /// Size of the card
   size?: 'small' | 'medium' | 'large';
-  
+
   /// Custom style for the container
   style?: ViewStyle;
-  
+
   /// Custom style for the content
   contentStyle?: ViewStyle;
-  
+
   /// Whether to show the overlay effect
   showOverlay?: boolean;
-  
+
   /// Custom children content
   children?: React.ReactNode;
-  
+
   /// Callback when card is pressed
   onPress?: () => void;
 }
@@ -440,7 +440,7 @@ export interface AetherGlassCardProps {
 // MARK: - Main Component
 
 /// AetherGlassCard component with styled-components and theme integration
-/// 
+///
 /// This component provides a glass-morphism card design with:
 /// - Theme-based colors and styling
 /// - Multiple visual variants (default, elevated, subtle)
@@ -460,7 +460,7 @@ export const AetherGlassCard: React.FC<AetherGlassCardProps> = ({
   contentStyle,
   showOverlay = true,
   children,
-  onPress,
+  onPress
 }) => {
   return (
     <GlassCardContainer
@@ -474,7 +474,7 @@ export const AetherGlassCard: React.FC<AetherGlassCardProps> = ({
           variant={variant}
         />
       )}
-      
+
       <ContentContainer
         size={size}
         style={contentStyle}
@@ -491,7 +491,7 @@ export const AetherGlassCard: React.FC<AetherGlassCardProps> = ({
             </BadgeText>
           </BadgeContainer>
         )}
-        
+
         {title && (
           <TitleText
             size={size}
@@ -500,7 +500,7 @@ export const AetherGlassCard: React.FC<AetherGlassCardProps> = ({
             {title}
           </TitleText>
         )}
-        
+
         {subtitle && (
           <SubtitleText
             size={size}
@@ -509,7 +509,7 @@ export const AetherGlassCard: React.FC<AetherGlassCardProps> = ({
             {subtitle}
           </SubtitleText>
         )}
-        
+
         {description && (
           <DescriptionText
             size={size}
@@ -518,9 +518,9 @@ export const AetherGlassCard: React.FC<AetherGlassCardProps> = ({
             {description}
           </DescriptionText>
         )}
-        
+
         {children}
-        
+
         {actions && actions.length > 0 && (
           <ActionContainer
             size={size}
@@ -546,4 +546,4 @@ export const AetherGlassCard: React.FC<AetherGlassCardProps> = ({
   );
 };
 
-// MARK: - Type Exports 
+// MARK: - Type Exports

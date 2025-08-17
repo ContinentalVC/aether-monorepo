@@ -1,6 +1,6 @@
 /**
  * Theme Schema Example
- * 
+ *
  * Comprehensive example demonstrating the Theme Schema system
  * with import/export, validation, and management features.
  */
@@ -16,15 +16,14 @@ import {
   Modal,
   FlatList,
   StyleSheet,
-  Dimensions,
+  Dimensions
 } from 'react-native';
 import { useThemeSchema } from '../theme/ThemeSchemaManager';
 import {
   ThemeSchema,
   ThemeCategory,
   Platform,
-  SchemaValidationError,
-  SchemaSerialization,
+  SchemaValidationError
 } from '../theme/ThemeSchema';
 import { formatDateEnhanced, DATE_FORMATS } from '@aether/react-native-utils';
 
@@ -49,16 +48,15 @@ export const ThemeSchemaExample: React.FC = () => {
     filterSchemasByPlatform,
     getSchemaTemplates,
     createSchemaFromTemplate,
-    clearError,
+    clearError
   } = useThemeSchema();
 
   const [searchText, setSearchText] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<ThemeCategory>(ThemeCategory.GENERAL);
-  const [selectedPlatform, setSelectedPlatform] = useState<Platform>(Platform.IOS);
+  const [selectedPlatform] = useState<Platform>(Platform.IOS);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showTemplateModal, setShowTemplateModal] = useState(false);
   const [showImportModal, setShowImportModal] = useState(false);
-  const [showExportModal, setShowExportModal] = useState(false);
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [selectedSchema, setSelectedSchema] = useState<ThemeSchema | null>(null);
   const [validationErrors, setValidationErrors] = useState<SchemaValidationError[]>([]);
@@ -152,8 +150,8 @@ export const ThemeSchemaExample: React.FC = () => {
         {
           text: 'Delete',
           style: 'destructive',
-          onPress: () => deleteSchema(schema),
-        },
+          onPress: () => deleteSchema(schema)
+        }
       ]
     );
   };
@@ -248,7 +246,7 @@ export const ThemeSchemaExample: React.FC = () => {
       {/* Header */}
       <View style={styles.header}>
         <Text style={styles.title}>Theme Schema Manager</Text>
-        
+
         {currentSchema && (
           <View style={styles.currentSchema}>
             <Text style={styles.currentSchemaTitle}>Current: {currentSchema.metadata.name}</Text>
@@ -284,7 +282,7 @@ export const ThemeSchemaExample: React.FC = () => {
           value={searchText}
           onChangeText={setSearchText}
         />
-        
+
         <View style={styles.filters}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <TouchableOpacity
@@ -382,7 +380,7 @@ export const ThemeSchemaExample: React.FC = () => {
               <Text style={styles.modalClose}>×</Text>
             </TouchableOpacity>
           </View>
-          
+
           <ScrollView style={styles.modalContent}>
             <TextInput
               style={styles.input}
@@ -404,7 +402,7 @@ export const ThemeSchemaExample: React.FC = () => {
               multiline
               numberOfLines={3}
             />
-            
+
             <TouchableOpacity
               style={[styles.primaryButton, styles.modalButton]}
               onPress={handleCreateSchema}
@@ -428,7 +426,7 @@ export const ThemeSchemaExample: React.FC = () => {
               <Text style={styles.modalClose}>×</Text>
             </TouchableOpacity>
           </View>
-          
+
           <View style={styles.modalContent}>
             <TextInput
               style={styles.input}
@@ -442,7 +440,7 @@ export const ThemeSchemaExample: React.FC = () => {
               value={newSchemaAuthor}
               onChangeText={setNewSchemaAuthor}
             />
-            
+
             <FlatList
               data={getSchemaTemplates()}
               renderItem={renderTemplateCard}
@@ -467,7 +465,7 @@ export const ThemeSchemaExample: React.FC = () => {
               <Text style={styles.modalClose}>×</Text>
             </TouchableOpacity>
           </View>
-          
+
           <View style={styles.modalContent}>
             <TextInput
               style={[styles.input, styles.textArea]}
@@ -477,7 +475,7 @@ export const ThemeSchemaExample: React.FC = () => {
               multiline
               numberOfLines={10}
             />
-            
+
             <TouchableOpacity
               style={[styles.primaryButton, styles.modalButton]}
               onPress={handleImportSchema}
@@ -502,7 +500,7 @@ export const ThemeSchemaExample: React.FC = () => {
                 <Text style={styles.modalClose}>×</Text>
               </TouchableOpacity>
             </View>
-            
+
             <ScrollView style={styles.modalContent}>
               <SchemaDetailView schema={selectedSchema} />
             </ScrollView>
@@ -576,7 +574,7 @@ const SchemaDetailView: React.FC<{ schema: ThemeSchema }> = ({ schema }) => {
         <TouchableOpacity style={styles.validateButton} onPress={handleValidate}>
           <Text style={styles.validateButtonText}>Validate Schema</Text>
         </TouchableOpacity>
-        
+
         {validationErrors.length > 0 ? (
           <View style={styles.validationErrors}>
             {validationErrors.map((error, index) => (
@@ -618,397 +616,397 @@ const ColorCard: React.FC<{ title: string; color: any }> = ({ title, color }) =>
 // MARK: - Styles
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
-  header: {
-    backgroundColor: '#fff',
-    padding: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 16,
-  },
-  currentSchema: {
-    marginBottom: 16,
-    padding: 12,
-    backgroundColor: '#f0f8ff',
-    borderRadius: 8,
-  },
-  currentSchemaTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  currentSchemaAuthor: {
-    fontSize: 14,
-    color: '#666',
-  },
-  stats: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  statCard: {
-    flex: 1,
-    alignItems: 'center',
-    padding: 12,
-    backgroundColor: '#f8f9fa',
-    borderRadius: 8,
-    marginHorizontal: 4,
-  },
-  statValue: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#007AFF',
-  },
-  statLabel: {
-    fontSize: 12,
-    color: '#666',
-    textAlign: 'center',
-  },
-  searchSection: {
-    backgroundColor: '#fff',
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-  },
-  searchInput: {
-    height: 40,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    marginBottom: 12,
-  },
-  filters: {
-    flexDirection: 'row',
-  },
-  filterChip: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 16,
-    marginRight: 8,
-  },
-  filterChipActive: {
-    backgroundColor: '#007AFF',
-  },
-  filterChipText: {
-    fontSize: 12,
-    color: '#333',
-  },
-  actionButtons: {
-    flexDirection: 'row',
-    padding: 16,
-    backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-  },
-  primaryButton: {
-    backgroundColor: '#007AFF',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 6,
-    marginRight: 8,
-  },
-  primaryButtonText: {
-    color: '#fff',
-    fontWeight: '600',
-  },
-  secondaryButton: {
-    backgroundColor: '#f0f0f0',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 6,
-    marginRight: 8,
-  },
-  secondaryButtonText: {
-    color: '#333',
-    fontWeight: '600',
-  },
-  schemaList: {
-    flex: 1,
-    padding: 16,
-  },
-  schemaCard: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  schemaHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 12,
-  },
-  schemaInfo: {
-    flex: 1,
-  },
-  schemaName: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 4,
-  },
-  currentBadge: {
-    fontSize: 12,
-    fontWeight: 'bold',
-    color: '#fff',
-    backgroundColor: '#007AFF',
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 4,
-  },
-  schemaAuthor: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 4,
-  },
-  schemaDescription: {
-    fontSize: 12,
-    color: '#999',
-  },
-  schemaMeta: {
-    alignItems: 'flex-end',
-  },
-  schemaVersion: {
-    fontSize: 12,
-    fontWeight: '600',
-    backgroundColor: '#f0f0f0',
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 4,
-    marginBottom: 4,
-  },
-  schemaCategory: {
-    fontSize: 10,
-    color: '#666',
-  },
-  schemaTags: {
-    marginBottom: 12,
-  },
-  tag: {
-    backgroundColor: '#f0f0f0',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-    marginRight: 8,
-  },
-  tagText: {
-    fontSize: 10,
-    color: '#666',
-  },
-  schemaActions: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
   actionButton: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
     backgroundColor: '#f0f0f0',
     borderRadius: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 6
   },
   actionButtonText: {
-    fontSize: 12,
     color: '#333',
-    fontWeight: '600',
-  },
-  deleteButton: {
-    backgroundColor: '#ffebee',
-  },
-  deleteButtonText: {
-    color: '#d32f2f',
-  },
-  emptyState: {
-    alignItems: 'center',
-    padding: 40,
-  },
-  emptyStateText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#666',
-    marginBottom: 8,
-  },
-  emptyStateSubtext: {
-    fontSize: 14,
-    color: '#999',
-    textAlign: 'center',
-  },
-  errorContainer: {
-    backgroundColor: '#ffebee',
-    padding: 12,
-    margin: 16,
-    borderRadius: 8,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  errorText: {
-    color: '#d32f2f',
-    flex: 1,
-  },
-  errorDismiss: {
-    color: '#d32f2f',
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  modalContainer: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  modalHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-  },
-  modalTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  modalClose: {
-    fontSize: 24,
-    color: '#666',
-  },
-  modalContent: {
-    flex: 1,
-    padding: 20,
-  },
-  input: {
-    height: 44,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    marginBottom: 16,
-  },
-  textArea: {
-    height: 100,
-    textAlignVertical: 'top',
-  },
-  modalButton: {
-    marginTop: 16,
-  },
-  templateGrid: {
-    justifyContent: 'space-between',
-  },
-  templateCard: {
-    width: (width - 60) / 2,
-    backgroundColor: '#f8f9fa',
-    padding: 16,
-    borderRadius: 12,
-    marginBottom: 16,
-  },
-  templateName: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 8,
-  },
-  templateDescription: {
     fontSize: 12,
-    color: '#666',
-    marginBottom: 8,
+    fontWeight: '600'
   },
-  templateCategory: {
-    fontSize: 10,
-    color: '#999',
-  },
-  detailContainer: {
-    padding: 20,
-  },
-  detailSection: {
-    marginBottom: 24,
-  },
-  detailSectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 12,
-  },
-  detailRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: 8,
+  actionButtons: {
+    backgroundColor: '#fff',
+    borderBottomColor: '#e0e0e0',
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
-  },
-  detailRowTitle: {
-    fontSize: 14,
-    color: '#666',
-  },
-  detailRowValue: {
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  colorGrid: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    padding: 16
   },
   colorCard: {
-    width: (width - 80) / 3,
     alignItems: 'center',
-    padding: 12,
     backgroundColor: '#f8f9fa',
     borderRadius: 8,
     marginBottom: 12,
-  },
-  colorSwatches: {
-    flexDirection: 'row',
-    marginBottom: 8,
-  },
-  colorSwatch: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    marginHorizontal: 2,
-    borderWidth: 1,
-    borderColor: '#ddd',
+    padding: 12,
+    width: (width - 80) / 3
   },
   colorCardTitle: {
     fontSize: 12,
     fontWeight: '600',
-    marginBottom: 4,
+    marginBottom: 4
   },
   colorCardValue: {
-    fontSize: 10,
     color: '#666',
+    fontSize: 10
+  },
+  colorGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between'
+  },
+  colorSwatch: {
+    borderColor: '#ddd',
+    borderRadius: 10,
+    borderWidth: 1,
+    height: 20,
+    marginHorizontal: 2,
+    width: 20
+  },
+  colorSwatches: {
+    flexDirection: 'row',
+    marginBottom: 8
+  },
+  container: {
+    backgroundColor: '#f5f5f5',
+    flex: 1
+  },
+  currentBadge: {
+    backgroundColor: '#007AFF',
+    borderRadius: 4,
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: 'bold',
+    paddingHorizontal: 6,
+    paddingVertical: 2
+  },
+  currentSchema: {
+    backgroundColor: '#f0f8ff',
+    borderRadius: 8,
+    marginBottom: 16,
+    padding: 12
+  },
+  currentSchemaAuthor: {
+    color: '#666',
+    fontSize: 14
+  },
+  currentSchemaTitle: {
+    fontSize: 16,
+    fontWeight: '600'
+  },
+  deleteButton: {
+    backgroundColor: '#ffebee'
+  },
+  deleteButtonText: {
+    color: '#d32f2f'
+  },
+  detailContainer: {
+    padding: 20
+  },
+  detailRow: {
+    borderBottomColor: '#f0f0f0',
+    borderBottomWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 8
+  },
+  detailRowTitle: {
+    color: '#666',
+    fontSize: 14
+  },
+  detailRowValue: {
+    fontSize: 14,
+    fontWeight: '600'
+  },
+  detailSection: {
+    marginBottom: 24
+  },
+  detailSectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 12
+  },
+  emptyState: {
+    alignItems: 'center',
+    padding: 40
+  },
+  emptyStateSubtext: {
+    color: '#999',
+    fontSize: 14,
+    textAlign: 'center'
+  },
+  emptyStateText: {
+    color: '#666',
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 8
+  },
+  errorContainer: {
+    alignItems: 'center',
+    backgroundColor: '#ffebee',
+    borderRadius: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 16,
+    padding: 12
+  },
+  errorDismiss: {
+    color: '#d32f2f',
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+  errorText: {
+    color: '#d32f2f',
+    flex: 1
+  },
+  filterChip: {
+    backgroundColor: '#f0f0f0',
+    borderRadius: 16,
+    marginRight: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 6
+  },
+  filterChipActive: {
+    backgroundColor: '#007AFF'
+  },
+  filterChipText: {
+    color: '#333',
+    fontSize: 12
+  },
+  filters: {
+    flexDirection: 'row'
+  },
+  header: {
+    backgroundColor: '#fff',
+    borderBottomColor: '#e0e0e0',
+    borderBottomWidth: 1,
+    padding: 20
+  },
+  input: {
+    borderColor: '#ddd',
+    borderRadius: 8,
+    borderWidth: 1,
+    height: 44,
+    marginBottom: 16,
+    paddingHorizontal: 12
+  },
+  modalButton: {
+    marginTop: 16
+  },
+  modalClose: {
+    color: '#666',
+    fontSize: 24
+  },
+  modalContainer: {
+    backgroundColor: '#fff',
+    flex: 1
+  },
+  modalContent: {
+    flex: 1,
+    padding: 20
+  },
+  modalHeader: {
+    alignItems: 'center',
+    borderBottomColor: '#e0e0e0',
+    borderBottomWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 20
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+  primaryButton: {
+    backgroundColor: '#007AFF',
+    borderRadius: 6,
+    marginRight: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 8
+  },
+  primaryButtonText: {
+    color: '#fff',
+    fontWeight: '600'
+  },
+  schemaActions: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  schemaAuthor: {
+    color: '#666',
+    fontSize: 14,
+    marginBottom: 4
+  },
+  schemaCard: {
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    elevation: 3,
+    marginBottom: 16,
+    padding: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4
+  },
+  schemaCategory: {
+    color: '#666',
+    fontSize: 10
+  },
+  schemaDescription: {
+    color: '#999',
+    fontSize: 12
+  },
+  schemaHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 12
+  },
+  schemaInfo: {
+    flex: 1
+  },
+  schemaList: {
+    flex: 1,
+    padding: 16
+  },
+  schemaMeta: {
+    alignItems: 'flex-end'
+  },
+  schemaName: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 4
+  },
+  schemaTags: {
+    marginBottom: 12
+  },
+  schemaVersion: {
+    backgroundColor: '#f0f0f0',
+    borderRadius: 4,
+    fontSize: 12,
+    fontWeight: '600',
+    marginBottom: 4,
+    paddingHorizontal: 6,
+    paddingVertical: 2
+  },
+  searchInput: {
+    borderColor: '#ddd',
+    borderRadius: 8,
+    borderWidth: 1,
+    height: 40,
+    marginBottom: 12,
+    paddingHorizontal: 12
+  },
+  searchSection: {
+    backgroundColor: '#fff',
+    borderBottomColor: '#e0e0e0',
+    borderBottomWidth: 1,
+    padding: 16
+  },
+  secondaryButton: {
+    backgroundColor: '#f0f0f0',
+    borderRadius: 6,
+    marginRight: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 8
+  },
+  secondaryButtonText: {
+    color: '#333',
+    fontWeight: '600'
+  },
+  statCard: {
+    alignItems: 'center',
+    backgroundColor: '#f8f9fa',
+    borderRadius: 8,
+    flex: 1,
+    marginHorizontal: 4,
+    padding: 12
+  },
+  statLabel: {
+    color: '#666',
+    fontSize: 12,
+    textAlign: 'center'
+  },
+  statValue: {
+    color: '#007AFF',
+    fontSize: 24,
+    fontWeight: 'bold'
+  },
+  stats: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  tag: {
+    backgroundColor: '#f0f0f0',
+    borderRadius: 12,
+    marginRight: 8,
+    paddingHorizontal: 8,
+    paddingVertical: 4
+  },
+  tagText: {
+    color: '#666',
+    fontSize: 10
+  },
+  templateCard: {
+    backgroundColor: '#f8f9fa',
+    borderRadius: 12,
+    marginBottom: 16,
+    padding: 16,
+    width: (width - 60) / 2
+  },
+  templateCategory: {
+    color: '#999',
+    fontSize: 10
+  },
+  templateDescription: {
+    color: '#666',
+    fontSize: 12,
+    marginBottom: 8
+  },
+  templateGrid: {
+    justifyContent: 'space-between'
+  },
+  templateName: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 8
+  },
+  textArea: {
+    height: 100,
+    textAlignVertical: 'top'
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 16
   },
   validateButton: {
-    backgroundColor: '#007AFF',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 6,
     alignItems: 'center',
+    backgroundColor: '#007AFF',
+    borderRadius: 6,
     marginBottom: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 8
   },
   validateButtonText: {
     color: '#fff',
-    fontWeight: '600',
-  },
-  validationErrors: {
-    backgroundColor: '#ffebee',
-    padding: 12,
-    borderRadius: 8,
+    fontWeight: '600'
   },
   validationError: {
     color: '#d32f2f',
     fontSize: 12,
-    marginBottom: 4,
+    marginBottom: 4
+  },
+  validationErrors: {
+    backgroundColor: '#ffebee',
+    borderRadius: 8,
+    padding: 12
   },
   validationSuccess: {
     color: '#388e3c',
     fontSize: 14,
-    fontWeight: '600',
-  },
+    fontWeight: '600'
+  }
 });
 
-export default ThemeSchemaExample; 
+export default ThemeSchemaExample;

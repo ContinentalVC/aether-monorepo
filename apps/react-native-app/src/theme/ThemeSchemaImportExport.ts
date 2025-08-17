@@ -1,20 +1,18 @@
 /**
  * Theme Schema Import/Export
- * 
+ *
  * Comprehensive import/export functionality for Theme Schema
  * supporting multiple formats (JSON, YAML, XML) with file picker and sharing.
  */
 
-import { Platform, Share, Alert } from 'react-native';
+import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as FileSystem from 'expo-file-system';
 import * as DocumentPicker from 'expo-document-picker';
 import * as Sharing from 'expo-sharing';
 import {
   ThemeSchema,
-  SchemaValidationError,
-  SchemaValidator,
-  SchemaSerialization,
+  SchemaSerialization
 } from './ThemeSchema';
 
 // MARK: - Export Formats
@@ -37,7 +35,7 @@ export class ThemeSchemaImportExport {
     ExportFormat.JSON,
     ExportFormat.YAML,
     ExportFormat.XML,
-    ExportFormat.MESSAGEPACK,
+    ExportFormat.MESSAGEPACK
   ];
 
   /**
@@ -49,31 +47,31 @@ export class ThemeSchemaImportExport {
         return {
           extension: 'json',
           mimeType: 'application/json',
-          description: 'Standard JSON format - human readable, widely supported',
+          description: 'Standard JSON format - human readable, widely supported'
         };
       case ExportFormat.YAML:
         return {
           extension: 'yaml',
           mimeType: 'application/x-yaml',
-          description: 'YAML format - very readable, compact',
+          description: 'YAML format - very readable, compact'
         };
       case ExportFormat.XML:
         return {
           extension: 'xml',
           mimeType: 'application/xml',
-          description: 'XML format - structured, enterprise-friendly',
+          description: 'XML format - structured, enterprise-friendly'
         };
       case ExportFormat.MESSAGEPACK:
         return {
           extension: 'mp',
           mimeType: 'application/x-msgpack',
-          description: 'Binary format - high performance, small size',
+          description: 'Binary format - high performance, small size'
         };
       case ExportFormat.COMPRESSED:
         return {
           extension: 'json.gz',
           mimeType: 'application/gzip',
-          description: 'Compressed JSON - small size, good compression',
+          description: 'Compressed JSON - small size, good compression'
         };
     }
   }
@@ -115,10 +113,10 @@ export class ThemeSchemaImportExport {
 
       const formatInfo = this.getFormatInfo(format);
       const fullFilename = `${filename}.${formatInfo.extension}`;
-      
+
       const fileUri = `${FileSystem.documentDirectory}${fullFilename}`;
       await FileSystem.writeAsStringAsync(fileUri, data, {
-        encoding: FileSystem.EncodingType.UTF8,
+        encoding: FileSystem.EncodingType.UTF8
       });
 
       return true;
@@ -138,16 +136,16 @@ export class ThemeSchemaImportExport {
 
       const formatInfo = this.getFormatInfo(format);
       const filename = `${schema.metadata.name.replace(/\s+/g, '_')}.${formatInfo.extension}`;
-      
+
       const fileUri = `${FileSystem.cacheDirectory}${filename}`;
       await FileSystem.writeAsStringAsync(fileUri, data, {
-        encoding: FileSystem.EncodingType.UTF8,
+        encoding: FileSystem.EncodingType.UTF8
       });
 
       if (await Sharing.isAvailableAsync()) {
         await Sharing.shareAsync(fileUri, {
           mimeType: formatInfo.mimeType,
-          dialogTitle: `Share ${schema.metadata.name}`,
+          dialogTitle: `Share ${schema.metadata.name}`
         });
         return true;
       } else {
@@ -179,9 +177,9 @@ export class ThemeSchemaImportExport {
             onPress: () => {
               // In a real app, you'd use a clipboard library
               console.log('Data to copy:', data);
-            },
+            }
           },
-          { text: 'Cancel', style: 'cancel' },
+          { text: 'Cancel', style: 'cancel' }
         ]
       );
 
@@ -202,7 +200,7 @@ export class ThemeSchemaImportExport {
 
       const key = `exported_schema_${schema.id}_${Date.now()}`;
       await AsyncStorage.setItem(key, data);
-      
+
       return true;
     } catch (error) {
       console.error('Failed to save to storage:', error);
@@ -247,9 +245,9 @@ export class ThemeSchemaImportExport {
           'application/x-yaml',
           'application/xml',
           'application/x-msgpack',
-          'text/plain',
+          'text/plain'
         ],
-        copyToCacheDirectory: true,
+        copyToCacheDirectory: true
       });
 
       if (result.canceled || !result.assets || result.assets.length === 0) {
@@ -259,7 +257,7 @@ export class ThemeSchemaImportExport {
       const file = result.assets[0];
       const fileContent = await FileSystem.readAsStringAsync(file.uri);
       const format = this.detectFormatFromFilename(file.name);
-      
+
       return this.importSchemaFromData(fileContent, format);
     } catch (error) {
       console.error('Failed to import from file:', error);
@@ -279,7 +277,7 @@ export class ThemeSchemaImportExport {
 
       const data = await response.text();
       const format = this.detectFormatFromURL(url);
-      
+
       return this.importSchemaFromData(data, format);
     } catch (error) {
       console.error('Failed to import from URL:', error);
@@ -299,7 +297,7 @@ export class ThemeSchemaImportExport {
         'Please paste the schema data in the input field below.',
         [{ text: 'OK' }]
       );
-      
+
       return null;
     } catch (error) {
       console.error('Failed to import from clipboard:', error);
@@ -377,7 +375,7 @@ export class ThemeSchemaImportExport {
 
   detectFormatFromFilename(filename: string): ExportFormat {
     const extension = filename.split('.').pop()?.toLowerCase();
-    
+
     switch (extension) {
       case 'json':
         return ExportFormat.JSON;
@@ -403,7 +401,7 @@ export class ThemeSchemaImportExport {
 
   private detectFormatFromContent(data: string): ExportFormat {
     const trimmed = data.trim();
-    
+
     if (trimmed.startsWith('{') || trimmed.startsWith('[')) {
       return ExportFormat.JSON;
     } else if (trimmed.startsWith('<?xml') || trimmed.startsWith('<')) {
@@ -422,34 +420,34 @@ export class ThemeSchemaImportExport {
     yaml += `  name: "${schema.metadata.name}"\n`;
     yaml += `  author: "${schema.metadata.author}"\n`;
     yaml += `  version: "${schema.metadata.version}"\n`;
-    
+
     if (schema.metadata.description) {
       yaml += `  description: "${schema.metadata.description}"\n`;
     }
-    
+
     yaml += '  tags:\n';
     for (const tag of schema.metadata.tags) {
       yaml += `    - "${tag}"\n`;
     }
-    
+
     yaml += `  category: "${schema.metadata.category}"\n`;
     yaml += '  platform:\n';
     for (const platform of schema.metadata.platform) {
       yaml += `    - "${platform}"\n`;
     }
-    
+
     yaml += `  createdAt: "${schema.metadata.createdAt}"\n`;
     yaml += `  updatedAt: "${schema.metadata.updatedAt}"\n`;
-    
+
     // Add properties
     yaml += '\nproperties:\n';
     yaml += '  colors:\n';
     yaml += '    primary:\n';
     yaml += `      light: "${schema.properties.colors.primary.light}"\n`;
     yaml += `      dark: "${schema.properties.colors.primary.dark}"\n`;
-    
+
     // Continue with other properties...
-    
+
     return yaml;
   }
 
@@ -460,16 +458,16 @@ export class ThemeSchemaImportExport {
     xml += `    <name>${schema.metadata.name}</name>\n`;
     xml += `    <author>${schema.metadata.author}</author>\n`;
     xml += `    <version>${schema.metadata.version}</version>\n`;
-    
+
     if (schema.metadata.description) {
       xml += `    <description>${schema.metadata.description}</description>\n`;
     }
-    
+
     xml += `    <category>${schema.metadata.category}</category>\n`;
     xml += `    <createdAt>${schema.metadata.createdAt}</createdAt>\n`;
     xml += `    <updatedAt>${schema.metadata.updatedAt}</updatedAt>\n`;
     xml += '  </metadata>\n';
-    
+
     xml += '  <properties>\n';
     xml += '    <colors>\n';
     xml += '      <primary>\n';
@@ -479,7 +477,7 @@ export class ThemeSchemaImportExport {
     xml += '    </colors>\n';
     xml += '  </properties>\n';
     xml += '</themeSchema>';
-    
+
     return xml;
   }
 
@@ -487,19 +485,19 @@ export class ThemeSchemaImportExport {
     // Simple YAML to JSON conversion
     // In a real implementation, you'd use a proper YAML parser
     let json = '{';
-    
+
     const lines = yaml.split('\n');
     const currentPath: string[] = [];
-    
+
     for (const line of lines) {
       const trimmed = line.trim();
       if (trimmed === '' || trimmed.startsWith('#')) continue;
-      
+
       const colonIndex = trimmed.indexOf(':');
       if (colonIndex !== -1) {
         const key = trimmed.substring(0, colonIndex).trim();
         const value = trimmed.substring(colonIndex + 1).trim();
-        
+
         if (value.startsWith('"') && value.endsWith('"')) {
           // String value
           json += `"${key}": ${value},`;
@@ -512,12 +510,12 @@ export class ThemeSchemaImportExport {
         }
       }
     }
-    
+
     if (json.endsWith(',')) {
       json = json.slice(0, -1);
     }
     json += '}';
-    
+
     return json;
   }
 
@@ -525,27 +523,27 @@ export class ThemeSchemaImportExport {
     // Simple XML to JSON conversion
     // In a real implementation, you'd use a proper XML parser
     let json = '{';
-    
+
     // Remove XML declaration and root element
     let content = xml.replace(/<\?xml[^>]*>/g, '');
     content = content.replace(/<themeSchema>/g, '');
     content = content.replace(/<\/themeSchema>/g, '');
-    
+
     // Simple tag extraction
     const pattern = /<([^>]+)>([^<]*)<\/\1>/g;
     let match;
-    
+
     while ((match = pattern.exec(content)) !== null) {
       const tag = match[1];
       const value = match[2].trim();
       json += `"${tag}": "${value}",`;
     }
-    
+
     if (json.endsWith(',')) {
       json = json.slice(0, -1);
     }
     json += '}';
-    
+
     return json;
   }
 
@@ -585,7 +583,7 @@ export class ThemeSchemaImportExport {
         fileSize: 'Moderate',
         parsingPerformance: 'Excellent',
         schemaEnforcement: 'Implicit',
-        primaryUseCase: 'Web APIs, Configuration',
+        primaryUseCase: 'Web APIs, Configuration'
       },
       {
         format: 'YAML',
@@ -593,7 +591,7 @@ export class ThemeSchemaImportExport {
         fileSize: 'Low',
         parsingPerformance: 'Slower than JSON',
         schemaEnforcement: 'Implicit',
-        primaryUseCase: 'Configuration files',
+        primaryUseCase: 'Configuration files'
       },
       {
         format: 'XML',
@@ -601,7 +599,7 @@ export class ThemeSchemaImportExport {
         fileSize: 'High (Verbose)',
         parsingPerformance: 'Good',
         schemaEnforcement: 'Strong',
-        primaryUseCase: 'Enterprise, Legacy Systems',
+        primaryUseCase: 'Enterprise, Legacy Systems'
       },
       {
         format: 'MessagePack',
@@ -609,8 +607,8 @@ export class ThemeSchemaImportExport {
         fileSize: 'Very Low',
         parsingPerformance: 'Very High',
         schemaEnforcement: 'Requires separate schema',
-        primaryUseCase: 'Performance-critical RPC',
-      },
+        primaryUseCase: 'Performance-critical RPC'
+      }
     ];
   }
 
@@ -683,12 +681,12 @@ export function createSafeFilename(name: string): string {
  */
 export function formatFileSize(bytes: number): string {
   if (bytes === 0) return '0 Bytes';
-  
+
   const k = 1024;
   const sizes = ['Bytes', 'KB', 'MB', 'GB'];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
-  
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+
+  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2)) } ${ sizes[i]}`;
 }
 
 /**
@@ -699,4 +697,4 @@ export function isValidFileExtension(filename: string, allowedExtensions: string
   return extension ? allowedExtensions.includes(extension) : false;
 }
 
-export default ThemeSchemaImportExport; 
+export default ThemeSchemaImportExport;

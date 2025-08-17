@@ -1,15 +1,15 @@
 /**
  * ThemeValidator.ts
- * 
+ *
  * React Native wrapper for theme validation using @aether/core
- * 
+ *
  * @author AI Assistant
  * @copyright 2025 Aether
  */
 
 import * as React from 'react';
 import { Alert } from 'react-native';
-import { 
+import {
   ThemeValidator as CoreThemeValidator,
   ValidationResult,
   ValidationError,
@@ -38,19 +38,19 @@ export const useThemeValidation = () => {
     try {
       setIsValidating(true);
       setError(null);
-      
+
       const validator = new ThemeValidator();
       const result = await validator.validateTheme(schema);
-      
+
       setLastResult(result);
-      
+
       if (result.errors.length > 0) {
         Alert.alert(
           'Validation Errors',
           `Found ${result.errors.length} validation errors. Check the console for details.`
         );
       }
-      
+
       return result;
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Unknown validation error';
@@ -66,10 +66,10 @@ export const useThemeValidation = () => {
     validateTheme,
     isValidating,
     lastResult,
-    error,
+    error
   };
 };
 
 // MARK: - Export
 
-export default ThemeValidator; 
+export default ThemeValidator;

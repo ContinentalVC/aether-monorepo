@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Dimensions,
-  Alert,
+  Alert
 } from 'react-native';
 import { useEnhancedTheme } from '../theme/EnhancedThemeProvider';
 import styled from 'styled-components/native';
@@ -283,18 +283,18 @@ const HierarchyAnalysis: React.FC = () => {
     {
       level: 'Primary',
       description: 'Main headings and key elements',
-      color: theme.primary,
+      color: theme.primary
     },
     {
       level: 'Secondary',
       description: 'Subheadings and supporting text',
-      color: theme.textSecondary,
+      color: theme.textSecondary
     },
     {
       level: 'Tertiary',
       description: 'Muted text and subtle elements',
-      color: theme.textTertiary,
-    },
+      color: theme.textTertiary
+    }
   ];
 
   return (
@@ -318,7 +318,7 @@ const SpacingAnalysis: React.FC = () => {
     { label: 'SM', value: '8pt', usage: 'Component spacing' },
     { label: 'MD', value: '16pt', usage: 'Section spacing' },
     { label: 'LG', value: '24pt', usage: 'Major sections' },
-    { label: 'XL', value: '32pt', usage: 'Page margins' },
+    { label: 'XL', value: '32pt', usage: 'Page margins' }
   ];
 
   return (
@@ -340,7 +340,7 @@ const ContrastAnalysis: React.FC = () => {
   const contrastItems: ContrastItem[] = [
     { label: 'Primary Text', ratio: 4.5 },
     { label: 'Secondary Text', ratio: 3.2 },
-    { label: 'Primary Button', ratio: 5.1 },
+    { label: 'Primary Button', ratio: 5.1 }
   ];
 
   return (
@@ -362,7 +362,7 @@ const ContrastAnalysis: React.FC = () => {
 const StatCard: React.FC<{ title: string; value: string; color: string }> = ({
   title,
   value,
-  color,
+  color
 }) => {
   const { theme } = useEnhancedTheme();
 
@@ -377,7 +377,7 @@ const StatCard: React.FC<{ title: string; value: string; color: string }> = ({
 const ActivityRow: React.FC<{ title: string; subtitle: string; time: string }> = ({
   title,
   subtitle,
-  time,
+  time
 }) => {
   const { theme } = useEnhancedTheme();
 
@@ -407,7 +407,7 @@ const StatItem: React.FC<{ title: string; value: string }> = ({ title, value }) 
 const SettingsRow: React.FC<{ title: string; subtitle: string; icon: string }> = ({
   title,
   subtitle,
-  icon,
+  icon
 }) => {
   const { theme } = useEnhancedTheme();
 
@@ -901,17 +901,17 @@ const GuideButton = styled.TouchableOpacity`
 // MARK: - Styles
 
 const styles = StyleSheet.create({
-  scrollView: {
-    flex: 1,
-  },
   content: {
-    padding: 16,
+    padding: 16
   },
   guideButtonText: {
     color: '#FFFFFF',
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: '500'
   },
+  scrollView: {
+    flex: 1
+  }
 });
 
-export default LayoutPreviewView; 
+export default LayoutPreviewView;

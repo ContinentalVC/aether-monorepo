@@ -1,9 +1,9 @@
 /**
  * InteractiveThemeFeedback.tsx
- * 
+ *
  * Interactive user feedback system for theme creation with real-time accessibility validation.
  * Provides immediate, clear, and actionable feedback when users select inaccessible color combinations.
- * 
+ *
  * @author AI Assistant
  * @copyright 2025 Aether
  */
@@ -19,7 +19,7 @@ import {
   TextInput,
   Alert,
   Animated,
-  ActivityIndicator,
+  ActivityIndicator
 } from 'react-native';
 import { AccessibilityValidator, ColorUtilities, WCAGLevel } from '../theme/AccessibilityValidator';
 import styled from 'styled-components/native';
@@ -52,23 +52,23 @@ const FEEDBACK_TYPES: Record<string, FeedbackType> = {
   success: {
     type: 'success',
     icon: '✓',
-    color: '#10B981',
+    color: '#10B981'
   },
   warning: {
     type: 'warning',
     icon: '⚠',
-    color: '#F59E0B',
+    color: '#F59E0B'
   },
   error: {
     type: 'error',
     icon: '✗',
-    color: '#EF4444',
+    color: '#EF4444'
   },
   info: {
     type: 'info',
     icon: 'ℹ',
-    color: '#3B82F6',
-  },
+    color: '#3B82F6'
+  }
 };
 
 // MARK: - Styled Components
@@ -92,9 +92,9 @@ const FeedbackCard = styled.View<{ type: string }>`
   shadow-radius: 4px;
   elevation: 2;
   border-left-width: 4px;
-  border-left-color: ${props => props.type === 'success' ? '#10B981' : 
-                        props.type === 'warning' ? '#F59E0B' : 
-                        props.type === 'error' ? '#EF4444' : '#3B82F6'};
+  border-left-color: ${props => props.type === 'success' ? '#10B981' :
+    props.type === 'warning' ? '#F59E0B' :
+      props.type === 'error' ? '#EF4444' : '#3B82F6'};
 `;
 
 const FeedbackHeader = styled.View`
@@ -315,7 +315,7 @@ export const useInteractiveFeedback = () => {
       title,
       message,
       suggestion,
-      timestamp: new Date(),
+      timestamp: new Date()
     };
 
     setCurrentFeedback(feedback);
@@ -343,14 +343,14 @@ export const useInteractiveFeedback = () => {
     isValidationInProgress,
     validateColorCombination,
     dismissCurrentFeedback,
-    clearHistory,
+    clearHistory
   };
 };
 
 // MARK: - Interactive Feedback View
 
 export const InteractiveFeedbackView: React.FC<{ feedbackManager: ReturnType<typeof useInteractiveFeedback> }> = ({
-  feedbackManager,
+  feedbackManager
 }) => {
   const { currentFeedback, feedbackHistory, dismissCurrentFeedback, clearHistory } = feedbackManager;
 
@@ -435,7 +435,7 @@ export const InteractiveColorPicker: React.FC<InteractiveColorPickerProps> = ({
   onColorChange,
   title,
   description,
-  testBackground,
+  testBackground
 }) => {
   const [showColorPicker, setShowColorPicker] = useState(false);
   const [tempColor, setTempColor] = useState(selectedColor);
@@ -445,7 +445,7 @@ export const InteractiveColorPicker: React.FC<InteractiveColorPickerProps> = ({
     '#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF',
     '#FFFF00', '#FF00FF', '#00FFFF', '#808080', '#C0C0C0',
     '#800000', '#808000', '#008000', '#800080', '#008080',
-    '#000080', '#FFA500', '#FFC0CB', '#A52A2A', '#FFD700',
+    '#000080', '#FFA500', '#FFC0CB', '#A52A2A', '#FFD700'
   ];
 
   useEffect(() => {
@@ -474,7 +474,7 @@ export const InteractiveColorPicker: React.FC<InteractiveColorPickerProps> = ({
           <View
             style={[
               styles.colorPreview,
-              { backgroundColor: selectedColor },
+              { backgroundColor: selectedColor }
             ]}
           />
           {isValidationInProgress && (
@@ -523,7 +523,7 @@ export const InteractiveColorPicker: React.FC<InteractiveColorPickerProps> = ({
             <View
               style={[
                 styles.modalColorPreview,
-                { backgroundColor: tempColor },
+                { backgroundColor: tempColor }
               ]}
             />
 
@@ -549,7 +549,7 @@ export const InteractiveColorPicker: React.FC<InteractiveColorPickerProps> = ({
                     style={[
                       styles.presetColor,
                       { backgroundColor: color },
-                      tempColor === color && styles.presetColorSelected,
+                      tempColor === color && styles.presetColorSelected
                     ]}
                     onPress={() => setTempColor(color)}
                   />
@@ -574,7 +574,7 @@ interface ContrastPreviewCardProps {
 const ContrastPreviewCard: React.FC<ContrastPreviewCardProps> = ({
   foreground,
   background,
-  title,
+  title
 }) => {
   const contrastRatio = ColorUtilities.calculateContrastRatio(foreground, background);
   const isGoodContrast = contrastRatio && contrastRatio >= 4.5;
@@ -595,13 +595,13 @@ const ContrastPreviewCard: React.FC<ContrastPreviewCardProps> = ({
         <View
           style={[
             styles.contrastPreviewBox,
-            { backgroundColor: background },
+            { backgroundColor: background }
           ]}
         >
           <Text
             style={[
               styles.contrastPreviewText,
-              { color: foreground },
+              { color: foreground }
             ]}
           >
             Sample {title}
@@ -624,171 +624,171 @@ const ContrastPreviewCard: React.FC<ContrastPreviewCardProps> = ({
 // MARK: - Styles
 
 const styles = StyleSheet.create({
-  colorPickerContainer: {
-    backgroundColor: '#f8f9fa',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
-  },
-  colorPickerHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  colorPickerInfo: {
-    flex: 1,
-  },
-  colorPickerTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#1e293b',
-    marginBottom: 4,
-  },
-  colorPickerDescription: {
-    fontSize: 12,
-    color: '#64748b',
-  },
-  colorPreviewContainer: {
-    alignItems: 'center',
-  },
-  colorPreview: {
-    width: 40,
-    height: 40,
+  colorInput: {
+    borderColor: '#e2e8f0',
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    color: '#1e293b',
+    fontSize: 16,
+    padding: 12
   },
-  validationIndicator: {
-    marginTop: 4,
+  colorInputContainer: {
+    marginBottom: 20
+  },
+  colorInputLabel: {
+    color: '#1e293b',
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 8
   },
   colorPickerButton: {
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#3b82f6',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 8,
     alignSelf: 'flex-start',
+    backgroundColor: '#3b82f6',
+    borderRadius: 8,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 8
   },
   colorPickerButtonText: {
     color: 'white',
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: '500'
   },
-  contrastPreviewContainer: {
-    marginBottom: 12,
+  colorPickerContainer: {
+    backgroundColor: '#f8f9fa',
+    borderRadius: 12,
+    marginBottom: 16,
+    padding: 16
   },
-  contrastPreviewLabel: {
-    fontSize: 12,
-    fontWeight: '500',
+  colorPickerDescription: {
     color: '#64748b',
-    marginBottom: 8,
+    fontSize: 12
   },
-  contrastPreviewContent: {
-    flexDirection: 'row',
+  colorPickerHeader: {
     alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 12
+  },
+  colorPickerInfo: {
+    flex: 1
+  },
+  colorPickerTitle: {
+    color: '#1e293b',
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 4
+  },
+  colorPreview: {
+    borderColor: '#e2e8f0',
+    borderRadius: 8,
+    borderWidth: 1,
+    height: 40,
+    width: 40
+  },
+  colorPreviewContainer: {
+    alignItems: 'center'
   },
   contrastPreviewBox: {
+    alignItems: 'center',
+    borderRadius: 6,
     flex: 1,
     height: 40,
-    borderRadius: 6,
-    justifyContent: 'center',
+    justifyContent: 'center'
+  },
+  contrastPreviewContainer: {
+    marginBottom: 12
+  },
+  contrastPreviewContent: {
     alignItems: 'center',
+    flexDirection: 'row'
+  },
+  contrastPreviewLabel: {
+    color: '#64748b',
+    fontSize: 12,
+    fontWeight: '500',
+    marginBottom: 8
   },
   contrastPreviewText: {
     fontSize: 14,
-    fontWeight: '500',
-  },
-  contrastRatioContainer: {
-    alignItems: 'flex-end',
-    marginLeft: 12,
+    fontWeight: '500'
   },
   contrastRatio: {
     fontSize: 12,
-    fontWeight: '600',
+    fontWeight: '600'
+  },
+  contrastRatioContainer: {
+    alignItems: 'flex-end',
+    marginLeft: 12
   },
   contrastRatioLabel: {
-    fontSize: 10,
     color: '#64748b',
-  },
-  modalContainer: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-  modalHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#e2e8f0',
-  },
-  modalTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#1e293b',
+    fontSize: 10
   },
   modalButton: {
-    fontSize: 16,
     color: '#64748b',
+    fontSize: 16
+  },
+  modalColorPreview: {
+    borderColor: '#e2e8f0',
+    borderRadius: 12,
+    borderWidth: 1,
+    height: 100,
+    marginBottom: 20
   },
   modalConfirmButton: {
     color: '#3b82f6',
-    fontWeight: '600',
+    fontWeight: '600'
+  },
+  modalContainer: {
+    backgroundColor: 'white',
+    flex: 1
   },
   modalContent: {
     flex: 1,
-    padding: 16,
+    padding: 16
   },
-  modalColorPreview: {
-    height: 100,
-    borderRadius: 12,
-    marginBottom: 20,
-    borderWidth: 1,
-    borderColor: '#e2e8f0',
+  modalHeader: {
+    alignItems: 'center',
+    borderBottomColor: '#e2e8f0',
+    borderBottomWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 16
   },
-  colorInputContainer: {
-    marginBottom: 20,
-  },
-  colorInputLabel: {
-    fontSize: 16,
-    fontWeight: '600',
+  modalTitle: {
     color: '#1e293b',
-    marginBottom: 8,
+    fontSize: 18,
+    fontWeight: '600'
   },
-  colorInput: {
-    borderWidth: 1,
+  presetColor: {
     borderColor: '#e2e8f0',
-    borderRadius: 8,
-    padding: 12,
-    fontSize: 16,
-    color: '#1e293b',
+    borderRadius: 6,
+    borderWidth: 1,
+    height: 40,
+    width: 40
+  },
+  presetColorSelected: {
+    borderColor: '#3b82f6',
+    borderWidth: 2
   },
   presetContainer: {
-    marginBottom: 20,
-  },
-  presetTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#1e293b',
-    marginBottom: 12,
+    marginBottom: 20
   },
   presetGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 8,
+    gap: 8
   },
-  presetColor: {
-    width: 40,
-    height: 40,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: '#e2e8f0',
+  presetTitle: {
+    color: '#1e293b',
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 12
   },
-  presetColorSelected: {
-    borderWidth: 2,
-    borderColor: '#3b82f6',
-  },
-}); 
+  validationIndicator: {
+    marginTop: 4
+  }
+});

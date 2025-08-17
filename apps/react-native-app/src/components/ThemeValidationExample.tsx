@@ -1,9 +1,9 @@
 /**
  * ThemeValidationExample.tsx
- * 
+ *
  * Comprehensive theme validation example component
  * Demonstrates schema validation, accessibility checks, and performance analysis
- * 
+ *
  * @author AI Assistant
  * @copyright 2025 Aether
  */
@@ -19,14 +19,14 @@ import {
   ActivityIndicator,
   Dimensions
 } from 'react-native';
-import ThemeValidator, { 
-  ValidationResult, 
-  ValidationError, 
+import ThemeValidator, {
+  ValidationResult,
+  ValidationError,
   ValidationWarning,
-  ThemeSchema 
+  ThemeSchema
 } from '../theme/ThemeValidator';
 
-const { width } = Dimensions.get('window');
+
 
 // MARK: - Sample Themes for Testing
 
@@ -74,7 +74,7 @@ const sampleThemes: Record<string, ThemeSchema> = {
       slow: { duration: 0.5, easing: 'ease-in-out' }
     }
   },
-  
+
   invalid: {
     metadata: {
       name: '',
@@ -102,7 +102,7 @@ const sampleThemes: Record<string, ThemeSchema> = {
       slow: { duration: 15 } // Too long
     }
   },
-  
+
   performance: {
     metadata: {
       name: 'Performance Heavy Theme',
@@ -156,18 +156,18 @@ const ThemeValidationExample: React.FC = () => {
 
   const handleValidation = async () => {
     setIsValidating(true);
-    
+
     try {
       const validator = new ThemeValidator();
       const theme = sampleThemes[selectedTheme];
       const result = await validator.validateTheme(theme);
       setValidationResult(result);
-      
+
       // Show alert with summary
       const status = result.isValid ? '✅ Valid' : '❌ Invalid';
       const errorCount = result.errors.length;
       const warningCount = result.warnings.length;
-      
+
       Alert.alert(
         'Validation Complete',
         `${status}\n\nErrors: ${errorCount}\nWarnings: ${warningCount}\nAccessibility Score: ${result.accessibilityScore.toFixed(1)}%\nPerformance Score: ${result.performanceScore.toFixed(1)}%`
@@ -298,7 +298,7 @@ const ThemeValidationExample: React.FC = () => {
               Valid Theme
             </Text>
           </TouchableOpacity>
-          
+
           <TouchableOpacity
             style={[
               styles.themeButton,
@@ -313,7 +313,7 @@ const ThemeValidationExample: React.FC = () => {
               Invalid Theme
             </Text>
           </TouchableOpacity>
-          
+
           <TouchableOpacity
             style={[
               styles.themeButton,
@@ -353,256 +353,256 @@ const ThemeValidationExample: React.FC = () => {
 // MARK: - Styles
 
 const styles = StyleSheet.create({
+  buttonGroup: {
+    flexDirection: 'row',
+    gap: 8,
+    justifyContent: 'space-between'
+  },
+
   container: {
-    flex: 1,
     backgroundColor: '#F5F5F5',
+    flex: 1,
     padding: 16
   },
-  
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
+
+  errorContent: {
+    flex: 1
+  },
+
+  errorIcon: {
+    alignItems: 'center',
+    backgroundColor: '#F44336',
+    borderRadius: 12,
+    height: 24,
+    justifyContent: 'center',
+    marginRight: 12,
+    width: 24
+  },
+
+  errorIconText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: 'bold'
+  },
+
+  errorItem: {
+    borderBottomColor: '#FFEBEE',
+    borderBottomWidth: 1,
+    flexDirection: 'row',
+    padding: 12
+  },
+
+  errorMessage: {
     color: '#1A1A1A',
-    marginBottom: 8
+    fontSize: 14,
+    marginBottom: 4
   },
-  
-  subtitle: {
-    fontSize: 16,
+
+  errorProperty: {
     color: '#666666',
-    marginBottom: 24
+    fontFamily: 'monospace',
+    fontSize: 12
   },
-  
+
+  infoContainer: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 8,
+    marginTop: 8,
+    padding: 12
+  },
+
+  infoText: {
+    color: '#666666',
+    fontSize: 12,
+    textAlign: 'center'
+  },
+
   pickerContainer: {
     marginBottom: 24
   },
-  
+
   pickerLabel: {
+    color: '#1A1A1A',
     fontSize: 16,
     fontWeight: '600',
-    color: '#1A1A1A',
     marginBottom: 12
   },
-  
-  buttonGroup: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: 8
-  },
-  
-  themeButton: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#E0E0E0',
-    alignItems: 'center'
-  },
-  
-  themeButtonActive: {
-    backgroundColor: '#007AFF',
-    borderColor: '#007AFF'
-  },
-  
-  themeButtonText: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#1A1A1A'
-  },
-  
-  themeButtonTextActive: {
-    color: '#FFFFFF'
-  },
-  
-  validateButton: {
-    backgroundColor: '#007AFF',
-    paddingVertical: 16,
-    paddingHorizontal: 24,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginBottom: 24
-  },
-  
-  validateButtonDisabled: {
-    backgroundColor: '#B0B0B0'
-  },
-  
-  validateButtonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '600'
-  },
-  
+
   resultContainer: {
     flex: 1
   },
-  
-  statusCard: {
-    padding: 16,
-    borderRadius: 8,
-    marginBottom: 16
-  },
-  
-  statusText: {
-    fontSize: 18,
-    fontWeight: '600',
-    textAlign: 'center'
-  },
-  
-  scoresContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 24
-  },
-  
+
   scoreCard: {
-    flex: 1,
+    alignItems: 'center',
     backgroundColor: '#FFFFFF',
-    padding: 16,
     borderRadius: 8,
     borderWidth: 2,
-    alignItems: 'center',
-    marginHorizontal: 4
+    flex: 1,
+    marginHorizontal: 4,
+    padding: 16
   },
-  
+
+  scoreCircle: {
+    alignItems: 'center',
+    borderColor: 'currentColor',
+    borderRadius: 30,
+    borderWidth: 3,
+    height: 60,
+    justifyContent: 'center',
+    marginBottom: 4,
+    width: 60
+  },
+
+  scoreLabel: {
+    color: '#666666',
+    fontSize: 12
+  },
+
   scoreTitle: {
     fontSize: 14,
     fontWeight: '600',
     marginBottom: 8
   },
-  
-  scoreCircle: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    borderWidth: 3,
-    borderColor: 'currentColor',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 4
-  },
-  
+
   scoreValue: {
     fontSize: 18,
     fontWeight: 'bold'
   },
-  
-  scoreLabel: {
-    fontSize: 12,
-    color: '#666666'
+
+  scoresContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 24
   },
-  
+
   sectionContainer: {
     backgroundColor: '#FFFFFF',
     borderRadius: 8,
     marginBottom: 16,
     overflow: 'hidden'
   },
-  
+
   sectionHeader: {
     backgroundColor: '#F5F5F5',
-    padding: 12,
+    borderBottomColor: '#E0E0E0',
     borderBottomWidth: 1,
-    borderBottomColor: '#E0E0E0'
+    padding: 12
   },
-  
+
   sectionTitle: {
+    color: '#1A1A1A',
     fontSize: 16,
+    fontWeight: '600'
+  },
+
+  statusCard: {
+    borderRadius: 8,
+    marginBottom: 16,
+    padding: 16
+  },
+
+  statusText: {
+    fontSize: 18,
     fontWeight: '600',
-    color: '#1A1A1A'
+    textAlign: 'center'
   },
-  
-  errorItem: {
-    flexDirection: 'row',
-    padding: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#FFEBEE'
+
+  subtitle: {
+    color: '#666666',
+    fontSize: 16,
+    marginBottom: 24
   },
-  
-  errorIcon: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: '#F44336',
-    justifyContent: 'center',
+
+  themeButton: {
     alignItems: 'center',
-    marginRight: 12
+    backgroundColor: '#FFFFFF',
+    borderColor: '#E0E0E0',
+    borderRadius: 8,
+    borderWidth: 1,
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 12
   },
-  
-  errorIconText: {
+
+  themeButtonActive: {
+    backgroundColor: '#007AFF',
+    borderColor: '#007AFF'
+  },
+
+  themeButtonText: {
+    color: '#1A1A1A',
+    fontSize: 14,
+    fontWeight: '500'
+  },
+
+  themeButtonTextActive: {
+    color: '#FFFFFF'
+  },
+
+  title: {
+    color: '#1A1A1A',
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 8
+  },
+
+  validateButton: {
+    alignItems: 'center',
+    backgroundColor: '#007AFF',
+    borderRadius: 8,
+    marginBottom: 24,
+    paddingHorizontal: 24,
+    paddingVertical: 16
+  },
+
+  validateButtonDisabled: {
+    backgroundColor: '#B0B0B0'
+  },
+
+  validateButtonText: {
     color: '#FFFFFF',
-    fontSize: 12,
-    fontWeight: 'bold'
+    fontSize: 16,
+    fontWeight: '600'
   },
-  
-  errorContent: {
+
+  warningCategory: {
+    color: '#666666',
+    fontSize: 12,
+    textTransform: 'uppercase'
+  },
+
+  warningContent: {
     flex: 1
   },
-  
-  errorMessage: {
-    fontSize: 14,
-    color: '#1A1A1A',
-    marginBottom: 4
-  },
-  
-  errorProperty: {
-    fontSize: 12,
-    color: '#666666',
-    fontFamily: 'monospace'
-  },
-  
-  warningItem: {
-    flexDirection: 'row',
-    padding: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#FFF3E0'
-  },
-  
+
   warningIcon: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: '#FF9800',
-    justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 12
+    backgroundColor: '#FF9800',
+    borderRadius: 12,
+    height: 24,
+    justifyContent: 'center',
+    marginRight: 12,
+    width: 24
   },
-  
+
   warningIconText: {
     color: '#FFFFFF',
     fontSize: 12,
     fontWeight: 'bold'
   },
-  
-  warningContent: {
-    flex: 1
+
+  warningItem: {
+    borderBottomColor: '#FFF3E0',
+    borderBottomWidth: 1,
+    flexDirection: 'row',
+    padding: 12
   },
-  
+
   warningMessage: {
-    fontSize: 14,
     color: '#1A1A1A',
+    fontSize: 14,
     marginBottom: 4
-  },
-  
-  warningCategory: {
-    fontSize: 12,
-    color: '#666666',
-    textTransform: 'uppercase'
-  },
-  
-  infoContainer: {
-    backgroundColor: '#FFFFFF',
-    padding: 12,
-    borderRadius: 8,
-    marginTop: 8
-  },
-  
-  infoText: {
-    fontSize: 12,
-    color: '#666666',
-    textAlign: 'center'
   }
 });
 
-export default ThemeValidationExample; 
+export default ThemeValidationExample;

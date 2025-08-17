@@ -13,7 +13,7 @@ import {
   StyleSheet,
   ScrollView,
   Alert,
-  Dimensions,
+  Dimensions
 } from 'react-native';
 import AetherGlassCard from './AetherGlassCard';
 
@@ -27,7 +27,7 @@ const AetherGlassCardExample: React.FC = () => {
   const backgroundImages = {
     gradient: require('../../assets/backgrounds/gradient.jpg'),
     nature: require('../../assets/backgrounds/nature.jpg'),
-    abstract: require('../../assets/backgrounds/abstract.jpg'),
+    abstract: require('../../assets/backgrounds/abstract.jpg')
   };
 
   const handleCardPress = (cardName: string) => {
@@ -150,7 +150,7 @@ const AetherGlassCardExample: React.FC = () => {
       {/* Different Blur Types */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Different Blur Types</Text>
-        
+
         <AetherGlassCard
           backgroundImage={backgroundImages.gradient}
           blurType="light"
@@ -180,76 +180,76 @@ const AetherGlassCardExample: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#0f172a', // Dark background for better glassmorphism effect
-  },
-  header: {
-    padding: 20,
-    paddingTop: 40,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#ffffff',
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#94a3b8',
-    lineHeight: 24,
-  },
-  section: {
-    padding: 20,
-    paddingTop: 0,
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#ffffff',
-    marginBottom: 16,
-  },
   card: {
     height: 200,
-    marginBottom: 20,
-  },
-  cardTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#ffffff',
-    marginBottom: 8,
+    marginBottom: 20
   },
   cardDescription: {
-    fontSize: 14,
     color: '#e2e8f0',
-    lineHeight: 20,
+    fontSize: 14,
+    lineHeight: 20
+  },
+  cardTitle: {
+    color: '#ffffff',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 8
+  },
+  container: {
+    backgroundColor: '#0f172a',
+    flex: 1 // Dark background for better glassmorphism effect
   },
   grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   gridCard: {
-    width: (width - 60) / 2,
     height: 120,
     marginBottom: 16,
+    width: (width - 60) / 2
   },
   gridCardTitle: {
+    color: '#ffffff',
     fontSize: 16,
     fontWeight: '600',
+    textAlign: 'center'
+  },
+  header: {
+    padding: 20,
+    paddingTop: 40
+  },
+  section: {
+    padding: 20,
+    paddingTop: 0
+  },
+  sectionTitle: {
     color: '#ffffff',
-    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: '600',
+    marginBottom: 16
   },
   smallCard: {
     height: 80,
-    marginBottom: 12,
+    marginBottom: 12
   },
   smallCardTitle: {
+    color: '#ffffff',
     fontSize: 14,
     fontWeight: '500',
-    color: '#ffffff',
-    textAlign: 'center',
+    textAlign: 'center'
   },
+  subtitle: {
+    color: '#94a3b8',
+    fontSize: 16,
+    lineHeight: 24
+  },
+  title: {
+    color: '#ffffff',
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 8
+  }
 });
 
-export default AetherGlassCardExample; 
+export default AetherGlassCardExample;

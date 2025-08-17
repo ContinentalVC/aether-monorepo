@@ -23,19 +23,19 @@ import {
   UIManager,
   AccessibilityInfo,
   Alert,
-  Share,
+  Share
 } from 'react-native';
 import { PieChart } from 'react-native-gifted-charts';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import ViewShot from 'react-native-view-shot';
-import { 
-  saveChartData, 
-  loadChartData, 
+import {
+  saveChartData,
+  loadChartData,
   PieChartData as StoragePieChartData,
-  exportChartDataAsJSON 
+  exportChartDataAsJSON
 } from '../utils/chartStorage';
 
-const { width } = Dimensions.get('window');
+const { height } = Dimensions.get('window');
 
 // Enable LayoutAnimation on Android
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
@@ -98,7 +98,7 @@ interface ProgressPieChartProps {
 /// Haptic feedback options for React Native Haptic Feedback
 const hapticOptions = {
   enableVibrateFallback: true,
-  ignoreAndroidSystemSettings: false,
+  ignoreAndroidSystemSettings: false
 };
 
 /// Trigger haptic feedback based on type
@@ -213,25 +213,25 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
   enablePersistence = false,
   showExportButtons = false,
   onDataSaved,
-  onDataLoaded,
+  onDataLoaded
 }) => {
   // MARK: - State Management
-  
+
   /// Currently focused segment index
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
-  
+
   /// Animation state for smooth transitions
   const [isAnimating, setIsAnimating] = useState(false);
-  
+
   /// Previous data for comparison
   const previousDataRef = useRef<PieChartData[]>([]);
-  
+
   /// Chart container reference for animations
   const chartContainerRef = useRef<View>(null);
-  
+
   /// ViewShot reference for PNG export
   const viewShotRef = useRef<ViewShot>(null);
-  
+
   /// Storage state
   const [isSaving, setIsSaving] = useState(false);
   const [isLoadingFromStorage, setIsLoadingFromStorage] = useState(false);
@@ -253,7 +253,7 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
   /// Check if data has changed significantly
   const hasDataChanged = useMemo(() => {
     if (previousDataRef.current.length !== data.length) return true;
-    
+
     return data.some((item, index) => {
       const prevItem = previousDataRef.current[index];
       return !prevItem || prevItem.value !== item.value || prevItem.text !== item.text;
@@ -266,18 +266,18 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
   useEffect(() => {
     if (enableAnimations && hasDataChanged && !isLoading) {
       setIsAnimating(true);
-      
+
       // Configure LayoutAnimation for smooth transitions
       LayoutAnimation.configureNext(createLayoutAnimation(animationDuration));
-      
+
       // Update previous data reference
       previousDataRef.current = [...data];
-      
+
       // Reset animation state after animation completes
       const timer = setTimeout(() => {
         setIsAnimating(false);
       }, animationDuration);
-      
+
       return () => clearTimeout(timer);
     } else {
       previousDataRef.current = [...data];
@@ -298,7 +298,7 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
   /// Load data from AsyncStorage
   const loadDataFromStorage = async () => {
     if (!enablePersistence) return;
-    
+
     setIsLoadingFromStorage(true);
     try {
       const savedData = await loadChartData();
@@ -307,9 +307,9 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
         const convertedData: PieChartData[] = savedData.map(item => ({
           value: item.value,
           color: item.color,
-          text: item.label,
+          text: item.label
         }));
-        
+
         // Note: In a real implementation, you would update the data source
         // This is a simplified example - you might want to use a callback or state management
         console.log(`Loaded ${convertedData.length} data points from storage`);
@@ -329,7 +329,7 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
   /// Save data to AsyncStorage
   const saveDataToStorage = async () => {
     if (!enablePersistence || data.length === 0) return;
-    
+
     setIsSaving(true);
     try {
       // Convert component format to storage format
@@ -337,13 +337,13 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
         id: Math.random().toString(36).substr(2, 9),
         label: item.text,
         value: item.value,
-        color: item.color,
+        color: item.color
       }));
-      
+
       await saveChartData(storageData, title);
       console.log(`Saved ${storageData.length} data points to storage`);
       onDataSaved?.(true);
-      
+
       // Trigger haptic feedback for successful save
       if (enableHaptics) {
         triggerHapticFeedback('impactLight');
@@ -352,7 +352,7 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       console.error('Error saving data to storage:', errorMessage);
       onDataSaved?.(false, errorMessage);
-      
+
       Alert.alert('Save Error', `Failed to save chart data: ${errorMessage}`);
     } finally {
       setIsSaving(false);
@@ -363,24 +363,24 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
 
   /// Export chart as PNG image
   const exportAsPNG = async () => {
-    if (!viewShotRef.current) return;
-    
+    if (!viewShotRef.current?.capture) return;
+
     setIsExporting(true);
     try {
       const uri = await viewShotRef.current.capture();
-      
+
       // Share the image
       await Share.share({
         url: uri,
         title: `${title} Chart`,
-        message: `Exported ${title} chart as PNG image`,
+        message: `Exported ${title} chart as PNG image`
       });
-      
+
       // Trigger haptic feedback for successful export
       if (enableHaptics) {
         triggerHapticFeedback('impactMedium');
       }
-      
+
       console.log('Chart exported as PNG successfully');
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
@@ -399,22 +399,22 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
         id: Math.random().toString(36).substr(2, 9),
         label: item.text,
         value: item.value,
-        color: item.color,
+        color: item.color
       }));
-      
+
       const jsonData = exportChartDataAsJSON(storageData);
-      
+
       // Share the JSON data
       await Share.share({
         title: `${title} Data`,
-        message: jsonData,
+        message: jsonData
       });
-      
+
       // Trigger haptic feedback for successful export
       if (enableHaptics) {
         triggerHapticFeedback('impactLight');
       }
-      
+
       console.log('Chart data exported as JSON successfully');
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
@@ -431,20 +431,20 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
     if (enableHaptics) {
       triggerHapticFeedback(hapticType);
     }
-    
+
     // Toggle focus with animation
     const newFocusedIndex = focusedIndex === index ? null : index;
     setFocusedIndex(newFocusedIndex);
-    
+
     // Announce selection to screen readers
     const segment = data[index];
     const percentage = Math.round((segment.value / totalValue) * 100);
-    const announcement = newFocusedIndex === index 
+    const announcement = newFocusedIndex === index
       ? `Selected ${segment.text}, ${percentage}%`
       : `Deselected ${segment.text}`;
-    
+
     AccessibilityInfo.announceForAccessibility(announcement);
-    
+
     // Call the callback
     onSegmentPress?.(data[index], index);
   };
@@ -455,19 +455,19 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
     if (enableHaptics) {
       triggerHapticFeedback(hapticType);
     }
-    
+
     // Toggle focus with animation
     const newFocusedIndex = focusedIndex === index ? null : index;
     setFocusedIndex(newFocusedIndex);
-    
+
     // Announce selection to screen readers
     const percentage = Math.round((item.value / totalValue) * 100);
-    const announcement = newFocusedIndex === index 
+    const announcement = newFocusedIndex === index
       ? `Selected ${item.text}, ${percentage}%`
       : `Deselected ${item.text}`;
-    
+
     AccessibilityInfo.announceForAccessibility(announcement);
-    
+
     // Call the callback
     onSegmentPress?.(item, index);
   };
@@ -477,9 +477,9 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
   /// Center label component showing total percentage with animation and accessibility
   const CenterLabelComponent = () => {
     const centerLabelAccessibilityLabel = generateCenterLabelAccessibilityLabel(totalPercentage, data.length);
-    
+
     return (
-      <View 
+      <View
         style={[
           styles.centerLabelContainer,
           isAnimating && styles.centerLabelAnimating
@@ -507,7 +507,7 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
 
   /// Loading component with animation and accessibility
   const LoadingComponent = () => (
-    <View 
+    <View
       style={[
         styles.chartContainer,
         { width: size, height: size },
@@ -525,7 +525,7 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
 
   /// Empty state component with animation and accessibility
   const EmptyStateComponent = () => (
-    <View 
+    <View
       style={[
         styles.chartContainer,
         { width: size, height: size },
@@ -545,7 +545,7 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
     if (!showExportButtons || data.length === 0) return null;
 
     return (
-      <View 
+      <View
         style={styles.exportButtonsContainer}
         accessible={true}
         accessibilityLabel="Export options"
@@ -571,7 +571,7 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
             </Text>
           </TouchableOpacity>
         )}
-        
+
         <TouchableOpacity
           style={[
             styles.exportButton,
@@ -589,7 +589,7 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
             {isExporting ? 'Exporting...' : 'Export PNG'}
           </Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity
           style={[
             styles.exportButton,
@@ -621,15 +621,15 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
     const chartDataWithAccessibility = data.map((item, index) => {
       const percentage = Math.round((item.value / totalValue) * 100);
       const segmentAccessibilityLabel = generateSegmentAccessibilityLabel(item, percentage, index, data.length);
-      
+
       return {
         ...item,
         accessibilityLabel: segmentAccessibilityLabel,
         accessibilityRole: 'button',
         accessibilityHint: 'Double tap to select this segment',
         accessibilityState: {
-          selected: focusedIndex === index,
-        },
+          selected: focusedIndex === index
+        }
       };
     });
 
@@ -639,7 +639,7 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
         options={{
           format: 'png',
           quality: 0.9,
-          result: 'data-uri',
+          result: 'data-uri'
         }}
         style={[
           styles.chartContainer,
@@ -647,7 +647,7 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
           isAnimating && styles.chartContainerAnimating
         ]}
       >
-        <View 
+        <View
           ref={chartContainerRef}
           accessible={true}
           accessibilityLabel={`${accessibilityLabel}. ${data.length} segments. ${totalPercentage}% total mastered.`}
@@ -685,7 +685,7 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
     if (!data || data.length === 0) return null;
 
     return (
-      <View 
+      <View
         style={[
           styles.legendContainer,
           isAnimating && styles.legendContainerAnimating
@@ -698,14 +698,14 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
         {data.map((item, index) => {
           const percentage = Math.round((item.value / totalValue) * 100);
           const legendAccessibilityLabel = generateLegendAccessibilityLabel(item, percentage, focusedIndex === index);
-          
+
           return (
             <TouchableOpacity
               key={`${item.text}-${index}-${item.value}`}
               style={[
                 styles.legendItem,
                 focusedIndex === index && styles.legendItemFocused,
-                isAnimating && styles.legendItemAnimating,
+                isAnimating && styles.legendItemAnimating
               ]}
               onPress={() => handleLegendPress(item, index)}
               activeOpacity={0.7}
@@ -714,7 +714,7 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
               accessibilityRole="button"
               accessibilityHint="Double tap to select this segment"
               accessibilityState={{
-                selected: focusedIndex === index,
+                selected: focusedIndex === index
               }}
             >
               <View
@@ -722,11 +722,11 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
                   styles.legendColor,
                   { backgroundColor: item.color },
                   focusedIndex === index && styles.legendColorFocused,
-                  isAnimating && styles.legendColorAnimating,
+                  isAnimating && styles.legendColorAnimating
                 ]}
                 accessible={false}
               />
-              <View 
+              <View
                 style={styles.legendTextContainer}
                 accessible={false}
               >
@@ -753,7 +753,7 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
   // MARK: - Main Render
 
   return (
-    <View 
+    <View
       style={[
         styles.container,
         style,
@@ -765,7 +765,7 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
       accessibilityHint={accessibilityHint}
     >
       {/* Header with animation and accessibility */}
-      <View 
+      <View
         style={[
           styles.header,
           isAnimating && styles.headerAnimating
@@ -799,7 +799,7 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
 
       {/* Summary with animation and accessibility */}
       {!isLoading && data && data.length > 0 && (
-        <View 
+        <View
           style={[
             styles.summaryContainer,
             isAnimating && styles.summaryContainerAnimating
@@ -823,192 +823,192 @@ const ProgressPieChart: React.FC<ProgressPieChartProps> = ({
 // MARK: - Styles
 
 const styles = StyleSheet.create({
-  container: {
+  centerLabelAnimating: {
+    transform: [{ scale: 1.1 }]
+  },
+  centerLabelContainer: {
     alignItems: 'center',
-    padding: 20,
-    backgroundColor: 'transparent',
+    justifyContent: 'center'
   },
-  containerAnimating: {
-    opacity: 0.95,
-  },
-  header: {
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  headerAnimating: {
-    transform: [{ scale: 0.98 }],
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#1f2937',
-    marginBottom: 4,
-  },
-  titleAnimating: {
-    transform: [{ scale: 1.02 }],
-  },
-  subtitle: {
-    fontSize: 14,
+  centerLabelText: {
     color: '#6b7280',
-    textAlign: 'center',
+    fontSize: 12,
+    fontWeight: '500'
   },
-  subtitleAnimating: {
-    opacity: 0.8,
+  centerLabelTextAnimating: {
+    opacity: 0.9
   },
   chartContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 20,
+    marginBottom: 20
   },
   chartContainerAnimating: {
-    transform: [{ scale: 1.05 }],
+    transform: [{ scale: 1.05 }]
   },
-  centerLabelContainer: {
+  container: {
     alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: 'transparent',
+    padding: 20
   },
-  centerLabelAnimating: {
-    transform: [{ scale: 1.1 }],
-  },
-  percentageText: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#1f2937',
-    marginBottom: 2,
-  },
-  percentageTextAnimating: {
-    transform: [{ scale: 1.15 }],
-  },
-  centerLabelText: {
-    fontSize: 12,
-    color: '#6b7280',
-    fontWeight: '500',
-  },
-  centerLabelTextAnimating: {
-    opacity: 0.9,
-  },
-  loadingText: {
-    marginTop: 12,
-    fontSize: 14,
-    color: '#6b7280',
-    textAlign: 'center',
+  containerAnimating: {
+    opacity: 0.95
   },
   emptyStateText: {
-    fontSize: 16,
     color: '#6b7280',
-    textAlign: 'center',
-  },
-  legendContainer: {
-    width: '100%',
-    maxWidth: 300,
-    marginBottom: 16,
-  },
-  legendContainerAnimating: {
-    transform: [{ translateY: 5 }],
-  },
-  legendItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    borderRadius: 8,
-    marginBottom: 8,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-  },
-  legendItemAnimating: {
-    transform: [{ scale: 0.98 }],
-  },
-  legendItemFocused: {
-    backgroundColor: 'rgba(99, 102, 241, 0.1)',
-    borderWidth: 1,
-    borderColor: '#6366f1',
-  },
-  legendColor: {
-    width: 16,
-    height: 16,
-    borderRadius: 8,
-    marginRight: 12,
-  },
-  legendColorAnimating: {
-    transform: [{ scale: 1.1 }],
-  },
-  legendColorFocused: {
-    transform: [{ scale: 1.2 }],
-  },
-  legendTextContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  legendText: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#1f2937',
-    flex: 1,
-  },
-  legendTextAnimating: {
-    transform: [{ translateX: 2 }],
-  },
-  legendValue: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#6366f1',
-  },
-  legendValueAnimating: {
-    transform: [{ scale: 1.05 }],
-  },
-  exportButtonsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    gap: 8,
-    marginBottom: 16,
-    width: '100%',
+    fontSize: 16,
+    textAlign: 'center'
   },
   exportButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 8,
-    minWidth: 100,
     alignItems: 'center',
+    borderRadius: 8,
     justifyContent: 'center',
+    minWidth: 100,
+    paddingHorizontal: 16,
+    paddingVertical: 8
   },
   exportButtonDisabled: {
-    opacity: 0.6,
-  },
-  saveButton: {
-    backgroundColor: '#10b981',
-  },
-  pngButton: {
-    backgroundColor: '#3b82f6',
-  },
-  jsonButton: {
-    backgroundColor: '#8b5cf6',
+    opacity: 0.6
   },
   exportButtonText: {
     color: 'white',
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: '600'
+  },
+  exportButtonsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+    justifyContent: 'center',
+    marginBottom: 16,
+    width: '100%'
+  },
+  header: {
+    alignItems: 'center',
+    marginBottom: 20
+  },
+  headerAnimating: {
+    transform: [{ scale: 0.98 }]
+  },
+  jsonButton: {
+    backgroundColor: '#8b5cf6'
+  },
+  legendColor: {
+    borderRadius: 8,
+    height: 16,
+    marginRight: 12,
+    width: 16
+  },
+  legendColorAnimating: {
+    transform: [{ scale: 1.1 }]
+  },
+  legendColorFocused: {
+    transform: [{ scale: 1.2 }]
+  },
+  legendContainer: {
+    marginBottom: 16,
+    maxWidth: 300,
+    width: '100%'
+  },
+  legendContainerAnimating: {
+    transform: [{ translateY: 5 }]
+  },
+  legendItem: {
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    borderRadius: 8,
+    flexDirection: 'row',
+    marginBottom: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 8
+  },
+  legendItemAnimating: {
+    transform: [{ scale: 0.98 }]
+  },
+  legendItemFocused: {
+    backgroundColor: 'rgba(99, 102, 241, 0.1)',
+    borderColor: '#6366f1',
+    borderWidth: 1
+  },
+  legendText: {
+    color: '#1f2937',
+    flex: 1,
+    fontSize: 14,
+    fontWeight: '500'
+  },
+  legendTextAnimating: {
+    transform: [{ translateX: 2 }]
+  },
+  legendTextContainer: {
+    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  legendValue: {
+    color: '#6366f1',
+    fontSize: 14,
+    fontWeight: 'bold'
+  },
+  legendValueAnimating: {
+    transform: [{ scale: 1.05 }]
+  },
+  loadingText: {
+    color: '#6b7280',
+    fontSize: 14,
+    marginTop: 12,
+    textAlign: 'center'
+  },
+  percentageText: {
+    color: '#1f2937',
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 2
+  },
+  percentageTextAnimating: {
+    transform: [{ scale: 1.15 }]
+  },
+  pngButton: {
+    backgroundColor: '#3b82f6'
+  },
+  saveButton: {
+    backgroundColor: '#10b981'
+  },
+  subtitle: {
+    color: '#6b7280',
+    fontSize: 14,
+    textAlign: 'center'
+  },
+  subtitleAnimating: {
+    opacity: 0.8
   },
   summaryContainer: {
-    paddingTop: 16,
-    borderTopWidth: 1,
-    borderTopColor: '#e5e7eb',
-    width: '100%',
     alignItems: 'center',
+    borderTopColor: '#e5e7eb',
+    borderTopWidth: 1,
+    paddingTop: 16,
+    width: '100%'
   },
   summaryContainerAnimating: {
-    transform: [{ translateY: 3 }],
+    transform: [{ translateY: 3 }]
   },
   summaryText: {
-    fontSize: 14,
     color: '#6b7280',
-    fontWeight: '500',
+    fontSize: 14,
+    fontWeight: '500'
   },
   summaryTextAnimating: {
-    opacity: 0.8,
+    opacity: 0.8
   },
+  title: {
+    color: '#1f2937',
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 4
+  },
+  titleAnimating: {
+    transform: [{ scale: 1.02 }]
+  }
 });
 
-export default ProgressPieChart; 
+export default ProgressPieChart;

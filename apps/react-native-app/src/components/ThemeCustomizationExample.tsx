@@ -5,10 +5,9 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
-  Alert,
-  Switch,
+  Switch
 } from 'react-native';
-import { useEnhancedTheme, HeadingSize, BodySize, ColorBlindnessSupport } from '../theme/EnhancedThemeProvider';
+import { useEnhancedTheme, ColorBlindnessSupport } from '../theme/EnhancedThemeProvider';
 import styled from 'styled-components/native';
 
 // MARK: - Styled Components
@@ -66,15 +65,7 @@ const ThemeCustomizationExample: React.FC = () => {
     theme,
     themeName,
     typography,
-    accessibility,
-    switchTheme,
-    toggleDarkMode,
-    isDarkMode,
-    updateTypography,
-    toggleHighContrast,
-    toggleReducedMotion,
-    setColorBlindnessSupport,
-    getRecommendedFontCombinations,
+    accessibility
   } = useEnhancedTheme();
 
   const [showCustomization, setShowCustomization] = useState(false);
@@ -126,14 +117,14 @@ const ThemeInfoHeader: React.FC = () => {
       <Text style={[styles.themeName, { color: theme.textSecondary }]}>
         {themeName.charAt(0).toUpperCase() + themeName.slice(1)}
       </Text>
-      
+
       {/* Color palette preview */}
       <View style={styles.colorPalette}>
         {[
           theme.primary,
           theme.secondary,
           theme.background,
-          theme.surface,
+          theme.surface
         ].map((color, index) => (
           <ColorPreview key={index} color={color} />
         ))}
@@ -150,7 +141,7 @@ const TypographyPreviewCard: React.FC = () => {
   return (
     <Card>
       <SectionTitle>Typography Preview</SectionTitle>
-      
+
       <View style={styles.typographyPreview}>
         <Text style={[styles.previewHeading, { color: theme.textPrimary }]}>
           Heading 1
@@ -165,7 +156,7 @@ const TypographyPreviewCard: React.FC = () => {
           This is a sample paragraph that demonstrates how your typography choices will look in practice. It includes various text elements to help you evaluate readability and visual hierarchy.
         </Text>
       </View>
-      
+
       {/* Font info */}
       <View style={styles.fontInfo}>
         <View style={styles.fontInfoItem}>
@@ -176,7 +167,7 @@ const TypographyPreviewCard: React.FC = () => {
             {typography.primaryFont}
           </Text>
         </View>
-        
+
         <View style={styles.fontInfoItem}>
           <Text style={[styles.fontInfoLabel, { color: theme.textTertiary }]}>
             Secondary Font
@@ -213,26 +204,26 @@ const AccessibilityStatusCard: React.FC = () => {
   return (
     <Card>
       <SectionTitle>Accessibility Status</SectionTitle>
-      
+
       <View style={styles.accessibilityStatus}>
         <AccessibilityStatusRow
           title="High Contrast"
           isEnabled={accessibility.useHighContrast}
           icon="👁️"
         />
-        
+
         <AccessibilityStatusRow
           title="Reduce Motion"
           isEnabled={accessibility.reduceMotion}
           icon="🤚"
         />
-        
+
         <AccessibilityStatusRow
           title="Large Text"
           isEnabled={accessibility.useLargeText}
           icon="📏"
         />
-        
+
         <View style={styles.accessibilityRow}>
           <Text style={styles.accessibilityIcon}>🎨</Text>
           <View style={styles.accessibilityInfo}>
@@ -280,13 +271,13 @@ const ThemeControlsSection: React.FC = () => {
 
   const themeButtons = [
     { name: 'light', title: 'Light', icon: '☀️' },
-    { name: 'dark', title: 'Dark', icon: '🌙' },
+    { name: 'dark', title: 'Dark', icon: '🌙' }
   ];
 
   return (
     <Card>
       <SectionTitle>Quick Controls</SectionTitle>
-      
+
       {/* Theme buttons */}
       <View style={styles.themeButtons}>
         {themeButtons.map((button) => (
@@ -297,8 +288,8 @@ const ThemeControlsSection: React.FC = () => {
               {
                 backgroundColor: themeName === button.name
                   ? theme.primary
-                  : theme.backgroundSecondary,
-              },
+                  : theme.backgroundSecondary
+              }
             ]}
             onPress={() => switchTheme(button.name)}
           >
@@ -306,15 +297,15 @@ const ThemeControlsSection: React.FC = () => {
             <Text style={[
               styles.themeButtonText,
               {
-                color: themeName === button.name ? 'white' : theme.textPrimary,
-              },
+                color: themeName === button.name ? 'white' : theme.textPrimary
+              }
             ]}>
               {button.title}
             </Text>
           </TouchableOpacity>
         ))}
       </View>
-      
+
       {/* Accessibility toggles */}
       <View style={styles.accessibilityToggles}>
         <AccessibilityToggle
@@ -322,7 +313,7 @@ const ThemeControlsSection: React.FC = () => {
           isOn={theme.accessibility.useHighContrast}
           onToggle={toggleHighContrast}
         />
-        
+
         <AccessibilityToggle
           title="Reduce Motion"
           isOn={theme.accessibility.reduceMotion}
@@ -363,7 +354,7 @@ const SampleUIComponents: React.FC = () => {
   return (
     <Card>
       <SectionTitle>Sample UI Components</SectionTitle>
-      
+
       <View style={styles.sampleComponents}>
         {/* Sample card */}
         <View style={[styles.sampleCard, { backgroundColor: theme.surface }]}>
@@ -373,16 +364,16 @@ const SampleUIComponents: React.FC = () => {
           <Text style={[styles.sampleCardDescription, { color: theme.textSecondary }]}>
             This is a sample card that demonstrates how your theme will look in practice.
           </Text>
-          
+
           <View style={styles.sampleButtons}>
             <TouchableOpacity
               style={[styles.primaryButton, { backgroundColor: theme.primary }]}
             >
               <Text style={styles.primaryButtonText}>Primary Action</Text>
             </TouchableOpacity>
-            
+
             <TouchableOpacity
-              style={[styles.secondaryButton, { backgroundColor: theme.primary + '20' }]}
+              style={[styles.secondaryButton, { backgroundColor: `${theme.primary }20` }]}
             >
               <Text style={[styles.secondaryButtonText, { color: theme.primary }]}>
                 Secondary
@@ -390,13 +381,13 @@ const SampleUIComponents: React.FC = () => {
             </TouchableOpacity>
           </View>
         </View>
-        
+
         {/* Sample list item */}
         <View style={[styles.sampleListItem, { backgroundColor: theme.surface }]}>
           <View style={[styles.sampleListItemIcon, { backgroundColor: theme.primary }]}>
             <Text style={styles.sampleListItemIconText}>⭐</Text>
           </View>
-          
+
           <View style={styles.sampleListItemContent}>
             <Text style={[styles.sampleListItemTitle, { color: theme.textPrimary }]}>
               Sample List Item
@@ -405,7 +396,7 @@ const SampleUIComponents: React.FC = () => {
               This demonstrates how list items look with your theme.
             </Text>
           </View>
-          
+
           <Text style={[styles.sampleListItemChevron, { color: theme.textTertiary }]}>
             ›
           </Text>
@@ -418,219 +409,219 @@ const SampleUIComponents: React.FC = () => {
 // MARK: - Styles
 
 const styles = StyleSheet.create({
-  scrollView: {
-    flex: 1,
-  },
-  sectionTitle: {
+  accessibilityCheck: {
     fontSize: 20,
-    fontWeight: '600',
-    marginBottom: 16,
+    fontWeight: '600'
   },
-  themeName: {
-    fontSize: 18,
-    fontWeight: '500',
-    marginBottom: 12,
-  },
-  colorPalette: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-  typographyPreview: {
-    marginBottom: 16,
-  },
-  previewHeading: {
-    fontSize: 32,
-    fontWeight: '700',
-    marginBottom: 8,
-  },
-  previewHeading2: {
-    fontSize: 24,
-    fontWeight: '600',
-    marginBottom: 8,
-  },
-  previewBody: {
-    fontSize: 16,
-    fontWeight: '400',
-    marginBottom: 8,
-  },
-  previewParagraph: {
-    fontSize: 16,
-    lineHeight: 24,
-  },
-  fontInfo: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  fontInfoItem: {
-    flex: 1,
-  },
-  fontInfoLabel: {
-    fontSize: 12,
-    marginBottom: 4,
-  },
-  fontInfoValue: {
-    fontSize: 12,
-  },
-  accessibilityStatus: {
-    gap: 12,
-  },
-  accessibilityRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  accessibilityDescription: {
+    fontSize: 14
   },
   accessibilityIcon: {
     fontSize: 20,
-    marginRight: 12,
+    marginRight: 12
   },
   accessibilityInfo: {
-    flex: 1,
+    flex: 1
+  },
+  accessibilityRow: {
+    alignItems: 'center',
+    flexDirection: 'row'
+  },
+  accessibilitySpacer: {
+    flex: 1
+  },
+  accessibilityStatus: {
+    gap: 12
   },
   accessibilityTitle: {
     fontSize: 16,
     fontWeight: '600',
-    marginBottom: 4,
-  },
-  accessibilityDescription: {
-    fontSize: 14,
-  },
-  accessibilitySpacer: {
-    flex: 1,
-  },
-  accessibilityCheck: {
-    fontSize: 20,
-    fontWeight: '600',
-  },
-  themeButtons: {
-    flexDirection: 'row',
-    gap: 12,
-    marginBottom: 16,
-  },
-  themeButton: {
-    flex: 1,
-    alignItems: 'center',
-    paddingVertical: 12,
-    borderRadius: 12,
-  },
-  themeButtonIcon: {
-    fontSize: 24,
-    marginBottom: 8,
-  },
-  themeButtonText: {
-    fontSize: 14,
-    fontWeight: '500',
-  },
-  accessibilityToggles: {
-    gap: 12,
+    marginBottom: 4
   },
   accessibilityToggle: {
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 16,
     backgroundColor: '#F1F5F9',
     borderRadius: 12,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 16
   },
   accessibilityToggleTitle: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '600'
   },
-  sampleComponents: {
-    gap: 12,
+  accessibilityToggles: {
+    gap: 12
+  },
+  colorPalette: {
+    flexDirection: 'row',
+    gap: 8
+  },
+  customizationButton: {
+    alignItems: 'center',
+    borderRadius: 12,
+    margin: 20,
+    paddingVertical: 16
+  },
+  customizationButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: '600'
+  },
+  fontInfo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  fontInfoItem: {
+    flex: 1
+  },
+  fontInfoLabel: {
+    fontSize: 12,
+    marginBottom: 4
+  },
+  fontInfoValue: {
+    fontSize: 12
+  },
+  previewBody: {
+    fontSize: 16,
+    fontWeight: '400',
+    marginBottom: 8
+  },
+  previewHeading: {
+    fontSize: 32,
+    fontWeight: '700',
+    marginBottom: 8
+  },
+  previewHeading2: {
+    fontSize: 24,
+    fontWeight: '600',
+    marginBottom: 8
+  },
+  previewParagraph: {
+    fontSize: 16,
+    lineHeight: 24
+  },
+  primaryButton: {
+    alignItems: 'center',
+    borderRadius: 8,
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 8
+  },
+  primaryButtonText: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: '600'
+  },
+  sampleButtons: {
+    flexDirection: 'row',
+    gap: 12
   },
   sampleCard: {
-    padding: 16,
     borderRadius: 12,
+    elevation: 2,
+    padding: 16,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  sampleCardTitle: {
-    fontSize: 20,
-    fontWeight: '600',
-    marginBottom: 8,
+    shadowRadius: 4
   },
   sampleCardDescription: {
     fontSize: 16,
     lineHeight: 24,
-    marginBottom: 16,
+    marginBottom: 16
   },
-  sampleButtons: {
-    flexDirection: 'row',
-    gap: 12,
-  },
-  primaryButton: {
-    flex: 1,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  primaryButtonText: {
-    fontSize: 14,
+  sampleCardTitle: {
+    fontSize: 20,
     fontWeight: '600',
-    color: 'white',
+    marginBottom: 8
   },
-  secondaryButton: {
-    flex: 1,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  secondaryButtonText: {
-    fontSize: 14,
-    fontWeight: '600',
+  sampleComponents: {
+    gap: 12
   },
   sampleListItem: {
-    flexDirection: 'row',
     alignItems: 'center',
-    padding: 16,
     borderRadius: 12,
+    elevation: 2,
+    flexDirection: 'row',
+    padding: 16,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    shadowRadius: 4
   },
-  sampleListItemIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 12,
-  },
-  sampleListItemIconText: {
+  sampleListItemChevron: {
     fontSize: 20,
+    fontWeight: '600'
   },
   sampleListItemContent: {
-    flex: 1,
+    flex: 1
+  },
+  sampleListItemDescription: {
+    fontSize: 14
+  },
+  sampleListItemIcon: {
+    alignItems: 'center',
+    borderRadius: 20,
+    height: 40,
+    justifyContent: 'center',
+    marginRight: 12,
+    width: 40
+  },
+  sampleListItemIconText: {
+    fontSize: 20
   },
   sampleListItemTitle: {
     fontSize: 16,
     fontWeight: '600',
-    marginBottom: 4,
+    marginBottom: 4
   },
-  sampleListItemDescription: {
+  scrollView: {
+    flex: 1
+  },
+  secondaryButton: {
+    alignItems: 'center',
+    borderRadius: 8,
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 8
+  },
+  secondaryButtonText: {
     fontSize: 14,
+    fontWeight: '600'
   },
-  sampleListItemChevron: {
+  sectionTitle: {
     fontSize: 20,
     fontWeight: '600',
+    marginBottom: 16
   },
-  customizationButton: {
-    margin: 20,
-    paddingVertical: 16,
-    borderRadius: 12,
+  themeButton: {
     alignItems: 'center',
+    borderRadius: 12,
+    flex: 1,
+    paddingVertical: 12
   },
-  customizationButtonText: {
+  themeButtonIcon: {
+    fontSize: 24,
+    marginBottom: 8
+  },
+  themeButtonText: {
+    fontSize: 14,
+    fontWeight: '500'
+  },
+  themeButtons: {
+    flexDirection: 'row',
+    gap: 12,
+    marginBottom: 16
+  },
+  themeName: {
     fontSize: 18,
-    fontWeight: '600',
-    color: 'white',
+    fontWeight: '500',
+    marginBottom: 12
   },
+  typographyPreview: {
+    marginBottom: 16
+  }
 });
 
-export default ThemeCustomizationExample; 
+export default ThemeCustomizationExample;

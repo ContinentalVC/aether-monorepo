@@ -5,7 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
-  Alert,
+  Alert
 } from 'react-native';
 import { useEnhancedTheme } from '../theme/EnhancedThemeProvider';
 import styled from 'styled-components/native';
@@ -22,8 +22,8 @@ const LayoutGuideView: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       examples: [
         'Headings: Use larger, bolder fonts for main titles',
         'Body text: Use regular weight for readable content',
-        'Captions: Use smaller, lighter fonts for supporting text',
-      ],
+        'Captions: Use smaller, lighter fonts for supporting text'
+      ]
     },
     {
       title: 'White Space',
@@ -33,8 +33,8 @@ const LayoutGuideView: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         'SM (8pt): Component-level spacing',
         'MD (16pt): Section spacing',
         'LG (24pt): Major section separation',
-        'XL (32pt): Page-level margins',
-      ],
+        'XL (32pt): Page-level margins'
+      ]
     },
     {
       title: 'Contrast',
@@ -43,8 +43,8 @@ const LayoutGuideView: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         'Primary text: High contrast for main content',
         'Secondary text: Medium contrast for supporting content',
         'Tertiary text: Lower contrast for subtle information',
-        'Interactive elements: High contrast for buttons and links',
-      ],
+        'Interactive elements: High contrast for buttons and links'
+      ]
     },
     {
       title: 'Consistency',
@@ -53,8 +53,8 @@ const LayoutGuideView: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         'Use the same spacing scale everywhere',
         'Apply consistent typography hierarchy',
         'Maintain color consistency across components',
-        'Follow established patterns for similar elements',
-      ],
+        'Follow established patterns for similar elements'
+      ]
     },
     {
       title: 'Alignment',
@@ -63,8 +63,8 @@ const LayoutGuideView: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         'Left-align text for optimal readability',
         'Center-align headings and titles',
         'Right-align numbers and dates',
-        'Use grid systems for complex layouts',
-      ],
+        'Use grid systems for complex layouts'
+      ]
     },
     {
       title: 'Proximity',
@@ -73,9 +73,9 @@ const LayoutGuideView: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         'Group form fields with their labels',
         'Keep related actions close together',
         'Separate different content sections',
-        'Use spacing to indicate relationships',
-      ],
-    },
+        'Use spacing to indicate relationships'
+      ]
+    }
   ];
 
   return (
@@ -92,7 +92,7 @@ const LayoutGuideView: React.FC<{ onClose: () => void }> = ({ onClose }) => {
           <Introduction>
             <IntroductionTitle>Mastering Layout Design</IntroductionTitle>
             <IntroductionText>
-              Understanding layout principles helps you create interfaces that are both beautiful and functional. 
+              Understanding layout principles helps you create interfaces that are both beautiful and functional.
               These guidelines will help you make informed design decisions that improve user experience.
             </IntroductionText>
           </Introduction>
@@ -103,9 +103,9 @@ const LayoutGuideView: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                 <SectionNumber>{index + 1}</SectionNumber>
                 <SectionTitle>{section.title}</SectionTitle>
               </SectionHeader>
-              
+
               <SectionDescription>{section.description}</SectionDescription>
-              
+
               <ExamplesContainer>
                 <ExamplesTitle>Examples:</ExamplesTitle>
                 {section.examples.map((example, exampleIndex) => (
@@ -354,8 +354,8 @@ const ResourceText = styled.Text`
 
 const styles = StyleSheet.create({
   scrollView: {
-    flex: 1,
-  },
+    flex: 1
+  }
 });
 
-export default LayoutGuideView; 
+export default LayoutGuideView;

@@ -16,15 +16,15 @@ import {
   TouchableOpacity,
   Alert,
   ActivityIndicator,
-  Dimensions,
+  Dimensions
 } from 'react-native';
 import styled from 'styled-components/native';
 import ProgressPieChart, { PieChartData } from './ProgressPieChart';
-import { 
-  loadChartData, 
-  clearAllChartData, 
+import {
+  loadChartData,
+  clearAllChartData,
   getChartStatistics,
-  PieChartData as StoragePieChartData 
+  PieChartData as StoragePieChartData
 } from '../utils/chartStorage';
 import { formatDateEnhanced, DATE_FORMATS } from '@aether/react-native-utils';
 
@@ -138,21 +138,21 @@ const sampleDataSets = {
     { value: 25, color: '#10b981', text: 'React Native' },
     { value: 20, color: '#f59e0b', text: 'TypeScript' },
     { value: 15, color: '#ef4444', text: 'Node.js' },
-    { value: 10, color: '#8b5cf6', text: 'GraphQL' },
+    { value: 10, color: '#8b5cf6', text: 'GraphQL' }
   ],
   'Project Distribution': [
     { value: 40, color: '#3b82f6', text: 'Mobile Apps' },
     { value: 30, color: '#10b981', text: 'Web Apps' },
     { value: 20, color: '#f59e0b', text: 'APIs' },
-    { value: 10, color: '#ef4444', text: 'Tools' },
+    { value: 10, color: '#ef4444', text: 'Tools' }
   ],
   'Time Allocation': [
     { value: 35, color: '#3b82f6', text: 'Development' },
     { value: 25, color: '#10b981', text: 'Testing' },
     { value: 20, color: '#f59e0b', text: 'Planning' },
     { value: 15, color: '#ef4444', text: 'Documentation' },
-    { value: 5, color: '#8b5cf6', text: 'Meetings' },
-  ],
+    { value: 5, color: '#8b5cf6', text: 'Meetings' }
+  ]
 };
 
 // MARK: - Enhanced ProgressPieChartExample Component
@@ -160,7 +160,7 @@ const sampleDataSets = {
 /**
  * Enhanced ProgressPieChartExample - Demonstrates the ProgressPieChart component
  * with AsyncStorage persistence and PNG export functionality.
- * 
+ *
  * Features:
  * - Multiple sample datasets
  * - AsyncStorage data persistence
@@ -168,7 +168,7 @@ const sampleDataSets = {
  * - Data management operations
  * - Statistics display
  * - Comprehensive user interface
- * 
+ *
  * Usage:
  * ```tsx
  * <ProgressPieChartExample />
@@ -195,7 +195,7 @@ const ProgressPieChartExample: React.FC = () => {
     totalCharts: 0,
     totalDataPoints: 0,
     averageDataPoints: 0,
-    lastUpdated: null,
+    lastUpdated: null
   });
 
   // MARK: - Effects
@@ -262,7 +262,7 @@ const ProgressPieChartExample: React.FC = () => {
         const convertedData: PieChartData[] = savedData.map(item => ({
           value: item.value,
           color: item.color,
-          text: item.label,
+          text: item.label
         }));
         setCurrentData(convertedData);
         setStatusMessage(`Loaded ${convertedData.length} data points from storage`);
@@ -303,8 +303,8 @@ const ProgressPieChartExample: React.FC = () => {
             } finally {
               setIsLoading(false);
             }
-          },
-        },
+          }
+        }
       ]
     );
   };
@@ -353,7 +353,7 @@ const ProgressPieChartExample: React.FC = () => {
             {enablePersistence ? 'Persistence: ON' : 'Persistence: OFF'}
           </ButtonText>
         </ActionButton>
-        
+
         <ActionButton
           variant={showExportButtons ? 'success' : 'secondary'}
           onPress={() => setShowExportButtons(!showExportButtons)}
@@ -362,7 +362,7 @@ const ProgressPieChartExample: React.FC = () => {
             {showExportButtons ? 'Export: ON' : 'Export: OFF'}
           </ButtonText>
         </ActionButton>
-        
+
         <ActionButton
           variant={enableAnimations ? 'success' : 'secondary'}
           onPress={() => setEnableAnimations(!enableAnimations)}
@@ -371,7 +371,7 @@ const ProgressPieChartExample: React.FC = () => {
             {enableAnimations ? 'Animations: ON' : 'Animations: OFF'}
           </ButtonText>
         </ActionButton>
-        
+
         <ActionButton
           variant={enableHaptics ? 'success' : 'secondary'}
           onPress={() => setEnableHaptics(!enableHaptics)}
@@ -397,14 +397,14 @@ const ProgressPieChartExample: React.FC = () => {
         >
           <ButtonText>Load from Storage</ButtonText>
         </ActionButton>
-        
+
         <ActionButton
           variant="success"
           onPress={resetToSampleData}
         >
           <ButtonText>Reset to Sample</ButtonText>
         </ActionButton>
-        
+
         <ActionButton
           variant="danger"
           onPress={clearStorageData}
@@ -436,7 +436,7 @@ const ProgressPieChartExample: React.FC = () => {
         </StatCard>
         <StatCard>
           <StatValue>
-            {statistics.lastUpdated 
+            {statistics.lastUpdated
               ? formatDateEnhanced(new Date(statistics.lastUpdated), { format: DATE_FORMATS.US_SHORT })
               : 'Never'
             }
@@ -449,7 +449,7 @@ const ProgressPieChartExample: React.FC = () => {
 
   const renderStatus = () => {
     if (!statusMessage) return null;
-    
+
     return (
       <Section>
         <SectionTitle>Status</SectionTitle>
@@ -483,7 +483,7 @@ const ProgressPieChartExample: React.FC = () => {
         <Text style={styles.sectionDescription}>
           Tap on chart segments to select them. Use the export buttons to save or share data.
         </Text>
-        
+
         {isLoading ? (
           <View style={styles.loadingContainer}>
             <ActivityIndicator size="large" color="#3b82f6" />
@@ -540,33 +540,33 @@ const ProgressPieChartExample: React.FC = () => {
 // MARK: - Styles
 
 const styles = StyleSheet.create({
-  sectionDescription: {
-    fontSize: 14,
+  featureList: {
     color: '#6b7280',
-    lineHeight: 20,
-    marginBottom: 12,
+    fontSize: 13,
+    lineHeight: 18
+  },
+  footerText: {
+    color: '#1f2937',
+    fontSize: 14,
+    fontWeight: '500',
+    marginBottom: 8
   },
   loadingContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 40,
+    padding: 40
   },
   loadingText: {
-    marginTop: 12,
-    fontSize: 14,
     color: '#6b7280',
-  },
-  footerText: {
     fontSize: 14,
-    color: '#1f2937',
-    fontWeight: '500',
-    marginBottom: 8,
+    marginTop: 12
   },
-  featureList: {
-    fontSize: 13,
+  sectionDescription: {
     color: '#6b7280',
-    lineHeight: 18,
-  },
+    fontSize: 14,
+    lineHeight: 20,
+    marginBottom: 12
+  }
 });
 
-export default ProgressPieChartExample; 
+export default ProgressPieChartExample;

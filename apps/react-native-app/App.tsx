@@ -31,7 +31,7 @@ const Tab = createBottomTabNavigator();
 
 /**
  * Main App Component
- * 
+ *
  * This component demonstrates the enhanced theme and iconography integration with:
  * - EnhancedThemeProvider wrapping the entire application
  * - IconographyProvider for consistent icon management
@@ -45,84 +45,84 @@ export default function App() {
         <ThemeDataModelProvider>
           <ThemeSchemaProvider>
             <NavigationContainer>
-            <Tab.Navigator
-              screenOptions={({ route }) => ({
-                tabBarIcon: ({ focused, color, size }) => {
-                  let iconName;
+              <Tab.Navigator
+                screenOptions={({ route }) => ({
+                  tabBarIcon: ({ focused: _focused, color, size }) => {
+                    let iconName;
 
-                  if (route.name === 'Theme') {
-                    iconName = '🎨';
-                  } else if (route.name === 'Layout') {
-                    iconName = '📐';
-                  } else if (route.name === 'Icons') {
-                    iconName = '⭐';
-                  } else if (route.name === 'Colors') {
-                    iconName = '🎨';
-                  } else if (route.name === 'Charts') {
-                    iconName = '📊';
-                  } else if (route.name === 'Data Model') {
-                    iconName = '📄';
-                  } else if (route.name === 'Schema') {
-                    iconName = '📋';
-                  } else if (route.name === 'Import/Export') {
-                    iconName = '📤';
-                  } else if (route.name === 'Advanced') {
-                    iconName = '🧩';
-                  } else if (route.name === 'Recursive') {
-                    iconName = '🔄';
-                  } else if (route.name === 'Transitions') {
-                    iconName = '🔄';
-                  } else if (route.name === 'Custom Transitions') {
-                    iconName = '📚';
-                  } else if (route.name === 'Dynamic Colors') {
-                    iconName = '🎨';
-                  } else if (route.name === 'Validation') {
-                    iconName = '✅';
-                  } else if (route.name === 'WCAG') {
-                    iconName = '👁️';
-                  } else if (route.name === 'Accessibility') {
-                    iconName = '♿';
-                  } else if (route.name === 'Data Architecture') {
-                    iconName = '🗄️';
-                  } else if (route.name === 'User Interaction') {
-                    iconName = '👆';
-                  } else if (route.name === 'Form Testing') {
-                    iconName = '📝';
+                    if (route.name === 'Theme') {
+                      iconName = '🎨';
+                    } else if (route.name === 'Layout') {
+                      iconName = '📐';
+                    } else if (route.name === 'Icons') {
+                      iconName = '⭐';
+                    } else if (route.name === 'Colors') {
+                      iconName = '🎨';
+                    } else if (route.name === 'Charts') {
+                      iconName = '📊';
+                    } else if (route.name === 'Data Model') {
+                      iconName = '📄';
+                    } else if (route.name === 'Schema') {
+                      iconName = '📋';
+                    } else if (route.name === 'Import/Export') {
+                      iconName = '📤';
+                    } else if (route.name === 'Advanced') {
+                      iconName = '🧩';
+                    } else if (route.name === 'Recursive') {
+                      iconName = '🔄';
+                    } else if (route.name === 'Transitions') {
+                      iconName = '🔄';
+                    } else if (route.name === 'Custom Transitions') {
+                      iconName = '📚';
+                    } else if (route.name === 'Dynamic Colors') {
+                      iconName = '🎨';
+                    } else if (route.name === 'Validation') {
+                      iconName = '✅';
+                    } else if (route.name === 'WCAG') {
+                      iconName = '👁️';
+                    } else if (route.name === 'Accessibility') {
+                      iconName = '♿';
+                    } else if (route.name === 'Data Architecture') {
+                      iconName = '🗄️';
+                    } else if (route.name === 'User Interaction') {
+                      iconName = '👆';
+                    } else if (route.name === 'Form Testing') {
+                      iconName = '📝';
+                    }
+
+                    return <Text style={{ fontSize: size, color }}>{iconName}</Text>;
                   }
-
-                  return <Text style={{ fontSize: size, color }}>{iconName}</Text>;
-                },
-              })}
-            >
-              <Tab.Screen name="Layout" component={LayoutPreviewExample} />
-              <Tab.Screen name="Theme" component={ThemeCustomizationExample} />
-              <Tab.Screen name="Icons" component={IconographyExample} />
-              <Tab.Screen name="Colors" component={ColorPaletteExample} />
-              <Tab.Screen name="Charts" component={ProgressLineChartExample} />
-              <Tab.Screen name="Data Model" component={ThemeDataModelExample} />
-              <Tab.Screen name="Schema" component={ThemeSchemaExample} />
-              <Tab.Screen name="Import/Export" component={ThemeSchemaImportExportExample} />
-              <Tab.Screen name="Advanced" component={AdvancedThemeArchitectureExample} />
-              <Tab.Screen name="Recursive" component={RecursiveResolutionExample} />
-              <Tab.Screen name="Transitions" component={ThemeTransitionExample} />
-              <Tab.Screen name="Custom Transitions" component={CustomViewTransitionsExample} />
-              <Tab.Screen name="Dynamic Colors" component={DynamicColorSchemeExample} />
-              <Tab.Screen name="Validation" component={ThemeValidationExample} />
-              <Tab.Screen name="WCAG" component={AccessibilityValidationExample} />
-              <Tab.Screen 
-                name="EnhancedThemeCustomization" 
-                component={EnhancedThemeCustomizationScreen}
-                options={{ title: 'Enhanced Theme Customization' }}
-              />
-              <Tab.Screen name="Accessibility" component={AccessibilityTestingView} />
-              <Tab.Screen name="Data Architecture" component={DataArchitectureTestingView} />
-              <Tab.Screen name="User Interaction" component={UserInteractionTestingView} />
-              <Tab.Screen name="Form Testing" component={FormTestingExample} />
-            </Tab.Navigator>
-          </NavigationContainer>
+                })}
+              >
+                <Tab.Screen name="Layout" component={LayoutPreviewExample} />
+                <Tab.Screen name="Theme" component={ThemeCustomizationExample} />
+                <Tab.Screen name="Icons" component={IconographyExample} />
+                <Tab.Screen name="Colors" component={ColorPaletteExample} />
+                <Tab.Screen name="Charts" component={ProgressLineChartExample} />
+                <Tab.Screen name="Data Model" component={ThemeDataModelExample} />
+                <Tab.Screen name="Schema" component={ThemeSchemaExample} />
+                <Tab.Screen name="Import/Export" component={ThemeSchemaImportExportExample} />
+                <Tab.Screen name="Advanced" component={AdvancedThemeArchitectureExample} />
+                <Tab.Screen name="Recursive" component={RecursiveResolutionExample} />
+                <Tab.Screen name="Transitions" component={ThemeTransitionExample} />
+                <Tab.Screen name="Custom Transitions" component={CustomViewTransitionsExample} />
+                <Tab.Screen name="Dynamic Colors" component={DynamicColorSchemeExample} />
+                <Tab.Screen name="Validation" component={ThemeValidationExample} />
+                <Tab.Screen name="WCAG" component={AccessibilityValidationExample} />
+                <Tab.Screen
+                  name="EnhancedThemeCustomization"
+                  component={EnhancedThemeCustomizationScreen}
+                  options={{ title: 'Enhanced Theme Customization' }}
+                />
+                <Tab.Screen name="Accessibility" component={AccessibilityTestingView} />
+                <Tab.Screen name="Data Architecture" component={DataArchitectureTestingView} />
+                <Tab.Screen name="User Interaction" component={UserInteractionTestingView} />
+                <Tab.Screen name="Form Testing" component={FormTestingExample} />
+              </Tab.Navigator>
+            </NavigationContainer>
           </ThemeSchemaProvider>
         </ThemeDataModelProvider>
       </IconographyProvider>
     </EnhancedThemeProvider>
   );
-} 
+}

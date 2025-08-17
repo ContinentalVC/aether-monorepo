@@ -1,9 +1,9 @@
 /**
  * EnhancedThemeCustomizationScreen.tsx
- * 
+ *
  * Enhanced theme customization with interactive accessibility feedback.
  * Provides real-time validation and educational guidance for accessible design.
- * 
+ *
  * @author AI Assistant
  * @copyright 2025 Aether
  */
@@ -15,10 +15,8 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
-  Alert,
   Modal,
-  TextInput,
-  Switch,
+  Switch
 } from 'react-native';
 import { useEnhancedTheme, HeadingSize, BodySize, ColorBlindnessSupport } from '../theme/EnhancedThemeProvider';
 import { useInteractiveFeedback, InteractiveFeedbackView, InteractiveColorPicker } from './InteractiveThemeFeedback';
@@ -233,7 +231,7 @@ const EnhancedThemeCustomizationScreen: React.FC = () => {
     toggleReducedMotion,
     setColorBlindnessSupport,
     getRecommendedFontCombinations,
-    availableFontFamilies,
+    availableFontFamilies
   } = useEnhancedTheme();
 
   const feedbackManager = useInteractiveFeedback();
@@ -273,7 +271,7 @@ const EnhancedThemeCustomizationScreen: React.FC = () => {
             description="Main brand color"
             testBackground={theme.background}
           />
-          
+
           <InteractiveColorPicker
             feedbackManager={feedbackManager}
             selectedColor={theme.secondary}
@@ -285,7 +283,7 @@ const EnhancedThemeCustomizationScreen: React.FC = () => {
             description="Supporting color"
             testBackground={theme.background}
           />
-          
+
           <InteractiveColorPicker
             feedbackManager={feedbackManager}
             selectedColor={theme.background}
@@ -297,7 +295,7 @@ const EnhancedThemeCustomizationScreen: React.FC = () => {
             description="Main background"
             testBackground="#FFFFFF"
           />
-          
+
           <InteractiveColorPicker
             feedbackManager={feedbackManager}
             selectedColor={theme.surface}
@@ -503,7 +501,7 @@ const EnhancedThemeCustomizationScreen: React.FC = () => {
 // MARK: - Advanced Contrast Checker Component
 
 const AdvancedContrastChecker: React.FC<{ feedbackManager: ReturnType<typeof useInteractiveFeedback> }> = ({
-  feedbackManager,
+  feedbackManager
 }) => {
   const [foregroundColor, setForegroundColor] = useState('#000000');
   const [backgroundColor, setBackgroundColor] = useState('#FFFFFF');
@@ -521,14 +519,14 @@ const AdvancedContrastChecker: React.FC<{ feedbackManager: ReturnType<typeof use
               key={type}
               style={[
                 styles.elementTypeButton,
-                elementType === type && styles.elementTypeButtonActive,
+                elementType === type && styles.elementTypeButtonActive
               ]}
               onPress={() => setElementType(type)}
             >
               <Text
                 style={[
                   styles.elementTypeButtonText,
-                  elementType === type && styles.elementTypeButtonTextActive,
+                  elementType === type && styles.elementTypeButtonTextActive
                 ]}
               >
                 {type}
@@ -583,7 +581,7 @@ const AdvancedContrastChecker: React.FC<{ feedbackManager: ReturnType<typeof use
 // MARK: - Color Blindness Simulation Component
 
 const ColorBlindnessSimulation: React.FC<{ feedbackManager: ReturnType<typeof useInteractiveFeedback> }> = ({
-  feedbackManager,
+  feedbackManager
 }) => {
   const [selectedColor, setSelectedColor] = useState('#FF0000');
   const [selectedSimulation, setSelectedSimulation] = useState('Normal');
@@ -607,14 +605,14 @@ const ColorBlindnessSimulation: React.FC<{ feedbackManager: ReturnType<typeof us
             key={simulation}
             style={[
               styles.simulationButton,
-              selectedSimulation === simulation && styles.simulationButtonActive,
+              selectedSimulation === simulation && styles.simulationButtonActive
             ]}
             onPress={() => setSelectedSimulation(simulation)}
           >
             <Text
               style={[
                 styles.simulationButtonText,
-                selectedSimulation === simulation && styles.simulationButtonTextActive,
+                selectedSimulation === simulation && styles.simulationButtonTextActive
               ]}
             >
               {simulation}
@@ -630,7 +628,7 @@ const ColorBlindnessSimulation: React.FC<{ feedbackManager: ReturnType<typeof us
             <View
               style={[
                 styles.simulationColor,
-                { backgroundColor: selectedColor },
+                { backgroundColor: selectedColor }
               ]}
             />
             <Text style={styles.simulationColorLabel}>Original</Text>
@@ -639,7 +637,7 @@ const ColorBlindnessSimulation: React.FC<{ feedbackManager: ReturnType<typeof us
             <View
               style={[
                 styles.simulationColor,
-                { backgroundColor: selectedColor, opacity: 0.7 },
+                { backgroundColor: selectedColor, opacity: 0.7 }
               ]}
             />
             <Text style={styles.simulationColorLabel}>{selectedSimulation}</Text>
@@ -653,7 +651,7 @@ const ColorBlindnessSimulation: React.FC<{ feedbackManager: ReturnType<typeof us
 // MARK: - Font Selection Section Component
 
 const FontSelectionSection: React.FC<{ feedbackManager: ReturnType<typeof useInteractiveFeedback> }> = ({
-  feedbackManager,
+  feedbackManager
 }) => {
   return (
     <View>
@@ -695,12 +693,12 @@ const FontSelectionCard: React.FC<{
 // MARK: - Font Size Guidelines Component
 
 const FontSizeGuidelines: React.FC<{ feedbackManager: ReturnType<typeof useInteractiveFeedback> }> = ({
-  feedbackManager,
+  feedbackManager
 }) => {
   const guidelines = [
     { size: '16px', description: 'Minimum readable size for body text' },
     { size: '18px', description: 'Recommended size for better readability' },
-    { size: '24px', description: 'Large text for headings and emphasis' },
+    { size: '24px', description: 'Large text for headings and emphasis' }
   ];
 
   return (
@@ -718,7 +716,7 @@ const FontSizeGuidelines: React.FC<{ feedbackManager: ReturnType<typeof useInter
 // MARK: - Readability Preview Component
 
 const ReadabilityPreview: React.FC<{ feedbackManager: ReturnType<typeof useInteractiveFeedback> }> = ({
-  feedbackManager,
+  feedbackManager
 }) => {
   return (
     <PreviewCard>
@@ -734,7 +732,7 @@ const ReadabilityPreview: React.FC<{ feedbackManager: ReturnType<typeof useInter
 // MARK: - Accessibility Settings Section Component
 
 const AccessibilitySettingsSection: React.FC<{ feedbackManager: ReturnType<typeof useInteractiveFeedback> }> = ({
-  feedbackManager,
+  feedbackManager
 }) => {
   const [highContrast, setHighContrast] = useState(false);
   const [largeText, setLargeText] = useState(false);
@@ -778,7 +776,7 @@ const AccessibilitySettingsSection: React.FC<{ feedbackManager: ReturnType<typeo
 // MARK: - Accessibility Preview Section Component
 
 const AccessibilityPreviewSection: React.FC<{ feedbackManager: ReturnType<typeof useInteractiveFeedback> }> = ({
-  feedbackManager,
+  feedbackManager
 }) => {
   return (
     <View>
@@ -795,7 +793,7 @@ const AccessibilityPreviewSection: React.FC<{ feedbackManager: ReturnType<typeof
 // MARK: - Theme Preview Section Component
 
 const ThemePreviewSection: React.FC<{ feedbackManager: ReturnType<typeof useInteractiveFeedback> }> = ({
-  feedbackManager,
+  feedbackManager
 }) => {
   return (
     <View>
@@ -812,7 +810,7 @@ const ThemePreviewSection: React.FC<{ feedbackManager: ReturnType<typeof useInte
 // MARK: - Accessibility Summary Section Component
 
 const AccessibilitySummarySection: React.FC<{ feedbackManager: ReturnType<typeof useInteractiveFeedback> }> = ({
-  feedbackManager,
+  feedbackManager
 }) => {
   const errorCount = feedbackManager.feedbackHistory.filter(
     (f) => f.type.type === 'error' || f.type.type === 'warning'
@@ -854,20 +852,20 @@ const EducationalGuide: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const sections = [
     {
       title: 'WCAG Guidelines',
-      content: 'Web Content Accessibility Guidelines (WCAG) ensure digital content is accessible to people with disabilities. WCAG AA is the standard level of compliance.',
+      content: 'Web Content Accessibility Guidelines (WCAG) ensure digital content is accessible to people with disabilities. WCAG AA is the standard level of compliance.'
     },
     {
       title: 'Contrast Ratios',
-      content: 'Contrast ratio measures the difference in luminance between foreground and background colors. Higher ratios provide better readability.',
+      content: 'Contrast ratio measures the difference in luminance between foreground and background colors. Higher ratios provide better readability.'
     },
     {
       title: 'Color Blindness',
-      content: 'Approximately 8% of men and 0.5% of women have some form of color blindness. Avoid relying solely on color to convey information.',
+      content: 'Approximately 8% of men and 0.5% of women have some form of color blindness. Avoid relying solely on color to convey information.'
     },
     {
       title: 'Typography',
-      content: 'Good typography improves readability for all users. Consider font size, line height, and spacing for optimal accessibility.',
-    },
+      content: 'Good typography improves readability for all users. Consider font size, line height, and spacing for optimal accessibility.'
+    }
   ];
 
   return (
@@ -898,224 +896,224 @@ const EducationalGuide: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
 const styles = StyleSheet.create({
   bannerHeader: {
-    flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 8,
+    flexDirection: 'row',
+    marginBottom: 8
   },
   bannerIcon: {
     fontSize: 20,
-    marginRight: 8,
+    marginRight: 8
   },
   bannerTitle: {
-    fontSize: 16,
-    fontWeight: '600',
     color: '#1e293b',
+    fontSize: 16,
+    fontWeight: '600'
   },
-  contrastCheckerContainer: {
-    marginBottom: 16,
+  colorInputColumn: {
+    flex: 1
   },
-  contrastCheckerLabel: {
+  colorInputLabel: {
+    color: '#64748b',
     fontSize: 14,
     fontWeight: '500',
-    color: '#64748b',
-    marginBottom: 8,
-  },
-  elementTypeSelector: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-  elementTypeButton: {
-    flex: 1,
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    borderRadius: 6,
-    backgroundColor: '#f1f5f9',
-    alignItems: 'center',
-  },
-  elementTypeButtonActive: {
-    backgroundColor: '#3b82f6',
-  },
-  elementTypeButtonText: {
-    fontSize: 12,
-    color: '#64748b',
-  },
-  elementTypeButtonTextActive: {
-    color: 'white',
-    fontWeight: '500',
+    marginBottom: 8
   },
   colorInputsContainer: {
     flexDirection: 'row',
     gap: 16,
-    marginBottom: 16,
+    marginBottom: 16
   },
-  colorInputColumn: {
-    flex: 1,
+  contrastCheckerContainer: {
+    marginBottom: 16
   },
-  colorInputLabel: {
-    fontSize: 14,
-    fontWeight: '500',
+  contrastCheckerLabel: {
     color: '#64748b',
-    marginBottom: 8,
-  },
-  validateButton: {
-    backgroundColor: '#3b82f6',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  validateButtonText: {
-    color: 'white',
     fontSize: 14,
     fontWeight: '500',
+    marginBottom: 8
+  },
+  educationalContent: {
+    color: '#64748b',
+    fontSize: 14,
+    lineHeight: 20
+  },
+  educationalSection: {
+    marginBottom: 20
+  },
+  educationalTitle: {
+    color: '#1e293b',
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 8
+  },
+  elementTypeButton: {
+    alignItems: 'center',
+    backgroundColor: '#f1f5f9',
+    borderRadius: 6,
+    flex: 1,
+    paddingHorizontal: 12,
+    paddingVertical: 8
+  },
+  elementTypeButtonActive: {
+    backgroundColor: '#3b82f6'
+  },
+  elementTypeButtonText: {
+    color: '#64748b',
+    fontSize: 12
+  },
+  elementTypeButtonTextActive: {
+    color: 'white',
+    fontWeight: '500'
+  },
+  elementTypeSelector: {
+    flexDirection: 'row',
+    gap: 8
+  },
+  fontCardDescription: {
+    color: '#64748b',
+    fontSize: 14,
+    marginBottom: 12
+  },
+  fontCardPreview: {
+    backgroundColor: '#f1f5f9',
+    borderRadius: 8,
+    padding: 12
+  },
+  fontCardPreviewText: {
+    color: '#1e293b',
+    fontSize: 16,
+    fontWeight: '500'
+  },
+  fontCardTitle: {
+    color: '#1e293b',
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 8
+  },
+  guidelineCard: {
+    alignItems: 'center',
+    backgroundColor: '#f1f5f9',
+    borderRadius: 8,
+    flexDirection: 'row',
+    marginBottom: 8,
+    padding: 12
+  },
+  guidelineDescription: {
+    color: '#64748b',
+    flex: 1,
+    fontSize: 14
+  },
+  guidelineSize: {
+    color: '#1e293b',
+    fontSize: 14,
+    fontWeight: '600',
+    width: 60
+  },
+  modalButton: {
+    color: '#64748b',
+    fontSize: 16
+  },
+  modalContainer: {
+    backgroundColor: 'white',
+    flex: 1
+  },
+  modalContent: {
+    flex: 1,
+    padding: 16
+  },
+  modalHeader: {
+    alignItems: 'center',
+    borderBottomColor: '#e2e8f0',
+    borderBottomWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 16
+  },
+  modalTitle: {
+    color: '#1e293b',
+    fontSize: 18,
+    fontWeight: '600'
+  },
+  previewBody: {
+    color: '#64748b',
+    fontSize: 16,
+    lineHeight: 24,
+    marginBottom: 8
+  },
+  previewCaption: {
+    color: '#94a3b8',
+    fontSize: 14
+  },
+  previewHeading: {
+    color: '#1e293b',
+    fontSize: 20,
+    fontWeight: '600',
+    marginBottom: 8
+  },
+  simulationButton: {
+    alignItems: 'center',
+    backgroundColor: '#f1f5f9',
+    borderRadius: 6,
+    flex: 1,
+    paddingHorizontal: 12,
+    paddingVertical: 8
+  },
+  simulationButtonActive: {
+    backgroundColor: '#3b82f6'
+  },
+  simulationButtonText: {
+    color: '#64748b',
+    fontSize: 12
+  },
+  simulationButtonTextActive: {
+    color: 'white',
+    fontWeight: '500'
+  },
+  simulationColor: {
+    borderColor: '#e2e8f0',
+    borderRadius: 8,
+    borderWidth: 1,
+    height: 60,
+    marginBottom: 8,
+    width: 60
+  },
+  simulationColorContainer: {
+    alignItems: 'center'
+  },
+  simulationColorLabel: {
+    color: '#64748b',
+    fontSize: 12
+  },
+  simulationPreview: {
+    marginBottom: 16
+  },
+  simulationPreviewContent: {
+    flexDirection: 'row',
+    gap: 16
+  },
+  simulationPreviewLabel: {
+    color: '#64748b',
+    fontSize: 14,
+    fontWeight: '500',
+    marginBottom: 8
   },
   simulationSelector: {
     flexDirection: 'row',
     gap: 8,
-    marginBottom: 16,
+    marginBottom: 16
   },
-  simulationButton: {
-    flex: 1,
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    borderRadius: 6,
-    backgroundColor: '#f1f5f9',
+  validateButton: {
     alignItems: 'center',
-  },
-  simulationButtonActive: {
     backgroundColor: '#3b82f6',
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 12
   },
-  simulationButtonText: {
-    fontSize: 12,
-    color: '#64748b',
-  },
-  simulationButtonTextActive: {
+  validateButtonText: {
     color: 'white',
-    fontWeight: '500',
-  },
-  simulationPreview: {
-    marginBottom: 16,
-  },
-  simulationPreviewLabel: {
     fontSize: 14,
-    fontWeight: '500',
-    color: '#64748b',
-    marginBottom: 8,
-  },
-  simulationPreviewContent: {
-    flexDirection: 'row',
-    gap: 16,
-  },
-  simulationColorContainer: {
-    alignItems: 'center',
-  },
-  simulationColor: {
-    width: 60,
-    height: 60,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#e2e8f0',
-    marginBottom: 8,
-  },
-  simulationColorLabel: {
-    fontSize: 12,
-    color: '#64748b',
-  },
-  fontCardTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#1e293b',
-    marginBottom: 8,
-  },
-  fontCardDescription: {
-    fontSize: 14,
-    color: '#64748b',
-    marginBottom: 12,
-  },
-  fontCardPreview: {
-    backgroundColor: '#f1f5f9',
-    padding: 12,
-    borderRadius: 8,
-  },
-  fontCardPreviewText: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#1e293b',
-  },
-  guidelineCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 12,
-    backgroundColor: '#f1f5f9',
-    borderRadius: 8,
-    marginBottom: 8,
-  },
-  guidelineSize: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#1e293b',
-    width: 60,
-  },
-  guidelineDescription: {
-    fontSize: 14,
-    color: '#64748b',
-    flex: 1,
-  },
-  previewHeading: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#1e293b',
-    marginBottom: 8,
-  },
-  previewBody: {
-    fontSize: 16,
-    color: '#64748b',
-    lineHeight: 24,
-    marginBottom: 8,
-  },
-  previewCaption: {
-    fontSize: 14,
-    color: '#94a3b8',
-  },
-  modalContainer: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-  modalHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#e2e8f0',
-  },
-  modalTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#1e293b',
-  },
-  modalButton: {
-    fontSize: 16,
-    color: '#64748b',
-  },
-  modalContent: {
-    flex: 1,
-    padding: 16,
-  },
-  educationalSection: {
-    marginBottom: 20,
-  },
-  educationalTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#1e293b',
-    marginBottom: 8,
-  },
-  educationalContent: {
-    fontSize: 14,
-    color: '#64748b',
-    lineHeight: 20,
-  },
+    fontWeight: '500'
+  }
 });
 
-export default EnhancedThemeCustomizationScreen; 
+export default EnhancedThemeCustomizationScreen;

@@ -1,6 +1,6 @@
 /**
  * Advanced Theme Architecture Example
- * 
+ *
  * Comprehensive example demonstrating advanced theming architecture
  * with inheritance and composition using the Composite design pattern.
  */
@@ -14,7 +14,7 @@ import {
   StyleSheet,
   Alert,
   Modal,
-  SafeAreaView,
+  SafeAreaView
 } from 'react-native';
 import {
   AdvancedThemeManager,
@@ -24,7 +24,7 @@ import {
   TypographyComponent,
   LayoutMetricsComponent,
   ThemeKey,
-  ThemeKeyCategory,
+  ThemeKeyCategory
 } from '../theme/AdvancedThemeArchitecture';
 
 // MARK: - Main Example Component
@@ -132,7 +132,7 @@ interface ThemeSelectionSectionProps {
 const ThemeSelectionSection: React.FC<ThemeSelectionSectionProps> = ({
   themeManager,
   selectedThemeName,
-  onThemeSelect,
+  onThemeSelect
 }) => (
   <View style={styles.section}>
     <Text style={styles.sectionTitle}>Theme Selection</Text>
@@ -183,7 +183,7 @@ interface LivePreviewSectionProps {
   currentTheme: CompositeTheme;
 }
 
-const LivePreviewSection: React.FC<LivePreviewSectionProps> = ({ currentTheme }) => (
+const LivePreviewSection: React.FC<LivePreviewSectionProps> = ({ currentTheme: _currentTheme }) => (
   <View style={styles.section}>
     <Text style={styles.sectionTitle}>Live Preview</Text>
     <View style={styles.previewContainer}>
@@ -240,7 +240,7 @@ interface DemoButtonsSectionProps {
 const DemoButtonsSection: React.FC<DemoButtonsSectionProps> = ({
   onShowInspector,
   onShowInheritance,
-  onShowComposition,
+  onShowComposition
 }) => (
   <View style={styles.section}>
     <Text style={styles.sectionTitle}>Interactive Demos</Text>
@@ -330,7 +330,7 @@ const ComponentExampleCard: React.FC<ComponentExampleCardProps> = ({
   title,
   description,
   icon,
-  color,
+  color
 }) => (
   <View style={styles.componentCard}>
     <Text style={[styles.componentIcon, { color }]}>{icon}</Text>
@@ -364,7 +364,7 @@ const InheritanceChainView: React.FC<InheritanceChainViewProps> = ({ theme }) =>
         {theme.getComponents().length} components
       </Text>
     </View>
-    
+
     {theme.getParentTheme() && (
       <>
         <View style={styles.inheritanceArrow}>
@@ -379,7 +379,7 @@ const InheritanceChainView: React.FC<InheritanceChainViewProps> = ({ theme }) =>
         </View>
       </>
     )}
-    
+
     {!theme.getParentTheme() && (
       <View style={styles.inheritanceRow}>
         <Text style={styles.inheritanceLabel}>No parent theme</Text>
@@ -399,7 +399,7 @@ interface ThemeInspectorModalProps {
 const ThemeInspectorModal: React.FC<ThemeInspectorModalProps> = ({
   visible,
   themeManager,
-  onClose,
+  onClose
 }) => (
   <Modal visible={visible} animationType="slide" presentationStyle="pageSheet">
     <SafeAreaView style={styles.modalContainer}>
@@ -515,8 +515,8 @@ interface InheritanceDemoModalProps {
 
 const InheritanceDemoModal: React.FC<InheritanceDemoModalProps> = ({
   visible,
-  themeManager,
-  onClose,
+  themeManager: _themeManager,
+  onClose
 }) => (
   <Modal visible={visible} animationType="slide" presentationStyle="pageSheet">
     <SafeAreaView style={styles.modalContainer}>
@@ -539,13 +539,13 @@ const InheritanceDemoModal: React.FC<InheritanceDemoModalProps> = ({
 const InheritanceDemoContent: React.FC = () => {
   // Create a parent theme
   const parentTheme = ThemeFactory.createDefaultLightTheme();
-  
+
   // Create a child theme that inherits from parent
   const childTheme = parentTheme.createChildTheme([
     new ColorPaletteComponent({
       [ThemeKey.PRIMARY_COLOR]: '#FF0000',
-      [ThemeKey.SECONDARY_COLOR]: '#FFA500',
-    }),
+      [ThemeKey.SECONDARY_COLOR]: '#FFA500'
+    })
   ]);
 
   return (
@@ -554,11 +554,11 @@ const InheritanceDemoContent: React.FC = () => {
         <Text style={styles.demoSectionTitle}>Parent Theme</Text>
         <ThemePreviewCard theme={parentTheme} />
       </View>
-      
+
       <View style={styles.demoArrow}>
         <Text style={styles.demoArrowText}>↓</Text>
       </View>
-      
+
       <View style={styles.demoSection}>
         <Text style={styles.demoSectionTitle}>Child Theme (Inherits + Overrides)</Text>
         <ThemePreviewCard theme={childTheme} />
@@ -575,8 +575,8 @@ interface CompositionDemoModalProps {
 
 const CompositionDemoModal: React.FC<CompositionDemoModalProps> = ({
   visible,
-  themeManager,
-  onClose,
+  themeManager: _themeManager,
+  onClose
 }) => (
   <Modal visible={visible} animationType="slide" presentationStyle="pageSheet">
     <SafeAreaView style={styles.modalContainer}>
@@ -601,19 +601,19 @@ const CompositionDemoContent: React.FC = () => {
   const colorComponent = new ColorPaletteComponent({
     [ThemeKey.PRIMARY_COLOR]: '#8B5CF6',
     [ThemeKey.SECONDARY_COLOR]: '#EC4899',
-    [ThemeKey.BACKGROUND_COLOR]: '#FAF5FF',
+    [ThemeKey.BACKGROUND_COLOR]: '#FAF5FF'
   });
-  
+
   const typographyComponent = new TypographyComponent({
     [ThemeKey.PRIMARY_FONT]: 'Avenir',
     [ThemeKey.FONT_SIZE]: 18,
-    [ThemeKey.FONT_WEIGHT]: 'Medium',
+    [ThemeKey.FONT_WEIGHT]: 'Medium'
   });
-  
+
   const layoutComponent = new LayoutMetricsComponent({
     [ThemeKey.SPACING]: 16,
     [ThemeKey.PADDING]: 20,
-    [ThemeKey.BORDER_RADIUS]: 12,
+    [ThemeKey.BORDER_RADIUS]: 12
   });
 
   return (
@@ -624,11 +624,11 @@ const CompositionDemoContent: React.FC = () => {
         <ComponentPreviewCard component={typographyComponent} title="Typography" />
         <ComponentPreviewCard component={layoutComponent} title="Layout Metrics" />
       </View>
-      
+
       <View style={styles.demoArrow}>
         <Text style={styles.demoArrowText}>+</Text>
       </View>
-      
+
       <View style={styles.demoSection}>
         <Text style={styles.demoSectionTitle}>Composed Theme</Text>
         <ThemePreviewCard
@@ -675,407 +675,407 @@ const ComponentPreviewCard: React.FC<ComponentPreviewCardProps> = ({ component, 
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#F2F2F7',
+    flex: 1
   },
   scrollView: {
-    flex: 1,
+    flex: 1
   },
   content: {
-    padding: 16,
+    padding: 16
   },
-  
+
   // Header Section
   headerSection: {
     backgroundColor: '#FFFFFF',
-    padding: 16,
     borderRadius: 12,
     marginBottom: 24,
+    padding: 16
   },
   headerTitle: {
+    color: '#000000',
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#000000',
-    marginBottom: 8,
+    marginBottom: 8
   },
   headerSubtitle: {
-    fontSize: 16,
     color: '#666666',
-    marginBottom: 16,
+    fontSize: 16,
+    marginBottom: 16
   },
   headerFeatures: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   featureItem: {
-    alignItems: 'center',
+    alignItems: 'center'
   },
   featureIcon: {
     fontSize: 20,
-    marginBottom: 4,
+    marginBottom: 4
   },
   featureText: {
-    fontSize: 12,
     color: '#666666',
+    fontSize: 12
   },
-  
+
   // Section
   section: {
-    marginBottom: 24,
+    marginBottom: 24
   },
   sectionTitle: {
+    color: '#000000',
     fontSize: 20,
     fontWeight: '600',
-    color: '#000000',
-    marginBottom: 16,
+    marginBottom: 16
   },
-  
+
   // Theme Selection
   themeGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 12,
+    gap: 12
   },
   themeCard: {
-    backgroundColor: '#FFFFFF',
-    padding: 16,
-    borderRadius: 12,
     alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
     flex: 1,
     minWidth: 80,
+    padding: 16
   },
   themeCardSelected: {
     backgroundColor: '#E3F2FD',
-    borderWidth: 2,
     borderColor: '#2196F3',
+    borderWidth: 2
   },
   themeIcon: {
-    width: 40,
-    height: 40,
     borderRadius: 20,
+    height: 40,
     marginBottom: 8,
+    width: 40
   },
   themeName: {
-    fontSize: 14,
-    fontWeight: '500',
     color: '#000000',
+    fontSize: 14,
+    fontWeight: '500'
   },
   themeNameSelected: {
-    color: '#2196F3',
+    color: '#2196F3'
   },
-  
+
   // Live Preview
   previewContainer: {
-    gap: 16,
+    gap: 16
   },
   sampleButton: {
-    backgroundColor: '#007AFF',
-    paddingHorizontal: 20,
-    paddingVertical: 12,
-    borderRadius: 8,
     alignSelf: 'flex-start',
+    backgroundColor: '#007AFF',
+    borderRadius: 8,
+    paddingHorizontal: 20,
+    paddingVertical: 12
   },
   sampleButtonText: {
     color: '#FFFFFF',
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: '500'
   },
   sampleCard: {
     backgroundColor: '#FFFFFF',
-    padding: 16,
     borderRadius: 12,
+    elevation: 3,
+    padding: 16,
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    shadowRadius: 4
   },
   sampleCardTitle: {
+    color: '#000000',
     fontSize: 18,
     fontWeight: '600',
-    color: '#000000',
-    marginBottom: 8,
+    marginBottom: 8
   },
   sampleCardText: {
-    fontSize: 16,
     color: '#666666',
+    fontSize: 16
   },
   sampleTextContainer: {
-    gap: 8,
+    gap: 8
   },
   sampleTextTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
     color: '#000000',
+    fontSize: 24,
+    fontWeight: 'bold'
   },
   sampleTextBody: {
-    fontSize: 16,
     color: '#000000',
+    fontSize: 16
   },
   sampleTextCaption: {
-    fontSize: 14,
     color: '#666666',
+    fontSize: 14
   },
   sampleProgressContainer: {
-    gap: 8,
+    gap: 8
   },
   sampleProgressTitle: {
-    fontSize: 16,
-    fontWeight: '500',
     color: '#000000',
+    fontSize: 16,
+    fontWeight: '500'
   },
   progressBar: {
-    height: 8,
     backgroundColor: '#E5E5EA',
     borderRadius: 4,
-    overflow: 'hidden',
+    height: 8,
+    overflow: 'hidden'
   },
   progressFill: {
-    height: '100%',
     backgroundColor: '#007AFF',
+    height: '100%'
   },
-  
+
   // Demo Buttons
   demoButtonsContainer: {
-    gap: 12,
+    gap: 12
   },
   demoButton: {
+    alignItems: 'center',
     backgroundColor: '#FFFFFF',
-    padding: 16,
     borderRadius: 12,
     flexDirection: 'row',
-    alignItems: 'center',
+    padding: 16
   },
   demoButtonIcon: {
     fontSize: 24,
-    marginRight: 16,
+    marginRight: 16
   },
   demoButtonContent: {
-    flex: 1,
+    flex: 1
   },
   demoButtonTitle: {
-    fontSize: 16,
-    fontWeight: '500',
     color: '#000000',
+    fontSize: 16,
+    fontWeight: '500'
   },
   demoButtonSubtitle: {
-    fontSize: 14,
     color: '#666666',
-    marginTop: 2,
+    fontSize: 14,
+    marginTop: 2
   },
   demoButtonArrow: {
-    fontSize: 18,
     color: '#666666',
+    fontSize: 18
   },
-  
+
   // Component Examples
   componentGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 12,
+    gap: 12
   },
   componentCard: {
     backgroundColor: '#FFFFFF',
-    padding: 16,
     borderRadius: 12,
+    elevation: 2,
     flex: 1,
     minWidth: 150,
+    padding: 16,
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
+    shadowRadius: 2
   },
   componentIcon: {
     fontSize: 24,
-    marginBottom: 8,
+    marginBottom: 8
   },
   componentTitle: {
+    color: '#000000',
     fontSize: 16,
     fontWeight: '500',
-    color: '#000000',
-    marginBottom: 4,
+    marginBottom: 4
   },
   componentDescription: {
-    fontSize: 14,
     color: '#666666',
+    fontSize: 14
   },
-  
+
   // Inheritance Chain
   inheritanceContainer: {
     backgroundColor: '#FFFFFF',
-    padding: 16,
     borderRadius: 12,
+    padding: 16
   },
   inheritanceRow: {
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 8,
+    paddingVertical: 8
   },
   inheritanceLabel: {
-    fontSize: 14,
-    fontWeight: '500',
     color: '#000000',
+    fontSize: 14,
+    fontWeight: '500'
   },
   inheritanceValue: {
-    fontSize: 14,
     color: '#666666',
+    fontSize: 14
   },
   inheritanceArrow: {
     alignItems: 'center',
-    paddingVertical: 8,
+    paddingVertical: 8
   },
   inheritanceArrowText: {
-    fontSize: 20,
     color: '#007AFF',
+    fontSize: 20
   },
   inheritanceArrowLabel: {
-    fontSize: 12,
     color: '#666666',
-    marginTop: 4,
+    fontSize: 12,
+    marginTop: 4
   },
-  
+
   // Modal
   modalContainer: {
-    flex: 1,
     backgroundColor: '#F2F2F7',
+    flex: 1
   },
   modalHeader: {
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    borderBottomColor: '#E5E5EA',
+    borderBottomWidth: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 16,
-    backgroundColor: '#FFFFFF',
-    borderBottomWidth: 1,
-    borderBottomColor: '#E5E5EA',
+    padding: 16
   },
   modalTitle: {
-    fontSize: 20,
-    fontWeight: '600',
     color: '#000000',
+    fontSize: 20,
+    fontWeight: '600'
   },
   modalCloseButton: {
-    fontSize: 16,
     color: '#007AFF',
+    fontSize: 16
   },
   modalContent: {
     flex: 1,
-    padding: 16,
+    padding: 16
   },
   modalSection: {
-    marginBottom: 24,
+    marginBottom: 24
   },
   modalSectionTitle: {
+    color: '#000000',
     fontSize: 18,
     fontWeight: '600',
-    color: '#000000',
-    marginBottom: 12,
+    marginBottom: 12
   },
   demoDescription: {
-    fontSize: 16,
     color: '#666666',
-    textAlign: 'center',
+    fontSize: 16,
     marginBottom: 24,
     paddingHorizontal: 16,
+    textAlign: 'center'
   },
-  
+
   // Inspector
   inspectorRow: {
     backgroundColor: '#FFFFFF',
-    padding: 12,
     borderRadius: 8,
     marginBottom: 8,
+    padding: 12
   },
   inspectorTitle: {
-    fontSize: 16,
-    fontWeight: '500',
     color: '#000000',
+    fontSize: 16,
+    fontWeight: '500'
   },
   inspectorSubtitle: {
-    fontSize: 14,
     color: '#666666',
-    marginTop: 4,
+    fontSize: 14,
+    marginTop: 4
   },
   keyInspectorContent: {
-    flex: 1,
+    flex: 1
   },
   keyInspectorTitle: {
-    fontSize: 16,
-    fontWeight: '500',
     color: '#000000',
+    fontSize: 16,
+    fontWeight: '500'
   },
   keyInspectorCategory: {
-    fontSize: 14,
     color: '#666666',
-    marginTop: 2,
+    fontSize: 14,
+    marginTop: 2
   },
   keyInspectorValue: {
-    fontSize: 14,
     color: '#666666',
+    fontSize: 14
   },
-  
+
   // Demo Content
   demoContent: {
-    gap: 16,
+    gap: 16
   },
   demoSection: {
-    gap: 12,
+    gap: 12
   },
   demoSectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
     color: '#000000',
+    fontSize: 18,
+    fontWeight: '600'
   },
   demoArrow: {
     alignItems: 'center',
-    paddingVertical: 8,
+    paddingVertical: 8
   },
   demoArrowText: {
-    fontSize: 24,
     color: '#007AFF',
+    fontSize: 24
   },
-  
+
   // Preview Cards
   previewCard: {
     backgroundColor: '#FFFFFF',
-    padding: 16,
     borderRadius: 8,
+    padding: 16
   },
   previewCardRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   previewCardLabel: {
-    fontSize: 14,
-    fontWeight: '500',
     color: '#000000',
+    fontSize: 14,
+    fontWeight: '500'
   },
   previewCardValue: {
-    fontSize: 14,
     color: '#666666',
+    fontSize: 14
   },
   previewCardInheritance: {
-    fontSize: 14,
     color: '#007AFF',
-    marginTop: 8,
+    fontSize: 14,
+    marginTop: 8
   },
   componentPreviewCard: {
+    alignItems: 'center',
     backgroundColor: '#FFFFFF',
-    padding: 12,
     borderRadius: 8,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    padding: 12
   },
   componentPreviewTitle: {
-    fontSize: 16,
-    fontWeight: '500',
     color: '#000000',
+    fontSize: 16,
+    fontWeight: '500'
   },
   componentPreviewValue: {
-    fontSize: 14,
     color: '#666666',
-  },
-}); 
+    fontSize: 14
+  }
+});

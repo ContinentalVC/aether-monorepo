@@ -1,6 +1,6 @@
 /**
  * Dynamic Color Scheme Example for React Native
- * 
+ *
  * Comprehensive example demonstrating dynamic color scheme support
  * with automatic adaptation to system appearance changes.
  */
@@ -13,14 +13,12 @@ import {
   TouchableOpacity,
   StyleSheet,
   Dimensions,
-  Alert,
-  ActivityIndicator,
+  Alert
 } from 'react-native';
 import {
   useDynamicTheme,
   DynamicColorKey,
-  DynamicTheme,
-  createDynamicColor,
+  DynamicTheme
 } from '../theme/DynamicColorScheme';
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -40,7 +38,7 @@ const DynamicColorSchemeExample: React.FC = () => {
     getColor,
     getDynamicColor,
     exportTheme,
-    importTheme,
+    importTheme
   } = useDynamicTheme();
 
   const [showingDebugInfo, setShowingDebugInfo] = useState(false);
@@ -55,7 +53,7 @@ const DynamicColorSchemeExample: React.FC = () => {
       <Text style={[styles.bodyText, { color: getColor(DynamicColorKey.TEXT_SECONDARY) }]}>
         Experience automatic adaptation to system appearance changes including light, dark, and high contrast modes.
       </Text>
-      
+
       {/* Current theme indicator */}
       <View style={[styles.themeIndicator, { backgroundColor: getColor(DynamicColorKey.SURFACE) }]}>
         <View style={[styles.themeDot, { backgroundColor: getColor(DynamicColorKey.PRIMARY) }]} />
@@ -77,7 +75,7 @@ const DynamicColorSchemeExample: React.FC = () => {
       <Text style={[styles.sectionTitle, { color: getColor(DynamicColorKey.TEXT_PRIMARY) }]}>
         Current Appearance
       </Text>
-      
+
       <View style={styles.appearanceContainer}>
         {/* Color Scheme */}
         <View style={styles.appearanceItem}>
@@ -88,7 +86,7 @@ const DynamicColorSchemeExample: React.FC = () => {
             {colorScheme === 'dark' ? 'Dark Mode' : 'Light Mode'}
           </Text>
         </View>
-        
+
         {/* High Contrast */}
         <View style={styles.appearanceItem}>
           <Text style={[styles.appearanceIcon, { color: getColor(DynamicColorKey.SECONDARY) }]}>
@@ -98,7 +96,7 @@ const DynamicColorSchemeExample: React.FC = () => {
             {isHighContrastEnabled ? 'High Contrast' : 'Standard'}
           </Text>
         </View>
-        
+
         {/* Dynamic Colors */}
         <View style={styles.appearanceItem}>
           <Text style={[styles.appearanceIcon, { color: getColor(DynamicColorKey.ACCENT) }]}>
@@ -119,7 +117,7 @@ const DynamicColorSchemeExample: React.FC = () => {
       <Text style={[styles.sectionTitle, { color: getColor(DynamicColorKey.TEXT_PRIMARY) }]}>
         Available Themes
       </Text>
-      
+
       <View style={styles.themeGrid}>
         {availableThemes.map((theme) => (
           <DynamicThemeCard
@@ -141,7 +139,7 @@ const DynamicColorSchemeExample: React.FC = () => {
       <Text style={[styles.sectionTitle, { color: getColor(DynamicColorKey.TEXT_PRIMARY) }]}>
         Dynamic Color Preview
       </Text>
-      
+
       <View style={styles.colorPreviewContainer}>
         {Object.values(DynamicColorKey).map((colorKey) => (
           <DynamicColorPreviewRow
@@ -162,7 +160,7 @@ const DynamicColorSchemeExample: React.FC = () => {
       <Text style={[styles.sectionTitle, { color: getColor(DynamicColorKey.TEXT_PRIMARY) }]}>
         Color Palette
       </Text>
-      
+
       <View style={styles.colorPaletteGrid}>
         {Object.values(DynamicColorKey).map((colorKey) => (
           <DynamicColorSwatch
@@ -182,7 +180,7 @@ const DynamicColorSchemeExample: React.FC = () => {
       <Text style={[styles.sectionTitle, { color: getColor(DynamicColorKey.TEXT_PRIMARY) }]}>
         Live Preview
       </Text>
-      
+
       <View style={styles.previewContainer}>
         {/* Sample Card */}
         <View style={[styles.sampleCard, { backgroundColor: getColor(DynamicColorKey.SURFACE) }]}>
@@ -205,9 +203,9 @@ const DynamicColorSchemeExample: React.FC = () => {
               </Text>
             </TouchableOpacity>
           </View>
-          
+
           <View style={[styles.cardDivider, { backgroundColor: getColor(DynamicColorKey.BORDER) }]} />
-          
+
           <View style={styles.cardStatusContainer}>
             <View style={styles.statusItem}>
               <Text style={[styles.statusIcon, { color: getColor(DynamicColorKey.SUCCESS) }]}>
@@ -217,7 +215,7 @@ const DynamicColorSchemeExample: React.FC = () => {
                 Success
               </Text>
             </View>
-            
+
             <View style={styles.statusItem}>
               <Text style={[styles.statusIcon, { color: getColor(DynamicColorKey.WARNING) }]}>
                 ⚠️
@@ -226,7 +224,7 @@ const DynamicColorSchemeExample: React.FC = () => {
                 Warning
               </Text>
             </View>
-            
+
             <View style={styles.statusItem}>
               <Text style={[styles.statusIcon, { color: getColor(DynamicColorKey.ERROR) }]}>
                 ✗
@@ -237,7 +235,7 @@ const DynamicColorSchemeExample: React.FC = () => {
             </View>
           </View>
         </View>
-        
+
         {/* Status Indicators */}
         <View style={styles.statusIndicatorsContainer}>
           <StatusIndicator
@@ -267,7 +265,7 @@ const DynamicColorSchemeExample: React.FC = () => {
       <Text style={[styles.sectionTitle, { color: getColor(DynamicColorKey.TEXT_PRIMARY) }]}>
         Controls
       </Text>
-      
+
       <View style={styles.controlsContainer}>
         <TouchableOpacity
           style={[styles.primaryButton, { backgroundColor: getColor(DynamicColorKey.PRIMARY) }]}
@@ -277,7 +275,7 @@ const DynamicColorSchemeExample: React.FC = () => {
             Edit Theme
           </Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity
           style={[styles.secondaryButton, { borderColor: getColor(DynamicColorKey.PRIMARY) }]}
           onPress={() => exportCurrentTheme()}
@@ -297,7 +295,7 @@ const DynamicColorSchemeExample: React.FC = () => {
       <Text style={[styles.sectionTitle, { color: getColor(DynamicColorKey.TEXT_PRIMARY) }]}>
         Debug Information
       </Text>
-      
+
       <View style={styles.debugContainer}>
         <DebugInfoRow
           label="Current Theme"
@@ -370,20 +368,20 @@ const DynamicThemeCard: React.FC<DynamicThemeCardProps> = ({
   theme,
   isSelected,
   onPress,
-  getColor,
+  getColor
 }) => {
   return (
     <TouchableOpacity
       style={[
         styles.themeCard,
         {
-          backgroundColor: isSelected 
-            ? getColor(DynamicColorKey.PRIMARY) + '20' 
+          backgroundColor: isSelected
+            ? `${getColor(DynamicColorKey.PRIMARY) }20`
             : getColor(DynamicColorKey.SURFACE),
-          borderColor: isSelected 
-            ? getColor(DynamicColorKey.PRIMARY) 
-            : getColor(DynamicColorKey.BORDER),
-        },
+          borderColor: isSelected
+            ? getColor(DynamicColorKey.PRIMARY)
+            : getColor(DynamicColorKey.BORDER)
+        }
       ]}
       onPress={onPress}
     >
@@ -392,11 +390,11 @@ const DynamicThemeCard: React.FC<DynamicThemeCardProps> = ({
         <View style={[styles.themeColorDot, { backgroundColor: theme.secondaryColor.light }]} />
         <View style={[styles.themeColorDot, { backgroundColor: theme.accentColor.light }]} />
       </View>
-      
+
       <Text style={[styles.themeName, { color: getColor(DynamicColorKey.TEXT_PRIMARY) }]}>
         {theme.name}
       </Text>
-      
+
       {theme.description && (
         <Text style={[styles.themeDescription, { color: getColor(DynamicColorKey.TEXT_SECONDARY) }]}>
           {theme.description}
@@ -415,11 +413,11 @@ interface DynamicColorPreviewRowProps {
 const DynamicColorPreviewRow: React.FC<DynamicColorPreviewRowProps> = ({
   colorKey,
   getColor,
-  getDynamicColor,
+  getDynamicColor
 }) => {
   const dynamicColor = getDynamicColor(colorKey);
   const colorKeyName = colorKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-  
+
   return (
     <View style={styles.colorPreviewRow}>
       <View style={[styles.colorPreviewDot, { backgroundColor: getColor(colorKey) }]} />
@@ -442,7 +440,7 @@ interface DynamicColorSwatchProps {
 
 const DynamicColorSwatch: React.FC<DynamicColorSwatchProps> = ({ colorKey, getColor }) => {
   const colorKeyName = colorKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-  
+
   return (
     <View style={styles.colorSwatch}>
       <View style={[styles.colorSwatchDot, { backgroundColor: getColor(colorKey) }]} />
@@ -490,282 +488,282 @@ const DebugInfoRow: React.FC<DebugInfoRowProps> = ({ label, value, getColor }) =
 // MARK: - Styles
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  contentContainer: {
-    padding: 16,
-  },
-  section: {
-    marginBottom: 24,
-    borderRadius: 16,
-    padding: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
-  },
-  largeTitle: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 16,
-  },
-  bodyText: {
-    fontSize: 16,
-    textAlign: 'center',
-    lineHeight: 24,
-    marginBottom: 16,
-  },
-  themeIndicator: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  themeDot: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    marginRight: 12,
-  },
-  themeText: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  spacer: {
-    flex: 1,
-  },
-  durationText: {
-    fontSize: 12,
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: '600',
-    marginBottom: 16,
-  },
   appearanceContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  appearanceItem: {
-    alignItems: 'center',
+    justifyContent: 'space-around'
   },
   appearanceIcon: {
     fontSize: 24,
-    marginBottom: 8,
+    marginBottom: 8
+  },
+  appearanceItem: {
+    alignItems: 'center'
   },
   appearanceText: {
     fontSize: 12,
     fontWeight: '500',
-    textAlign: 'center',
+    textAlign: 'center'
   },
-  themeGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-  themeCard: {
-    width: (screenWidth - 64) / 2,
-    paddingVertical: 16,
-    paddingHorizontal: 12,
-    borderRadius: 12,
-    borderWidth: 2,
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  themePreview: {
-    flexDirection: 'row',
-    marginBottom: 12,
-  },
-  themeColorDot: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    marginHorizontal: 4,
-  },
-  themeName: {
-    fontSize: 14,
-    fontWeight: '600',
-    textAlign: 'center',
-    marginBottom: 4,
-  },
-  themeDescription: {
-    fontSize: 10,
-    textAlign: 'center',
-  },
-  colorPreviewContainer: {
-    gap: 12,
-  },
-  colorPreviewRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 8,
-  },
-  colorPreviewDot: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    marginRight: 12,
-  },
-  colorPreviewText: {
-    flex: 1,
-  },
-  colorPreviewTitle: {
-    fontSize: 14,
-    fontWeight: '500',
-  },
-  colorPreviewDescription: {
-    fontSize: 12,
-    marginTop: 2,
-  },
-  colorPaletteGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-  colorSwatch: {
-    width: (screenWidth - 80) / 4,
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  colorSwatchDot: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    marginBottom: 8,
-    borderWidth: 1,
-    borderColor: '#E5E7EB',
-  },
-  colorSwatchText: {
-    fontSize: 10,
-    fontWeight: '500',
-    textAlign: 'center',
-  },
-  previewContainer: {
-    gap: 16,
-  },
-  sampleCard: {
-    borderRadius: 12,
-    padding: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  cardHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  cardIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    marginRight: 12,
-  },
-  cardTextContainer: {
-    flex: 1,
-  },
-  cardTitle: {
+  bodyText: {
     fontSize: 16,
-    fontWeight: '600',
-  },
-  cardSubtitle: {
-    fontSize: 12,
-    marginTop: 2,
-  },
-  cardButton: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 6,
-  },
-  cardButtonText: {
-    fontSize: 12,
-    fontWeight: '500',
-  },
-  cardDivider: {
-    height: 1,
+    lineHeight: 24,
     marginBottom: 16,
-  },
-  cardStatusContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  statusItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  statusIcon: {
-    fontSize: 16,
-    marginRight: 4,
-  },
-  statusText: {
-    fontSize: 12,
-  },
-  statusIndicatorsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  statusIndicator: {
-    alignItems: 'center',
-  },
-  statusIndicatorDot: {
-    width: 16,
-    height: 16,
-    borderRadius: 8,
-    marginBottom: 4,
-  },
-  statusIndicatorText: {
-    fontSize: 10,
-    fontWeight: '500',
-  },
-  controlsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  primaryButton: {
-    flex: 1,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    marginRight: 8,
-  },
-  secondaryButton: {
-    flex: 1,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    borderWidth: 1,
-    marginLeft: 8,
+    textAlign: 'center'
   },
   buttonText: {
     fontSize: 14,
     fontWeight: '600',
-    textAlign: 'center',
+    textAlign: 'center'
+  },
+  cardButton: {
+    borderRadius: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 6
+  },
+  cardButtonText: {
+    fontSize: 12,
+    fontWeight: '500'
+  },
+  cardDivider: {
+    height: 1,
+    marginBottom: 16
+  },
+  cardHeader: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginBottom: 16
+  },
+  cardIcon: {
+    borderRadius: 20,
+    height: 40,
+    marginRight: 12,
+    width: 40
+  },
+  cardStatusContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  cardSubtitle: {
+    fontSize: 12,
+    marginTop: 2
+  },
+  cardTextContainer: {
+    flex: 1
+  },
+  cardTitle: {
+    fontSize: 16,
+    fontWeight: '600'
+  },
+  colorPaletteGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between'
+  },
+  colorPreviewContainer: {
+    gap: 12
+  },
+  colorPreviewDescription: {
+    fontSize: 12,
+    marginTop: 2
+  },
+  colorPreviewDot: {
+    borderRadius: 12,
+    height: 24,
+    marginRight: 12,
+    width: 24
+  },
+  colorPreviewRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    paddingVertical: 8
+  },
+  colorPreviewText: {
+    flex: 1
+  },
+  colorPreviewTitle: {
+    fontSize: 14,
+    fontWeight: '500'
+  },
+  colorSwatch: {
+    alignItems: 'center',
+    marginBottom: 16,
+    width: (screenWidth - 80) / 4
+  },
+  colorSwatchDot: {
+    borderColor: '#E5E7EB',
+    borderRadius: 20,
+    borderWidth: 1,
+    height: 40,
+    marginBottom: 8,
+    width: 40
+  },
+  colorSwatchText: {
+    fontSize: 10,
+    fontWeight: '500',
+    textAlign: 'center'
+  },
+  container: {
+    flex: 1
+  },
+  contentContainer: {
+    padding: 16
+  },
+  controlsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   debugContainer: {
-    gap: 8,
+    gap: 8
+  },
+  debugLabel: {
+    fontSize: 12
   },
   debugRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  debugLabel: {
-    fontSize: 12,
+    justifyContent: 'space-between'
   },
   debugValue: {
     fontSize: 12,
-    fontWeight: '500',
+    fontWeight: '500'
   },
+  durationText: {
+    fontSize: 12
+  },
+  largeTitle: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 16,
+    textAlign: 'center'
+  },
+  previewContainer: {
+    gap: 16
+  },
+  primaryButton: {
+    borderRadius: 8,
+    flex: 1,
+    marginRight: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 12
+  },
+  sampleCard: {
+    borderRadius: 12,
+    elevation: 2,
+    padding: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4
+  },
+  secondaryButton: {
+    borderRadius: 8,
+    borderWidth: 1,
+    flex: 1,
+    marginLeft: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 12
+  },
+  section: {
+    borderRadius: 16,
+    elevation: 4,
+    marginBottom: 24,
+    padding: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: '600',
+    marginBottom: 16
+  },
+  spacer: {
+    flex: 1
+  },
+  statusIcon: {
+    fontSize: 16,
+    marginRight: 4
+  },
+  statusIndicator: {
+    alignItems: 'center'
+  },
+  statusIndicatorDot: {
+    borderRadius: 8,
+    height: 16,
+    marginBottom: 4,
+    width: 16
+  },
+  statusIndicatorText: {
+    fontSize: 10,
+    fontWeight: '500'
+  },
+  statusIndicatorsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around'
+  },
+  statusItem: {
+    alignItems: 'center',
+    flexDirection: 'row'
+  },
+  statusText: {
+    fontSize: 12
+  },
+  themeCard: {
+    alignItems: 'center',
+    borderRadius: 12,
+    borderWidth: 2,
+    marginBottom: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 16,
+    width: (screenWidth - 64) / 2
+  },
+  themeColorDot: {
+    borderRadius: 10,
+    height: 20,
+    marginHorizontal: 4,
+    width: 20
+  },
+  themeDescription: {
+    fontSize: 10,
+    textAlign: 'center'
+  },
+  themeDot: {
+    borderRadius: 10,
+    height: 20,
+    marginRight: 12,
+    width: 20
+  },
+  themeGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between'
+  },
+  themeIndicator: {
+    alignItems: 'center',
+    borderRadius: 12,
+    elevation: 2,
+    flexDirection: 'row',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4
+  },
+  themeName: {
+    fontSize: 14,
+    fontWeight: '600',
+    marginBottom: 4,
+    textAlign: 'center'
+  },
+  themePreview: {
+    flexDirection: 'row',
+    marginBottom: 12
+  },
+  themeText: {
+    fontSize: 16,
+    fontWeight: '600'
+  }
 });
 
-export default DynamicColorSchemeExample; 
+export default DynamicColorSchemeExample;

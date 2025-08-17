@@ -1,13 +1,12 @@
 /**
  * Theme Data Model Example
- * 
+ *
  * Example component demonstrating the Theme Data Model system with
  * import/export, validation, and management features.
  */
 
 import React, { useState, useMemo } from 'react';
 import {
-  View,
   Text,
   ScrollView,
   TouchableOpacity,
@@ -15,7 +14,7 @@ import {
   Alert,
   Modal,
   StyleSheet,
-  FlatList,
+  FlatList
 } from 'react-native';
 import { useThemeDataModel } from '../theme/ThemeDataModelManager';
 import { ThemeDataModel, ThemeCategory } from '../theme/ThemeDataModel';
@@ -41,7 +40,7 @@ const ThemeDataModelExample: React.FC = () => {
     filterThemesByCategory,
     getThemeTemplates,
     createThemeFromTemplate,
-    clearError,
+    clearError
   } = useThemeDataModel();
 
   const [searchText, setSearchText] = useState('');
@@ -112,15 +111,15 @@ const ThemeDataModelExample: React.FC = () => {
         {
           text: 'Delete',
           style: 'destructive',
-          onPress: () => deleteTheme(theme),
-        },
+          onPress: () => deleteTheme(theme)
+        }
       ]
     );
   };
 
   if (lastError) {
     Alert.alert('Error', lastError, [
-      { text: 'OK', onPress: clearError },
+      { text: 'OK', onPress: clearError }
     ]);
   }
 
@@ -249,7 +248,7 @@ const SearchBar = styled.TextInput`
 
 const CategoryFilter = styled.ScrollView.attrs({
   horizontal: true,
-  showsHorizontalScrollIndicator: false,
+  showsHorizontalScrollIndicator: false
 })`
   flex-direction: row;
 `;
@@ -291,7 +290,7 @@ const FeaturesOverview: React.FC = () => {
     { icon: '✅', title: 'Validation', description: 'Automatic theme validation' },
     { icon: '📱', title: 'Cross-Platform', description: 'Works across all platforms' },
     { icon: '🎨', title: 'Templates', description: 'Pre-built theme templates' },
-    { icon: '🔍', title: 'Search & Filter', description: 'Find themes quickly' },
+    { icon: '🔍', title: 'Search & Filter', description: 'Find themes quickly' }
   ];
 
   return (
@@ -348,7 +347,7 @@ interface CategoryFilterProps {
 
 const CategoryFilterComponent: React.FC<CategoryFilterProps> = ({
   selectedCategory,
-  onSelectCategory,
+  onSelectCategory
 }) => {
   const categories = [
     { key: 'all', label: 'All' },
@@ -357,7 +356,7 @@ const CategoryFilterComponent: React.FC<CategoryFilterProps> = ({
     { key: ThemeCategory.CREATIVE, label: 'Creative' },
     { key: ThemeCategory.GAMING, label: 'Gaming' },
     { key: ThemeCategory.HEALTH, label: 'Health' },
-    { key: ThemeCategory.FINANCE, label: 'Finance' },
+    { key: ThemeCategory.FINANCE, label: 'Finance' }
   ];
 
   return (
@@ -407,7 +406,7 @@ const ThemeRow: React.FC<ThemeRowProps> = ({
   isCurrent,
   onExport,
   onSetCurrent,
-  onDelete,
+  onDelete
 }) => {
   return (
     <ThemeRowContainer>
@@ -416,11 +415,11 @@ const ThemeRow: React.FC<ThemeRowProps> = ({
           <ThemeName>{theme.name}</ThemeName>
           {isCurrent && <CurrentBadge>Current</CurrentBadge>}
         </ThemeRowHeader>
-        
+
         {theme.description && (
           <ThemeDescription>{theme.description}</ThemeDescription>
         )}
-        
+
         <ThemeMeta>
           <ThemeMetaText>v{theme.version}</ThemeMetaText>
           <ThemeMetaText>•</ThemeMetaText>
@@ -432,7 +431,7 @@ const ThemeRow: React.FC<ThemeRowProps> = ({
             </>
           )}
         </ThemeMeta>
-        
+
         {theme.metadata.tags.length > 0 && (
           <TagsContainer>
             {theme.metadata.tags.map((tag, index) => (
@@ -441,18 +440,18 @@ const ThemeRow: React.FC<ThemeRowProps> = ({
           </TagsContainer>
         )}
       </ThemeRowContent>
-      
+
       <ThemeRowActions>
         <ActionButton onPress={onExport}>
           <ActionButtonText>Export</ActionButtonText>
         </ActionButton>
-        
+
         {!isCurrent && (
           <ActionButton onPress={onSetCurrent}>
             <ActionButtonText>Set Current</ActionButtonText>
           </ActionButton>
         )}
-        
+
         <ActionButton onPress={onDelete}>
           <ActionButtonText style={{ color: '#FF3B30' }}>Delete</ActionButtonText>
         </ActionButton>
@@ -562,7 +561,7 @@ const ImportModal: React.FC<ImportModalProps> = ({
   importText,
   onImportTextChange,
   onImport,
-  onClose,
+  onClose
 }) => {
   return (
     <Modal visible={visible} animationType="slide" presentationStyle="pageSheet">
@@ -573,10 +572,10 @@ const ImportModal: React.FC<ImportModalProps> = ({
             <CloseButtonText>Cancel</CloseButtonText>
           </CloseButton>
         </ModalHeader>
-        
+
         <ModalContent>
           <ModalSubtitle>Paste JSON theme data to import</ModalSubtitle>
-          
+
           <ImportTextInput
             placeholder="Paste theme JSON here..."
             value={importText}
@@ -585,7 +584,7 @@ const ImportModal: React.FC<ImportModalProps> = ({
             numberOfLines={10}
             textAlignVertical="top"
           />
-          
+
           <ModalActions>
             <ModalButton onPress={onImport} disabled={!importText.trim()}>
               <ModalButtonText>Import Theme</ModalButtonText>
@@ -610,7 +609,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
   visible,
   exportText,
   theme,
-  onClose,
+  onClose
 }) => {
   return (
     <Modal visible={visible} animationType="slide" presentationStyle="pageSheet">
@@ -621,7 +620,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
             <CloseButtonText>Done</CloseButtonText>
           </CloseButton>
         </ModalHeader>
-        
+
         <ModalContent>
           {theme && (
             <ExportThemeInfo>
@@ -629,11 +628,11 @@ const ExportModal: React.FC<ExportModalProps> = ({
               <ExportThemeVersion>Version: {theme.version}</ExportThemeVersion>
             </ExportThemeInfo>
           )}
-          
+
           <ExportTextContainer>
             <ExportText>{exportText}</ExportText>
           </ExportTextContainer>
-          
+
           <ModalActions>
             <ModalButton onPress={() => {}}>
               <ModalButtonText>Copy to Clipboard</ModalButtonText>
@@ -662,7 +661,7 @@ const TemplateModal: React.FC<TemplateModalProps> = ({
   themeName,
   onThemeNameChange,
   onCreateTheme,
-  onClose,
+  onClose
 }) => {
   return (
     <Modal visible={visible} animationType="slide" presentationStyle="pageSheet">
@@ -673,10 +672,10 @@ const TemplateModal: React.FC<TemplateModalProps> = ({
             <CloseButtonText>Cancel</CloseButtonText>
           </CloseButton>
         </ModalHeader>
-        
+
         <ModalContent>
           <ModalSubtitle>Choose a template to create a new theme</ModalSubtitle>
-          
+
           <TemplatesGrid>
             {templates.map((template, index) => (
               <TemplateCard
@@ -689,13 +688,13 @@ const TemplateModal: React.FC<TemplateModalProps> = ({
               </TemplateCard>
             ))}
           </TemplatesGrid>
-          
+
           <ThemeNameInput
             placeholder="Enter theme name"
             value={themeName}
             onChangeText={onThemeNameChange}
           />
-          
+
           <ModalActions>
             <ModalButton onPress={onClose} disabled={!themeName.trim()}>
               <ModalButtonText>Create Theme</ModalButtonText>
@@ -863,13 +862,13 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
-    shadowRadius: 4,
+    shadowRadius: 4
   },
   fabText: {
-    fontSize: 24,
     color: 'white',
-    fontWeight: 'bold',
-  },
+    fontSize: 24,
+    fontWeight: 'bold'
+  }
 });
 
-export default ThemeDataModelExample; 
+export default ThemeDataModelExample;

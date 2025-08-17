@@ -15,16 +15,16 @@ import {
   ScrollView,
   TouchableOpacity,
   Dimensions,
-  Alert,
+  Alert
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+
 import { Ionicons } from '@expo/vector-icons';
 import {
   ColorPaletteProvider,
   useColorPalette,
   ColorWheel,
   ColorHarmonyType,
-  PredefinedPalettes,
+  PredefinedPalettes
 } from './ColorPaletteManager';
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -43,7 +43,7 @@ const ColorPaletteContent: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [showingHarmonyGuide, setShowingHarmonyGuide] = useState(false);
   const [showingValidationGuide, setShowingValidationGuide] = useState(false);
-  
+
   const {
     currentPalette,
     selectedHarmonyType,
@@ -53,7 +53,7 @@ const ColorPaletteContent: React.FC = () => {
     setPredefinedPalette,
     currentValidation,
     predefinedPalettes,
-    harmonyTypes,
+    harmonyTypes
   } = useColorPalette();
 
   const handleApplyPalette = () => {
@@ -62,7 +62,7 @@ const ColorPaletteContent: React.FC = () => {
       'This palette will be applied to your theme. Continue?',
       [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'Apply', onPress: () => console.log('Palette applied') },
+        { text: 'Apply', onPress: () => console.log('Palette applied') }
       ]
     );
   };
@@ -111,7 +111,7 @@ interface ColorPaletteTabSelectorProps {
 
 const ColorPaletteTabSelector: React.FC<ColorPaletteTabSelectorProps> = ({
   selectedTab,
-  onTabChange,
+  onTabChange
 }) => {
   const tabs = ['Color Wheel', 'Predefined', 'Harmony', 'Validation'];
 
@@ -126,7 +126,7 @@ const ColorPaletteTabSelector: React.FC<ColorPaletteTabSelectorProps> = ({
           <Text
             style={[
               styles.tabButtonText,
-              selectedTab === index && styles.tabButtonTextActive,
+              selectedTab === index && styles.tabButtonTextActive
             ]}
           >
             {tab}
@@ -148,14 +148,14 @@ const ColorWheelTab: React.FC = () => {
       {/* Color Wheel Section */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Color Wheel</Text>
-        
+
         <View style={styles.colorWheelContainer}>
           <ColorWheel
             selectedColor={baseColor}
             onColorChange={updateBaseColor}
             size={280}
           />
-          
+
           {/* Color Info */}
           <ColorInfoDisplay color={baseColor} />
         </View>
@@ -188,12 +188,12 @@ const ColorInfoDisplay: React.FC<ColorInfoDisplayProps> = ({ color }) => {
         <Text style={styles.colorInfoLabel}>Selected Color</Text>
         <Text style={styles.colorInfoValue}>360°</Text>
       </View>
-      
+
       <View style={styles.colorInfoItem}>
         <Text style={styles.colorInfoLabel}>Saturation</Text>
         <Text style={styles.colorInfoValue}>100%</Text>
       </View>
-      
+
       <View style={styles.colorInfoItem}>
         <Text style={styles.colorInfoLabel}>Lightness</Text>
         <Text style={styles.colorInfoValue}>50%</Text>
@@ -210,7 +210,7 @@ const CurrentPalettePreview: React.FC = () => {
   return (
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>Generated Palette</Text>
-      
+
       <View style={styles.palettePreview}>
         {/* Color Swatches */}
         <View style={styles.colorSwatches}>
@@ -223,7 +223,7 @@ const CurrentPalettePreview: React.FC = () => {
           <ColorSwatch color={currentPalette.neutralLight} label="Light" />
           <ColorSwatch color={currentPalette.neutralDark} label="Dark" />
         </View>
-        
+
         {/* Palette Info */}
         <View style={styles.paletteInfo}>
           <Text style={styles.paletteName}>{currentPalette.name}</Text>
@@ -281,14 +281,14 @@ const HarmonyTypeSelector: React.FC = () => {
   return (
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>Harmony Type</Text>
-      
+
       <View style={styles.harmonyGrid}>
         {harmonyTypes.map((harmonyType) => (
           <TouchableOpacity
             key={harmonyType}
             style={[
               styles.harmonyCard,
-              selectedHarmonyType === harmonyType && styles.harmonyCardActive,
+              selectedHarmonyType === harmonyType && styles.harmonyCardActive
             ]}
             onPress={() => updateHarmonyType(harmonyType)}
           >
@@ -300,7 +300,7 @@ const HarmonyTypeSelector: React.FC = () => {
             <Text
               style={[
                 styles.harmonyCardTitle,
-                selectedHarmonyType === harmonyType && styles.harmonyCardTitleActive,
+                selectedHarmonyType === harmonyType && styles.harmonyCardTitleActive
               ]}
             >
               {harmonyType}
@@ -308,7 +308,7 @@ const HarmonyTypeSelector: React.FC = () => {
             <Text
               style={[
                 styles.harmonyCardDescription,
-                selectedHarmonyType === harmonyType && styles.harmonyCardDescriptionActive,
+                selectedHarmonyType === harmonyType && styles.harmonyCardDescriptionActive
               ]}
               numberOfLines={2}
             >
@@ -344,20 +344,20 @@ const ColorGuidanceSection: React.FC = () => {
   return (
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>Color Guidelines</Text>
-      
+
       <View style={styles.guidanceContainer}>
         <ColorGuidanceTip
           icon="paintbrush"
           title="Limit Your Palette"
           description="Use 2-3 main colors plus neutrals for consistency"
         />
-        
+
         <ColorGuidanceTip
           icon="eye"
           title="Consider Contrast"
           description="Ensure sufficient contrast for accessibility"
         />
-        
+
         <ColorGuidanceTip
           icon="color-palette"
           title="Follow Harmony"
@@ -377,7 +377,7 @@ interface ColorGuidanceTipProps {
 const ColorGuidanceTip: React.FC<ColorGuidanceTipProps> = ({
   icon,
   title,
-  description,
+  description
 }) => {
   return (
     <View style={styles.guidanceTip}>
@@ -398,7 +398,7 @@ const PredefinedPalettesTab: React.FC = () => {
   return (
     <View style={styles.tabContent}>
       <Text style={styles.sectionTitle}>Predefined Palettes</Text>
-      
+
       <View style={styles.predefinedPalettesList}>
         {PredefinedPalettes.map((palette) => (
           <PredefinedPaletteCard
@@ -422,13 +422,13 @@ interface PredefinedPaletteCardProps {
 const PredefinedPaletteCard: React.FC<PredefinedPaletteCardProps> = ({
   palette,
   isSelected,
-  onSelect,
+  onSelect
 }) => {
   return (
     <TouchableOpacity
       style={[
         styles.predefinedPaletteCard,
-        isSelected && styles.predefinedPaletteCardActive,
+        isSelected && styles.predefinedPaletteCardActive
       ]}
       onPress={onSelect}
     >
@@ -441,7 +441,7 @@ const PredefinedPaletteCard: React.FC<PredefinedPaletteCardProps> = ({
           />
         ))}
       </View>
-      
+
       {/* Palette info */}
       <View style={styles.predefinedPaletteInfo}>
         <View style={styles.predefinedPaletteHeader}>
@@ -450,11 +450,11 @@ const PredefinedPaletteCard: React.FC<PredefinedPaletteCardProps> = ({
             <Ionicons name="checkmark-circle" size={24} color="#007AFF" />
           )}
         </View>
-        
+
         <Text style={styles.predefinedPaletteDescription}>
           {palette.description}
         </Text>
-        
+
         <View style={styles.predefinedPaletteHarmony}>
           <Ionicons name="color-palette" size={16} color="#666" />
           <Text style={styles.predefinedPaletteHarmonyText}>
@@ -474,7 +474,7 @@ const HarmonyTypesTab: React.FC = () => {
   return (
     <View style={styles.tabContent}>
       <Text style={styles.sectionTitle}>Color Harmony Types</Text>
-      
+
       <View style={styles.harmonyTypesList}>
         {harmonyTypes.map((harmonyType) => (
           <HarmonyTypeDetailCard
@@ -498,7 +498,7 @@ interface HarmonyTypeDetailCardProps {
 const HarmonyTypeDetailCard: React.FC<HarmonyTypeDetailCardProps> = ({
   harmonyType,
   isSelected,
-  onSelect,
+  onSelect
 }) => {
   const getHarmonyIcon = (type: ColorHarmonyType): string => {
     switch (type) {
@@ -523,7 +523,7 @@ const HarmonyTypeDetailCard: React.FC<HarmonyTypeDetailCardProps> = ({
     <TouchableOpacity
       style={[
         styles.harmonyTypeDetailCard,
-        isSelected && styles.harmonyTypeDetailCardActive,
+        isSelected && styles.harmonyTypeDetailCardActive
       ]}
       onPress={onSelect}
     >
@@ -532,14 +532,14 @@ const HarmonyTypeDetailCard: React.FC<HarmonyTypeDetailCardProps> = ({
         size={24}
         color={isSelected ? '#007AFF' : '#333'}
       />
-      
+
       <View style={styles.harmonyTypeDetailContent}>
         <Text style={styles.harmonyTypeDetailTitle}>{harmonyType}</Text>
         <Text style={styles.harmonyTypeDetailDescription}>
           {getHarmonyDescription(harmonyType)}
         </Text>
       </View>
-      
+
       {isSelected && (
         <Ionicons name="checkmark-circle" size={24} color="#007AFF" />
       )}
@@ -555,13 +555,13 @@ const ValidationTab: React.FC = () => {
   return (
     <View style={styles.tabContent}>
       <Text style={styles.sectionTitle}>Palette Validation</Text>
-      
+
       {/* Validation Score */}
       <ValidationScoreCard />
-      
+
       {/* Validation Details */}
       <ValidationDetailsSection />
-      
+
       {/* Recommendations */}
       <ValidationRecommendationsSection />
     </View>
@@ -586,14 +586,14 @@ const ValidationScoreCard: React.FC = () => {
   return (
     <View style={styles.validationScoreCard}>
       <Text style={styles.validationScoreTitle}>Overall Score</Text>
-      
+
       <View style={styles.validationScoreCircle}>
         <Text style={[styles.validationScoreValue, { color: getScoreColor(currentValidation.score) }]}>
           {currentValidation.score}
         </Text>
         <Text style={styles.validationScoreMax}>/ 100</Text>
       </View>
-      
+
       <Text style={[styles.validationScoreDescription, { color: getScoreColor(currentValidation.score) }]}>
         {getScoreDescription(currentValidation.score)}
       </Text>
@@ -607,20 +607,20 @@ const ValidationDetailsSection: React.FC = () => {
   return (
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>Validation Details</Text>
-      
+
       <View style={styles.validationDetailsContainer}>
         <ValidationDetailRow
           title="Contrast"
           isPassing={currentValidation.hasGoodContrast}
           description="Colors have sufficient contrast for accessibility"
         />
-        
+
         <ValidationDetailRow
           title="Harmony"
           isPassing={currentValidation.isHarmonious}
           description="Colors follow the selected harmony type"
         />
-        
+
         <ValidationDetailRow
           title="Saturation"
           isPassing={currentValidation.hasBalancedSaturation}
@@ -640,7 +640,7 @@ interface ValidationDetailRowProps {
 const ValidationDetailRow: React.FC<ValidationDetailRowProps> = ({
   title,
   isPassing,
-  description,
+  description
 }) => {
   return (
     <View style={styles.validationDetailRow}>
@@ -649,7 +649,7 @@ const ValidationDetailRow: React.FC<ValidationDetailRowProps> = ({
         size={20}
         color={isPassing ? '#34C759' : '#FF3B30'}
       />
-      
+
       <View style={styles.validationDetailContent}>
         <Text style={styles.validationDetailTitle}>{title}</Text>
         <Text style={styles.validationDetailDescription}>{description}</Text>
@@ -664,7 +664,7 @@ const ValidationRecommendationsSection: React.FC = () => {
   return (
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>Recommendations</Text>
-      
+
       {currentValidation.messages.length === 0 ? (
         <View style={styles.recommendationSuccess}>
           <Text style={styles.recommendationSuccessText}>
@@ -701,26 +701,26 @@ const ColorHarmonyGuideModal: React.FC<ColorHarmonyGuideModalProps> = ({ onClose
             <Ionicons name="close" size={24} color="#333" />
           </TouchableOpacity>
         </View>
-        
+
         <ScrollView style={styles.modalBody}>
           <HarmonyGuideSection
             title="Complementary"
             description="Two opposite colors on the color wheel. Creates high contrast and visual impact."
             icon="contrast"
           />
-          
+
           <HarmonyGuideSection
             title="Triadic"
             description="Three evenly spaced colors on the color wheel. Creates balanced and vibrant schemes."
             icon="triangle"
           />
-          
+
           <HarmonyGuideSection
             title="Analogous"
             description="Colors that are next to each other on the color wheel. Creates harmonious and serene schemes."
             icon="arrow-forward"
           />
-          
+
           <HarmonyGuideSection
             title="Monochromatic"
             description="Different shades and tints of the same color. Creates sophisticated and cohesive schemes."
@@ -741,7 +741,7 @@ interface HarmonyGuideSectionProps {
 const HarmonyGuideSection: React.FC<HarmonyGuideSectionProps> = ({
   title,
   description,
-  icon,
+  icon
 }) => {
   return (
     <View style={styles.harmonyGuideSection}>
@@ -749,7 +749,7 @@ const HarmonyGuideSection: React.FC<HarmonyGuideSectionProps> = ({
         <Ionicons name={icon as any} size={20} color="#007AFF" />
         <Text style={styles.harmonyGuideTitle}>{title}</Text>
       </View>
-      
+
       <Text style={styles.harmonyGuideDescription}>{description}</Text>
     </View>
   );
@@ -769,20 +769,20 @@ const ColorValidationGuideModal: React.FC<ColorValidationGuideModalProps> = ({ o
             <Ionicons name="close" size={24} color="#333" />
           </TouchableOpacity>
         </View>
-        
+
         <ScrollView style={styles.modalBody}>
           <ValidationGuideSection
             title="Contrast Ratio"
             description="Ensure 4.5:1 contrast ratio for normal text and 3:1 for large text to meet WCAG 2.1 standards."
             icon="eye"
           />
-          
+
           <ValidationGuideSection
             title="Color Harmony"
             description="Colors should follow the selected harmony type to create visually pleasing combinations."
             icon="color-palette"
           />
-          
+
           <ValidationGuideSection
             title="Saturation Balance"
             description="Avoid overly saturated colors that can be overwhelming and unprofessional."
@@ -803,7 +803,7 @@ interface ValidationGuideSectionProps {
 const ValidationGuideSection: React.FC<ValidationGuideSectionProps> = ({
   title,
   description,
-  icon,
+  icon
 }) => {
   return (
     <View style={styles.validationGuideSection}>
@@ -811,7 +811,7 @@ const ValidationGuideSection: React.FC<ValidationGuideSectionProps> = ({
         <Ionicons name={icon as any} size={20} color="#007AFF" />
         <Text style={styles.validationGuideTitle}>{title}</Text>
       </View>
-      
+
       <Text style={styles.validationGuideDescription}>{description}</Text>
     </View>
   );
@@ -820,447 +820,447 @@ const ValidationGuideSection: React.FC<ValidationGuideSectionProps> = ({
 // MARK: - Styles
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F8F9FA',
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingTop: 60,
-    paddingBottom: 16,
-    backgroundColor: '#FFFFFF',
-    borderBottomWidth: 1,
-    borderBottomColor: '#E5E5E5',
-  },
-  headerTitle: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#333',
-  },
   applyButton: {
     backgroundColor: '#007AFF',
-    paddingHorizontal: 20,
-    paddingVertical: 8,
     borderRadius: 8,
+    paddingHorizontal: 20,
+    paddingVertical: 8
   },
   applyButtonText: {
     color: '#FFFFFF',
     fontSize: 16,
-    fontWeight: '600',
-  },
-  tabSelector: {
-    flexDirection: 'row',
-    backgroundColor: '#FFFFFF',
-    paddingHorizontal: 20,
-    paddingTop: 8,
-  },
-  tabButton: {
-    flex: 1,
-    alignItems: 'center',
-    paddingVertical: 12,
-  },
-  tabButtonActive: {
-    borderBottomWidth: 2,
-    borderBottomColor: '#007AFF',
-  },
-  tabButtonText: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#666',
-  },
-  tabButtonTextActive: {
-    color: '#007AFF',
-  },
-  tabIndicator: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    height: 2,
-    backgroundColor: '#007AFF',
-  },
-  content: {
-    flex: 1,
-  },
-  tabContent: {
-    padding: 20,
-  },
-  section: {
-    marginBottom: 24,
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 16,
-  },
-  colorWheelContainer: {
-    alignItems: 'center',
+    fontWeight: '600'
   },
   colorInfoContainer: {
+    backgroundColor: '#F0F0F0',
+    borderRadius: 12,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: '#F0F0F0',
-    padding: 16,
-    borderRadius: 12,
     marginTop: 16,
+    padding: 16
   },
   colorInfoItem: {
-    alignItems: 'center',
+    alignItems: 'center'
   },
   colorInfoLabel: {
-    fontSize: 12,
     color: '#666',
-    marginBottom: 4,
+    fontSize: 12,
+    marginBottom: 4
   },
   colorInfoValue: {
-    fontSize: 14,
-    fontWeight: '600',
     color: '#333',
+    fontSize: 14,
+    fontWeight: '600'
   },
-  palettePreview: {
-    backgroundColor: '#F0F0F0',
-    padding: 16,
-    borderRadius: 12,
+  colorSwatch: {
+    alignItems: 'center',
+    flex: 1,
+    minWidth: 60
+  },
+  colorSwatchBox: {
+    borderColor: '#E0E0E0',
+    borderRadius: 8,
+    borderWidth: 1,
+    height: 40,
+    marginBottom: 8,
+    width: 40
+  },
+  colorSwatchLabel: {
+    color: '#666',
+    fontSize: 12,
+    fontWeight: '500'
   },
   colorSwatches: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 12,
-    marginBottom: 16,
+    marginBottom: 16
   },
-  colorSwatch: {
-    alignItems: 'center',
-    flex: 1,
-    minWidth: 60,
+  colorWheelContainer: {
+    alignItems: 'center'
   },
-  colorSwatchBox: {
-    width: 40,
-    height: 40,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#E0E0E0',
-    marginBottom: 8,
+  container: {
+    backgroundColor: '#F8F9FA',
+    flex: 1
   },
-  colorSwatchLabel: {
-    fontSize: 12,
-    fontWeight: '500',
-    color: '#666',
+  content: {
+    flex: 1
   },
-  paletteInfo: {
-    gap: 4,
+  guidanceContainer: {
+    backgroundColor: '#F0F0F0',
+    borderRadius: 12,
+    padding: 16
   },
-  paletteName: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  paletteDescription: {
-    fontSize: 14,
-    color: '#666',
-  },
-  harmonyTypeInfo: {
+  guidanceTip: {
+    alignItems: 'flex-start',
     flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
+    marginBottom: 12
   },
-  harmonyTypeText: {
-    fontSize: 12,
-    fontWeight: '500',
+  guidanceTipContent: {
+    flex: 1,
+    marginLeft: 12
+  },
+  guidanceTipDescription: {
     color: '#666',
+    fontSize: 12
+  },
+  guidanceTipTitle: {
+    color: '#333',
+    fontSize: 14,
+    fontWeight: '600',
+    marginBottom: 2
+  },
+  harmonyCard: {
+    alignItems: 'center',
+    backgroundColor: '#F0F0F0',
+    borderRadius: 12,
+    padding: 16,
+    width: (screenWidth - 52) / 2
+  },
+  harmonyCardActive: {
+    backgroundColor: '#007AFF'
+  },
+  harmonyCardDescription: {
+    color: '#666',
+    fontSize: 12,
+    marginTop: 4,
+    textAlign: 'center'
+  },
+  harmonyCardDescriptionActive: {
+    color: '#FFFFFF',
+    opacity: 0.8
+  },
+  harmonyCardTitle: {
+    color: '#333',
+    fontSize: 14,
+    fontWeight: '600',
+    marginTop: 8,
+    textAlign: 'center'
+  },
+  harmonyCardTitleActive: {
+    color: '#FFFFFF'
   },
   harmonyGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 12,
+    gap: 12
   },
-  harmonyCard: {
-    backgroundColor: '#F0F0F0',
-    padding: 16,
-    borderRadius: 12,
-    alignItems: 'center',
-    width: (screenWidth - 52) / 2,
-  },
-  harmonyCardActive: {
-    backgroundColor: '#007AFF',
-  },
-  harmonyCardTitle: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#333',
-    marginTop: 8,
-    textAlign: 'center',
-  },
-  harmonyCardTitleActive: {
-    color: '#FFFFFF',
-  },
-  harmonyCardDescription: {
-    fontSize: 12,
+  harmonyGuideDescription: {
     color: '#666',
-    marginTop: 4,
-    textAlign: 'center',
-  },
-  harmonyCardDescriptionActive: {
-    color: '#FFFFFF',
-    opacity: 0.8,
-  },
-  guidanceContainer: {
-    backgroundColor: '#F0F0F0',
-    padding: 16,
-    borderRadius: 12,
-  },
-  guidanceTip: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    marginBottom: 12,
-  },
-  guidanceTipContent: {
-    marginLeft: 12,
-    flex: 1,
-  },
-  guidanceTipTitle: {
     fontSize: 14,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 2,
+    lineHeight: 20
   },
-  guidanceTipDescription: {
-    fontSize: 12,
-    color: '#666',
-  },
-  predefinedPalettesList: {
-    gap: 16,
-  },
-  predefinedPaletteCard: {
-    backgroundColor: '#F0F0F0',
-    padding: 16,
-    borderRadius: 12,
-  },
-  predefinedPaletteCardActive: {
-    backgroundColor: '#E3F2FD',
-    borderWidth: 2,
-    borderColor: '#007AFF',
-  },
-  predefinedPaletteSwatches: {
-    flexDirection: 'row',
-    gap: 8,
-    marginBottom: 12,
-  },
-  predefinedPaletteSwatch: {
-    width: 32,
-    height: 32,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: '#E0E0E0',
-  },
-  predefinedPaletteInfo: {
-    gap: 4,
-  },
-  predefinedPaletteHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  harmonyGuideHeader: {
     alignItems: 'center',
+    flexDirection: 'row',
+    marginBottom: 8
   },
-  predefinedPaletteName: {
+  harmonyGuideSection: {
+    marginBottom: 20
+  },
+  harmonyGuideTitle: {
+    color: '#333',
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#333',
-  },
-  predefinedPaletteDescription: {
-    fontSize: 14,
-    color: '#666',
-  },
-  predefinedPaletteHarmony: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-  },
-  predefinedPaletteHarmonyText: {
-    fontSize: 12,
-    fontWeight: '500',
-    color: '#666',
-  },
-  harmonyTypesList: {
-    gap: 12,
+    marginLeft: 8
   },
   harmonyTypeDetailCard: {
-    flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#F0F0F0',
-    padding: 16,
     borderRadius: 12,
+    flexDirection: 'row',
+    padding: 16
   },
   harmonyTypeDetailCardActive: {
     backgroundColor: '#E3F2FD',
-    borderWidth: 2,
     borderColor: '#007AFF',
+    borderWidth: 2
   },
   harmonyTypeDetailContent: {
     flex: 1,
-    marginLeft: 16,
-  },
-  harmonyTypeDetailTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 4,
+    marginLeft: 16
   },
   harmonyTypeDetailDescription: {
-    fontSize: 14,
     color: '#666',
+    fontSize: 14
   },
-  validationScoreCard: {
-    backgroundColor: '#F0F0F0',
-    padding: 24,
-    borderRadius: 12,
-    alignItems: 'center',
-    marginBottom: 24,
-  },
-  validationScoreTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
+  harmonyTypeDetailTitle: {
     color: '#333',
-    marginBottom: 16,
-  },
-  validationScoreCircle: {
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  validationScoreValue: {
-    fontSize: 48,
+    fontSize: 16,
     fontWeight: 'bold',
+    marginBottom: 4
   },
-  validationScoreMax: {
-    fontSize: 16,
-    color: '#666',
-  },
-  validationScoreDescription: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  validationDetailsContainer: {
-    backgroundColor: '#F0F0F0',
-    padding: 16,
-    borderRadius: 12,
-  },
-  validationDetailRow: {
+  harmonyTypeInfo: {
+    alignItems: 'center',
     flexDirection: 'row',
-    alignItems: 'flex-start',
-    marginBottom: 12,
+    gap: 4
   },
-  validationDetailContent: {
-    marginLeft: 12,
-    flex: 1,
-  },
-  validationDetailTitle: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 2,
-  },
-  validationDetailDescription: {
+  harmonyTypeText: {
+    color: '#666',
     fontSize: 12,
-    color: '#666',
+    fontWeight: '500'
   },
-  recommendationSuccess: {
-    backgroundColor: '#D4EDDA',
-    padding: 16,
-    borderRadius: 12,
+  harmonyTypesList: {
+    gap: 12
   },
-  recommendationSuccessText: {
-    fontSize: 14,
-    color: '#155724',
-    textAlign: 'center',
-  },
-  recommendationWarning: {
-    backgroundColor: '#FFF3CD',
-    padding: 16,
-    borderRadius: 12,
-  },
-  recommendationItem: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    marginBottom: 8,
-  },
-  recommendationText: {
-    fontSize: 14,
-    color: '#856404',
-    marginLeft: 8,
-    flex: 1,
-  },
-  modalOverlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'center',
+  header: {
     alignItems: 'center',
-    zIndex: 1000,
+    backgroundColor: '#FFFFFF',
+    borderBottomColor: '#E5E5E5',
+    borderBottomWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingBottom: 16,
+    paddingHorizontal: 20,
+    paddingTop: 60
+  },
+  headerTitle: {
+    color: '#333',
+    fontSize: 28,
+    fontWeight: 'bold'
+  },
+  modalBody: {
+    padding: 20
   },
   modalContent: {
     backgroundColor: '#FFFFFF',
     borderRadius: 16,
-    width: screenWidth - 40,
     maxHeight: '80%',
+    width: screenWidth - 40
   },
   modalHeader: {
+    alignItems: 'center',
+    borderBottomColor: '#E5E5E5',
+    borderBottomWidth: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    padding: 20
+  },
+  modalOverlay: {
     alignItems: 'center',
-    padding: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: '#E5E5E5',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    bottom: 0,
+    justifyContent: 'center',
+    left: 0,
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    zIndex: 1000
   },
   modalTitle: {
+    color: '#333',
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+  paletteDescription: {
+    color: '#666',
+    fontSize: 14
+  },
+  paletteInfo: {
+    gap: 4
+  },
+  paletteName: {
+    color: '#333',
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
+  palettePreview: {
+    backgroundColor: '#F0F0F0',
+    borderRadius: 12,
+    padding: 16
+  },
+  predefinedPaletteCard: {
+    backgroundColor: '#F0F0F0',
+    borderRadius: 12,
+    padding: 16
+  },
+  predefinedPaletteCardActive: {
+    backgroundColor: '#E3F2FD',
+    borderColor: '#007AFF',
+    borderWidth: 2
+  },
+  predefinedPaletteDescription: {
+    color: '#666',
+    fontSize: 14
+  },
+  predefinedPaletteHarmony: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 4
+  },
+  predefinedPaletteHarmonyText: {
+    color: '#666',
+    fontSize: 12,
+    fontWeight: '500'
+  },
+  predefinedPaletteHeader: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  predefinedPaletteInfo: {
+    gap: 4
+  },
+  predefinedPaletteName: {
+    color: '#333',
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
+  predefinedPaletteSwatch: {
+    borderColor: '#E0E0E0',
+    borderRadius: 6,
+    borderWidth: 1,
+    height: 32,
+    width: 32
+  },
+  predefinedPaletteSwatches: {
+    flexDirection: 'row',
+    gap: 8,
+    marginBottom: 12
+  },
+  predefinedPalettesList: {
+    gap: 16
+  },
+  recommendationItem: {
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    marginBottom: 8
+  },
+  recommendationSuccess: {
+    backgroundColor: '#D4EDDA',
+    borderRadius: 12,
+    padding: 16
+  },
+  recommendationSuccessText: {
+    color: '#155724',
+    fontSize: 14,
+    textAlign: 'center'
+  },
+  recommendationText: {
+    color: '#856404',
+    flex: 1,
+    fontSize: 14,
+    marginLeft: 8
+  },
+  recommendationWarning: {
+    backgroundColor: '#FFF3CD',
+    borderRadius: 12,
+    padding: 16
+  },
+  section: {
+    marginBottom: 24
+  },
+  sectionTitle: {
+    color: '#333',
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#333',
+    marginBottom: 16
   },
-  modalBody: {
-    padding: 20,
-  },
-  harmonyGuideSection: {
-    marginBottom: 20,
-  },
-  harmonyGuideHeader: {
-    flexDirection: 'row',
+  tabButton: {
     alignItems: 'center',
-    marginBottom: 8,
+    flex: 1,
+    paddingVertical: 12
   },
-  harmonyGuideTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-    marginLeft: 8,
+  tabButtonActive: {
+    borderBottomColor: '#007AFF',
+    borderBottomWidth: 2
   },
-  harmonyGuideDescription: {
-    fontSize: 14,
+  tabButtonText: {
     color: '#666',
-    lineHeight: 20,
+    fontSize: 14,
+    fontWeight: '500'
   },
-  validationGuideSection: {
-    marginBottom: 20,
+  tabButtonTextActive: {
+    color: '#007AFF'
   },
-  validationGuideHeader: {
+  tabContent: {
+    padding: 20
+  },
+  tabIndicator: {
+    backgroundColor: '#007AFF',
+    bottom: 0,
+    height: 2,
+    position: 'absolute',
+    width: '100%'
+  },
+  tabSelector: {
+    backgroundColor: '#FFFFFF',
     flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 8,
+    paddingHorizontal: 20,
+    paddingTop: 8
   },
-  validationGuideTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
+  validationDetailContent: {
+    flex: 1,
+    marginLeft: 12
+  },
+  validationDetailDescription: {
+    color: '#666',
+    fontSize: 12
+  },
+  validationDetailRow: {
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    marginBottom: 12
+  },
+  validationDetailTitle: {
     color: '#333',
-    marginLeft: 8,
+    fontSize: 14,
+    fontWeight: '600',
+    marginBottom: 2
+  },
+  validationDetailsContainer: {
+    backgroundColor: '#F0F0F0',
+    borderRadius: 12,
+    padding: 16
   },
   validationGuideDescription: {
-    fontSize: 14,
     color: '#666',
-    lineHeight: 20,
+    fontSize: 14,
+    lineHeight: 20
   },
+  validationGuideHeader: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginBottom: 8
+  },
+  validationGuideSection: {
+    marginBottom: 20
+  },
+  validationGuideTitle: {
+    color: '#333',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginLeft: 8
+  },
+  validationScoreCard: {
+    alignItems: 'center',
+    backgroundColor: '#F0F0F0',
+    borderRadius: 12,
+    marginBottom: 24,
+    padding: 24
+  },
+  validationScoreCircle: {
+    alignItems: 'center',
+    marginBottom: 16
+  },
+  validationScoreDescription: {
+    fontSize: 16,
+    fontWeight: '600'
+  },
+  validationScoreMax: {
+    color: '#666',
+    fontSize: 16
+  },
+  validationScoreTitle: {
+    color: '#333',
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 16
+  },
+  validationScoreValue: {
+    fontSize: 48,
+    fontWeight: 'bold'
+  }
 });
 
-export default ColorPaletteSelectionScreen; 
+export default ColorPaletteSelectionScreen;

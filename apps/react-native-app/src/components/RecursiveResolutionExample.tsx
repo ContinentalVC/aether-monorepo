@@ -1,6 +1,6 @@
 /**
  * Recursive Resolution Example
- * 
+ *
  * Comprehensive example demonstrating recursive resolution for theme inheritance
  * with lightweight variant themes and cycle detection.
  */
@@ -14,7 +14,7 @@ import {
   StyleSheet,
   Alert,
   Modal,
-  SafeAreaView,
+  SafeAreaView
 } from 'react-native';
 import {
   AdvancedThemeManager,
@@ -23,7 +23,7 @@ import {
   ThemeKey,
   ThemeKeyCategory,
   ResolutionStep,
-  ComponentCoverage,
+  ComponentCoverage
 } from '../theme/AdvancedThemeArchitecture';
 
 // MARK: - Main Example Component
@@ -138,7 +138,7 @@ interface ThemeSelectionSectionProps {
 const ThemeSelectionSection: React.FC<ThemeSelectionSectionProps> = ({
   themeManager,
   selectedThemeName,
-  onThemeSelect,
+  onThemeSelect
 }) => (
   <View style={styles.section}>
     <Text style={styles.sectionTitle}>Theme Selection (Base + Variants)</Text>
@@ -157,9 +157,9 @@ const ThemeSelectionSection: React.FC<ThemeSelectionSectionProps> = ({
 );
 
 const isVariantTheme = (name: string): boolean => {
-  return name.includes('High Contrast') || 
-         name.includes('Large Text') || 
-         name.includes('Compact') || 
+  return name.includes('High Contrast') ||
+         name.includes('Large Text') ||
+         name.includes('Compact') ||
          name.includes('Reduced Motion');
 };
 
@@ -181,11 +181,11 @@ const ThemeCard: React.FC<ThemeCardProps> = ({ name, isSelected, isVariant, onPr
         <Text style={styles.variantIcon}>🔄</Text>
       )}
     </View>
-    
+
     <Text style={[styles.themeName, isSelected && styles.themeNameSelected]}>
       {name}
     </Text>
-    
+
     {isVariant && (
       <View style={styles.variantBadge}>
         <Text style={styles.variantText}>Variant</Text>
@@ -222,7 +222,7 @@ const RecursiveResolutionSection: React.FC<RecursiveResolutionSectionProps> = ({
   theme,
   selectedKey,
   onKeySelect,
-  onShowResolutionPath,
+  onShowResolutionPath
 }) => (
   <View style={styles.section}>
     <Text style={styles.sectionTitle}>Recursive Resolution Demo</Text>
@@ -244,10 +244,10 @@ const RecursiveResolutionSection: React.FC<RecursiveResolutionSectionProps> = ({
           <Text style={styles.keyPickerArrow}>▼</Text>
         </TouchableOpacity>
       </View>
-      
+
       {/* Resolution Result */}
       <ResolutionResultView theme={theme} key={selectedKey} />
-      
+
       {/* Resolution Path Button */}
       <TouchableOpacity style={styles.resolutionButton} onPress={onShowResolutionPath}>
         <Text style={styles.resolutionButtonText}>Show Resolution Path</Text>
@@ -263,14 +263,14 @@ interface ResolutionResultViewProps {
 
 const ResolutionResultView: React.FC<ResolutionResultViewProps> = ({ theme, key }) => {
   const value = theme.resolveValue(key);
-  
+
   return (
     <View style={styles.resolutionResult}>
       <View style={styles.resolutionHeader}>
         <Text style={styles.resolutionTitle}>Resolution Result:</Text>
         <Text style={styles.resolutionKey}>{key}</Text>
       </View>
-      
+
       {value !== undefined ? (
         <View style={styles.resolutionFound}>
           <Text style={styles.resolutionIcon}>✅</Text>
@@ -298,21 +298,21 @@ const LightweightVariantSection: React.FC = () => (
         componentCount={1}
         inheritanceDepth={1}
       />
-      
+
       <VariantExampleCard
         title="Large Text Theme"
         description="Only overrides typography, inherits colors and layout from Light theme"
         componentCount={1}
         inheritanceDepth={1}
       />
-      
+
       <VariantExampleCard
         title="Compact Layout Theme"
         description="Only overrides layout metrics, inherits colors and typography from Light theme"
         componentCount={1}
         inheritanceDepth={1}
       />
-      
+
       <VariantExampleCard
         title="Reduced Motion Theme"
         description="Overrides animation and accessibility, inherits everything else from Light theme"
@@ -334,22 +334,22 @@ const VariantExampleCard: React.FC<VariantExampleCardProps> = ({
   title,
   description,
   componentCount,
-  inheritanceDepth,
+  inheritanceDepth
 }) => (
   <View style={styles.variantCard}>
     <View style={styles.variantCardHeader}>
       <Text style={styles.variantCardTitle}>{title}</Text>
       <Text style={styles.variantCardCount}>{componentCount} component{componentCount === 1 ? '' : 's'}</Text>
     </View>
-    
+
     <Text style={styles.variantCardDescription}>{description}</Text>
-    
+
     <View style={styles.variantCardFooter}>
       <View style={styles.variantCardMetric}>
         <Text style={styles.variantCardMetricIcon}>🔄</Text>
         <Text style={styles.variantCardMetricText}>Depth: {inheritanceDepth}</Text>
       </View>
-      
+
       <View style={styles.variantCardMetric}>
         <Text style={styles.variantCardMetricIcon}>📦</Text>
         <Text style={styles.variantCardMetricText}>Lightweight</Text>
@@ -369,7 +369,7 @@ interface DebugToolsSectionProps {
 const DebugToolsSection: React.FC<DebugToolsSectionProps> = ({
   onShowInheritanceChain,
   onShowCoverageAnalysis,
-  onTestCycleDetection,
+  onTestCycleDetection
 }) => (
   <View style={styles.section}>
     <Text style={styles.sectionTitle}>Debug Tools</Text>
@@ -380,14 +380,14 @@ const DebugToolsSection: React.FC<DebugToolsSectionProps> = ({
         icon="🔄"
         onPress={onShowInheritanceChain}
       />
-      
+
       <DebugButton
         title="Coverage Analysis"
         subtitle="Analyze component coverage and statistics"
         icon="📊"
         onPress={onShowCoverageAnalysis}
       />
-      
+
       <DebugButton
         title="Cycle Detection Test"
         subtitle="Test cycle detection in inheritance chains"
@@ -427,13 +427,13 @@ const PerformanceAnalysisSection: React.FC = () => (
         value="O(n) where n = inheritance depth"
         description="Linear time complexity with cycle detection"
       />
-      
+
       <PerformanceMetricCard
         title="Memory Usage"
         value="Minimal overhead"
         description="Weak references prevent retain cycles"
       />
-      
+
       <PerformanceMetricCard
         title="Redundancy Reduction"
         value="90%+ reduction"
@@ -452,7 +452,7 @@ interface PerformanceMetricCardProps {
 const PerformanceMetricCard: React.FC<PerformanceMetricCardProps> = ({
   title,
   value,
-  description,
+  description
 }) => (
   <View style={styles.performanceCard}>
     <Text style={styles.performanceCardTitle}>{title}</Text>
@@ -474,10 +474,10 @@ const ResolutionPathModal: React.FC<ResolutionPathModalProps> = ({
   visible,
   theme,
   key,
-  onClose,
+  onClose
 }) => {
   const resolutionPath = theme.getResolutionPath(key);
-  
+
   return (
     <Modal visible={visible} animationType="slide" presentationStyle="pageSheet">
       <SafeAreaView style={styles.modalContainer}>
@@ -494,7 +494,7 @@ const ResolutionPathModal: React.FC<ResolutionPathModalProps> = ({
               <ResolutionStepRow key={index} step={step} />
             ))}
           </View>
-          
+
           <View style={styles.modalSection}>
             <Text style={styles.modalSectionTitle}>Summary</Text>
             <View style={styles.summaryRow}>
@@ -543,10 +543,10 @@ interface InheritanceChainModalProps {
 const InheritanceChainModal: React.FC<InheritanceChainModalProps> = ({
   visible,
   theme,
-  onClose,
+  onClose
 }) => {
   const inheritanceChain = theme.getInheritanceChain();
-  
+
   return (
     <Modal visible={visible} animationType="slide" presentationStyle="pageSheet">
       <SafeAreaView style={styles.modalContainer}>
@@ -568,7 +568,7 @@ const InheritanceChainModal: React.FC<InheritanceChainModalProps> = ({
               />
             ))}
           </View>
-          
+
           <View style={styles.modalSection}>
             <Text style={styles.modalSectionTitle}>Chain Statistics</Text>
             <View style={styles.summaryRow}>
@@ -595,7 +595,7 @@ interface InheritanceChainRowProps {
 const InheritanceChainRow: React.FC<InheritanceChainRowProps> = ({
   theme,
   level,
-  isCurrent,
+  isCurrent
 }) => (
   <View style={styles.inheritanceChainRow}>
     <Text style={styles.inheritanceChainIndent}>
@@ -630,10 +630,10 @@ interface CoverageAnalysisModalProps {
 const CoverageAnalysisModal: React.FC<CoverageAnalysisModalProps> = ({
   visible,
   theme,
-  onClose,
+  onClose
 }) => {
   const coverage = theme.getComponentCoverage();
-  
+
   return (
     <Modal visible={visible} animationType="slide" presentationStyle="pageSheet">
       <SafeAreaView style={styles.modalContainer}>
@@ -663,7 +663,7 @@ const CoverageAnalysisModal: React.FC<CoverageAnalysisModalProps> = ({
               <Text style={styles.summaryValue}>{coverage.inheritanceDepth}</Text>
             </View>
           </View>
-          
+
           <View style={styles.modalSection}>
             <Text style={styles.modalSectionTitle}>Coverage by Category</Text>
             {Object.values(ThemeKeyCategory).map((category) => (
@@ -688,13 +688,13 @@ const testCycleDetection = () => {
   const theme1 = ThemeFactory.createDefaultLightTheme();
   const theme2 = theme1.createChildTheme();
   const theme3 = theme2.createChildTheme();
-  
+
   // Create a cycle (this should be detected)
   theme1.setParentTheme(theme3);
-  
+
   // This should trigger cycle detection warnings
   const _ = theme1.resolveValue(ThemeKey.PRIMARY_COLOR);
-  
+
   Alert.alert(
     'Cycle Detection Test',
     'Cycle detection test completed - check console for warnings',
@@ -706,423 +706,423 @@ const testCycleDetection = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#F2F2F7',
+    flex: 1
   },
   scrollView: {
-    flex: 1,
+    flex: 1
   },
   content: {
-    padding: 16,
+    padding: 16
   },
-  
+
   // Header Section
   headerSection: {
     backgroundColor: '#FFFFFF',
-    padding: 16,
     borderRadius: 12,
     marginBottom: 24,
+    padding: 16
   },
   headerTitle: {
+    color: '#000000',
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#000000',
-    marginBottom: 8,
+    marginBottom: 8
   },
   headerSubtitle: {
-    fontSize: 16,
     color: '#666666',
-    marginBottom: 16,
+    fontSize: 16,
+    marginBottom: 16
   },
   headerFeatures: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   featureItem: {
-    alignItems: 'center',
+    alignItems: 'center'
   },
   featureIcon: {
     fontSize: 20,
-    marginBottom: 4,
+    marginBottom: 4
   },
   featureText: {
-    fontSize: 12,
     color: '#666666',
+    fontSize: 12
   },
-  
+
   // Section
   section: {
-    marginBottom: 24,
+    marginBottom: 24
   },
   sectionTitle: {
+    color: '#000000',
     fontSize: 20,
     fontWeight: '600',
-    color: '#000000',
-    marginBottom: 16,
+    marginBottom: 16
   },
-  
+
   // Theme Selection
   themeGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 12,
+    gap: 12
   },
   themeCard: {
-    backgroundColor: '#FFFFFF',
-    padding: 16,
-    borderRadius: 12,
     alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
     flex: 1,
     minWidth: 80,
+    padding: 16
   },
   themeCardSelected: {
     backgroundColor: '#E3F2FD',
-    borderWidth: 2,
     borderColor: '#2196F3',
+    borderWidth: 2
   },
   themeCardHeader: {
-    flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 8,
+    flexDirection: 'row',
+    marginBottom: 8
   },
   themeIcon: {
-    width: 40,
-    height: 40,
     borderRadius: 20,
+    height: 40,
+    width: 40
   },
   variantIcon: {
     fontSize: 16,
-    marginLeft: 8,
+    marginLeft: 8
   },
   themeName: {
+    color: '#000000',
     fontSize: 14,
     fontWeight: '500',
-    color: '#000000',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   themeNameSelected: {
-    color: '#2196F3',
+    color: '#2196F3'
   },
   variantBadge: {
     backgroundColor: '#E3F2FD',
-    paddingHorizontal: 8,
-    paddingVertical: 2,
     borderRadius: 4,
     marginTop: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 2
   },
   variantText: {
-    fontSize: 12,
     color: '#2196F3',
-    fontWeight: '500',
+    fontSize: 12,
+    fontWeight: '500'
   },
-  
+
   // Resolution Section
   resolutionContainer: {
-    gap: 16,
+    gap: 16
   },
   keySelection: {
-    flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    flexDirection: 'row',
+    gap: 12
   },
   keyLabel: {
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: '500'
   },
   keyPicker: {
-    flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#FFFFFF',
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    borderColor: '#E5E5EA',
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#E5E5EA',
+    flexDirection: 'row',
+    paddingHorizontal: 12,
+    paddingVertical: 8
   },
   keyPickerText: {
-    fontSize: 16,
     color: '#000000',
-    marginRight: 8,
+    fontSize: 16,
+    marginRight: 8
   },
   keyPickerArrow: {
-    fontSize: 12,
     color: '#666666',
+    fontSize: 12
   },
   resolutionResult: {
     backgroundColor: '#FFFFFF',
-    padding: 16,
     borderRadius: 8,
+    padding: 16
   },
   resolutionHeader: {
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: 8
   },
   resolutionTitle: {
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: '500'
   },
   resolutionKey: {
-    fontSize: 14,
     color: '#666666',
+    fontSize: 14
   },
   resolutionFound: {
-    flexDirection: 'row',
     alignItems: 'center',
+    flexDirection: 'row'
   },
   resolutionNotFound: {
-    flexDirection: 'row',
     alignItems: 'center',
+    flexDirection: 'row'
   },
   resolutionIcon: {
     fontSize: 16,
-    marginRight: 8,
+    marginRight: 8
   },
   resolutionText: {
-    fontSize: 16,
     color: '#000000',
+    fontSize: 16
   },
   resolutionButton: {
-    backgroundColor: '#007AFF',
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 8,
     alignItems: 'center',
+    backgroundColor: '#007AFF',
+    borderRadius: 8,
+    paddingHorizontal: 20,
+    paddingVertical: 12
   },
   resolutionButtonText: {
     color: '#FFFFFF',
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: '500'
   },
-  
+
   // Variant Section
   variantContainer: {
-    gap: 12,
+    gap: 12
   },
   variantCard: {
     backgroundColor: '#FFFFFF',
-    padding: 16,
     borderRadius: 8,
+    elevation: 2,
+    padding: 16,
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
+    shadowRadius: 2
   },
   variantCardHeader: {
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: 8
   },
   variantCardTitle: {
-    fontSize: 16,
-    fontWeight: '500',
     color: '#000000',
+    fontSize: 16,
+    fontWeight: '500'
   },
   variantCardCount: {
-    fontSize: 14,
     color: '#666666',
+    fontSize: 14
   },
   variantCardDescription: {
-    fontSize: 14,
     color: '#666666',
-    marginBottom: 12,
+    fontSize: 14,
+    marginBottom: 12
   },
   variantCardFooter: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   variantCardMetric: {
-    flexDirection: 'row',
     alignItems: 'center',
+    flexDirection: 'row'
   },
   variantCardMetricIcon: {
     fontSize: 14,
-    marginRight: 4,
+    marginRight: 4
   },
   variantCardMetricText: {
-    fontSize: 12,
     color: '#007AFF',
+    fontSize: 12
   },
-  
+
   // Debug Tools
   debugContainer: {
-    gap: 12,
+    gap: 12
   },
   debugButton: {
+    alignItems: 'center',
     backgroundColor: '#FFFFFF',
-    padding: 16,
     borderRadius: 12,
     flexDirection: 'row',
-    alignItems: 'center',
+    padding: 16
   },
   debugButtonIcon: {
     fontSize: 24,
-    marginRight: 16,
+    marginRight: 16
   },
   debugButtonContent: {
-    flex: 1,
+    flex: 1
   },
   debugButtonTitle: {
-    fontSize: 16,
-    fontWeight: '500',
     color: '#000000',
+    fontSize: 16,
+    fontWeight: '500'
   },
   debugButtonSubtitle: {
-    fontSize: 14,
     color: '#666666',
-    marginTop: 2,
+    fontSize: 14,
+    marginTop: 2
   },
   debugButtonArrow: {
-    fontSize: 18,
     color: '#666666',
+    fontSize: 18
   },
-  
+
   // Performance Analysis
   performanceContainer: {
-    gap: 12,
+    gap: 12
   },
   performanceCard: {
     backgroundColor: '#FFFFFF',
-    padding: 16,
     borderRadius: 8,
+    elevation: 2,
+    padding: 16,
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
+    shadowRadius: 2
   },
   performanceCardTitle: {
+    color: '#000000',
     fontSize: 16,
     fontWeight: '500',
-    color: '#000000',
-    marginBottom: 8,
+    marginBottom: 8
   },
   performanceCardValue: {
+    color: '#007AFF',
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#007AFF',
-    marginBottom: 4,
+    marginBottom: 4
   },
   performanceCardDescription: {
-    fontSize: 14,
     color: '#666666',
+    fontSize: 14
   },
-  
+
   // Modal
   modalContainer: {
-    flex: 1,
     backgroundColor: '#F2F2F7',
+    flex: 1
   },
   modalHeader: {
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    borderBottomColor: '#E5E5EA',
+    borderBottomWidth: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 16,
-    backgroundColor: '#FFFFFF',
-    borderBottomWidth: 1,
-    borderBottomColor: '#E5E5EA',
+    padding: 16
   },
   modalTitle: {
-    fontSize: 20,
-    fontWeight: '600',
     color: '#000000',
+    fontSize: 20,
+    fontWeight: '600'
   },
   modalCloseButton: {
-    fontSize: 16,
     color: '#007AFF',
+    fontSize: 16
   },
   modalContent: {
     flex: 1,
-    padding: 16,
+    padding: 16
   },
   modalSection: {
-    marginBottom: 24,
+    marginBottom: 24
   },
   modalSectionTitle: {
+    color: '#000000',
     fontSize: 18,
     fontWeight: '600',
-    color: '#000000',
-    marginBottom: 12,
+    marginBottom: 12
   },
-  
+
   // Resolution Step
   resolutionStepRow: {
     backgroundColor: '#FFFFFF',
-    padding: 12,
     borderRadius: 8,
     marginBottom: 8,
+    padding: 12
   },
   resolutionStepContent: {
-    gap: 4,
+    gap: 4
   },
   resolutionStepText: {
-    fontSize: 16,
     color: '#000000',
+    fontSize: 16
   },
   resolutionStepValue: {
-    fontSize: 14,
     color: '#666666',
+    fontSize: 14
   },
-  
+
   // Summary
   summaryRow: {
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 8,
+    paddingVertical: 8
   },
   summaryLabel: {
-    fontSize: 16,
     color: '#000000',
+    fontSize: 16
   },
   summaryValue: {
-    fontSize: 16,
-    fontWeight: '500',
     color: '#000000',
+    fontSize: 16,
+    fontWeight: '500'
   },
-  
+
   // Inheritance Chain
   inheritanceChainRow: {
-    flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 8,
+    flexDirection: 'row',
+    paddingVertical: 8
   },
   inheritanceChainIndent: {
-    fontSize: 14,
     color: '#666666',
+    fontSize: 14
   },
   inheritanceChainIcon: {
-    fontSize: 12,
     color: '#666666',
-    marginRight: 8,
+    fontSize: 12,
+    marginRight: 8
   },
   inheritanceChainContent: {
-    flex: 1,
+    flex: 1
   },
   inheritanceChainTitle: {
-    fontSize: 16,
     color: '#000000',
+    fontSize: 16
   },
   inheritanceChainTitleCurrent: {
-    fontWeight: '500',
+    fontWeight: '500'
   },
   inheritanceChainSubtitle: {
-    fontSize: 14,
     color: '#666666',
-    marginTop: 2,
+    fontSize: 14,
+    marginTop: 2
   },
   currentBadge: {
     backgroundColor: '#E3F2FD',
-    paddingHorizontal: 8,
-    paddingVertical: 2,
     borderRadius: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 2
   },
   currentBadgeText: {
-    fontSize: 12,
     color: '#2196F3',
-    fontWeight: '500',
-  },
-}); 
+    fontSize: 12,
+    fontWeight: '500'
+  }
+});

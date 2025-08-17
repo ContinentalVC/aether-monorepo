@@ -1,6 +1,6 @@
 /**
  * Theme Schema Import/Export Example
- * 
+ *
  * Comprehensive example demonstrating import/export functionality
  * with multiple formats, file picker, sharing, and validation.
  */
@@ -15,24 +15,20 @@ import {
   Alert,
   Modal,
   StyleSheet,
-  Dimensions,
-  Share,
+  Dimensions
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from 'expo-file-system';
-import * as Sharing from 'expo-sharing';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   ThemeSchemaImportExport,
   ExportFormat,
-  FormatComparison,
-  ImportExportResult,
+  FormatComparison
 } from '../theme/ThemeSchemaImportExport';
 import { ThemeSchema } from '../theme/ThemeSchema';
 import { useThemeSchema } from '../theme/ThemeSchemaManager';
 
-const { width } = Dimensions.get('window');
+
 
 interface StatCardProps {
   title: string;
@@ -59,7 +55,7 @@ const FormatOption: React.FC<FormatOptionProps> = ({
   format,
   isSelected,
   onSelect,
-  description,
+  description
 }) => (
   <TouchableOpacity
     style={[styles.formatOption, isSelected && styles.formatOptionSelected]}
@@ -107,7 +103,7 @@ const ComparisonCard: React.FC<ComparisonCardProps> = ({ comparison }) => (
 export const ThemeSchemaImportExportExample: React.FC = () => {
   const { schemas, currentSchema, importSchema, exportSchema } = useThemeSchema();
   const importExport = new ThemeSchemaImportExport();
-  
+
   const [selectedFormat, setSelectedFormat] = useState<ExportFormat>(ExportFormat.JSON);
   const [exportFilename, setExportFilename] = useState('');
   const [importJsonText, setImportJsonText] = useState('');
@@ -193,9 +189,9 @@ export const ThemeSchemaImportExportExample: React.FC = () => {
           'application/json',
           'application/x-yaml',
           'application/xml',
-          'text/plain',
+          'text/plain'
         ],
-        copyToCacheDirectory: true,
+        copyToCacheDirectory: true
       });
 
       if (result.canceled || !result.assets || result.assets.length === 0) {
@@ -244,8 +240,8 @@ export const ThemeSchemaImportExportExample: React.FC = () => {
             } catch (error) {
               setLastError(`URL import failed: ${error}`);
             }
-          },
-        },
+          }
+        }
       ],
       'plain-text'
     );
@@ -611,367 +607,367 @@ export const ThemeSchemaImportExportExample: React.FC = () => {
 // MARK: - Styles
 
 const styles = StyleSheet.create({
-  container: {
+  button: {
+    alignItems: 'center',
+    borderRadius: 8,
     flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
-  headerSection: {
-    padding: 20,
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#666',
-    textAlign: 'center',
-    marginBottom: 20,
-  },
-  statsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '100%',
-  },
-  statCard: {
-    alignItems: 'center',
-    padding: 16,
-    backgroundColor: 'white',
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-    minWidth: 80,
-  },
-  statIcon: {
-    fontSize: 24,
-    marginBottom: 4,
-  },
-  statValue: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 2,
-  },
-  statTitle: {
-    fontSize: 12,
-    color: '#666',
-  },
-  section: {
-    padding: 20,
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 12,
-  },
-  schemaCard: {
-    backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  schemaHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 4,
-  },
-  schemaName: {
-    fontSize: 18,
-    fontWeight: '600',
-  },
-  versionBadge: {
-    backgroundColor: '#e0e0e0',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 6,
-  },
-  versionText: {
-    fontSize: 12,
-    fontWeight: '500',
-  },
-  schemaAuthor: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 8,
-  },
-  schemaDescription: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 12,
-  },
-  schemaFooter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  tagsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  tag: {
-    backgroundColor: '#e3f2fd',
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 4,
-    marginRight: 4,
-    marginBottom: 4,
-  },
-  tagText: {
-    fontSize: 12,
-    color: '#1976d2',
-  },
-  exportButton: {
-    backgroundColor: '#1976d2',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 6,
-  },
-  exportButtonText: {
-    color: 'white',
-    fontSize: 12,
-    fontWeight: '500',
-  },
-  exportCard: {
-    backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  importCard: {
-    backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  inputGroup: {
-    marginBottom: 16,
-  },
-  inputLabel: {
-    fontSize: 16,
-    fontWeight: '500',
-    marginBottom: 8,
-  },
-  pickerContainer: {
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 8,
-    overflow: 'hidden',
-  },
-  picker: {
-    height: 50,
-  },
-  textInput: {
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 8,
-    padding: 12,
-    fontSize: 16,
-  },
-  textArea: {
-    height: 120,
-    textAlignVertical: 'top',
-  },
-  helperText: {
-    fontSize: 12,
-    color: '#666',
-    marginTop: 4,
+    minWidth: 100,
+    paddingHorizontal: 16,
+    paddingVertical: 12
   },
   buttonGroup: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 8,
-  },
-  button: {
-    flex: 1,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    alignItems: 'center',
-    minWidth: 100,
-  },
-  primaryButton: {
-    backgroundColor: '#1976d2',
-  },
-  secondaryButton: {
-    backgroundColor: '#f5f5f5',
-    borderWidth: 1,
-    borderColor: '#ddd',
+    gap: 8
   },
   buttonText: {
-    fontSize: 16,
-    fontWeight: '500',
     color: '#1976d2',
-  },
-  comparisonContainer: {
-    flexDirection: 'row',
-    paddingHorizontal: 20,
-  },
-  comparisonCard: {
-    backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 16,
-    marginRight: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-    width: 280,
-  },
-  comparisonTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 12,
-  },
-  comparisonRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 8,
-  },
-  comparisonLabel: {
-    fontSize: 14,
-    color: '#666',
-  },
-  comparisonValue: {
-    fontSize: 14,
-    fontWeight: '500',
-  },
-  comparisonUseCase: {
-    fontSize: 12,
-    color: '#666',
-    marginTop: 8,
-    fontStyle: 'italic',
-  },
-  errorCard: {
-    backgroundColor: '#fff3cd',
-    borderRadius: 12,
-    padding: 16,
-    margin: 20,
-    borderWidth: 1,
-    borderColor: '#ffeaa7',
-  },
-  errorHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  errorIcon: {
     fontSize: 16,
-    marginRight: 8,
-  },
-  errorTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#856404',
-    flex: 1,
-  },
-  dismissText: {
-    fontSize: 14,
-    color: '#1976d2',
-  },
-  errorMessage: {
-    fontSize: 14,
-    color: '#856404',
-  },
-  modalContainer: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
-  modalHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 20,
-    backgroundColor: 'white',
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-  },
-  modalTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  closeButton: {
-    fontSize: 16,
-    color: '#1976d2',
-  },
-  modalContent: {
-    flex: 1,
-    padding: 20,
-  },
-  modalFooter: {
-    padding: 20,
-    backgroundColor: 'white',
-    borderTopWidth: 1,
-    borderTopColor: '#e0e0e0',
-  },
-  formatOption: {
-    backgroundColor: '#f5f5f5',
-    borderRadius: 8,
-    marginBottom: 8,
-  },
-  formatOptionSelected: {
-    backgroundColor: '#e3f2fd',
-    borderColor: '#1976d2',
-    borderWidth: 2,
-  },
-  formatOptionContent: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 16,
-  },
-  formatName: {
-    fontSize: 16,
-    fontWeight: '500',
-    marginBottom: 4,
-  },
-  formatDescription: {
-    fontSize: 14,
-    color: '#666',
-    lineHeight: 20,
+    fontWeight: '500'
   },
   checkbox: {
-    width: 24,
-    height: 24,
+    alignItems: 'center',
+    borderColor: '#ddd',
     borderRadius: 12,
     borderWidth: 2,
-    borderColor: '#ddd',
-    alignItems: 'center',
+    height: 24,
     justifyContent: 'center',
+    width: 24
   },
   checkboxSelected: {
     backgroundColor: '#1976d2',
-    borderColor: '#1976d2',
+    borderColor: '#1976d2'
   },
   checkmark: {
     color: 'white',
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: 'bold'
+  },
+  closeButton: {
+    color: '#1976d2',
+    fontSize: 16
+  },
+  comparisonCard: {
+    backgroundColor: 'white',
+    borderRadius: 12,
+    elevation: 3,
+    marginRight: 16,
+    padding: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    width: 280
+  },
+  comparisonContainer: {
+    flexDirection: 'row',
+    paddingHorizontal: 20
   },
   comparisonIntro: {
-    fontSize: 16,
     color: '#666',
-    textAlign: 'center',
+    fontSize: 16,
     marginBottom: 20,
+    textAlign: 'center'
   },
+  comparisonLabel: {
+    color: '#666',
+    fontSize: 14
+  },
+  comparisonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 8
+  },
+  comparisonTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 12
+  },
+  comparisonUseCase: {
+    color: '#666',
+    fontSize: 12,
+    fontStyle: 'italic',
+    marginTop: 8
+  },
+  comparisonValue: {
+    fontSize: 14,
+    fontWeight: '500'
+  },
+  container: {
+    backgroundColor: '#f5f5f5',
+    flex: 1
+  },
+  dismissText: {
+    color: '#1976d2',
+    fontSize: 14
+  },
+  errorCard: {
+    backgroundColor: '#fff3cd',
+    borderColor: '#ffeaa7',
+    borderRadius: 12,
+    borderWidth: 1,
+    margin: 20,
+    padding: 16
+  },
+  errorHeader: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginBottom: 8
+  },
+  errorIcon: {
+    fontSize: 16,
+    marginRight: 8
+  },
+  errorMessage: {
+    color: '#856404',
+    fontSize: 14
+  },
+  errorTitle: {
+    color: '#856404',
+    flex: 1,
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
+  exportButton: {
+    backgroundColor: '#1976d2',
+    borderRadius: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 6
+  },
+  exportButtonText: {
+    color: 'white',
+    fontSize: 12,
+    fontWeight: '500'
+  },
+  exportCard: {
+    backgroundColor: 'white',
+    borderRadius: 12,
+    elevation: 3,
+    padding: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4
+  },
+  formatDescription: {
+    color: '#666',
+    fontSize: 14,
+    lineHeight: 20
+  },
+  formatName: {
+    fontSize: 16,
+    fontWeight: '500',
+    marginBottom: 4
+  },
+  formatOption: {
+    backgroundColor: '#f5f5f5',
+    borderRadius: 8,
+    marginBottom: 8
+  },
+  formatOptionContent: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 16
+  },
+  formatOptionSelected: {
+    backgroundColor: '#e3f2fd',
+    borderColor: '#1976d2',
+    borderWidth: 2
+  },
+  headerSection: {
+    alignItems: 'center',
+    padding: 20
+  },
+  helperText: {
+    color: '#666',
+    fontSize: 12,
+    marginTop: 4
+  },
+  importCard: {
+    backgroundColor: 'white',
+    borderRadius: 12,
+    elevation: 3,
+    padding: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4
+  },
+  inputGroup: {
+    marginBottom: 16
+  },
+  inputLabel: {
+    fontSize: 16,
+    fontWeight: '500',
+    marginBottom: 8
+  },
+  modalContainer: {
+    backgroundColor: '#f5f5f5',
+    flex: 1
+  },
+  modalContent: {
+    flex: 1,
+    padding: 20
+  },
+  modalFooter: {
+    backgroundColor: 'white',
+    borderTopColor: '#e0e0e0',
+    borderTopWidth: 1,
+    padding: 20
+  },
+  modalHeader: {
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderBottomColor: '#e0e0e0',
+    borderBottomWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 20
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+  picker: {
+    height: 50
+  },
+  pickerContainer: {
+    borderColor: '#ddd',
+    borderRadius: 8,
+    borderWidth: 1,
+    overflow: 'hidden'
+  },
+  primaryButton: {
+    backgroundColor: '#1976d2'
+  },
+  schemaAuthor: {
+    color: '#666',
+    fontSize: 14,
+    marginBottom: 8
+  },
+  schemaCard: {
+    backgroundColor: 'white',
+    borderRadius: 12,
+    elevation: 3,
+    padding: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4
+  },
+  schemaDescription: {
+    color: '#666',
+    fontSize: 14,
+    marginBottom: 12
+  },
+  schemaFooter: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  schemaHeader: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 4
+  },
+  schemaName: {
+    fontSize: 18,
+    fontWeight: '600'
+  },
+  secondaryButton: {
+    backgroundColor: '#f5f5f5',
+    borderColor: '#ddd',
+    borderWidth: 1
+  },
+  section: {
+    padding: 20
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 12
+  },
+  statCard: {
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 12,
+    elevation: 3,
+    minWidth: 80,
+    padding: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4
+  },
+  statIcon: {
+    fontSize: 24,
+    marginBottom: 4
+  },
+  statTitle: {
+    color: '#666',
+    fontSize: 12
+  },
+  statValue: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 2
+  },
+  statsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%'
+  },
+  subtitle: {
+    color: '#666',
+    fontSize: 16,
+    marginBottom: 20,
+    textAlign: 'center'
+  },
+  tag: {
+    backgroundColor: '#e3f2fd',
+    borderRadius: 4,
+    marginBottom: 4,
+    marginRight: 4,
+    paddingHorizontal: 6,
+    paddingVertical: 2
+  },
+  tagText: {
+    color: '#1976d2',
+    fontSize: 12
+  },
+  tagsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap'
+  },
+  textArea: {
+    height: 120,
+    textAlignVertical: 'top'
+  },
+  textInput: {
+    borderColor: '#ddd',
+    borderRadius: 8,
+    borderWidth: 1,
+    fontSize: 16,
+    padding: 12
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    textAlign: 'center'
+  },
+  versionBadge: {
+    backgroundColor: '#e0e0e0',
+    borderRadius: 6,
+    paddingHorizontal: 8,
+    paddingVertical: 4
+  },
+  versionText: {
+    fontSize: 12,
+    fontWeight: '500'
+  }
 });
 
-export default ThemeSchemaImportExportExample; 
+export default ThemeSchemaImportExportExample;

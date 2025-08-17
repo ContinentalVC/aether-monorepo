@@ -5,12 +5,10 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
-  Alert,
   Modal,
-  TextInput,
-  Switch,
+  Switch
 } from 'react-native';
-import { useEnhancedTheme, HeadingSize, BodySize, ColorBlindnessSupport } from '../theme/EnhancedThemeProvider';
+import { useEnhancedTheme, ColorBlindnessSupport } from '../theme/EnhancedThemeProvider';
 import styled from 'styled-components/native';
 
 // MARK: - Styled Components
@@ -91,25 +89,7 @@ const ColorPreview = styled.View<{ color: string }>`
   border-color: ${props => props.theme.border};
 `;
 
-const TipContainer = styled.View`
-  background-color: ${props => props.theme.backgroundSecondary};
-  border-radius: 12px;
-  padding: 16px;
-  margin-top: 16px;
-`;
 
-const TipTitle = styled.Text`
-  font-size: 16px;
-  font-weight: 600;
-  color: ${props => props.theme.textPrimary};
-  margin-bottom: 4px;
-`;
-
-const TipDescription = styled.Text`
-  font-size: 14px;
-  color: ${props => props.theme.textSecondary};
-  line-height: 20px;
-`;
 
 // MARK: - Theme Customization Screen
 
@@ -117,14 +97,7 @@ const ThemeCustomizationScreen: React.FC = () => {
   const {
     theme,
     typography,
-    accessibility,
-    updateTypography,
-    updateAccessibility,
-    toggleHighContrast,
-    toggleReducedMotion,
-    setColorBlindnessSupport,
-    getRecommendedFontCombinations,
-    availableFontFamilies,
+    accessibility
   } = useEnhancedTheme();
 
   const [activeTab, setActiveTab] = useState(0);
@@ -140,12 +113,12 @@ const ThemeCustomizationScreen: React.FC = () => {
         <SectionTitle>Color Palette</SectionTitle>
         <ColorPaletteSection />
       </Section>
-      
+
       <Section>
         <SectionTitle>Color Harmony Guide</SectionTitle>
         <ColorHarmonyGuide />
       </Section>
-      
+
       <Section>
         <SectionTitle>Contrast Checker</SectionTitle>
         <ContrastCheckerSection />
@@ -159,12 +132,12 @@ const ThemeCustomizationScreen: React.FC = () => {
         <SectionTitle>Typography</SectionTitle>
         <TypographySection />
       </Section>
-      
+
       <Section>
         <SectionTitle>Typography Preview</SectionTitle>
         <TypographyPreviewSection />
       </Section>
-      
+
       <Section>
         <SectionTitle>Font Hierarchy Guide</SectionTitle>
         <FontHierarchyGuide />
@@ -178,12 +151,12 @@ const ThemeCustomizationScreen: React.FC = () => {
         <SectionTitle>Accessibility Settings</SectionTitle>
         <AccessibilityControlsSection />
       </Section>
-      
+
       <Section>
         <SectionTitle>Color Blindness Support</SectionTitle>
         <ColorBlindnessSection />
       </Section>
-      
+
       <Section>
         <SectionTitle>Accessibility Guidelines</SectionTitle>
         <AccessibilityGuidelinesSection />
@@ -197,7 +170,7 @@ const ThemeCustomizationScreen: React.FC = () => {
         <SectionTitle>Theme Preview</SectionTitle>
         <SampleUIComponents />
       </Section>
-      
+
       <Section>
         <SectionTitle>Real-time Preview</SectionTitle>
         <RealTimePreview />
@@ -255,7 +228,7 @@ const ColorPaletteSection: React.FC = () => {
     { title: 'Primary', color: theme.primary, description: 'Main brand color' },
     { title: 'Secondary', color: theme.secondary, description: 'Supporting color' },
     { title: 'Background', color: theme.background, description: 'Main background' },
-    { title: 'Surface', color: theme.surface, description: 'Card backgrounds' },
+    { title: 'Surface', color: theme.surface, description: 'Card backgrounds' }
   ];
 
   return (
@@ -288,18 +261,18 @@ const ColorHarmonyGuide: React.FC = () => {
     {
       icon: '🎨',
       title: 'Limit Your Palette',
-      description: 'Use 2-3 main colors for consistency',
+      description: 'Use 2-3 main colors for consistency'
     },
     {
       icon: '👁️',
       title: 'Consider Contrast',
-      description: 'Ensure text is readable on backgrounds',
+      description: 'Ensure text is readable on backgrounds'
     },
     {
       icon: '♿',
       title: 'Accessibility First',
-      description: 'Test with color blindness simulators',
-    },
+      description: 'Test with color blindness simulators'
+    }
   ];
 
   return (
@@ -332,13 +305,13 @@ const ContrastCheckerSection: React.FC = () => {
     {
       label: 'Primary on Background',
       textColor: theme.primary,
-      backgroundColor: theme.background,
+      backgroundColor: theme.background
     },
     {
       label: 'Text on Surface',
       textColor: theme.textPrimary,
-      backgroundColor: theme.surface,
-    },
+      backgroundColor: theme.surface
+    }
   ];
 
   return (
@@ -353,7 +326,7 @@ const ContrastCheckerSection: React.FC = () => {
               <View
                 style={[
                   styles.contrastTestBox,
-                  { backgroundColor: test.backgroundColor },
+                  { backgroundColor: test.backgroundColor }
                 ]}
               >
                 <Text style={[styles.contrastTestText, { color: test.textColor }]}>
@@ -479,18 +452,18 @@ const FontHierarchyGuide: React.FC = () => {
     {
       icon: '📏',
       title: 'Use 2-3 Fonts Maximum',
-      description: 'More fonts create visual chaos',
+      description: 'More fonts create visual chaos'
     },
     {
       icon: '📝',
       title: 'Establish Clear Hierarchy',
-      description: 'Use size and weight for emphasis',
+      description: 'Use size and weight for emphasis'
     },
     {
       icon: '👀',
       title: 'Prioritize Readability',
-      description: 'Choose fonts that are easy to read',
-    },
+      description: 'Choose fonts that are easy to read'
+    }
   ];
 
   return (
@@ -571,7 +544,7 @@ const ColorBlindnessSection: React.FC = () => {
     { value: ColorBlindnessSupport.NONE, label: 'None', description: 'Standard colors' },
     { value: ColorBlindnessSupport.DEUTERANOPIA, label: 'Deuteranopia', description: 'Red-green color blindness' },
     { value: ColorBlindnessSupport.PROTANOPIA, label: 'Protanopia', description: 'Red-green color blindness' },
-    { value: ColorBlindnessSupport.TRITANOPIA, label: 'Tritanopia', description: 'Blue-yellow color blindness' },
+    { value: ColorBlindnessSupport.TRITANOPIA, label: 'Tritanopia', description: 'Blue-yellow color blindness' }
   ];
 
   return (
@@ -609,18 +582,18 @@ const AccessibilityGuidelinesSection: React.FC = () => {
     {
       icon: '👁️',
       title: 'WCAG 2.1 Compliance',
-      description: 'Ensure 4.5:1 contrast ratio for normal text',
+      description: 'Ensure 4.5:1 contrast ratio for normal text'
     },
     {
       icon: '🤝',
       title: 'Test with Users',
-      description: 'Validate accessibility with real users',
+      description: 'Validate accessibility with real users'
     },
     {
       icon: '⚙️',
       title: 'System Integration',
-      description: 'Respect user\'s system accessibility settings',
-    },
+      description: 'Respect user\'s system accessibility settings'
+    }
   ];
 
   return (
@@ -666,7 +639,7 @@ const SampleUIComponents: React.FC = () => {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[styles.secondaryButton, { backgroundColor: theme.primary + '20' }]}
+          style={[styles.secondaryButton, { backgroundColor: `${theme.primary }20` }]}
         >
           <Text style={[styles.secondaryButtonText, { color: theme.primary }]}>
             Secondary
@@ -716,7 +689,7 @@ const FontSelectionModal: React.FC<FontSelectionModalProps> = ({
   selectedSecondaryFont,
   onPrimaryFontChange,
   onSecondaryFontChange,
-  onSave,
+  onSave
 }) => {
   const { theme, availableFontFamilies } = useEnhancedTheme();
 
@@ -742,7 +715,7 @@ const FontSelectionModal: React.FC<FontSelectionModalProps> = ({
                 key={font}
                 style={[
                   styles.fontOption,
-                  selectedPrimaryFont === font && { backgroundColor: theme.primary + '20' },
+                  selectedPrimaryFont === font && { backgroundColor: `${theme.primary }20` }
                 ]}
                 onPress={() => onPrimaryFontChange(font)}
               >
@@ -765,7 +738,7 @@ const FontSelectionModal: React.FC<FontSelectionModalProps> = ({
                 key={font}
                 style={[
                   styles.fontOption,
-                  selectedSecondaryFont === font && { backgroundColor: theme.primary + '20' },
+                  selectedSecondaryFont === font && { backgroundColor: `${theme.primary }20` }
                 ]}
                 onPress={() => onSecondaryFontChange(font)}
               >
@@ -796,252 +769,252 @@ const FontSelectionModal: React.FC<FontSelectionModalProps> = ({
 // MARK: - Styles
 
 const styles = StyleSheet.create({
-  colorItemContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  colorItemInfo: {
-    flex: 1,
-  },
-  colorItemTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 4,
-  },
-  colorItemDescription: {
-    fontSize: 14,
-  },
-  tipContainer: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-  },
-  tipIcon: {
-    fontSize: 20,
-    marginRight: 12,
-    marginTop: 2,
-  },
-  tipContent: {
-    flex: 1,
-  },
-  tipTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 4,
-  },
-  tipDescription: {
-    fontSize: 14,
-    lineHeight: 20,
-  },
-  contrastTestContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  contrastTestLabel: {
-    fontSize: 14,
-    flex: 1,
-  },
-  contrastTestPreview: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  contrastTestBox: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 4,
-    marginRight: 8,
-  },
-  contrastTestText: {
-    fontSize: 12,
-  },
-  contrastTestCheck: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  sectionSubtitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 8,
-  },
-  fontDisplay: {
-    fontSize: 18,
-    fontWeight: '500',
-    marginBottom: 4,
-  },
-  fontDescription: {
-    fontSize: 14,
-  },
-  combinationContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  combinationInfo: {
-    flex: 1,
-  },
-  combinationPrimary: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 2,
-  },
-  combinationSecondary: {
-    fontSize: 14,
-    marginBottom: 4,
-  },
-  combinationDescription: {
-    fontSize: 12,
-  },
-  previewHeading: {
-    fontSize: 32,
-    fontWeight: '700',
-    marginBottom: 8,
-  },
-  previewHeading2: {
-    fontSize: 24,
-    fontWeight: '600',
-    marginBottom: 8,
-  },
-  previewBody: {
-    fontSize: 16,
-    fontWeight: '400',
-    marginBottom: 8,
-  },
-  previewParagraph: {
-    fontSize: 16,
-    lineHeight: 24,
-  },
-  accessibilityItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+  accessibilityDescription: {
+    fontSize: 14
   },
   accessibilityInfo: {
-    flex: 1,
+    flex: 1
+  },
+  accessibilityItem: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   accessibilityTitle: {
     fontSize: 16,
     fontWeight: '600',
-    marginBottom: 4,
+    marginBottom: 4
   },
-  accessibilityDescription: {
-    fontSize: 14,
+  colorBlindnessCheck: {
+    fontSize: 20,
+    fontWeight: '600'
   },
-  colorBlindnessOption: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+  colorBlindnessDescription: {
+    fontSize: 14
   },
   colorBlindnessInfo: {
-    flex: 1,
+    flex: 1
+  },
+  colorBlindnessOption: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   colorBlindnessTitle: {
     fontSize: 16,
     fontWeight: '600',
-    marginBottom: 4,
+    marginBottom: 4
   },
-  colorBlindnessDescription: {
-    fontSize: 14,
-  },
-  colorBlindnessCheck: {
-    fontSize: 20,
-    fontWeight: '600',
-  },
-  sampleTitle: {
-    fontSize: 20,
-    fontWeight: '600',
-    marginBottom: 8,
-  },
-  sampleDescription: {
-    fontSize: 16,
-    lineHeight: 24,
-    marginBottom: 16,
-  },
-  sampleButtons: {
+  colorItemContainer: {
+    alignItems: 'center',
     flexDirection: 'row',
-    gap: 12,
+    justifyContent: 'space-between'
   },
-  primaryButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 8,
-    flex: 1,
-    alignItems: 'center',
+  colorItemDescription: {
+    fontSize: 14
   },
-  primaryButtonText: {
-    fontSize: 14,
-    fontWeight: '600',
+  colorItemInfo: {
+    flex: 1
   },
-  secondaryButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 8,
-    flex: 1,
-    alignItems: 'center',
-  },
-  secondaryButtonText: {
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  modalContainer: {
-    flex: 1,
-  },
-  modalHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: '#E2E8F0',
-  },
-  modalTitle: {
-    fontSize: 20,
-    fontWeight: '600',
-  },
-  modalClose: {
+  colorItemTitle: {
     fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 4
+  },
+  combinationContainer: {
+    alignItems: 'center',
+    flexDirection: 'row'
+  },
+  combinationDescription: {
+    fontSize: 12
+  },
+  combinationInfo: {
+    flex: 1
+  },
+  combinationPrimary: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 2
+  },
+  combinationSecondary: {
+    fontSize: 14,
+    marginBottom: 4
+  },
+  contrastTestBox: {
+    borderRadius: 4,
+    marginRight: 8,
+    paddingHorizontal: 8,
+    paddingVertical: 4
+  },
+  contrastTestCheck: {
+    fontSize: 16,
+    fontWeight: '600'
+  },
+  contrastTestContainer: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  contrastTestLabel: {
+    flex: 1,
+    fontSize: 14
+  },
+  contrastTestPreview: {
+    alignItems: 'center',
+    flexDirection: 'row'
+  },
+  contrastTestText: {
+    fontSize: 12
+  },
+  fontDescription: {
+    fontSize: 14
+  },
+  fontDisplay: {
+    fontSize: 18,
     fontWeight: '500',
+    marginBottom: 4
   },
-  modalContent: {
-    flex: 1,
-    padding: 20,
+  fontOption: {
+    alignItems: 'center',
+    borderRadius: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 8,
+    padding: 16
+  },
+  fontOptionCheck: {
+    fontSize: 18,
+    fontWeight: '600'
+  },
+  fontOptionText: {
+    fontSize: 16
   },
   fontSection: {
-    marginBottom: 24,
+    marginBottom: 24
   },
   fontSectionTitle: {
     fontSize: 18,
     fontWeight: '600',
-    marginBottom: 12,
+    marginBottom: 12
   },
-  fontOption: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 16,
-    borderRadius: 8,
-    marginBottom: 8,
-  },
-  fontOptionText: {
+  modalClose: {
     fontSize: 16,
+    fontWeight: '500'
   },
-  fontOptionCheck: {
-    fontSize: 18,
-    fontWeight: '600',
+  modalContainer: {
+    flex: 1
+  },
+  modalContent: {
+    flex: 1,
+    padding: 20
   },
   modalFooter: {
-    padding: 20,
-    borderTopWidth: 1,
     borderTopColor: '#E2E8F0',
+    borderTopWidth: 1,
+    padding: 20
+  },
+  modalHeader: {
+    alignItems: 'center',
+    borderBottomColor: '#E2E8F0',
+    borderBottomWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 20
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: '600'
+  },
+  previewBody: {
+    fontSize: 16,
+    fontWeight: '400',
+    marginBottom: 8
+  },
+  previewHeading: {
+    fontSize: 32,
+    fontWeight: '700',
+    marginBottom: 8
+  },
+  previewHeading2: {
+    fontSize: 24,
+    fontWeight: '600',
+    marginBottom: 8
+  },
+  previewParagraph: {
+    fontSize: 16,
+    lineHeight: 24
+  },
+  primaryButton: {
+    alignItems: 'center',
+    borderRadius: 8,
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 8
+  },
+  primaryButtonText: {
+    fontSize: 14,
+    fontWeight: '600'
+  },
+  sampleButtons: {
+    flexDirection: 'row',
+    gap: 12
+  },
+  sampleDescription: {
+    fontSize: 16,
+    lineHeight: 24,
+    marginBottom: 16
+  },
+  sampleTitle: {
+    fontSize: 20,
+    fontWeight: '600',
+    marginBottom: 8
   },
   saveButton: {
-    paddingVertical: 12,
-    borderRadius: 8,
     alignItems: 'center',
+    borderRadius: 8,
+    paddingVertical: 12
   },
   saveButtonText: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '600'
   },
+  secondaryButton: {
+    alignItems: 'center',
+    borderRadius: 8,
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 8
+  },
+  secondaryButtonText: {
+    fontSize: 14,
+    fontWeight: '600'
+  },
+  sectionSubtitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 8
+  },
+  tipContainer: {
+    alignItems: 'flex-start',
+    flexDirection: 'row'
+  },
+  tipContent: {
+    flex: 1
+  },
+  tipDescription: {
+    fontSize: 14,
+    lineHeight: 20
+  },
+  tipIcon: {
+    fontSize: 20,
+    marginRight: 12,
+    marginTop: 2
+  },
+  tipTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 4
+  }
 });
 
-export default ThemeCustomizationScreen; 
+export default ThemeCustomizationScreen;

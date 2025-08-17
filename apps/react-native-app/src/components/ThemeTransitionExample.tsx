@@ -14,7 +14,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
-  Animated,
+  Animated
 } from 'react-native';
 import { useTheme } from '../theme/ThemeProvider';
 import { AetherGlassCard } from './AetherGlassCard.styled';
@@ -27,7 +27,7 @@ import {
   TransitionTypeDescriptions,
   AnimationCurveLabels,
   DirectionLabels,
-  getTransitionStyle,
+  getTransitionStyle
 } from '../theme/ThemeTransitionManager';
 
 // MARK: - Theme Transition Example Component
@@ -41,7 +41,7 @@ export const ThemeTransitionExample: React.FC = () => {
     transitionState,
     transitionToTheme,
     getTransitionProgress,
-    isTransitioning,
+    isTransitioning
   } = useThemeTransition();
 
   const [selectedTransitionType, setSelectedTransitionType] = useState<ThemeTransitionType>(
@@ -82,7 +82,7 @@ export const ThemeTransitionExample: React.FC = () => {
       selectedAnimationCurve,
       selectedDirection,
       transitionToTheme,
-      switchTheme,
+      switchTheme
     ]
   );
 
@@ -118,7 +118,7 @@ export const ThemeTransitionExample: React.FC = () => {
       { themeName: 'light', type: ThemeTransitionType.FADE, curve: ThemeAnimationCurve.EASE_IN_OUT },
       { themeName: 'dark', type: ThemeTransitionType.SLIDE, curve: ThemeAnimationCurve.SPRING },
       { themeName: 'purple', type: ThemeTransitionType.SCALE, curve: ThemeAnimationCurve.BOUNCY },
-      { themeName: 'green', type: ThemeTransitionType.MORPH, curve: ThemeAnimationCurve.SMOOTH },
+      { themeName: 'green', type: ThemeTransitionType.MORPH, curve: ThemeAnimationCurve.SMOOTH }
     ];
 
     sequence.forEach(({ themeName, type, curve }, index) => {
@@ -149,7 +149,7 @@ export const ThemeTransitionExample: React.FC = () => {
       light: { primary: '#3B82F6', background: '#F8FAFC', textPrimary: '#1E293B' },
       dark: { primary: '#60A5FA', background: '#0F172A', textPrimary: '#F8FAFC' },
       purple: { primary: '#8B5CF6', background: '#FAF5FF', textPrimary: '#1E1B4B' },
-      green: { primary: '#10B981', background: '#F0FDF4', textPrimary: '#064E3B' },
+      green: { primary: '#10B981', background: '#F0FDF4', textPrimary: '#064E3B' }
     };
     return themeMap[themeName];
   };
@@ -164,7 +164,7 @@ export const ThemeTransitionExample: React.FC = () => {
       <Text style={[styles.subtitle, { color: theme.textSecondary }]}>
         Experience smooth, animated theme switching with various transition effects and animation curves.
       </Text>
-      
+
       {/* Current theme indicator */}
       <View style={[styles.themeIndicator, { backgroundColor: theme.surface }]}>
         <View style={[styles.themeDot, { backgroundColor: theme.primary }]} />
@@ -197,8 +197,8 @@ export const ThemeTransitionExample: React.FC = () => {
                 {
                   backgroundColor:
                     selectedTransitionType === type ? theme.primary : theme.surface,
-                  borderColor: theme.border,
-                },
+                  borderColor: theme.border
+                }
               ]}
               onPress={() => setSelectedTransitionType(type)}
             >
@@ -227,8 +227,8 @@ export const ThemeTransitionExample: React.FC = () => {
                 {
                   backgroundColor:
                     selectedAnimationCurve === curve ? theme.primary : theme.surface,
-                  borderColor: theme.border,
-                },
+                  borderColor: theme.border
+                }
               ]}
               onPress={() => setSelectedAnimationCurve(curve)}
             >
@@ -255,8 +255,8 @@ export const ThemeTransitionExample: React.FC = () => {
                   {
                     backgroundColor:
                       selectedDirection === direction ? theme.primary : theme.surface,
-                    borderColor: theme.border,
-                  },
+                    borderColor: theme.border
+                  }
                 ]}
                 onPress={() => setSelectedDirection(direction)}
               >
@@ -287,9 +287,9 @@ export const ThemeTransitionExample: React.FC = () => {
               styles.themeButton,
               {
                 backgroundColor:
-                  themeName === themeName ? theme.primary + '20' : theme.surface,
-                borderColor: themeName === themeName ? theme.primary : theme.border,
-              },
+                  themeName === themeName ? `${theme.primary }20` : theme.surface,
+                borderColor: themeName === themeName ? theme.primary : theme.border
+              }
             ]}
             onPress={() => handleThemeTransition(themeName)}
             disabled={isTransitioning()}
@@ -320,7 +320,7 @@ export const ThemeTransitionExample: React.FC = () => {
             selectedTransitionType,
             getTransitionProgress(),
             selectedDirection
-          ) as any,
+          ) as any
         ]}
       >
         <View style={styles.previewHeader}>
@@ -340,9 +340,9 @@ export const ThemeTransitionExample: React.FC = () => {
             <Text style={styles.previewButtonText}>Action</Text>
           </TouchableOpacity>
         </View>
-        
+
         <View style={[styles.previewDivider, { backgroundColor: theme.border }]} />
-        
+
         <View style={styles.previewColors}>
           <View style={styles.colorItem}>
             <View style={[styles.colorDot, { backgroundColor: theme.primary }]} />
@@ -377,7 +377,7 @@ export const ThemeTransitionExample: React.FC = () => {
         >
           <Text style={styles.demoButtonText}>Quick Demo</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity
           style={[styles.demoButton, { backgroundColor: theme.surface, borderColor: theme.primary }]}
           onPress={performSequenceDemo}
@@ -427,7 +427,7 @@ export const ThemeTransitionExample: React.FC = () => {
       light: '#3B82F6',
       dark: '#6B7280',
       purple: '#8B5CF6',
-      green: '#10B981',
+      green: '#10B981'
     };
     return colorMap[themeName] || '#3B82F6';
   };
@@ -465,218 +465,218 @@ const DebugInfoRow: React.FC<{
 // MARK: - Styles
 
 const styles = StyleSheet.create({
+  card: {
+    marginBottom: 16
+  },
+  colorDot: {
+    borderRadius: 10,
+    height: 20,
+    width: 20
+  },
+  colorItem: {
+    alignItems: 'center',
+    gap: 4
+  },
+  colorLabel: {
+    fontSize: 12
+  },
   container: {
-    flex: 1,
+    flex: 1
   },
   content: {
-    padding: 16,
     gap: 24,
-  },
-  headerSection: {
-    alignItems: 'center',
-    gap: 16,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  subtitle: {
-    fontSize: 16,
-    textAlign: 'center',
-    lineHeight: 24,
-  },
-  themeIndicator: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  themeDot: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    marginRight: 8,
-  },
-  themeName: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  card: {
-    marginBottom: 16,
-  },
-  section: {
-    marginBottom: 20,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 12,
-  },
-  grid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 12,
+    padding: 16
   },
   controlButton: {
-    flex: 1,
-    minWidth: '45%',
-    padding: 12,
+    alignItems: 'center',
     borderRadius: 8,
     borderWidth: 1,
-    alignItems: 'center',
+    flex: 1,
+    minWidth: '45%',
+    padding: 12
+  },
+  controlButtonDescription: {
+    fontSize: 12,
+    textAlign: 'center'
   },
   controlButtonText: {
     fontSize: 14,
     fontWeight: '500',
-    marginBottom: 4,
+    marginBottom: 4
   },
-  controlButtonDescription: {
-    fontSize: 12,
-    textAlign: 'center',
+  debugInfo: {
+    gap: 8
   },
-  directionRow: {
+  debugLabel: {
+    fontSize: 14
+  },
+  debugRow: {
     flexDirection: 'row',
-    gap: 12,
+    justifyContent: 'space-between'
   },
-  directionButton: {
-    flex: 1,
-    padding: 12,
+  debugValue: {
+    fontSize: 14,
+    fontWeight: '500'
+  },
+  demoButton: {
+    alignItems: 'center',
     borderRadius: 8,
     borderWidth: 1,
+    flex: 1,
+    padding: 12
+  },
+  demoButtonText: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: '500'
+  },
+  demoButtons: {
+    flexDirection: 'row',
+    gap: 12
+  },
+  directionButton: {
     alignItems: 'center',
+    borderRadius: 8,
+    borderWidth: 1,
+    flex: 1,
+    padding: 12
   },
   directionButtonText: {
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: '500'
   },
-  themeGrid: {
+  directionRow: {
+    flexDirection: 'row',
+    gap: 12
+  },
+  grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 16,
+    gap: 12
   },
-  themeButton: {
-    flex: 1,
-    minWidth: '45%',
-    padding: 16,
-    borderRadius: 12,
-    borderWidth: 2,
+  headerSection: {
     alignItems: 'center',
-    gap: 8,
-  },
-  themeColorDot: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-  },
-  themeButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  previewCard: {
-    padding: 16,
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  previewHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  previewIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    marginRight: 12,
-  },
-  previewContent: {
-    flex: 1,
-  },
-  previewTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 2,
-  },
-  previewSubtitle: {
-    fontSize: 14,
+    gap: 16
   },
   previewButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
     borderRadius: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 8
   },
   previewButtonText: {
     color: 'white',
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: '500'
   },
-  previewDivider: {
-    height: 1,
-    marginVertical: 12,
+  previewCard: {
+    borderRadius: 12,
+    elevation: 2,
+    padding: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4
   },
   previewColors: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-around'
   },
-  colorItem: {
+  previewContent: {
+    flex: 1
+  },
+  previewDivider: {
+    height: 1,
+    marginVertical: 12
+  },
+  previewHeader: {
     alignItems: 'center',
-    gap: 4,
-  },
-  colorDot: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-  },
-  colorLabel: {
-    fontSize: 12,
-  },
-  demoButtons: {
     flexDirection: 'row',
-    gap: 12,
+    marginBottom: 12
   },
-  demoButton: {
-    flex: 1,
-    padding: 12,
-    borderRadius: 8,
+  previewIcon: {
+    borderRadius: 20,
+    height: 40,
+    marginRight: 12,
+    width: 40
+  },
+  previewSubtitle: {
+    fontSize: 14
+  },
+  previewTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 2
+  },
+  section: {
+    marginBottom: 20
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 12
+  },
+  subtitle: {
+    fontSize: 16,
+    lineHeight: 24,
+    textAlign: 'center'
+  },
+  themeButton: {
     alignItems: 'center',
-    borderWidth: 1,
+    borderRadius: 12,
+    borderWidth: 2,
+    flex: 1,
+    gap: 8,
+    minWidth: '45%',
+    padding: 16
   },
-  demoButtonText: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: 'white',
+  themeButtonText: {
+    fontSize: 16,
+    fontWeight: '600'
+  },
+  themeColorDot: {
+    borderRadius: 20,
+    height: 40,
+    width: 40
+  },
+  themeDot: {
+    borderRadius: 10,
+    height: 20,
+    marginRight: 8,
+    width: 20
+  },
+  themeGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 16
+  },
+  themeIndicator: {
+    alignItems: 'center',
+    borderRadius: 12,
+    elevation: 2,
+    flexDirection: 'row',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4
+  },
+  themeName: {
+    fontSize: 16,
+    fontWeight: '600'
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    textAlign: 'center'
   },
   transitionStatus: {
-    padding: 12,
-    borderRadius: 8,
     alignItems: 'center',
+    borderRadius: 8,
     marginTop: 12,
+    padding: 12
   },
   transitionStatusText: {
-    fontSize: 14,
-  },
-  debugInfo: {
-    gap: 8,
-  },
-  debugRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  debugLabel: {
-    fontSize: 14,
-  },
-  debugValue: {
-    fontSize: 14,
-    fontWeight: '500',
-  },
-}); 
+    fontSize: 14
+  }
+});

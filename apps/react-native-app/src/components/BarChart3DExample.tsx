@@ -5,8 +5,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  Alert,
-  Dimensions,
+  Dimensions
 } from 'react-native';
 import BarChart3D from './BarChart3D';
 
@@ -18,27 +17,27 @@ const sampleDataSets = {
     { label: 'Mar', value: 150 },
     { label: 'Apr', value: 220 },
     { label: 'May', value: 280 },
-    { label: 'Jun', value: 320 },
+    { label: 'Jun', value: 320 }
   ],
   revenue: [
     { label: 'Q1', value: 45000 },
     { label: 'Q2', value: 52000 },
     { label: 'Q3', value: 48000 },
-    { label: 'Q4', value: 61000 },
+    { label: 'Q4', value: 61000 }
   ],
   users: [
     { label: 'iOS', value: 1250 },
     { label: 'Android', value: 980 },
     { label: 'Web', value: 750 },
-    { label: 'Desktop', value: 420 },
+    { label: 'Desktop', value: 420 }
   ],
   performance: [
     { label: 'CPU', value: 85 },
     { label: 'Memory', value: 72 },
     { label: 'Storage', value: 45 },
     { label: 'Network', value: 93 },
-    { label: 'GPU', value: 78 },
-  ],
+    { label: 'GPU', value: 78 }
+  ]
 };
 
 // Color schemes for different themes
@@ -46,12 +45,12 @@ const colorSchemes = {
   default: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8'],
   warm: ['#FF6B6B', '#FF8E53', '#FFA726', '#FFB74D', '#FFCC02', '#FFD54F', '#FFE082'],
   cool: ['#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39'],
-  monochrome: ['#424242', '#616161', '#757575', '#9E9E9E', '#BDBDBD', '#E0E0E0', '#F5F5F5'],
+  monochrome: ['#424242', '#616161', '#757575', '#9E9E9E', '#BDBDBD', '#E0E0E0', '#F5F5F5']
 };
 
 /**
  * Example component demonstrating the BarChart3D usage
- * 
+ *
  * This component shows how to:
  * - Use different data sets
  * - Customize colors and styling
@@ -63,20 +62,11 @@ const BarChart3DExample: React.FC = () => {
   const [currentColors, setCurrentColors] = useState<keyof typeof colorSchemes>('default');
   const [showLabels, setShowLabels] = useState(true);
   const [animate, setAnimate] = useState(true);
-  const [selectedBar, setSelectedBar] = useState<{ label: string; value: number } | null>(null);
 
   const screenWidth = Dimensions.get('window').width;
   const chartHeight = 400;
 
-  // Handle bar selection
-  const handleBarSelect = (data: { label: string; value: number }) => {
-    setSelectedBar(data);
-    Alert.alert(
-      'Bar Selected',
-      `${data.label}: ${data.value.toLocaleString()}`,
-      [{ text: 'OK' }]
-    );
-  };
+
 
   // Get current data
   const currentData = sampleDataSets[currentDataSet];
@@ -114,14 +104,14 @@ const BarChart3DExample: React.FC = () => {
                 key={key}
                 style={[
                   styles.button,
-                  currentDataSet === key && styles.activeButton,
+                  currentDataSet === key && styles.activeButton
                 ]}
                 onPress={() => setCurrentDataSet(key as keyof typeof sampleDataSets)}
               >
                 <Text
                   style={[
                     styles.buttonText,
-                    currentDataSet === key && styles.activeButtonText,
+                    currentDataSet === key && styles.activeButtonText
                   ]}
                 >
                   {key.charAt(0).toUpperCase() + key.slice(1)}
@@ -140,14 +130,14 @@ const BarChart3DExample: React.FC = () => {
                 key={key}
                 style={[
                   styles.button,
-                  currentColors === key && styles.activeButton,
+                  currentColors === key && styles.activeButton
                 ]}
                 onPress={() => setCurrentColors(key as keyof typeof colorSchemes)}
               >
                 <Text
                   style={[
                     styles.buttonText,
-                    currentColors === key && styles.activeButtonText,
+                    currentColors === key && styles.activeButtonText
                   ]}
                 >
                   {key.charAt(0).toUpperCase() + key.slice(1)}
@@ -218,129 +208,129 @@ const BarChart3DExample: React.FC = () => {
 
 // Styles for the example component
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
+  activeButton: {
+    backgroundColor: '#007AFF',
+    borderColor: '#007AFF'
   },
-  header: {
-    padding: 20,
-    backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+  activeButtonText: {
+    color: '#fff'
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
-    textAlign: 'center',
+  activeToggle: {
+    backgroundColor: '#007AFF',
+    borderColor: '#007AFF'
   },
-  subtitle: {
-    fontSize: 14,
-    color: '#666',
-    textAlign: 'center',
-    marginTop: 4,
+  activeToggleText: {
+    color: '#fff'
   },
-  chartContainer: {
-    margin: 16,
-    borderRadius: 12,
-    overflow: 'hidden',
-  },
-  controlsContainer: {
-    padding: 16,
-  },
-  controlSection: {
-    marginBottom: 24,
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 16,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 12,
+  button: {
+    backgroundColor: '#f0f0f0',
+    borderColor: '#e0e0e0',
+    borderRadius: 20,
+    borderWidth: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 8
   },
   buttonRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 8,
-  },
-  button: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 20,
-    backgroundColor: '#f0f0f0',
-    borderWidth: 1,
-    borderColor: '#e0e0e0',
-  },
-  activeButton: {
-    backgroundColor: '#007AFF',
-    borderColor: '#007AFF',
+    gap: 8
   },
   buttonText: {
-    fontSize: 14,
     color: '#666',
-    fontWeight: '500',
-  },
-  activeButtonText: {
-    color: '#fff',
-  },
-  toggleRow: {
-    flexDirection: 'row',
-    gap: 12,
-  },
-  toggleButton: {
-    flex: 1,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    backgroundColor: '#f0f0f0',
-    borderWidth: 1,
-    borderColor: '#e0e0e0',
-    alignItems: 'center',
-  },
-  activeToggle: {
-    backgroundColor: '#007AFF',
-    borderColor: '#007AFF',
-  },
-  toggleText: {
     fontSize: 14,
+    fontWeight: '500'
+  },
+  chartContainer: {
+    borderRadius: 12,
+    margin: 16,
+    overflow: 'hidden'
+  },
+  container: {
+    backgroundColor: '#f5f5f5',
+    flex: 1
+  },
+  controlSection: {
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    elevation: 2,
+    marginBottom: 24,
+    padding: 16,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 2
+  },
+  controlsContainer: {
+    padding: 16
+  },
+  header: {
+    backgroundColor: '#fff',
+    borderBottomColor: '#e0e0e0',
+    borderBottomWidth: 1,
+    padding: 20
+  },
+  instructionText: {
     color: '#666',
-    fontWeight: '500',
-  },
-  activeToggleText: {
-    color: '#fff',
-  },
-  summaryContainer: {
-    backgroundColor: '#f8f9fa',
-    borderRadius: 8,
-    padding: 12,
-  },
-  summaryText: {
     fontSize: 14,
-    color: '#333',
-    marginBottom: 4,
-    fontWeight: '500',
+    lineHeight: 20,
+    marginBottom: 6
   },
   instructionsContainer: {
     backgroundColor: '#f8f9fa',
     borderRadius: 8,
-    padding: 12,
+    padding: 12
   },
-  instructionText: {
-    fontSize: 14,
+  sectionTitle: {
+    color: '#333',
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 12
+  },
+  subtitle: {
     color: '#666',
-    marginBottom: 6,
-    lineHeight: 20,
+    fontSize: 14,
+    marginTop: 4,
+    textAlign: 'center'
   },
+  summaryContainer: {
+    backgroundColor: '#f8f9fa',
+    borderRadius: 8,
+    padding: 12
+  },
+  summaryText: {
+    color: '#333',
+    fontSize: 14,
+    fontWeight: '500',
+    marginBottom: 4
+  },
+  title: {
+    color: '#333',
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  toggleButton: {
+    alignItems: 'center',
+    backgroundColor: '#f0f0f0',
+    borderColor: '#e0e0e0',
+    borderRadius: 8,
+    borderWidth: 1,
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 12
+  },
+  toggleRow: {
+    flexDirection: 'row',
+    gap: 12
+  },
+  toggleText: {
+    color: '#666',
+    fontSize: 14,
+    fontWeight: '500'
+  }
 });
 
-export default BarChart3DExample; 
+export default BarChart3DExample;

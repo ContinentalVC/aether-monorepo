@@ -23,7 +23,7 @@ describe('AetherGlassCard', () => {
     it('should render with custom style', () => {
       const customStyle = { backgroundColor: 'red' };
       const { getByTestId } = render(
-        <AetherGlassCard 
+        <AetherGlassCard
           backgroundImage={mockBackgroundImage}
           style={customStyle}
         >
@@ -36,7 +36,7 @@ describe('AetherGlassCard', () => {
 
     it('should render with different blur amounts', () => {
       const { getByTestId, rerender } = render(
-        <AetherGlassCard 
+        <AetherGlassCard
           backgroundImage={mockBackgroundImage}
           blurAmount={10}
         >
@@ -47,7 +47,7 @@ describe('AetherGlassCard', () => {
       expect(getByTestId('blur-view')).toBeTruthy();
 
       rerender(
-        <AetherGlassCard 
+        <AetherGlassCard
           backgroundImage={mockBackgroundImage}
           blurAmount={25}
         >
@@ -60,10 +60,10 @@ describe('AetherGlassCard', () => {
 
     it('should render with different blur types', () => {
       const blurTypes = ['light', 'dark', 'xlight', 'prominent', 'regular', 'extraDark'] as const;
-      
+
       blurTypes.forEach(blurType => {
         const { getByTestId, unmount } = render(
-          <AetherGlassCard 
+          <AetherGlassCard
             backgroundImage={mockBackgroundImage}
             blurType={blurType}
           >
@@ -80,7 +80,7 @@ describe('AetherGlassCard', () => {
   describe('Animation', () => {
     it('should render with animation disabled', () => {
       const { getByTestId } = render(
-        <AetherGlassCard 
+        <AetherGlassCard
           backgroundImage={mockBackgroundImage}
           animated={false}
         >
@@ -93,7 +93,7 @@ describe('AetherGlassCard', () => {
 
     it('should render with custom animation duration', () => {
       const { getByTestId } = render(
-        <AetherGlassCard 
+        <AetherGlassCard
           backgroundImage={mockBackgroundImage}
           animationDuration={1500}
         >
@@ -109,7 +109,7 @@ describe('AetherGlassCard', () => {
     it('should handle press when pressable is true', () => {
       const mockOnPress = jest.fn();
       const { getAllByTestId } = render(
-        <AetherGlassCard 
+        <AetherGlassCard
           backgroundImage={mockBackgroundImage}
           pressable={true}
           onPress={mockOnPress}
@@ -127,7 +127,7 @@ describe('AetherGlassCard', () => {
     it('should not handle press when pressable is false', () => {
       const mockOnPress = jest.fn();
       const { getByTestId } = render(
-        <AetherGlassCard 
+        <AetherGlassCard
           backgroundImage={mockBackgroundImage}
           pressable={false}
           onPress={mockOnPress}
@@ -204,7 +204,7 @@ describe('AetherGlassCard', () => {
   describe('Performance', () => {
     it('should render multiple cards efficiently', () => {
       const cards = Array.from({ length: 10 }, (_, i) => (
-        <AetherGlassCard 
+        <AetherGlassCard
           key={i}
           backgroundImage={mockBackgroundImage}
         >
@@ -220,7 +220,7 @@ describe('AetherGlassCard', () => {
 
     it('should handle rapid prop changes', () => {
       const { getByTestId, rerender } = render(
-        <AetherGlassCard 
+        <AetherGlassCard
           backgroundImage={mockBackgroundImage}
           blurAmount={10}
         >
@@ -233,7 +233,7 @@ describe('AetherGlassCard', () => {
       // Rapid prop changes
       for (let i = 0; i < 5; i++) {
         rerender(
-          <AetherGlassCard 
+          <AetherGlassCard
             backgroundImage={mockBackgroundImage}
             blurAmount={10 + i}
             animationDuration={800 + i * 100}
@@ -268,4 +268,4 @@ describe('AetherGlassCard', () => {
       expect(getByText('Tag 2')).toBeTruthy();
     });
   });
-}); 
+});

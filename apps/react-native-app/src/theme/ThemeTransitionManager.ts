@@ -31,7 +31,7 @@ export const TransitionTypeLabels: Record<ThemeTransitionType, string> = {
   [ThemeTransitionType.SCALE]: 'Scale',
   [ThemeTransitionType.MORPH]: 'Morph',
   [ThemeTransitionType.CROSSFADE]: 'Crossfade',
-  [ThemeTransitionType.DISSOLVE]: 'Dissolve',
+  [ThemeTransitionType.DISSOLVE]: 'Dissolve'
 };
 
 export const TransitionTypeDescriptions: Record<ThemeTransitionType, string> = {
@@ -40,7 +40,7 @@ export const TransitionTypeDescriptions: Record<ThemeTransitionType, string> = {
   [ThemeTransitionType.SCALE]: 'Scale and fade combination',
   [ThemeTransitionType.MORPH]: 'Morphing color transitions',
   [ThemeTransitionType.CROSSFADE]: 'Crossfade with blur effect',
-  [ThemeTransitionType.DISSOLVE]: 'Dissolve with particle effect',
+  [ThemeTransitionType.DISSOLVE]: 'Dissolve with particle effect'
 };
 
 // MARK: - Animation Curves
@@ -63,7 +63,7 @@ export const AnimationCurveLabels: Record<ThemeAnimationCurve, string> = {
   [ThemeAnimationCurve.EASE_OUT]: 'Ease Out',
   [ThemeAnimationCurve.SPRING]: 'Spring',
   [ThemeAnimationCurve.BOUNCY]: 'Bouncy',
-  [ThemeAnimationCurve.SMOOTH]: 'Smooth',
+  [ThemeAnimationCurve.SMOOTH]: 'Smooth'
 };
 
 export const getAnimationConfig = (curve: ThemeAnimationCurve) => {
@@ -71,32 +71,32 @@ export const getAnimationConfig = (curve: ThemeAnimationCurve) => {
     case ThemeAnimationCurve.EASE_IN_OUT:
       return {
         duration: 600,
-        easing: Easing.inOut(Easing.ease),
+        easing: Easing.inOut(Easing.ease)
       };
     case ThemeAnimationCurve.EASE_IN:
       return {
         duration: 500,
-        easing: Easing.in(Easing.ease),
+        easing: Easing.in(Easing.ease)
       };
     case ThemeAnimationCurve.EASE_OUT:
       return {
         duration: 500,
-        easing: Easing.out(Easing.ease),
+        easing: Easing.out(Easing.ease)
       };
     case ThemeAnimationCurve.SPRING:
       return {
         duration: 600,
-        easing: Easing.out(Easing.back(1.2)),
+        easing: Easing.out(Easing.back(1.2))
       };
     case ThemeAnimationCurve.BOUNCY:
       return {
         duration: 400,
-        easing: Easing.out(Easing.back(1.5)),
+        easing: Easing.out(Easing.back(1.5))
       };
     case ThemeAnimationCurve.SMOOTH:
       return {
         duration: 800,
-        easing: Easing.inOut(Easing.cubic),
+        easing: Easing.inOut(Easing.cubic)
       };
   }
 };
@@ -117,7 +117,7 @@ export const DirectionLabels: Record<TransitionDirection, string> = {
   [TransitionDirection.LEFT]: 'Left',
   [TransitionDirection.RIGHT]: 'Right',
   [TransitionDirection.UP]: 'Up',
-  [TransitionDirection.DOWN]: 'Down',
+  [TransitionDirection.DOWN]: 'Down'
 };
 
 // MARK: - Transition State
@@ -155,7 +155,7 @@ export class ThemeTransitionManager {
       currentAnimationCurve: ThemeAnimationCurve.EASE_IN_OUT,
       transitionDirection: TransitionDirection.RIGHT,
       shouldReduceMotion: false,
-      shouldReduceTransparency: false,
+      shouldReduceTransparency: false
     };
 
     this.setupAccessibilityListeners();
@@ -284,7 +284,7 @@ export class ThemeTransitionManager {
   public cleanup() {
     this.accessibilityListeners.forEach(listener => listener());
     this.accessibilityListeners = [];
-    
+
     if (this.animationRef.current) {
       this.animationRef.current.stop();
       this.animationRef.current = null;
@@ -325,7 +325,7 @@ export class ThemeTransitionManager {
         toValue: 1,
         duration: config.duration,
         easing: config.easing,
-        useNativeDriver: true,
+        useNativeDriver: true
       }
     );
 
@@ -338,7 +338,7 @@ export class ThemeTransitionManager {
 
   private completeTransition(onComplete?: () => void) {
     this.transitionState.isTransitioning = false;
-    
+
     // Reset progress
     setTimeout(() => {
       this.transitionState.transitionProgress.setValue(0);
@@ -399,7 +399,7 @@ export const useThemeTransition = () => {
     getTransitionProgress: () => transitionManager.getTransitionProgress(),
     isTransitioning: () => transitionManager.isTransitioning(),
     interpolateColor: (startColor: string, endColor: string, progress: number) =>
-      transitionManager.interpolateColor(startColor, endColor, progress),
+      transitionManager.interpolateColor(startColor, endColor, progress)
   };
 };
 
@@ -409,7 +409,7 @@ export const useThemeTransition = () => {
  * Create animated style for fade transition
  */
 export const createFadeStyle = (progress: Animated.Value) => ({
-  opacity: progress,
+  opacity: progress
 });
 
 /**
@@ -420,27 +420,27 @@ export const createSlideStyle = (
   direction: TransitionDirection
 ) => {
   const distance = 100;
-  
+
   const translateX = progress.interpolate({
     inputRange: [0, 1],
-    outputRange: direction === TransitionDirection.LEFT 
-      ? [-distance, 0] 
-      : direction === TransitionDirection.RIGHT 
-      ? [distance, 0] 
-      : [0, 0],
+    outputRange: direction === TransitionDirection.LEFT
+      ? [-distance, 0]
+      : direction === TransitionDirection.RIGHT
+        ? [distance, 0]
+        : [0, 0]
   });
 
   const translateY = progress.interpolate({
     inputRange: [0, 1],
-    outputRange: direction === TransitionDirection.UP 
-      ? [-distance, 0] 
-      : direction === TransitionDirection.DOWN 
-      ? [distance, 0] 
-      : [0, 0],
+    outputRange: direction === TransitionDirection.UP
+      ? [-distance, 0]
+      : direction === TransitionDirection.DOWN
+        ? [distance, 0]
+        : [0, 0]
   });
 
   return {
-    transform: [{ translateX }, { translateY }],
+    transform: [{ translateX }, { translateY }]
   };
 };
 
@@ -450,12 +450,12 @@ export const createSlideStyle = (
 export const createScaleStyle = (progress: Animated.Value) => {
   const scale = progress.interpolate({
     inputRange: [0, 1],
-    outputRange: [0.8, 1],
+    outputRange: [0.8, 1]
   });
 
   return {
     transform: [{ scale }],
-    opacity: progress,
+    opacity: progress
   };
 };
 
@@ -465,11 +465,11 @@ export const createScaleStyle = (progress: Animated.Value) => {
 export const createMorphStyle = (progress: Animated.Value) => {
   const scale = progress.interpolate({
     inputRange: [0, 1],
-    outputRange: [0.95, 1],
+    outputRange: [0.95, 1]
   });
 
   return {
-    transform: [{ scale }],
+    transform: [{ scale }]
   };
 };
 
@@ -477,14 +477,14 @@ export const createMorphStyle = (progress: Animated.Value) => {
  * Create animated style for crossfade transition
  */
 export const createCrossfadeStyle = (progress: Animated.Value) => ({
-  opacity: progress,
+  opacity: progress
 });
 
 /**
  * Create animated style for dissolve transition
  */
 export const createDissolveStyle = (progress: Animated.Value) => ({
-  opacity: progress,
+  opacity: progress
 });
 
 /**
@@ -511,4 +511,4 @@ export const getTransitionStyle = (
     default:
       return createFadeStyle(progress);
   }
-}; 
+};

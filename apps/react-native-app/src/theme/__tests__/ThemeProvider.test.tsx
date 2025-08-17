@@ -9,26 +9,26 @@ import { ThemeProvider, useTheme } from '../ThemeProvider';
 // Test component to access theme context
 const TestComponent = () => {
   const { theme, themeName, switchTheme, toggleDarkMode, isDarkMode } = useTheme();
-  
+
   return (
     <View testID="theme-test">
       <Text testID="theme-name">{themeName}</Text>
       <Text testID="primary-color">{theme.primary}</Text>
       <Text testID="background-color">{theme.background}</Text>
       <Text testID="is-dark-mode">{isDarkMode.toString()}</Text>
-      <TouchableOpacity 
+      <TouchableOpacity
         testID="switch-light"
         onPress={() => switchTheme('light')}
       >
         <Text>Switch to Light</Text>
       </TouchableOpacity>
-      <TouchableOpacity 
+      <TouchableOpacity
         testID="switch-purple"
         onPress={() => switchTheme('purple')}
       >
         <Text>Switch to Purple</Text>
       </TouchableOpacity>
-      <TouchableOpacity 
+      <TouchableOpacity
         testID="toggle-dark"
         onPress={toggleDarkMode}
       >
@@ -111,7 +111,7 @@ describe('ThemeProvider', () => {
 
       // Switch to purple theme
       fireEvent.press(getByTestId('switch-purple'));
-      
+
       const newPrimaryColor = getByTestId('primary-color').props.children;
       expect(newPrimaryColor).not.toBe(initialPrimaryColor);
     });
@@ -164,7 +164,7 @@ describe('ThemeProvider', () => {
 
       // Enable dark mode
       fireEvent.press(getByTestId('toggle-dark'));
-      
+
       const darkBackgroundColor = getByTestId('background-color').props.children;
       expect(darkBackgroundColor).not.toBe(lightBackgroundColor);
     });
@@ -298,7 +298,7 @@ describe('ThemeProvider', () => {
           <SafeTestComponent />
         </ThemeProvider>
       );
-      
+
       // Should still render with some theme name
       expect(getByTestId('theme-name').props.children).toBeDefined();
       // Should have fallback values for colors
@@ -366,12 +366,12 @@ describe('ThemeProvider', () => {
 
       // Perform many theme changes
       const startTime = Date.now();
-      
+
       for (let i = 0; i < 50; i++) {
         fireEvent.press(getByTestId('switch-purple'));
         fireEvent.press(getByTestId('switch-light'));
       }
-      
+
       const endTime = Date.now();
       const duration = endTime - startTime;
 
@@ -404,9 +404,9 @@ describe('ThemeProvider', () => {
       const StyledComponent = () => {
         const { theme } = useTheme();
         return (
-          <View 
+          <View
             testID="styled-component"
-            style={{ 
+            style={{
               backgroundColor: theme.background
             }}
           >
@@ -427,7 +427,7 @@ describe('ThemeProvider', () => {
     it('should work with complex nested components', () => {
       const ComplexComponent = () => {
         const { theme, switchTheme, toggleDarkMode } = useTheme();
-        
+
         return (
           <View style={{ backgroundColor: theme.background }}>
             <View style={{ padding: theme.spacing.md }}>
@@ -454,4 +454,4 @@ describe('ThemeProvider', () => {
       expect(getByText('Toggle Dark')).toBeTruthy();
     });
   });
-}); 
+});

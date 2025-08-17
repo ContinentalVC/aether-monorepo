@@ -1,19 +1,18 @@
 /**
  * Date Formatting Example Component
- * 
+ *
  * Demonstrates the enhanced date formatting capabilities using dayjs
  * for reliable and locale-aware formatting across different scenarios.
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
-  View,
   Text,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
   Alert,
-  Platform,
+  Platform
 } from 'react-native';
 import styled from 'styled-components/native';
 
@@ -133,7 +132,7 @@ const DateFormattingExample: React.FC = () => {
     yesterday: new Date(currentDate.getTime() - 24 * 60 * 60 * 1000),
     lastWeek: new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000),
     lastMonth: new Date(currentDate.getTime() - 30 * 24 * 60 * 60 * 1000),
-    future: new Date(currentDate.getTime() + 24 * 60 * 60 * 1000),
+    future: new Date(currentDate.getTime() + 24 * 60 * 60 * 1000)
   };
 
   const supportedLocales = ['en-US', 'es-ES', 'fr-FR', 'de-DE', 'ja-JP', 'zh-CN', 'ar-SA'];
@@ -167,44 +166,44 @@ const DateFormattingExample: React.FC = () => {
   const getEnhancedExamples = () => [
     {
       label: 'Enhanced formatDate (US Full)',
-      value: formatDateEnhanced(testDate, { 
+      value: formatDateEnhanced(testDate, {
         format: 'MMMM D, YYYY',
-        locale: selectedLocale 
+        locale: selectedLocale
       })
     },
     {
       label: 'Enhanced formatDate (EU Short)',
-      value: formatDateEnhanced(testDate, { 
+      value: formatDateEnhanced(testDate, {
         format: 'DD/MM/YYYY',
-        locale: selectedLocale 
+        locale: selectedLocale
       })
     },
     {
       label: 'Enhanced formatDate (with time)',
-      value: formatDateEnhanced(testDate, { 
+      value: formatDateEnhanced(testDate, {
         format: 'h:mm A',
-        locale: selectedLocale 
+        locale: selectedLocale
       })
     },
     {
       label: 'Enhanced formatDate (ISO)',
-      value: formatDateEnhanced(testDate, { 
+      value: formatDateEnhanced(testDate, {
         format: DATE_FORMATS.ISO,
-        locale: selectedLocale 
+        locale: selectedLocale
       })
     },
     {
       label: 'Enhanced formatDate (relative)',
-      value: formatDateEnhanced(testDate, { 
+      value: formatDateEnhanced(testDate, {
         format: DATE_FORMATS.RELATIVE,
-        locale: selectedLocale 
+        locale: selectedLocale
       })
     },
     {
       label: 'Enhanced formatDate (calendar)',
-      value: formatDateEnhanced(testDate, { 
+      value: formatDateEnhanced(testDate, {
         format: DATE_FORMATS.CALENDAR,
-        locale: selectedLocale 
+        locale: selectedLocale
       })
     }
   ];
@@ -229,9 +228,9 @@ const DateFormattingExample: React.FC = () => {
     },
     {
       label: 'Future date',
-      value: formatRelativeTimeEnhanced(sampleDates.future, { 
+      value: formatRelativeTimeEnhanced(sampleDates.future, {
         locale: selectedLocale,
-        future: true 
+        future: true
       })
     }
   ];
@@ -280,23 +279,23 @@ const DateFormattingExample: React.FC = () => {
     },
     {
       label: 'Compact duration',
-      value: formatDurationEnhanced(3661000, { 
+      value: formatDurationEnhanced(3661000, {
         locale: selectedLocale,
-        compact: true 
+        compact: true
       })
     },
     {
       label: 'Custom units (hours, minutes)',
-      value: formatDurationEnhanced(3661000, { 
+      value: formatDurationEnhanced(3661000, {
         locale: selectedLocale,
-        units: ['hours', 'minutes'] 
+        units: ['hours', 'minutes']
       })
     },
     {
       label: '1 year duration',
-      value: formatDurationEnhanced(365 * 24 * 60 * 60 * 1000, { 
+      value: formatDurationEnhanced(365 * 24 * 60 * 60 * 1000, {
         locale: selectedLocale,
-        units: ['years', 'days'] 
+        units: ['years', 'days']
       })
     }
   ];
@@ -528,22 +527,22 @@ const DateFormattingExample: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  description: {
-    fontSize: 14,
+  benefits: {
     color: '#666',
+    fontSize: 13,
+    lineHeight: 18
+  },
+  description: {
+    color: '#666',
+    fontSize: 14,
     lineHeight: 20,
-    marginBottom: 8,
+    marginBottom: 8
   },
   info: {
-    fontSize: 12,
     color: '#999',
-    fontStyle: 'italic',
-  },
-  benefits: {
-    fontSize: 13,
-    color: '#666',
-    lineHeight: 18,
-  },
+    fontSize: 12,
+    fontStyle: 'italic'
+  }
 });
 
-export default DateFormattingExample; 
+export default DateFormattingExample;
